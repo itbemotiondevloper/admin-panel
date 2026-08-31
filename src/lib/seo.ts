@@ -1,25 +1,47 @@
 import { Metadata } from 'next';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from './firebase/config';
+import { settingsService } from '@/services/settings.service';
 
 export async function generateSeoMetadata(pageType: string, idOrSlug: string, fallback: Partial<Metadata> = {}): Promise<Metadata> {
+  let settings;
+  try {
+    settings = await settingsService.getSettings();
+  } catch (e) {
+    settings = { branding: { companyName: 'Digitory' } };
+  }
+  const companyName = settings?.branding?.companyName || 'Digitory';
+
+  const customizeTitle = (title: any) => {
+    if (typeof title === 'string') {
+      return title.replace(/\| Digitory( Solutions)?/g, `| ${companyName}`);
+    }
+    return title;
+  };
+
   try {
     const docRef = doc(db, 'seo', idOrSlug);
     const snap = await getDoc(docRef);
     
     if (!snap.exists()) {
-      return fallback as Metadata;
+      return {
+        ...fallback,
+        title: customizeTitle(fallback.title)
+      } as Metadata;
     }
 
     const docData = snap.data();
     const seo = docData.seo;
 
     if (!seo) {
-      return fallback as Metadata;
+      return {
+        ...fallback,
+        title: customizeTitle(fallback.title)
+      } as Metadata;
     }
 
     const metadata: Metadata = {
-      title: seo.title || fallback.title,
+      title: customizeTitle(seo.title || fallback.title),
       description: seo.description || fallback.description,
       keywords: seo.keywords && seo.keywords.length > 0 ? seo.keywords : fallback.keywords,
       alternates: {
@@ -33,7 +55,7 @@ export async function generateSeoMetadata(pageType: string, idOrSlug: string, fa
 
     if (seo.openGraph && (seo.openGraph.title || seo.openGraph.description || seo.openGraph.image)) {
       metadata.openGraph = {
-        title: seo.openGraph.title || seo.title || (fallback.openGraph?.title as string),
+        title: customizeTitle(seo.openGraph.title || seo.title || (fallback.openGraph?.title as string)),
         description: seo.openGraph.description || seo.description || (fallback.openGraph?.description as string),
         images: seo.openGraph.image ? [{ url: seo.openGraph.image }] : fallback.openGraph?.images,
       };
@@ -42,7 +64,7 @@ export async function generateSeoMetadata(pageType: string, idOrSlug: string, fa
     if (seo.twitterCard && (seo.twitterCard.title || seo.twitterCard.description || seo.twitterCard.image)) {
       metadata.twitter = {
         card: 'summary_large_image',
-        title: seo.twitterCard.title || seo.title || (fallback.twitter?.title as string),
+        title: customizeTitle(seo.twitterCard.title || seo.title || (fallback.twitter?.title as string)),
         description: seo.twitterCard.description || seo.description || (fallback.twitter?.description as string),
         images: seo.twitterCard.image ? [seo.twitterCard.image] : fallback.twitter?.images,
       };
@@ -51,6 +73,9 @@ export async function generateSeoMetadata(pageType: string, idOrSlug: string, fa
     return metadata;
   } catch (err) {
     console.error('Failed to fetch SEO metadata', err);
-    return fallback as Metadata;
+    return {
+      ...fallback,
+      title: customizeTitle(fallback.title)
+    } as Metadata;
   }
 }

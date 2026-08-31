@@ -36,8 +36,10 @@ export async function POST(request: Request) {
     uploadFormData.append('folder', folder);
     uploadFormData.append('signature', signature);
 
+    const resourceType = file.type.startsWith('video/') ? 'video' : 'image';
+
     const cloudinaryRes = await fetch(
-      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+      `https://api.cloudinary.com/v1_1/${cloudName}/${resourceType}/upload`,
       {
         method: 'POST',
         body: uploadFormData,

@@ -7,21 +7,27 @@ export interface SettingsData {
     logo: string;
     logoWhite: string;
     companyName: string;
+    favicon?: string;
   };
   solutionsGridTitle: string;
   solutionsGridDesc: string;
   customCategories?: string[];
+  desktopVideoUrl?: string;
+  mobileVideoUrl?: string;
 }
 
 const DEFAULT_SETTINGS: SettingsData = {
   branding: {
     logo: '/digitory-black.png',
     logoWhite: '/digitory-white.png',
-    companyName: 'Digitory'
+    companyName: 'Digitory',
+    favicon: '/favicon.ico'
   },
   solutionsGridTitle: 'Twelve powerful features to help your restaurant run better',
   solutionsGridDesc: 'Click on any feature card below to open its full specifications and details on a new page.',
-  customCategories: []
+  customCategories: [],
+  desktopVideoUrl: '/Digitory.mp4',
+  mobileVideoUrl: '/mobile.mp4'
 };
 
 let settingsCache: SettingsData | null = null;
@@ -42,11 +48,14 @@ export const settingsService = {
           branding: {
             logo: data.branding?.logo || DEFAULT_SETTINGS.branding.logo,
             logoWhite: data.branding?.logoWhite || DEFAULT_SETTINGS.branding.logoWhite,
-            companyName: data.branding?.companyName || DEFAULT_SETTINGS.branding.companyName
+            companyName: data.branding?.companyName || DEFAULT_SETTINGS.branding.companyName,
+            favicon: data.branding?.favicon || DEFAULT_SETTINGS.branding.favicon
           },
           solutionsGridTitle: data.solutionsGridTitle || DEFAULT_SETTINGS.solutionsGridTitle,
           solutionsGridDesc: data.solutionsGridDesc || DEFAULT_SETTINGS.solutionsGridDesc,
-          customCategories: data.customCategories || DEFAULT_SETTINGS.customCategories
+          customCategories: data.customCategories || DEFAULT_SETTINGS.customCategories,
+          desktopVideoUrl: data.desktopVideoUrl || DEFAULT_SETTINGS.desktopVideoUrl,
+          mobileVideoUrl: data.mobileVideoUrl || DEFAULT_SETTINGS.mobileVideoUrl
         };
         return settingsCache;
       }
@@ -66,11 +75,14 @@ export const settingsService = {
       branding: {
         logo: payload.branding?.logo || current.branding.logo,
         logoWhite: payload.branding?.logoWhite || current.branding.logoWhite,
-        companyName: payload.branding?.companyName || current.branding.companyName
+        companyName: payload.branding?.companyName || current.branding.companyName,
+        favicon: payload.branding?.favicon || current.branding.favicon || '/favicon.ico'
       },
       solutionsGridTitle: payload.solutionsGridTitle || current.solutionsGridTitle,
       solutionsGridDesc: payload.solutionsGridDesc || current.solutionsGridDesc,
-      customCategories: payload.customCategories || current.customCategories || []
+      customCategories: payload.customCategories || current.customCategories || [],
+      desktopVideoUrl: payload.desktopVideoUrl || current.desktopVideoUrl || '/Digitory.mp4',
+      mobileVideoUrl: payload.mobileVideoUrl || current.mobileVideoUrl || '/mobile.mp4'
     };
 
     await setDoc(docRef, updated, { merge: true });

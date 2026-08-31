@@ -63,7 +63,6 @@ export default function Header() {
   };
 
   const navLinks = [
-    { label: 'About', href: '/about' },
     { label: 'Solutions', href: '/solutions' },
     { label: 'Resources', href: '/blogs' },
     { label: 'Contact', href: '/contact' },

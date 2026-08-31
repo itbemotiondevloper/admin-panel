@@ -14,10 +14,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Digitory - Restaurant Operating System",
-  description: "Manage rush hours, not rush. The operating system for modern restaurants.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  let settings;
+  try {
+    const { settingsService } = await import('@/services/settings.service');
+    settings = await settingsService.getSettings(true);
+  } catch (e) {
+    settings = { branding: { companyName: 'Digitory', favicon: '/favicon.ico' } };
+  }
+  const companyName = settings?.branding?.companyName || 'Digitory';
+  const favicon = settings?.branding?.favicon || '/favicon.ico';
+
+  return {
+    title: `${companyName} - Restaurant Operating System`,
+    description: "Manage rush hours, not rush. The operating system for modern restaurants.",
+    icons: {
+      icon: favicon,
+      shortcut: favicon,
+      apple: favicon,
+    }
+  };
+}
 
 export default function RootLayout({
   children,

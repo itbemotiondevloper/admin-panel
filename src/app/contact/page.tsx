@@ -1,11 +1,28 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import FooterPage from '../../components/Footer';
 import { leadsService } from '@/services/leads.service';
 
 export default function ContactPage() {
+  const [desktopVideo, setDesktopVideo] = useState('/Digitory.mp4');
+  const [mobileVideo, setMobileVideo] = useState('/mobile.mp4');
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const { settingsService } = await import('@/services/settings.service');
+        const s = await settingsService.getSettings();
+        if (s.desktopVideoUrl) setDesktopVideo(s.desktopVideoUrl);
+        if (s.mobileVideoUrl) setMobileVideo(s.mobileVideoUrl);
+      } catch (err) {
+        console.error('Failed to load dynamic videos:', err);
+      }
+    };
+    fetchSettings();
+  }, []);
+
   const [formState, setFormState] = useState({
     name: '',
     phone: '',
@@ -87,29 +104,35 @@ export default function ContactPage() {
           {/* Background Video */}
           <div className="absolute inset-0 w-full h-full z-0 select-none pointer-events-none">
             {/* Desktop Version */}
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              className="hidden md:block w-full h-full object-cover scale-[1.01]"
-            >
-              <source src="/Digitory.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            {desktopVideo && (
+              <video
+                key={desktopVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className="hidden md:block w-full h-full object-cover scale-[1.01]"
+              >
+                <source src={desktopVideo} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )}
             {/* Mobile Version */}
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              preload="auto"
-              className="block md:hidden w-full h-full object-cover scale-[1.01]"
-            >
-              <source src="/mobile.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            {mobileVideo && (
+              <video
+                key={mobileVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="auto"
+                className="block md:hidden w-full h-full object-cover scale-[1.01]"
+              >
+                <source src={mobileVideo} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            )}
           </div>
         </section>
 

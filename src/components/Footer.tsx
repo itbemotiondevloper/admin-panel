@@ -13,7 +13,7 @@ const FOOTER_COLUMNS = [
   },
   {
     title: "COMPANY",
-    links: ["About", "Blog", "Solutions", "Contact"]
+    links: ["Blog", "Solutions", "Contact"]
   },
   {
     title: "CONTACT",
