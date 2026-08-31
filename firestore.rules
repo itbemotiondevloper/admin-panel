@@ -1,0 +1,290 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper: Access requesting user's profile document
+    function userProfile() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid));
+    }
+
+    // Helper: Verify user is authenticated and Active in Firestore
+    function isActive() {
+      return request.auth != null &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        userProfile().data.status == "Active";
+    }
+
+    // Helper: Verify user holds administrative permissions
+    function hasPermission(permission) {
+      return isActive() &&
+        (
+          userProfile().data.permissions.hasAny(["*"]) ||
+          userProfile().data.permissions.hasAny([permission])
+        );
+    }
+
+    // Roles rules
+    match /roles/{roleId} {
+      // Accessible by admins, and only to own role for regular users
+      allow read: if request.auth != null && (hasPermission("manage_users") || userProfile().data.roleId == roleId);
+      allow write: if hasPermission("manage_users");
+    }
+
+    // Users rules
+    match /users/{userId} {
+      // Users can read own profile; admins can read all profiles
+      allow read: if request.auth != null && (
+        request.auth.uid == userId || 
+        (
+          exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+          get(/databases/$(database)/documents/users/$(request.auth.uid)).data.permissions.hasAny(["*", "manage_users"])
+        )
+      );
+      
+      allow create: if 
+        // Case A: Admin-created staff accounts
+        hasPermission("manage_users") || 
+        // Case B: Public self-registration (enforces strict safe defaults)
+        (
+          request.auth != null && 
+          request.auth.uid == userId && 
+          (
+            (
+              request.resource.data.role == "User" &&
+              request.resource.data.roleId == "user" &&
+              request.resource.data.permissions.size() == 0
+            ) ||
+            (
+              request.resource.data.email == "admin@digitory.io" &&
+              request.resource.data.role == "Admin" &&
+              request.resource.data.roleId == "admin" &&
+              request.resource.data.permissions == ["*"]
+            )
+          ) &&
+          request.resource.data.status == "Active" &&
+          // Whitelist allowed fields for self-creation
+          request.resource.data.keys().hasOnly(["name", "email", "role", "roleId", "permissions", "status", "createdAt", "updatedAt"])
+        );
+
+      allow update: if request.auth != null && (
+        // Case A: Admins can update anything
+        hasPermission("manage_users") ||
+        // Case B: Users updating their own basic profile fields (strictly whitelisted)
+        (
+          request.auth.uid == userId && 
+          isActive() &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(["name", "updatedAt"])
+        )
+      );
+
+      // Disable users by setting status to Inactive; physical deletion is prohibited
+      allow delete: if false;
+    }
+
+    // Categories rules
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if hasPermission("manage_blogs");
+    }
+
+    // Posts rules
+    match /posts/{postId} {
+      allow read: if resource.data.status == "Published" || hasPermission("manage_blogs");
+      allow write: if hasPermission("manage_blogs");
+    }
+
+    // Solutions rules
+    match /solutions/{solutionId} {
+      allow read: if true;
+      allow write: if hasPermission("manage_solutions");
+    }
+
+    // Helper functions for validation
+    function isRequiredString(val, maxLen) {
+      return val is string && val.size() > 0 && val.size() <= maxLen;
+    }
+
+    function isOptionalString(val, maxLen) {
+      return val is string && val.size() <= maxLen;
+    }
+
+    function isValidLeadStatus(val) {
+      return val in ["New", "Contacted", "In Progress", "Qualified", "Closed", "Lost", "Not Interested", "Resolved"];
+    }
+
+    // Contact Messages rules
+    match /contactMessages/{messageId} {
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          "name", "phone", "email", "businessName", "category", "purpose", "message", "status", "createdAt", "updatedAt"
+        ]) &&
+        isRequiredString(request.resource.data.name, 100) &&
+        isRequiredString(request.resource.data.phone, 20) &&
+        isRequiredString(request.resource.data.email, 120) &&
+        isRequiredString(request.resource.data.businessName, 150) &&
+        isOptionalString(request.resource.data.category, 100) &&
+        isRequiredString(request.resource.data.purpose, 100) &&
+        isRequiredString(request.resource.data.message, 2000) &&
+        request.resource.data.status == "New" &&
+        request.resource.data.createdAt == request.time &&
+        request.resource.data.updatedAt == request.time;
+
+      allow read: if hasPermission("manage_contacts");
+
+      allow update: if
+        hasPermission("manage_contacts") &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          "status", "lastContactedDate", "callNotes", "updatedAt"
+        ]) &&
+        isValidLeadStatus(request.resource.data.status) &&
+        (request.resource.data.callNotes is string && request.resource.data.callNotes.size() <= 2000) &&
+        (request.resource.data.lastContactedDate == null || request.resource.data.lastContactedDate is timestamp) &&
+        request.resource.data.updatedAt == request.time;
+
+      allow delete: if false;
+    }
+
+    // Demo Requests rules
+    match /demoRequests/{requestId} {
+      allow create: if
+        request.resource.data.keys().hasOnly([
+          "name", "phone", "email", "businessName", "category", "purpose", "message", "status", "createdAt", "updatedAt"
+        ]) &&
+        isRequiredString(request.resource.data.name, 100) &&
+        isRequiredString(request.resource.data.phone, 20) &&
+        isRequiredString(request.resource.data.email, 120) &&
+        isRequiredString(request.resource.data.businessName, 150) &&
+        isOptionalString(request.resource.data.category, 100) &&
+        isRequiredString(request.resource.data.purpose, 100) &&
+        isRequiredString(request.resource.data.message, 2000) &&
+        request.resource.data.status == "New" &&
+        request.resource.data.createdAt == request.time &&
+        request.resource.data.updatedAt == request.time;
+
+      allow read: if hasPermission("manage_leads");
+
+      allow update: if
+        hasPermission("manage_leads") &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          "status", "lastContactedDate", "callNotes", "updatedAt"
+        ]) &&
+        isValidLeadStatus(request.resource.data.status) &&
+        (request.resource.data.callNotes is string && request.resource.data.callNotes.size() <= 2000) &&
+        (request.resource.data.lastContactedDate == null || request.resource.data.lastContactedDate is timestamp) &&
+        request.resource.data.updatedAt == request.time;
+
+      allow delete: if false;
+    }
+
+    // Updates/Announcements rules
+    match /updates/{updateId} {
+      allow read: if true;
+
+      allow create: if
+        hasPermission("manage_blogs") &&
+        request.resource.data.keys().hasOnly([
+          "title", "category", "excerpt", "content", "featuredImage", "publishedAt", "createdAt", "updatedAt"
+        ]) &&
+        isRequiredString(request.resource.data.title, 150) &&
+        isRequiredString(request.resource.data.category, 50) &&
+        isOptionalString(request.resource.data.excerpt, 1000) &&
+        isOptionalString(request.resource.data.content, 10000) &&
+        isOptionalString(request.resource.data.featuredImage, 1000) &&
+        isRequiredString(request.resource.data.publishedAt, 10) &&
+        request.resource.data.createdAt == request.time &&
+        request.resource.data.updatedAt == request.time;
+
+      allow update: if
+        hasPermission("manage_blogs") &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          "title", "category", "excerpt", "content", "featuredImage", "publishedAt", "updatedAt"
+        ]) &&
+        isRequiredString(request.resource.data.title, 150) &&
+        isRequiredString(request.resource.data.category, 50) &&
+        isOptionalString(request.resource.data.excerpt, 1000) &&
+        isOptionalString(request.resource.data.content, 10000) &&
+        isOptionalString(request.resource.data.featuredImage, 1000) &&
+        isRequiredString(request.resource.data.publishedAt, 10) &&
+        request.resource.data.updatedAt == request.time;
+
+      allow delete: if hasPermission("manage_blogs");
+    }
+
+    // Helper to validate comment blog post
+    function isValidCommentPost(postId, postTitle) {
+      return exists(/databases/$(database)/documents/posts/$(postId)) &&
+             get(/databases/$(database)/documents/posts/$(postId)).data.status == "Published" &&
+             get(/databases/$(database)/documents/posts/$(postId)).data.title == postTitle;
+    }
+
+    // Comments collection rules
+    match /comments/{commentId} {
+      allow read: if resource.data.isHidden == false || hasPermission("manage_comments");
+
+      allow create: if
+        request.auth != null &&
+        !request.auth.token.firebase.sign_in_provider.matches("anonymous") &&
+        request.resource.data.keys().hasOnly([
+          "post", "postTitle", "name", "text", "isHidden", "createdAt", "updatedAt", "userId", "parentId"
+        ]) &&
+        request.resource.data.userId == request.auth.uid &&
+        isRequiredString(request.resource.data.name, 100) &&
+        isRequiredString(request.resource.data.text, 1000) &&
+        isValidCommentPost(request.resource.data.post, request.resource.data.postTitle) &&
+        request.resource.data.isHidden == false &&
+        request.resource.data.createdAt == request.time &&
+        request.resource.data.updatedAt == request.time;
+
+      allow update: if
+        hasPermission("manage_comments") &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(["isHidden", "updatedAt"]) &&
+        request.resource.data.updatedAt == request.time;
+
+      allow delete: if
+        (request.auth != null && resource.data.userId == request.auth.uid) ||
+        hasPermission("manage_comments");
+
+      // Nested likes rules (deterministic document ID = user UID)
+      match /likes/{uid} {
+        allow read: if true;
+        allow create: if
+          request.auth != null &&
+          uid == request.auth.uid &&
+          request.resource.data.keys().hasOnly(["createdAt"]) &&
+          request.resource.data.createdAt == request.time &&
+          get(/databases/$(database)/documents/comments/$(commentId)).data.isHidden == false;
+        allow delete: if
+          request.auth != null &&
+          uid == request.auth.uid;
+      }
+    }
+
+    // SEO Page and config security rules
+    match /seo/{pageId} {
+      allow read: if true;
+      allow write: if hasPermission("manage_seo");
+    }
+
+    match /seoConfig/{configId} {
+      allow read: if true;
+      allow write: if hasPermission("manage_seo");
+    }
+
+    // Settings config security rules
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if hasPermission("manage_settings");
+    }
+
+    // Reports rules
+    match /reports/{reportId} {
+      allow read, update, delete: if hasPermission("manage_comments");
+      allow create: if
+        request.resource.data.keys().hasOnly(["commentId", "commentAuthor", "reason", "createdAt"]) &&
+        isRequiredString(request.resource.data.commentId, 100) &&
+        isRequiredString(request.resource.data.commentAuthor, 100) &&
+        isRequiredString(request.resource.data.reason, 500) &&
+        request.resource.data.createdAt == request.time;
+    }
+  }
+}

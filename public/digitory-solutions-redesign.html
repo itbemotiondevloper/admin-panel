@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solutions | Digitory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange:#FF5A10;
+    --navy:#223345;
+    --navy-2:#1a2836;
+    --ink:#223345;
+    --paper:#FBF9F6;
+    --card:#ffffff;
+    --line:#E7E2DA;
+    --muted:#5B6B79;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:'Poppins',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+
+  /* pixel-block motif */
+  .pixels{position:absolute; display:grid; grid-template-columns:repeat(3,7px); grid-template-rows:repeat(3,7px); gap:3px; opacity:.9;}
+  .pixels span{width:7px; height:7px; background:var(--orange); display:block;}
+  .pixels span:nth-child(2), .pixels span:nth-child(4), .pixels span:nth-child(6), .pixels span:nth-child(8){background:var(--navy); opacity:.35;}
+  .pixels span:nth-child(5){background:var(--orange);}
+
+  /* header */
+  header{
+    background:var(--paper);
+    border-bottom:1px solid var(--line);
+    position:sticky; top:0; z-index:50;
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:18px 28px;}
+  .logo{font-weight:800; font-size:20px; letter-spacing:.2px; color:var(--navy); display:flex; align-items:center; gap:8px;}
+  .logo .dot{width:9px; height:9px; background:var(--orange);}
+  .navlinks{display:flex; gap:30px; font-size:14.5px; font-weight:500; color:var(--navy);}
+  .navlinks a{padding:6px 2px; border-bottom:2px solid transparent; transition:.15s;}
+  .navlinks a.active{border-color:var(--orange); color:var(--orange); font-weight:600;}
+  .navlinks a:hover{color:var(--orange);}
+  .ai-pill{background:var(--navy); color:#fff; padding:5px 12px; border-radius:20px; font-size:13px; font-weight:600; display:inline-flex; align-items:center; gap:6px;}
+  .ai-pill::before{content:""; width:6px; height:6px; background:var(--orange); border-radius:50%; display:inline-block;}
+  .demo-btn{background:var(--orange); color:#fff; padding:10px 20px; border-radius:6px; font-weight:600; font-size:14px; white-space:nowrap;}
+
+  /* hero */
+  .hero{padding:64px 0 48px; position:relative; overflow:hidden;}
+  .hero .eyebrow{color:var(--orange); font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:14px;}
+  .hero h1{font-size:44px; font-weight:800; color:var(--navy); max-width:820px; line-height:1.15;}
+  .hero p{margin-top:16px; font-size:17px; color:var(--muted); max-width:640px;}
+  .hero-note{margin-top:26px; display:inline-flex; align-items:center; gap:10px; background:#fff; border:1px solid var(--line); border-radius:8px; padding:12px 16px; font-size:13.5px; color:var(--muted);}
+  .hero-note b{color:var(--navy);}
+
+  /* group nav (jump links) */
+  .group-nav{display:flex; flex-wrap:wrap; gap:10px; margin-top:30px;}
+  .group-nav a{border:1px solid var(--line); background:#fff; padding:8px 16px; border-radius:30px; font-size:13.5px; font-weight:600; color:var(--navy);}
+  .group-nav a:hover{border-color:var(--orange); color:var(--orange);}
+
+  /* section groups */
+  .group{padding:56px 0; border-top:1px solid var(--line);}
+  .group-head{display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:34px; flex-wrap:wrap;}
+  .group-tag{display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--orange); margin-bottom:8px;}
+  .group-tag .num{background:var(--navy); color:#fff; width:22px; height:22px; border-radius:5px; display:inline-flex; align-items:center; justify-content:center; font-size:12px;}
+  .group h2{font-size:28px; font-weight:800; color:var(--navy);}
+  .group-desc{color:var(--muted); font-size:14.5px; max-width:420px;}
+
+  .card-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:20px;}
+
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:26px 24px; position:relative; overflow:hidden; transition:.18s;
+  }
+  .card:hover{border-color:var(--orange); box-shadow:0 10px 28px rgba(34,51,69,.08); transform:translateY(-2px);}
+  .card .pixels{top:20px; right:20px;}
+  .card .kicker{font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:10px;}
+  .card h3{font-size:18px; font-weight:700; color:var(--navy); margin-bottom:6px;}
+  .card .headline{font-style:italic; font-weight:600; color:var(--orange); font-size:14.5px; margin-bottom:10px;}
+  .card p.sub{font-size:13.8px; color:var(--muted); line-height:1.55;}
+  .card .modes{margin-top:14px; display:flex; flex-direction:column; gap:8px;}
+  .card .modes div{font-size:12.8px; color:var(--muted); background:var(--paper); border:1px solid var(--line); border-radius:6px; padding:8px 10px;}
+  .card .modes b{color:var(--navy);}
+  .card .diff{margin-top:12px; font-size:12.5px; color:var(--navy); background:#FFF3EA; border-left:3px solid var(--orange); padding:8px 10px; border-radius:4px;}
+  .badge-soon{position:absolute; top:16px; right:16px; background:var(--navy); color:#fff; font-size:10.5px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; padding:4px 9px; border-radius:20px;}
+  .card.soon{opacity:.85;}
+  .ai-flag{margin-top:14px; display:flex; align-items:flex-start; gap:8px; font-size:12.5px; color:var(--navy); background:#EEF3F8; border-radius:6px; padding:8px 10px;}
+  .ai-flag .ai-dot{flex:none; width:16px; height:16px; border-radius:50%; background:var(--navy); color:#fff; font-size:9px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px;}
+
+  /* Digitory AI layer section */
+  .ai-layer{
+    background:var(--navy); color:#fff; padding:70px 0; position:relative; overflow:hidden;
+  }
+  .ai-layer::before{
+    content:""; position:absolute; inset:0;
+    background-image:radial-gradient(circle, rgba(255,90,16,.16) 1.5px, transparent 1.5px);
+    background-size:22px 22px; opacity:.5;
+  }
+  .ai-layer .inner{position:relative;}
+  .ai-layer .eyebrow{color:var(--orange); font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:14px;}
+  .ai-layer h2{font-size:32px; font-weight:800; margin-bottom:6px;}
+  .ai-layer .headline{font-style:italic; color:#FFC29E; font-weight:600; font-size:17px; margin-bottom:16px;}
+  .ai-layer p.lead{max-width:680px; color:#C9D3DC; font-size:15px; margin-bottom:36px;}
+  .ai-cols{display:grid; grid-template-columns:1fr 1fr; gap:36px;}
+  .ai-cols h4{font-size:13px; text-transform:uppercase; letter-spacing:1px; color:#FFC29E; margin-bottom:16px; font-weight:700;}
+  .ai-list{list-style:none; display:flex; flex-direction:column; gap:12px;}
+  .ai-list li{display:flex; gap:10px; font-size:14.5px; color:#E4E9EE; padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,.1);}
+  .ai-list li:last-child{border:none;}
+  .ai-list li .mark{flex:none; color:var(--orange); font-weight:800;}
+  .ai-list li b{color:#fff;}
+
+  /* open decisions */
+  .decisions{padding:56px 0; border-top:1px solid var(--line);}
+  .decisions h2{font-size:24px; font-weight:800; color:var(--navy); margin-bottom:8px;}
+  .decisions .sub{color:var(--muted); font-size:14px; margin-bottom:28px;}
+  .decision-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px;}
+  .decision{background:#fff; border:1px solid var(--line); border-left:3px solid var(--orange); border-radius:8px; padding:18px 20px;}
+  .decision h4{font-size:14.5px; font-weight:700; color:var(--navy); margin-bottom:8px;}
+  .decision p{font-size:13.2px; color:var(--muted); line-height:1.55;}
+
+  /* CTA */
+  .cta{padding:70px 0; text-align:center;}
+  .cta h2{font-size:28px; font-weight:800; color:var(--navy); margin-bottom:12px;}
+  .cta p{color:var(--muted); font-size:15px; margin-bottom:26px;}
+  .cta .demo-btn{padding:14px 30px; font-size:15px; border-radius:8px;}
+
+  footer{background:var(--navy); color:#C9D3DC; padding:44px 0 26px; font-size:13.5px;}
+  footer .flogo{color:#fff; font-weight:800; font-size:18px; margin-bottom:10px;}
+  footer .fmuted{color:#8FA0AF; margin-bottom:20px;}
+  footer .fbottom{border-top:1px solid rgba(255,255,255,.12); margin-top:28px; padding-top:18px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; color:#8FA0AF; font-size:12.5px;}
+
+  @media(max-width:720px){
+    .nav{flex-wrap:wrap; gap:14px;}
+    .navlinks{order:3; width:100%; justify-content:flex-start; overflow-x:auto;}
+    .hero h1{font-size:32px;}
+    .ai-cols{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <div class="logo"><span class="dot"></span>Digitory</div>
+    <div class="navlinks">
+      <a href="#">About</a>
+      <a href="#" class="active">Solutions</a>
+      <span class="ai-pill">Digitory AI</span>
+      <a href="#">Restaurant Types</a>
+      <a href="#">Resources</a>
+      <a href="#">Contact</a>
+    </div>
+    <a href="#" class="demo-btn">Book a demo</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Solutions</div>
+    <h1>Twelve pillars. One restaurant operating system.</h1>
+    <p>From the counter to the kitchen, from stock to strategy — every Digitory pillar is built to work on its own and even better together. Grouped by what you're trying to do, not by feature name.</p>
+    <div class="hero-note"><b>Note:</b>&nbsp;Digitory AI isn't a 13th pillar — it's the intelligence layer running underneath, and it has its own page.</div>
+    <div class="group-nav">
+      <a href="#run-operations">Run Operations</a>
+      <a href="#manage-inventory">Manage Inventory &amp; Menu</a>
+      <a href="#grow-understand">Grow &amp; Understand</a>
+      <a href="#scale-specialize">Scale &amp; Specialize</a>
+      <a href="#digitory-ai">Digitory AI Layer</a>
+    </div>
+  </div>
+</section>
+
+<!-- GROUP 1: RUN OPERATIONS -->
+<section class="group" id="run-operations">
+  <div class="wrap">
+    <div class="group-head">
+      <div>
+        <div class="group-tag"><span class="num">01</span>Run Operations</div>
+        <h2>Everything that keeps service moving.</h2>
+      </div>
+      <p class="group-desc">Orders, billing, kitchen routing and bookings — the pillars your floor touches every single service.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="pixels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="kicker">Pillar 01</div>
+        <h3>POS &amp; Billing</h3>
+        <div class="headline">"Billing that keeps up."</div>
+        <p class="sub">Dine-in, online, direct — every order and every payment through one fast, reliable system.</p>
+        <div class="diff">Boundary: staff billing at the point of sale.</div>
+      </div>
+
+      <div class="card">
+        <div class="pixels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="kicker">Pillar 02</div>
+        <h3>QR Code Ordering</h3>
+        <div class="headline">"Let guests order themselves."</div>
+        <p class="sub">Guests scan, order, and pay from the table — synced live with your waiter app and kitchen so food moves faster and tables turn quicker.</p>
+        <div class="modes">
+          <div><b>Prepaid</b> — Guest scans, orders, pays. KOT prints and bill generates instantly. Counter-speed service.</div>
+          <div><b>Postpaid</b> — Classic table QR ordering. Guests add through the meal, you settle at the end.</div>
+        </div>
+        <div class="diff">Not a standalone QR menu — every scan syncs live into your waiter app and KDS.</div>
+      </div>
+
+      <div class="card">
+        <div class="pixels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="kicker">Pillar 03</div>
+        <h3>Kitchen Display System (KDS)</h3>
+        <div class="headline">"The kitchen, in sync."</div>
+        <p class="sub">Every ticket hits the right station instantly. Less shouting, less confusion, faster plates.</p>
+      </div>
+
+      <div class="card">
+        <div class="pixels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="kicker">Pillar 04</div>
+        <h3>Order Management</h3>
+        <div class="headline">"Every order. One flow."</div>
+        <p class="sub">Aggregators, your own app, the counter — every channel in a single connected queue. Nothing slips.</p>
+        <div class="diff">Boundary: multi-channel aggregation — Swiggy, Zomato, own app into one queue.</div>
+      </div>
+
+      <div class="card soon">
+        <div class="badge-soon">Coming soon</div>
+        <div class="kicker">Pillar 05</div>
+        <h3>Table Reservations</h3>
+        <div class="headline">"Fill every table."</div>
+        <p class="sub">Take bookings, manage covers, seat guests — no paper diary, no double-booking.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROUP 2: MANAGE INVENTORY & MENU -->
+<section class="group" id="manage-inventory">
+  <div class="wrap">
+    <div class="group-head">
+      <div>
+        <div class="group-tag"><span class="num">02</span>Manage Inventory &amp; Menu</div>
+        <h2>Protect the margin, dish by dish.</h2>
+      </div>
+      <p class="group-desc">Stock, recipes and counting — where waste gets caught and cost gets locked in.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="pixels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="kicker">Pillar 06</div>
+        <h3>Inventory Management</h3>
+        <div class="headline">"Inventory that thinks ahead."</div>
+        <p class="sub">Every dish deducts stock automatically. Know what's running low before your chef does.</p>
+        <div class="ai-flag"><span class="ai-dot">AI</span>Digitory AI flags what's running low before you notice.</div>
+      </div>
+
+      <div class="card">
+        <div class="pixels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="kicker">Pillar 07</div>
+        <h3>Recipe Management</h3>
+        <div class="headline">"Cost every plate."</div>
+        <p class="sub">Lock recipes, portions and costs so margins hold — even when prices move and staff change.</p>
+      </div>
+
+      <div class="card">
+        <div class="pixels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="kicker">Pillar 08</div>
+        <h3>Smart Stock Counting</h3>
+        <div class="headline">"Closing stock in minutes."</div>
+        <p class="sub">Weigh liquor or count barcoded stock straight into the system. Any item with a weight or a barcode — no spreadsheets, no guesswork.</p>
+        <div class="ai-flag"><span class="ai-dot">AI</span>Digitory AI catches variance between counted and expected stock.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROUP 3: GROW & UNDERSTAND -->
+<section class="group" id="grow-understand">
+  <div class="wrap">
+    <div class="group-head">
+      <div>
+        <div class="group-tag"><span class="num">03</span>Grow &amp; Understand</div>
+        <h2>See the business. Keep the guest.</h2>
+      </div>
+      <p class="group-desc">Real-time visibility and repeat business — the pillars that turn data into decisions.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="pixels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="kicker">Pillar 09</div>
+        <h3>Business Analytics</h3>
+        <div class="headline">"Your business, live."</div>
+        <p class="sub">Sales, orders, inventory, outlet performance — everything you need to know, in one place, in real time.</p>
+        <div class="ai-flag"><span class="ai-dot">AI</span>Digitory AI surfaces the trend, not just the number.</div>
+      </div>
+
+      <div class="card">
+        <div class="pixels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="kicker">Pillar 10</div>
+        <h3>Customer Loyalty &amp; CRM</h3>
+        <div class="headline">"Regulars, not one-timers."</div>
+        <p class="sub">Know who's coming back, reward them, and win the rest back with offers that actually land.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GROUP 4: SCALE & SPECIALIZE -->
+<section class="group" id="scale-specialize">
+  <div class="wrap">
+    <div class="group-head">
+      <div>
+        <div class="group-tag"><span class="num">04</span>Scale &amp; Specialize</div>
+        <h2>Built for more than one room.</h2>
+      </div>
+      <p class="group-desc">Multi-outlet visibility and specialized formats — for operators running more than a single site.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="pixels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="kicker">Pillar 11</div>
+        <h3>Multi-Outlet Management</h3>
+        <div class="headline">"One outlet or twenty."</div>
+        <p class="sub">Full visibility across every location without chasing managers or waiting on end-of-day reports.</p>
+        <div class="ai-flag"><span class="ai-dot">AI</span>Digitory AI alerts you to outlet-level anomalies and performance drift.</div>
+      </div>
+
+      <div class="card">
+        <div class="pixels"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="kicker">Pillar 12</div>
+        <h3>Clubs &amp; Events</h3>
+        <div class="headline">"Cashless, end to end."</div>
+        <p class="sub">Prepaid ticketing to final settlement — run high-volume events with no cash handling and no leakage.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DIGITORY AI LAYER -->
+<section class="ai-layer" id="digitory-ai">
+  <div class="wrap inner">
+    <div class="eyebrow">The Intelligence Layer</div>
+    <h2>Digitory AI</h2>
+    <div class="headline">"The intelligence running your operation."</div>
+    <p class="lead">Forecasting, procurement, and anomaly detection built into every layer — so the system tells you what's coming, not just what happened. Not a bolt-on feature: a layer that touches inventory, procurement, analytics, and every outlet, and gets stronger with each release.</p>
+
+    <div class="ai-cols">
+      <div>
+        <h4>What the layer does today</h4>
+        <ul class="ai-list">
+          <li><span class="mark">→</span>Forecast demand across menu and outlets</li>
+          <li><span class="mark">→</span><b>Auto-build purchase orders</b> — buy what sells, cut what wastes</li>
+          <li><span class="mark">→</span>Spot anomalies before they cost you — stock variance, sales dips, outlet drift</li>
+          <li><span class="mark">→</span>Getting smarter with every feature we ship</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Where it shows up across the pillars</h4>
+        <ul class="ai-list">
+          <li><span class="mark">→</span><b>Inventory Management</b> — flags what's running low before you notice</li>
+          <li><span class="mark">→</span><b>Smart Stock Counting</b> — catches variance between counted and expected stock</li>
+          <li><span class="mark">→</span><b>Business Analytics</b> — surfaces the trend, not just the number</li>
+          <li><span class="mark">→</span><b>Multi-Outlet Management</b> — alerts you to outlet-level anomalies and drift</li>
+          <li><span class="mark">→</span><b>Forecasting &amp; Procurement</b> — the flagship capability: demand forecasting and auto-built POs</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN DECISIONS (internal reference block) -->
+<section class="decisions">
+  <div class="wrap">
+    <h2>Open decisions for the team</h2>
+    <p class="sub">Structural calls flagged in the naming doc — kept visible here for agency handoff review.</p>
+    <div class="decision-grid">
+      <div class="decision">
+        <h4>Nav placement of Digitory AI</h4>
+        <p>Shown here as a peer to Solutions in the top nav — a brand-level differentiator rather than a product-scoped item inside the Solutions hub.</p>
+      </div>
+      <div class="decision">
+        <h4>Three order-related pillars — kept distinct</h4>
+        <p>POS &amp; Billing is staff billing at the point of sale. Order Management is multi-channel aggregation. QR Code Ordering is the guest self-ordering channel. Rename candidate: "Omnichannel Orders."</p>
+      </div>
+      <div class="decision">
+        <h4>"Coming soon" tagging</h4>
+        <p>Table Reservations is tagged here. Still open: whether other pre-launch capabilities get the same tag — overpromising to operators is a credibility risk.</p>
+      </div>
+      <div class="decision">
+        <h4>Casing</h4>
+        <p>Whole suite set in Title Case for a consistent product-suite read, applied to the Solutions hub label and every pillar card.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <h2>See all twelve pillars in action.</h2>
+    <p>Book a live walkthrough tailored to how your restaurant actually runs.</p>
+    <a href="#" class="demo-btn">Book a demo</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="flogo">Digitory</div>
+    <div class="fmuted">The operating system for modern restaurants. From chaos to clarity.</div>
+    <div class="fbottom">
+      <span>© 2026 Digitory. All rights reserved.</span>
+      <span>Prototype — Solutions IA v2 · built from "Digitory Solutions Naming" doc</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
