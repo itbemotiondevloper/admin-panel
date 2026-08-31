@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { solutionsService } from "@/services/solutions.service";
+import { settingsService } from "@/services/settings.service";
 import { api } from "@/lib/api";
 
 const FOOTER_COLUMNS = [
@@ -22,6 +22,8 @@ const FOOTER_COLUMNS = [
 ];
 
 export default function FooterPage() {
+  const [footerLogo, setFooterLogo] = useState<string>('/digitory-white.png');
+  const [companyName, setCompanyName] = useState<string>('Digitory');
   const [slugsMap, setSlugsMap] = useState<Record<string, string>>({
     // Fallbacks
     "Order Engine": "/solutions/pos",
@@ -32,6 +34,31 @@ export default function FooterPage() {
   });
 
   useEffect(() => {
+    const handleBrandingSync = () => {
+      const savedFooter = localStorage.getItem('branding_footer_logo') || localStorage.getItem('branding_logo_white');
+      if (savedFooter) setFooterLogo(savedFooter);
+    };
+
+    // Load initial cached values
+    handleBrandingSync();
+
+    const fetchBranding = async () => {
+      try {
+        const s = await settingsService.getSettings();
+        if (s.branding) {
+          const logoToUse = s.branding.footerLogo || s.branding.logoWhite || '/digitory-white.png';
+          setFooterLogo(logoToUse);
+          localStorage.setItem('branding_footer_logo', logoToUse);
+          if (s.branding.companyName) {
+            setCompanyName(s.branding.companyName);
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to load dynamic footer branding:', err);
+      }
+    };
+    fetchBranding();
+
     const fetchSlugs = async () => {
       try {
         const loadedSols = await solutionsService.getSolutions();
@@ -53,6 +80,11 @@ export default function FooterPage() {
       }
     };
     fetchSlugs();
+
+    window.addEventListener('branding_logo_update', handleBrandingSync);
+    return () => {
+      window.removeEventListener('branding_logo_update', handleBrandingSync);
+    };
   }, []);
 
   return (
@@ -65,13 +97,11 @@ export default function FooterPage() {
           {/* Logo & Description Column */}
           <div className="lg:col-span-4 space-y-6">
             <div className="flex items-center">
-              <Image
-                src="/digitory-white.png"
-                alt="Digitory Logo"
-                width={160}
-                height={40}
-                className="object-contain h-8 md:h-9 w-auto"
-                priority
+              <img
+                src={footerLogo}
+                alt={`${companyName} Logo`}
+                className="object-contain h-8 md:h-9 w-auto max-w-[200px]"
+                onError={(e) => { e.currentTarget.src = '/digitory-white.png'; }}
               />
             </div>
 
@@ -174,7 +204,7 @@ export default function FooterPage() {
         {/* Bottom copyright row */}
         <div className="border-t border-[#1F2124]/70 pt-8 mt-16 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-[13px] text-[#666666] font-medium">
-            © 2026 Digitory. All rights reserved.
+            © {new Date().getFullYear()} {companyName}. All rights reserved.
           </p>
           <div className="flex gap-4 text-[13px] text-[#666666] font-medium">
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>

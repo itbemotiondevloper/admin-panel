@@ -6,7 +6,9 @@ export interface SettingsData {
   branding: {
     logo: string;
     logoWhite: string;
+    footerLogo?: string;
     companyName: string;
+    siteTitle?: string;
     favicon?: string;
   };
   solutionsGridTitle: string;
@@ -20,7 +22,9 @@ const DEFAULT_SETTINGS: SettingsData = {
   branding: {
     logo: '/digitory-black.png',
     logoWhite: '/digitory-white.png',
+    footerLogo: '/digitory-white.png',
     companyName: 'Digitory',
+    siteTitle: 'Digitory - Restaurant Operating System',
     favicon: '/favicon.ico'
   },
   solutionsGridTitle: 'Twelve powerful features to help your restaurant run better',
@@ -44,11 +48,14 @@ export const settingsService = {
       const snap = await getDoc(docRef);
       if (snap.exists()) {
         const data = snap.data() as Partial<SettingsData>;
+        const companyName = data.branding?.companyName || DEFAULT_SETTINGS.branding.companyName;
         settingsCache = {
           branding: {
             logo: data.branding?.logo || DEFAULT_SETTINGS.branding.logo,
             logoWhite: data.branding?.logoWhite || DEFAULT_SETTINGS.branding.logoWhite,
-            companyName: data.branding?.companyName || DEFAULT_SETTINGS.branding.companyName,
+            footerLogo: data.branding?.footerLogo || data.branding?.logoWhite || DEFAULT_SETTINGS.branding.footerLogo,
+            companyName,
+            siteTitle: data.branding?.siteTitle || `${companyName} - Restaurant Operating System`,
             favicon: data.branding?.favicon || DEFAULT_SETTINGS.branding.favicon
           },
           solutionsGridTitle: data.solutionsGridTitle || DEFAULT_SETTINGS.solutionsGridTitle,
@@ -75,7 +82,9 @@ export const settingsService = {
       branding: {
         logo: payload.branding?.logo || current.branding.logo,
         logoWhite: payload.branding?.logoWhite || current.branding.logoWhite,
+        footerLogo: payload.branding?.footerLogo || current.branding.footerLogo || payload.branding?.logoWhite || current.branding.logoWhite || '/digitory-white.png',
         companyName: payload.branding?.companyName || current.branding.companyName,
+        siteTitle: payload.branding?.siteTitle !== undefined ? payload.branding.siteTitle : (current.branding.siteTitle || `${current.branding.companyName} - Restaurant Operating System`),
         favicon: payload.branding?.favicon || current.branding.favicon || '/favicon.ico'
       },
       solutionsGridTitle: payload.solutionsGridTitle || current.solutionsGridTitle,

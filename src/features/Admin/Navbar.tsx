@@ -5,6 +5,9 @@ import clsx from "clsx";
 import { usePathname, useSearchParams } from "next/navigation";
 import { Route } from "next";
 import { HomeIcon, SettingsIcon, SearchIcon, FileText, CheckCircle, MessageSquare, Inbox, Users, Megaphone, LogOut } from "lucide-react";
+import { authService } from "@/services/auth.service";
+import { usePermissions } from "@/hooks/usePermissions";
+import { settingsService } from "@/services/settings.service";
 
 interface NavbarProps {
   className?: string;
@@ -92,9 +95,6 @@ const links: ILink[] = [
   },
 ];
 
-import { usePermissions } from "@/hooks/usePermissions";
-import { authService } from "@/services/auth.service";
-
 const Navbar: React.FC<NavbarProps> = ({ className }) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -122,6 +122,25 @@ const Navbar: React.FC<NavbarProps> = ({ className }) => {
 
     // Load initial values
     handleBrandingSync();
+
+    const fetchSettings = async () => {
+      try {
+        const s = await settingsService.getSettings();
+        if (s.branding) {
+          if (s.branding.logo) {
+            setLogoBlack(s.branding.logo);
+            localStorage.setItem('branding_logo_black', s.branding.logo);
+          }
+          if (s.branding.logoWhite) {
+            setLogoWhite(s.branding.logoWhite);
+            localStorage.setItem('branding_logo_white', s.branding.logoWhite);
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to load admin navbar branding:', err);
+      }
+    };
+    fetchSettings();
 
     // Listen for real-time changes
     window.addEventListener('branding_logo_update', handleBrandingSync);

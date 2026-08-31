@@ -2,12 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { settingsService } from '@/services/settings.service';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
+  const [logoBlack, setLogoBlack] = useState('/digitory-black.png');
+  const [logoWhite, setLogoWhite] = useState('/digitory-white.png');
+  const [companyName, setCompanyName] = useState('Digitory');
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
@@ -21,7 +24,47 @@ export default function Header() {
       setMounted(true);
       setTheme(activeTheme);
     }, 0);
-    return () => clearTimeout(timer);
+
+    const handleBrandingSync = () => {
+      const savedBlack = localStorage.getItem('branding_logo_black');
+      const savedWhite = localStorage.getItem('branding_logo_white');
+      if (savedBlack) setLogoBlack(savedBlack);
+      if (savedWhite) setLogoWhite(savedWhite);
+    };
+
+    // Load initial cached logos
+    handleBrandingSync();
+
+    // Fetch latest settings from service
+    const fetchSettings = async () => {
+      try {
+        const s = await settingsService.getSettings();
+        if (s.branding) {
+          if (s.branding.logo) {
+            setLogoBlack(s.branding.logo);
+            localStorage.setItem('branding_logo_black', s.branding.logo);
+          }
+          if (s.branding.logoWhite) {
+            setLogoWhite(s.branding.logoWhite);
+            localStorage.setItem('branding_logo_white', s.branding.logoWhite);
+          }
+          if (s.branding.companyName) {
+            setCompanyName(s.branding.companyName);
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to load header branding settings:', err);
+      }
+    };
+    fetchSettings();
+
+    // Listen for live branding updates
+    window.addEventListener('branding_logo_update', handleBrandingSync);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('branding_logo_update', handleBrandingSync);
+    };
   }, []);
 
   const toggleTheme = () => {
@@ -73,21 +116,17 @@ export default function Header() {
       <header className="mx-auto max-w-7xl rounded-full bg-[#EAEAEA]/80 backdrop-blur-md pl-8 pr-4 py-3 flex items-center justify-between shadow-sm">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <Image
-            src="/digitory-black.png"
-            alt="Digitory Logo"
-            width={140}
-            height={36}
+          <img
+            src={logoBlack}
+            alt={`${companyName} Logo`}
             className="object-contain h-7 md:h-8 w-auto block dark:hidden"
-            priority
+            onError={(e) => { e.currentTarget.src = '/digitory-black.png'; }}
           />
-          <Image
-            src="/digitory-white.png"
-            alt="Digitory Logo"
-            width={140}
-            height={36}
+          <img
+            src={logoWhite}
+            alt={`${companyName} Logo`}
             className="object-contain h-7 md:h-8 w-auto hidden dark:block"
-            priority
+            onError={(e) => { e.currentTarget.src = '/digitory-white.png'; }}
           />
         </Link>
 

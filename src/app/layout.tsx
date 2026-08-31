@@ -23,10 +23,11 @@ export async function generateMetadata(): Promise<Metadata> {
     settings = { branding: { companyName: 'Digitory', favicon: '/favicon.ico' } };
   }
   const companyName = settings?.branding?.companyName || 'Digitory';
+  const siteTitle = settings?.branding?.siteTitle || `${companyName} - Restaurant Operating System`;
   const favicon = settings?.branding?.favicon || '/favicon.ico';
 
   return {
-    title: `${companyName} - Restaurant Operating System`,
+    title: siteTitle,
     description: "Manage rush hours, not rush. The operating system for modern restaurants.",
     icons: {
       icon: favicon,

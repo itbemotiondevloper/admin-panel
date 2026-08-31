@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useState, useEffect, useCallback } from "react";
-import { ArrowLeft, Clock, Tag, Heart, Copy, Check, Share2, Flag, X, ChevronDown } from "lucide-react";
+import { ArrowLeft, Clock, Tag, Heart, Copy, Check, Share2, Flag, X, ChevronDown, LogOut } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import RichEditor from "@/components/rich-text-editor/RichEditor";
@@ -293,7 +293,7 @@ function CommentItem({ comment, replies, blog, user, profile, isRealUser, likesC
    MAIN COMPONENT
 ══════════════════════════════════════════════════════════════════════ */
 function BlogDetails({ blog }: { blog: any }) {
-  const { user, profile } = useAuth();
+  const { user, profile, logout } = useAuth();
 
   const readTime = useMemo(() => Math.max(1, Math.ceil((blog.content?.length || 0) / 100)), [blog.content]);
   const authorName = typeof blog.author === "object" && blog.author ? blog.author.name : (blog.author || "Admin");
@@ -463,48 +463,77 @@ function BlogDetails({ blog }: { blog: any }) {
       {/* Two-column layout: Left TOC + Right content */}
       <div className="flex flex-col lg:flex-row gap-10 xl:gap-16 items-start">
 
-        {/* ─── LEFT: Sticky TOC ─── */}
-        {headings.length >= 2 && (
-          <aside className="hidden lg:block w-[240px] shrink-0 sticky top-28 max-h-[calc(100vh-140px)] overflow-y-auto scrollbar-none">
-            <div className="text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400 dark:text-zinc-600 mb-5">On this page</div>
-            <nav className="space-y-3">
-              {headingListWithRoman.map(h => {
-                const active = activeHeadingId === h.id;
-                return h.level === 2 ? (
-                  <div key={h.id}>
-                    <a href={`#${h.id}`} onClick={e => handleHeadingClick(e, h.id)} className={`flex items-start gap-2 text-[11px] leading-snug transition-colors ${active ? "text-[#FF4F18] font-bold" : "text-zinc-700 dark:text-zinc-400 hover:text-[#FF4F18] font-semibold"}`}>
-                      <span className="shrink-0 text-[10px] font-bold text-zinc-400 dark:text-zinc-600 mt-0.5">({h.roman ?? ""})</span>
-                      <span>{h.text}</span>
-                    </a>
-                  </div>
-                ) : (
-                  <div key={h.id} className="pl-6">
-                    <a href={`#${h.id}`} onClick={e => handleHeadingClick(e, h.id)} className={`flex items-center gap-2 text-[11px] leading-snug transition-colors ${active ? "text-[#FF4F18] font-bold" : "text-zinc-500 dark:text-zinc-500 hover:text-[#FF4F18] font-medium"}`}>
-                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 transition-colors ${active ? "bg-[#FF4F18]" : "bg-zinc-300 dark:bg-zinc-700"}`} />
-                      <span>{h.text}</span>
-                    </a>
-                  </div>
-                );
-              })}
-            </nav>
-          </aside>
-        )}
+        {/* ─── LEFT: Sticky TOC (Cofounder Editorial Style) ─── */}
+        <aside className="hidden lg:block w-[260px] shrink-0 sticky top-28 max-h-[calc(100vh-140px)] overflow-y-auto scrollbar-none space-y-6 pr-2">
+          {/* Subtitle & CTA Button */}
+          <div className="space-y-3 pb-5 border-b border-zinc-200/80 dark:border-zinc-800">
+            <p className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 leading-snug">
+              How to run a company with Digitory
+            </p>
+            <Link
+              href="/request-demo"
+              className="inline-flex items-center gap-1.5 bg-[#1E1E1E] dark:bg-white text-white dark:text-zinc-950 px-4 py-2 rounded-xl text-xs font-bold shadow-xs hover:bg-black dark:hover:bg-zinc-100 transition-all group cursor-pointer"
+            >
+              <span>Try in Digitory</span>
+              <span className="text-xs transition-transform group-hover:translate-x-0.5">&rarr;</span>
+            </Link>
+          </div>
+
+          {/* Grouped Table of Contents */}
+          <nav className="space-y-4">
+            <div className="space-y-2">
+              <div className="text-xs font-extrabold text-zinc-800 dark:text-zinc-200 flex items-center gap-1.5">
+                <span className="text-zinc-400 font-bold text-[11px]">(I)</span>
+                <span>On this page</span>
+              </div>
+
+              <div className="space-y-1 pt-1">
+                {headingListWithRoman.map(h => {
+                  const active = activeHeadingId === h.id;
+                  return (
+                    <div key={h.id} className={h.level === 3 ? "pl-4" : ""}>
+                      <a
+                        href={`#${h.id}`}
+                        onClick={e => handleHeadingClick(e, h.id)}
+                        className={`group flex items-center gap-2.5 text-xs py-1.5 px-3 rounded-xl transition-all ${
+                          active
+                            ? "border border-zinc-900 dark:border-zinc-300 bg-white dark:bg-zinc-800 text-zinc-950 dark:text-white font-extrabold shadow-xs"
+                            : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-white font-medium"
+                        }`}
+                      >
+                        <span
+                          className={`w-2 h-2 rounded-full shrink-0 border transition-all ${
+                            active
+                              ? "border-[#0088FF] bg-[#0088FF]"
+                              : "border-zinc-400 dark:border-zinc-600 bg-transparent group-hover:border-zinc-600"
+                          }`}
+                        />
+                        <span className="truncate">{h.text}</span>
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </nav>
+        </aside>
 
         {/* ─── RIGHT: Article ─── */}
         <div className="flex-1 min-w-0">
 
           {/* Mobile TOC */}
           {headings.length >= 2 && (
-            <div className="lg:hidden mb-8 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden">
+            <div className="lg:hidden mb-8 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden bg-white dark:bg-zinc-900 shadow-xs">
               <details className="group">
-                <summary className="flex items-center justify-between px-4 py-3 cursor-pointer select-none font-bold text-[11px] uppercase tracking-wider text-zinc-500 bg-zinc-50 dark:bg-zinc-900/30">
+                <summary className="flex items-center justify-between px-4 py-3 cursor-pointer select-none font-bold text-[11px] uppercase tracking-wider text-zinc-600 dark:text-zinc-400 bg-zinc-50 dark:bg-zinc-900">
                   <span>On this page</span>
                   <ChevronDown size={14} className="transition-transform group-open:rotate-180 text-zinc-400" />
                 </summary>
-                <nav className="px-4 pb-4 pt-3 border-t border-zinc-200/60 dark:border-zinc-800/60 space-y-3">
+                <nav className="px-4 pb-4 pt-3 border-t border-zinc-200/60 dark:border-zinc-800/60 space-y-2">
                   {headingListWithRoman.map(h => (
-                    <a key={h.id} href={`#${h.id}`} onClick={e => handleHeadingClick(e, h.id)} className={`block text-[11px] transition-colors ${h.level === 3 ? "pl-5 text-zinc-500" : "font-semibold"} ${activeHeadingId === h.id ? "text-[#FF4F18] font-bold" : "text-zinc-700 dark:text-zinc-300"}`}>
-                      {h.level === 2 ? `(${h.roman ?? ""}) ` : "○ "}{h.text}
+                    <a key={h.id} href={`#${h.id}`} onClick={e => handleHeadingClick(e, h.id)} className={`flex items-center gap-2 text-xs transition-colors py-1 ${h.level === 3 ? "pl-4 text-zinc-500" : "font-semibold"} ${activeHeadingId === h.id ? "text-[#0088FF] font-bold" : "text-zinc-700 dark:text-zinc-300"}`}>
+                      <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${activeHeadingId === h.id ? "bg-[#0088FF]" : "bg-zinc-300 dark:bg-zinc-700"}`} />
+                      <span>{h.text}</span>
                     </a>
                   ))}
                 </nav>
@@ -514,39 +543,43 @@ function BlogDetails({ blog }: { blog: any }) {
 
           {/* ══ HEADER ══ */}
           <header className="mb-10">
-            {/* Category + read time */}
-            <div className="flex items-center gap-3 mb-4 text-[11px] font-bold uppercase tracking-widest">
-              <span className="text-[#FF4F18] font-extrabold">
-                {typeof blog.category === "object" && blog.category ? blog.category.name : (blog.category || blog.categoryName || "Article")}
+            {/* Chapter / Category Pill Badge */}
+            <div className="mb-4">
+              <span className="inline-block bg-zinc-200/70 dark:bg-zinc-800/80 text-zinc-700 dark:text-zinc-300 px-3.5 py-1 rounded-full text-xs font-bold tracking-wide border border-zinc-300/40 dark:border-zinc-700/40">
+                {typeof blog.category === "object" && blog.category ? blog.category.name : (blog.category || blog.categoryName || "Chapter I")}
               </span>
-              <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-              <span className="flex items-center gap-1 text-zinc-400"><Clock size={11} /> {readTime} min read</span>
             </div>
 
-            {/* Title */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-[850] tracking-tight text-zinc-950 dark:text-white leading-[1.08] mb-6">{blog.title}</h1>
+            {/* Main Article Title */}
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-900 dark:text-white leading-[1.12] mb-6">
+              {blog.title}
+            </h1>
 
-            {/* Author + date + share row */}
-            <div className="flex items-center justify-between flex-wrap gap-4">
+            {/* Author + date + read time + share row */}
+            <div className="flex items-center justify-between flex-wrap gap-4 pt-2 border-t border-zinc-200/80 dark:border-zinc-800">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#FFF3EF] dark:bg-[#FF4F18]/10 text-[#FF4F18] flex items-center justify-center font-extrabold text-sm shrink-0">
+                <div className="w-9 h-9 rounded-full bg-zinc-900 text-white dark:bg-white dark:text-zinc-900 flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
                   {authorName.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                  <p className="font-extrabold text-zinc-900 dark:text-white text-sm">{authorName}</p>
-                  <p className="text-xs text-zinc-400 dark:text-zinc-500 font-semibold mt-0.5">{formatDate(blog.createdAt)}</p>
+                  <p className="font-bold text-zinc-900 dark:text-white text-xs">{authorName}</p>
+                  <p className="text-[11px] text-zinc-500 font-medium flex items-center gap-2 mt-0.5">
+                    <span>{formatDate(blog.createdAt)}</span>
+                    <span>·</span>
+                    <span className="flex items-center gap-1"><Clock size={11} /> {readTime} min read</span>
+                  </p>
                 </div>
               </div>
 
               {/* Share buttons */}
               <div className="flex items-center gap-2">
-                <span className="text-xs text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-wider">Share:</span>
-                <button onClick={() => shareTwitter(blog.title, currentUrl)} title="Share on X/Twitter" className="w-9 h-9 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-[#FFF3EF] hover:text-[#FF4F18] hover:border-orange-200 dark:hover:bg-[#FF4F18]/10 dark:hover:border-transparent transition-all font-extrabold text-[10px] tracking-widest cursor-pointer">TW</button>
-                <button onClick={() => shareFacebook(currentUrl)} title="Share on Facebook" className="w-9 h-9 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-[#FFF3EF] hover:text-[#FF4F18] hover:border-orange-200 dark:hover:bg-[#FF4F18]/10 dark:hover:border-transparent transition-all font-extrabold text-[10px] tracking-widest cursor-pointer">FB</button>
-                <button onClick={() => shareLinkedIn(currentUrl)} title="Share on LinkedIn" className="w-9 h-9 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-[#FFF3EF] hover:text-[#FF4F18] hover:border-orange-200 dark:hover:bg-[#FF4F18]/10 dark:hover:border-transparent transition-all font-extrabold text-[10px] tracking-widest cursor-pointer">LI</button>
-                <button onClick={() => shareWhatsApp(blog.title, currentUrl)} title="Share on WhatsApp" className="w-9 h-9 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-[#FFF3EF] hover:text-[#FF4F18] hover:border-orange-200 dark:hover:bg-[#FF4F18]/10 dark:hover:border-transparent transition-all font-extrabold text-[10px] tracking-widest cursor-pointer">WA</button>
-                <button onClick={handleCopyLink} title="Copy link" className="w-9 h-9 rounded-full border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-600 dark:text-zinc-400 hover:bg-[#FFF3EF] hover:text-[#FF4F18] hover:border-orange-200 dark:hover:bg-[#FF4F18]/10 dark:hover:border-transparent transition-all cursor-pointer">
-                  {copied ? <Check size={13} className="text-green-500" /> : <Copy size={13} />}
+                <span className="text-[11px] text-zinc-400 font-bold uppercase tracking-wider">Share:</span>
+                <button onClick={() => shareTwitter(blog.title, currentUrl)} title="Share on X/Twitter" className="w-8 h-8 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 transition-all font-bold text-[10px] cursor-pointer">TW</button>
+                <button onClick={() => shareFacebook(currentUrl)} title="Share on Facebook" className="w-8 h-8 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 transition-all font-bold text-[10px] cursor-pointer">FB</button>
+                <button onClick={() => shareLinkedIn(currentUrl)} title="Share on LinkedIn" className="w-8 h-8 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 transition-all font-bold text-[10px] cursor-pointer">LI</button>
+                <button onClick={() => shareWhatsApp(blog.title, currentUrl)} title="Share on WhatsApp" className="w-8 h-8 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 transition-all font-bold text-[10px] cursor-pointer">WA</button>
+                <button onClick={handleCopyLink} title="Copy link" className="w-8 h-8 rounded-full border border-zinc-300 dark:border-zinc-700 flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-900 hover:text-white dark:hover:bg-white dark:hover:text-zinc-950 transition-all cursor-pointer">
+                  {copied ? <Check size={12} className="text-green-500" /> : <Copy size={12} />}
                 </button>
               </div>
             </div>
@@ -554,30 +587,30 @@ function BlogDetails({ blog }: { blog: any }) {
 
           {/* ══ FEATURED IMAGE ══ */}
           {blog.featuredImage && (
-            <div className="w-full aspect-[21/9] bg-zinc-100 dark:bg-zinc-900 rounded-[28px] overflow-hidden mb-16 relative border border-zinc-200/60 dark:border-zinc-800/60">
+            <div className="w-full aspect-[21/9] bg-zinc-200 dark:bg-zinc-900 rounded-2xl overflow-hidden mb-12 relative border border-zinc-300/80 dark:border-zinc-800 shadow-xs">
               <Image src={blog.featuredImage} alt={blog.title} fill className="object-cover" priority sizes="(max-width: 768px) 100vw, 1200px" />
             </div>
           )}
 
           {/* ══ EXCERPT ══ */}
           {blog.excerpt && (
-            <div className="text-lg md:text-xl text-zinc-600 dark:text-zinc-300 font-medium leading-relaxed mb-12 italic border-l-4 border-[#FF4F18] pl-6">
+            <div className="text-lg md:text-xl text-zinc-600 dark:text-zinc-300 font-normal leading-relaxed mb-10 border-l-2 border-zinc-900 dark:border-zinc-300 pl-6">
               {blog.excerpt}
             </div>
           )}
 
           {/* ══ RICH CONTENT ══ */}
-          <div className="prose prose-lg prose-orange dark:prose-invert max-w-none text-zinc-850 dark:text-zinc-200
+          <div className="prose prose-lg prose-neutral dark:prose-invert max-w-none text-zinc-800 dark:text-zinc-200
             [&_.ProseMirror]:bg-transparent [&_.ProseMirror]:border-none [&_.ProseMirror]:text-zinc-800 dark:[&_.ProseMirror]:text-zinc-200 [&_.ProseMirror]:px-0 [&_.ProseMirror]:py-0 [&_.ProseMirror]:min-h-0 focus:outline-none select-none
-            [&_p]:text-[17px] [&_p]:leading-[1.8] [&_p]:mb-5
-            [&_h2]:text-[26px] [&_h2]:font-[850] [&_h2]:tracking-tight [&_h2]:mt-12 [&_h2]:mb-4
-            [&_h3]:text-[21px] [&_h3]:font-[800] [&_h3]:mt-8 [&_h3]:mb-3
-            [&_blockquote]:border-l-4 [&_blockquote]:border-[#FF4F18] [&_blockquote]:pl-6 [&_blockquote]:italic [&_blockquote]:my-8
-            [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-5 [&_ul]:space-y-2
-            [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-5 [&_ol]:space-y-2
-            [&_li]:text-[16px] [&_li]:leading-relaxed
-            [&_img]:rounded-2xl [&_img]:my-8
-            [&_a]:text-[#FF4F18] [&_a]:no-underline hover:[&_a]:underline [&_a]:font-semibold
+            [&_p]:text-[17px] [&_p]:leading-[1.85] [&_p]:text-zinc-700 dark:[&_p]:text-zinc-300 [&_p]:mb-6
+            [&_h2]:text-[26px] [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-zinc-900 dark:[&_h2]:text-white [&_h2]:mt-12 [&_h2]:mb-4
+            [&_h3]:text-[21px] [&_h3]:font-semibold [&_h3]:text-zinc-900 dark:[&_h3]:text-white [&_h3]:mt-8 [&_h3]:mb-3
+            [&_blockquote]:border-l-2 [&_blockquote]:border-zinc-900 dark:[&_blockquote]:border-zinc-300 [&_blockquote]:pl-6 [&_blockquote]:italic [&_blockquote]:my-8 [&_blockquote]:text-zinc-700 dark:[&_blockquote]:text-zinc-300
+            [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mb-6 [&_ul]:space-y-2.5
+            [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mb-6 [&_ol]:space-y-2.5
+            [&_li]:text-[16px] [&_li]:leading-relaxed [&_li]:text-zinc-700 dark:[&_li]:text-zinc-300
+            [&_img]:rounded-2xl [&_img]:border [&_img]:border-zinc-300/80 dark:[&_img]:border-zinc-800 [&_img]:shadow-xs [&_img]:my-8
+            [&_a]:text-[#0088FF] [&_a]:no-underline hover:[&_a]:underline [&_a]:font-semibold
           ">
             <RichEditor defaultValue={blog.content} notionMode={true} editable={false} />
           </div>
@@ -639,7 +672,38 @@ function BlogDetails({ blog }: { blog: any }) {
 
             {/* Add Comment Form */}
             <div className="bg-white dark:bg-zinc-900/40 p-6 md:p-8 rounded-[28px] border border-zinc-200/60 dark:border-zinc-800/60 shadow-sm">
-              <h4 className="font-[850] text-zinc-900 dark:text-white mb-6 text-xl tracking-tight">Add a comment</h4>
+              <div className="flex items-center justify-between flex-wrap gap-3 mb-6 pb-4 border-b border-zinc-100 dark:border-zinc-800">
+                <div>
+                  <h4 className="font-[850] text-zinc-900 dark:text-white text-xl tracking-tight">Add a comment</h4>
+                  {isRealUser && (
+                    <p className="text-xs text-zinc-500 font-medium mt-0.5">
+                      Signed in as <span className="font-bold text-zinc-800 dark:text-zinc-200">{profile?.name || user?.displayName || user?.email}</span>
+                    </p>
+                  )}
+                </div>
+
+                {isRealUser && (
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      try {
+                        if (logout) {
+                          await logout();
+                        } else {
+                          const { signOut } = await import("firebase/auth");
+                          await signOut(auth);
+                        }
+                      } catch (err) {
+                        console.error("Failed to sign out:", err);
+                      }
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-zinc-600 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-all border border-zinc-200 dark:border-zinc-800 cursor-pointer"
+                  >
+                    <LogOut size={13} />
+                    <span>Sign Out</span>
+                  </button>
+                )}
+              </div>
 
               {isRealUser ? (
                 <form onSubmit={handleAddComment} className="flex flex-col gap-5">
