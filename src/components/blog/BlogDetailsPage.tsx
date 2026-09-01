@@ -19,7 +19,7 @@ export async function BlogDetailsPageShared({ slug }: BlogDetailsPageSharedProps
   const plainPost = JSON.parse(JSON.stringify(post));
 
   return (
-    <div className="min-h-screen bg-[#F7F6F3] dark:bg-[#121214] text-zinc-900 dark:text-zinc-100 transition-colors duration-300 flex flex-col justify-between">
+    <div className="min-h-screen bg-white dark:bg-[#0d0d0e] text-zinc-900 dark:text-zinc-100 transition-colors duration-300 flex flex-col justify-between">
       <div>
         <Header />
         <div className="pt-8 md:pt-12">

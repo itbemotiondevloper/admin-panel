@@ -187,7 +187,7 @@ export default function BlogHero({
                 FEATURED ARTICLE
               </span>
 
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-white leading-[1.1] mb-4 text-left">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white leading-[1.15] mb-4 text-left">
                 {title}
               </h1>
 

@@ -106,10 +106,18 @@ export default function Header() {
   };
 
   const navLinks = [
+    { label: 'Home', href: '#' },
+    { label: 'About', href: '#' },
     { label: 'Solutions', href: '/solutions' },
     { label: 'Resources', href: '/blogs' },
     { label: 'Contact', href: '/contact' },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href === '#') {
+      e.preventDefault();
+    }
+  };
 
   return (
     <div className="sticky top-0 z-50 w-full px-4 pt-3 pb-1 md:px-8 md:pt-4 md:pb-2 bg-transparent">
@@ -136,6 +144,7 @@ export default function Header() {
             <Link
               key={link.label}
               href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className="text-[15px] font-medium text-zinc-650 hover:text-black transition-colors duration-200"
             >
               {link.label}
@@ -190,7 +199,10 @@ export default function Header() {
             <Link
               key={link.label}
               href={link.href}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={(e) => {
+                handleNavClick(e, link.href);
+                if (link.href !== '#') setIsMenuOpen(false);
+              }}
               className="text-[15px] font-medium text-zinc-700 hover:text-black transition-colors"
             >
               {link.label}
