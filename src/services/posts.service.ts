@@ -25,6 +25,7 @@ export interface PostPayload {
   category?: string;
   author?: string;
   status: 'Draft' | 'Published';
+  contentType?: 'blog' | 'case-study';
   tags?: string[];
   isFeatured?: boolean;
   seo?: {
@@ -36,7 +37,7 @@ export interface PostPayload {
 }
 
 export const postsService = {
-  async getPosts(options?: { status?: 'Draft' | 'Published'; isFeatured?: boolean; limitCount?: number }) {
+  async getPosts(options?: { status?: 'Draft' | 'Published'; isFeatured?: boolean; contentType?: 'blog' | 'case-study'; limitCount?: number }) {
     const ref = collection(db, 'posts');
     let q = query(ref);
 
@@ -48,13 +49,15 @@ export const postsService = {
     }
 
     const snapshot = await getDocs(q);
-    const list = snapshot.docs.map(doc => {
+    let list = snapshot.docs.map(doc => {
       const data = doc.data() as any;
       const createdAtDate = data.createdAt?.toDate ? data.createdAt.toDate() : new Date(data.createdAt || Date.now());
+      const contentType = data.contentType || 'blog';
       return {
         _id: doc.id,
         id: doc.id,
         ...data,
+        contentType,
         createdAtDate,
         category: {
           _id: data.categoryId || '',
@@ -66,6 +69,14 @@ export const postsService = {
         }
       };
     });
+
+    if (options?.contentType) {
+      if (options.contentType === 'case-study') {
+        list = list.filter(item => item.contentType === 'case-study');
+      } else {
+        list = list.filter(item => !item.contentType || item.contentType === 'blog');
+      }
+    }
 
     // Sort descending by date
     list.sort((a, b) => b.createdAtDate.getTime() - a.createdAtDate.getTime());
@@ -168,6 +179,7 @@ export const postsService = {
       authorId,
       authorName,
       status: payload.status || 'Draft',
+      contentType: payload.contentType || 'blog',
       tags: payload.tags || [],
       isFeatured: payload.isFeatured || false,
       seo: payload.seo || { metaTitle: '', metaDescription: '', canonicalUrl: '', keywords: [] },
@@ -253,6 +265,7 @@ export const postsService = {
       authorId,
       authorName,
       status: payload.status,
+      contentType: payload.contentType || 'blog',
       tags: payload.tags || [],
       isFeatured: payload.isFeatured || false,
       seo: payload.seo || { metaTitle: '', metaDescription: '', canonicalUrl: '', keywords: [] },

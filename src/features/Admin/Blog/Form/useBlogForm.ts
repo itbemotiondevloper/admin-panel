@@ -13,6 +13,7 @@ const Schema = yup.object({
     .required("cover image is required"),
   category: yup.string().optional(),
   author: yup.string().optional(),
+  contentType: yup.string().oneOf(['blog', 'case-study']).default('blog'),
   tags: yup
     .array()
     .of(yup.object({ tag: yup.string().required("tag is required") }))
@@ -37,6 +38,7 @@ export type PostRecord = {
   category?: any;
   author?: any;
   status: 'Draft' | 'Published';
+  contentType?: 'blog' | 'case-study';
   tags?: string[];
   seo?: {
     metaTitle?: string;
@@ -65,6 +67,7 @@ export function useBlogForm(
       featuredImage: item?.featuredImage || "",
       category: item?.category?._id || item?.category || "",
       author: item?.author?._id || item?.author || "",
+      contentType: item?.contentType || 'blog',
       tags: item?.tags?.map(t => ({ tag: t })) || [],
       status: item?.status || 'Draft',
       seo_title: item?.seo?.metaTitle || "",
@@ -84,6 +87,7 @@ export function useBlogForm(
       category: data.category,
       author: data.author || undefined,
       status: data.status,
+      contentType: data.contentType || 'blog',
       tags: data.tags?.map(t => t.tag) || [],
       seo: {
         metaTitle: data.seo_title,

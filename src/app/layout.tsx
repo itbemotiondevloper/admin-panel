@@ -20,11 +20,11 @@ export async function generateMetadata(): Promise<Metadata> {
     const { settingsService } = await import('@/services/settings.service');
     settings = await settingsService.getSettings(true);
   } catch (e) {
-    settings = { branding: { companyName: 'Digitory', favicon: '/favicon.ico' } };
+    settings = { branding: { companyName: 'Quest For Tech', favicon: '/favicon1.png' } };
   }
-  const companyName = settings?.branding?.companyName || 'Digitory';
-  const siteTitle = settings?.branding?.siteTitle || `${companyName} - Restaurant Operating System`;
-  const favicon = settings?.branding?.favicon || '/favicon.ico';
+  const companyName = settings?.branding?.companyName || 'Quest For Tech';
+  const siteTitle = settings?.branding?.siteTitle || `${companyName} - Digital Solutions`;
+  const favicon = settings?.branding?.favicon || '/favicon1.png';
 
   return {
     title: siteTitle,

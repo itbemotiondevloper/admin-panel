@@ -20,12 +20,12 @@ export interface SettingsData {
 
 const DEFAULT_SETTINGS: SettingsData = {
   branding: {
-    logo: '/digitory-black.png',
-    logoWhite: '/digitory-white.png',
-    footerLogo: '/digitory-white.png',
-    companyName: 'Digitory',
-    siteTitle: 'Digitory - Restaurant Operating System',
-    favicon: '/favicon.ico'
+    logo: '/logo1.png',
+    logoWhite: '/logo2.png',
+    footerLogo: '/logo2.png',
+    companyName: 'Quest For Tech',
+    siteTitle: 'Quest For Tech - Digital Solutions',
+    favicon: '/favicon1.png'
   },
   solutionsGridTitle: 'Twelve powerful features to help your restaurant run better',
   solutionsGridDesc: 'Click on any feature card below to open its full specifications and details on a new page.',
@@ -82,10 +82,10 @@ export const settingsService = {
       branding: {
         logo: payload.branding?.logo || current.branding.logo,
         logoWhite: payload.branding?.logoWhite || current.branding.logoWhite,
-        footerLogo: payload.branding?.footerLogo || current.branding.footerLogo || payload.branding?.logoWhite || current.branding.logoWhite || '/digitory-white.png',
+        footerLogo: payload.branding?.footerLogo || current.branding.footerLogo || payload.branding?.logoWhite || current.branding.logoWhite || '/logo2.png',
         companyName: payload.branding?.companyName || current.branding.companyName,
         siteTitle: payload.branding?.siteTitle !== undefined ? payload.branding.siteTitle : (current.branding.siteTitle || `${current.branding.companyName} - Restaurant Operating System`),
-        favicon: payload.branding?.favicon || current.branding.favicon || '/favicon.ico'
+        favicon: payload.branding?.favicon || current.branding.favicon || '/favicon1.png'
       },
       solutionsGridTitle: payload.solutionsGridTitle || current.solutionsGridTitle,
       solutionsGridDesc: payload.solutionsGridDesc || current.solutionsGridDesc,

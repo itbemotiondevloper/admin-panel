@@ -406,6 +406,17 @@ const NotionBlogEditor: React.FC<NotionBlogEditorProps> = ({
                 </div>
 
                 <div className="grid grid-cols-[160px_1fr] gap-x-4 gap-y-3 text-sm text-[#8c8c8c] border-b border-[#2d2d2d] pb-6 mb-8">
+                  <div className="flex items-center gap-2 text-xs"><Sparkles size={14} className="opacity-60" /><span>Content Type</span></div>
+                  <div>
+                    <select
+                      {...form.register("contentType")}
+                      className="bg-transparent text-white border-none outline-none focus:ring-0 p-0 text-sm focus:outline-none dark:bg-zinc-950 font-semibold text-[#FF4F18]"
+                    >
+                      <option value="blog" className="bg-[#121214] text-white font-normal">Blog Article</option>
+                      <option value="case-study" className="bg-[#121214] text-white font-normal">Case Study</option>
+                    </select>
+                  </div>
+
                   <div className="flex items-center gap-2 text-xs"><Link2 size={14} className="opacity-60" /><span>Slug</span></div>
                   <div>
                     <input

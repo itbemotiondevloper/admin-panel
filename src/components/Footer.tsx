@@ -22,8 +22,8 @@ const FOOTER_COLUMNS = [
 ];
 
 export default function FooterPage() {
-  const [footerLogo, setFooterLogo] = useState<string>('/digitory-white.png');
-  const [companyName, setCompanyName] = useState<string>('Digitory');
+  const [footerLogo, setFooterLogo] = useState<string>('/logo2.png');
+  const [companyName, setCompanyName] = useState<string>('Quest For Tech');
   const [slugsMap, setSlugsMap] = useState<Record<string, string>>({
     // Fallbacks
     "Order Engine": "/solutions/pos",
@@ -46,7 +46,7 @@ export default function FooterPage() {
       try {
         const s = await settingsService.getSettings();
         if (s.branding) {
-          const logoToUse = s.branding.footerLogo || s.branding.logoWhite || '/digitory-white.png';
+          const logoToUse = s.branding.footerLogo || s.branding.logoWhite || '/logo2.png';
           setFooterLogo(logoToUse);
           localStorage.setItem('branding_footer_logo', logoToUse);
           if (s.branding.companyName) {
@@ -101,7 +101,7 @@ export default function FooterPage() {
                 src={footerLogo}
                 alt={`${companyName} Logo`}
                 className="object-contain h-8 md:h-9 w-auto max-w-[200px]"
-                onError={(e) => { e.currentTarget.src = '/digitory-white.png'; }}
+                onError={(e) => { e.currentTarget.src = '/logo2.png'; }}
               />
             </div>
 

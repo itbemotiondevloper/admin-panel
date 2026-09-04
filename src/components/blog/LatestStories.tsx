@@ -40,7 +40,7 @@ export default function LatestStories({
   React.useEffect(() => {
     async function loadPosts() {
       try {
-        const posts = await postsService.getPosts({ status: 'Published' });
+        const posts = await postsService.getPosts({ status: 'Published', contentType: 'blog' });
         
         const mapped: Article[] = posts.map((p: any) => ({
           id: p._id,

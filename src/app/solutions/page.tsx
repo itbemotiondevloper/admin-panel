@@ -1,79 +1,54 @@
 import React from 'react';
-import Header from '../../components/Header';
-import FooterPage from '../../components/Footer';
-import ScrollFocusWrapper from '../../components/ScrollFocusWrapper';
+import Header from '@/components/Header';
+import FooterPage from '@/components/Footer';
+import ScrollFocusWrapper from '@/components/ScrollFocusWrapper';
 import { generateSeoMetadata } from "@/lib/seo";
-import { solutionsPageService } from "@/services/solutionsPage.service";
+
+import SolutionsHeroSection from '@/components/solutions/SolutionsHeroSection';
+import SolutionsListSection from '@/components/solutions/SolutionsListSection';
+import ConnectedEcosystemSection from '@/components/solutions/ConnectedEcosystemSection';
+import OurApproachSection from '@/components/solutions/OurApproachSection';
+import WhyQuestForTechSection from '@/components/solutions/WhyQuestForTechSection';
+import CaseStudiesSection from '@/components/solutions/CaseStudiesSection';
+import SolutionsFinalCtaSection from '@/components/solutions/SolutionsFinalCtaSection';
 
 export async function generateMetadata() {
   return await generateSeoMetadata('Page', 'solutions', {
-    title: 'Solutions | Digitory',
-    description: 'Explore our restaurant operating system solutions.',
+    title: 'Digital Solutions | Quest For Tech',
+    description: 'Explore digital solutions built around your business: Website Development, SEO, Content, Performance Marketing, and Custom Development.',
   });
 }
-
-import RestaurantOSHero from '../../components/solutions/RestaurantOSHero';
-import RadialCommandCenter from '../../components/solutions/RadialCommandCenter';
-import SolutionsStats from '../../components/solutions/SolutionsStats';
-import Capabilities from '../../components/solutions/Capabilities';
-import ChainControlDeck from '../../components/solutions/ChainControlDeck';
-import RestaurantTypes from '../../components/solutions/RestaurantTypes';
-import RoiCalculator from '../../components/solutions/RoiCalculator';
-import ToolIntegrations from '../../components/solutions/ToolIntegrations';
-import SolutionsCta from '../../components/solutions/SolutionsCta';
-import InsightsPage from '../../components/home/Insights';
 
 export const dynamic = 'force-dynamic';
 
 export default async function SolutionsPage() {
-  const pageData = await solutionsPageService.getPageData(true);
-
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0d0d0e] transition-colors duration-300 flex flex-col font-sans">
+    <div className="min-h-screen bg-black flex flex-col font-sans">
       {/* Header */}
       <Header />
 
       {/* Main Content */}
       <main className="flex flex-col">
-        {/* 1. Hero */}
-        <ScrollFocusWrapper>
-          <RestaurantOSHero data={pageData.hero} />
-        </ScrollFocusWrapper>
+        {/* 01. Hero */}
+        <SolutionsHeroSection />
 
-        {/* 2. Everything your restro needs in one place */}
-        <ScrollFocusWrapper>
-          <RadialCommandCenter data={pageData.commandCenter} />
-        </ScrollFocusWrapper>
+        {/* 02. Our Solutions */}
+        <SolutionsListSection />
 
-        {/* 3. Counter */}
-        <ScrollFocusWrapper>
-          <SolutionsStats stats={pageData.stats} />
-        </ScrollFocusWrapper>
+        {/* 03. Solutions That Work Together */}
+        <ConnectedEcosystemSection />
 
-        {/* 4. Service list (solution detail link section) */}
-        <ScrollFocusWrapper>
-          <Capabilities />
-        </ScrollFocusWrapper>
+        {/* 04. Our Approach */}
+        <OurApproachSection />
 
-        {/* 5. One dashboard, every location in sync */}
-        <ScrollFocusWrapper>
-          <ChainControlDeck data={pageData.controlDeck} />
-        </ScrollFocusWrapper>
+        {/* 05. Why Quest For Tech */}
+        <WhyQuestForTechSection />
 
-        {/* 6. Connects with your fav app */}
-        <ScrollFocusWrapper>
-          <ToolIntegrations data={pageData.integrations} />
-        </ScrollFocusWrapper>
+        {/* 06. Case Studies */}
+        <CaseStudiesSection />
 
-        {/* 7. See how much you can save */}
-        <ScrollFocusWrapper>
-          <RoiCalculator data={pageData.calculator} />
-        </ScrollFocusWrapper>
-
-        {/* 8. Latest insights */}
-        <ScrollFocusWrapper>
-          <InsightsPage />
-        </ScrollFocusWrapper>
+        {/* 07. Final CTA */}
+        <SolutionsFinalCtaSection />
       </main>
 
       {/* Footer */}

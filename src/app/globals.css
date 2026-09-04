@@ -219,4 +219,79 @@ body {
 .dark .prose pre {
   background-color: #18181b !important;
 }
+
+/* ================================================
+   QFT Solutions Page — Shared Animation Keyframes
+   ================================================ */
+
+@keyframes qft-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33%       { transform: translateY(-12px) rotate(1deg); }
+  66%       { transform: translateY(-6px) rotate(-0.5deg); }
+}
+
+@keyframes qft-float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-18px); }
+}
+
+@keyframes qft-pulse-ring {
+  0%   { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes qft-pulse-glow {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 1; }
+}
+
+@keyframes qft-rotate-slow {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes qft-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.2; }
+}
+
+@keyframes qft-draw-line {
+  from { stroke-dashoffset: 300; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes qft-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes qft-scale-in {
+  from { transform: scale(0.92); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+
+@keyframes qft-node-pulse {
+  0%, 100% { r: 5; opacity: 0.8; }
+  50%       { r: 7; opacity: 1; }
+}
+
+/* Utility classes */
+.qft-float         { animation: qft-float 6s ease-in-out infinite; }
+.qft-float-slow    { animation: qft-float-slow 9s ease-in-out infinite; }
+.qft-pulse-glow    { animation: qft-pulse-glow 3s ease-in-out infinite; }
+.qft-rotate-slow   { animation: qft-rotate-slow 20s linear infinite; }
+.qft-blink         { animation: qft-blink 2s ease-in-out infinite; }
+
+/* Respect reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .qft-float,
+  .qft-float-slow,
+  .qft-pulse-glow,
+  .qft-rotate-slow,
+  .qft-blink,
+  [class*="qft-"] {
+    animation: none !important;
+    transition: none !important;
+  }
+}
 
