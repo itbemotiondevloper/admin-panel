@@ -93,7 +93,7 @@ function HeroSolutionTabExplorer() {
                 type="button"
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? 'bg-slate-900 text-white dark:bg-[#D6DCDC] dark:text-black border border-slate-900 dark:border-[#D6DCDC]'
+                    ? 'bg-[#A78BFA] text-black border border-[#A78BFA]'
                     : 'bg-transparent text-slate-500 hover:text-slate-900 dark:text-[#D6DCDC]/40 dark:hover:text-white border border-transparent'
                 }`}
                 style={{ fontFamily: 'Barlow, sans-serif' }}
@@ -221,7 +221,7 @@ export default function SolutionsHeroSection() {
             <div className="flex flex-wrap items-center gap-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-slate-900 text-white dark:bg-[#D6DCDC] dark:text-black px-8 py-4 text-xs font-semibold uppercase tracking-widest transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-lg"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] px-8 py-4 text-xs font-semibold uppercase tracking-widest transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-lg shadow-[#A78BFA]/20"
                 style={{ fontFamily: 'Barlow, sans-serif', letterSpacing: '0.1em' }}
               >
                 LET'S TALK →

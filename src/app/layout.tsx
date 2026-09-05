@@ -24,15 +24,19 @@ export async function generateMetadata(): Promise<Metadata> {
   }
   const companyName = settings?.branding?.companyName || 'Quest For Tech';
   const siteTitle = settings?.branding?.siteTitle || `${companyName} - Digital Solutions`;
-  const favicon = settings?.branding?.favicon || '/favicon1.png';
+  const faviconDark = settings?.branding?.favicon || '/favicon1.png';
+  const faviconLight = settings?.branding?.faviconLight || '/favicon2.png';
 
   return {
     title: siteTitle,
     description: "Manage rush hours, not rush. The operating system for modern restaurants.",
     icons: {
-      icon: favicon,
-      shortcut: favicon,
-      apple: favicon,
+      icon: [
+        { url: faviconLight, media: '(prefers-color-scheme: light)' },
+        { url: faviconDark, media: '(prefers-color-scheme: dark)' },
+      ],
+      shortcut: faviconDark,
+      apple: faviconDark,
     }
   };
 }

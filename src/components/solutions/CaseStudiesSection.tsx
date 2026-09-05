@@ -26,22 +26,10 @@ function FeaturedCard({ cs }: { cs: CaseStudy }) {
   return (
     <Link
       href={`/case-studies/${cs.slug}`}
-      className="group grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-[28px] overflow-hidden cursor-pointer transition-all duration-300"
-      style={{
-        background: '#0E0E0E',
-        border: '1px solid rgba(214,220,220,0.07)',
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.border = '1px solid rgba(193,182,255,0.2)';
-        (e.currentTarget as HTMLElement).style.boxShadow = '0 0 60px rgba(193,182,255,0.06)';
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.border = '1px solid rgba(214,220,220,0.07)';
-        (e.currentTarget as HTMLElement).style.boxShadow = 'none';
-      }}
+      className="group grid grid-cols-1 lg:grid-cols-2 gap-0 rounded-[28px] overflow-hidden cursor-pointer transition-all duration-300 bg-slate-100 text-slate-900 border border-slate-200 shadow-lg dark:bg-[#0E0E0E] dark:text-[#D6DCDC] dark:border-[#D6DCDC]/10 dark:shadow-none hover:border-slate-300 dark:hover:border-[#A78BFA]/30"
     >
       {/* Image — left on desktop */}
-      <div className="relative overflow-hidden min-h-[280px] lg:min-h-[480px] bg-[#161616]">
+      <div className="relative overflow-hidden min-h-[280px] lg:min-h-[480px] bg-slate-200 dark:bg-[#161616]">
         <img
           src={cs.featuredImage}
           alt={cs.title}
@@ -49,31 +37,22 @@ function FeaturedCard({ cs }: { cs: CaseStudy }) {
         />
         {/* Overlay */}
         <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(135deg, rgba(0,0,0,0.4) 0%, transparent 60%)' }}
+          className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent"
         />
         {/* Tag */}
         <div
-          className="absolute top-5 left-5 px-3 py-1.5 rounded-full text-[10px] font-semibold uppercase tracking-widest"
+          className="absolute top-5 left-5 px-3 py-1.5 rounded-full text-[10px] font-semibold uppercase tracking-widest bg-[#A78BFA]/20 text-[#A78BFA] border border-[#A78BFA]/40 backdrop-blur-md"
           style={{
             fontFamily: 'Barlow, sans-serif',
-            background: 'rgba(193,182,255,0.12)',
-            border: '1px solid rgba(193,182,255,0.25)',
-            color: '#C1B6FF',
-            backdropFilter: 'blur(8px)',
           }}
         >
           Case Study
         </div>
         {/* Featured label */}
         <div
-          className="absolute bottom-5 left-5 px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest"
+          className="absolute bottom-5 left-5 px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest bg-black/60 text-white/80 border border-white/20 backdrop-blur-md"
           style={{
             fontFamily: 'Barlow, sans-serif',
-            background: 'rgba(0,0,0,0.6)',
-            border: '1px solid rgba(214,220,220,0.12)',
-            color: 'rgba(214,220,220,0.6)',
-            backdropFilter: 'blur(8px)',
           }}
         >
           Featured
@@ -83,12 +62,11 @@ function FeaturedCard({ cs }: { cs: CaseStudy }) {
       {/* Text — right on desktop */}
       <div className="flex flex-col justify-center p-8 lg:p-12">
         <div
-          className="flex items-center gap-3 mb-6"
-          style={{ borderBottom: '1px solid rgba(214,220,220,0.07)', paddingBottom: '1.5rem' }}
+          className="flex items-center gap-3 mb-6 border-b border-slate-200 dark:border-[#D6DCDC]/10 pb-6"
         >
           <span
-            className="text-[10px] font-semibold uppercase tracking-widest"
-            style={{ fontFamily: 'Barlow, sans-serif', color: '#C1B6FF', opacity: 0.7 }}
+            className="text-[10px] font-semibold uppercase tracking-widest text-slate-600 dark:text-[#A78BFA]"
+            style={{ fontFamily: 'Barlow, sans-serif' }}
           >
             Case Study
           </span>
@@ -96,10 +74,9 @@ function FeaturedCard({ cs }: { cs: CaseStudy }) {
 
         {cs.date && (
           <p
-            className="text-xs mb-4"
+            className="text-xs mb-4 text-slate-500 dark:text-[#D6DCDC]/40"
             style={{
               fontFamily: 'Barlow, sans-serif',
-              color: 'rgba(214,220,220,0.3)',
               letterSpacing: '0.05em',
             }}
           >
@@ -108,7 +85,7 @@ function FeaturedCard({ cs }: { cs: CaseStudy }) {
         )}
 
         <h3
-          className="text-2xl sm:text-3xl lg:text-4xl font-normal text-[#D6DCDC] leading-snug mb-5 transition-all duration-300"
+          className="text-2xl sm:text-3xl lg:text-4xl font-normal text-slate-900 dark:text-[#D6DCDC] leading-snug mb-5 transition-all duration-300"
           style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
         >
           {cs.title}
@@ -116,10 +93,9 @@ function FeaturedCard({ cs }: { cs: CaseStudy }) {
 
         {cs.excerpt && (
           <p
-            className="text-sm sm:text-base leading-relaxed mb-8"
+            className="text-sm sm:text-base leading-relaxed mb-8 text-slate-600 dark:text-[#D6DCDC]/50"
             style={{
               fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif",
-              color: 'rgba(214,220,220,0.45)',
             }}
           >
             {cs.excerpt}
@@ -127,8 +103,8 @@ function FeaturedCard({ cs }: { cs: CaseStudy }) {
         )}
 
         <div
-          className="inline-flex items-center gap-2 text-xs font-semibold group-hover:gap-4 transition-all duration-300"
-          style={{ fontFamily: 'Barlow, sans-serif', letterSpacing: '0.08em', color: '#C1B6FF' }}
+          className="inline-flex items-center gap-2 text-xs font-semibold group-hover:gap-4 transition-all duration-300 text-slate-900 dark:text-[#A78BFA]"
+          style={{ fontFamily: 'Barlow, sans-serif', letterSpacing: '0.08em' }}
         >
           READ CASE STUDY →
         </div>
@@ -142,39 +118,22 @@ function SecondaryCard({ cs }: { cs: CaseStudy }) {
   return (
     <Link
       href={`/case-studies/${cs.slug}`}
-      className="group flex flex-col rounded-[24px] overflow-hidden cursor-pointer transition-all duration-300"
-      style={{
-        background: '#0E0E0E',
-        border: '1px solid rgba(214,220,220,0.07)',
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.border = '1px solid rgba(193,182,255,0.18)';
-        (e.currentTarget as HTMLElement).style.boxShadow = '0 0 40px rgba(193,182,255,0.05)';
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.border = '1px solid rgba(214,220,220,0.07)';
-        (e.currentTarget as HTMLElement).style.boxShadow = 'none';
-      }}
+      className="group flex flex-col rounded-[24px] overflow-hidden cursor-pointer transition-all duration-300 bg-slate-100 text-slate-900 border border-slate-200 shadow-md dark:bg-[#0E0E0E] dark:text-[#D6DCDC] dark:border-[#D6DCDC]/10 dark:shadow-none hover:border-slate-300 dark:hover:border-[#A78BFA]/30"
     >
       {/* Image */}
-      <div className="relative aspect-video overflow-hidden bg-[#161616]">
+      <div className="relative aspect-video overflow-hidden bg-slate-200 dark:bg-[#161616]">
         <img
           src={cs.featuredImage}
           alt={cs.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.5) 100%)' }}
+          className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"
         />
         <div
-          className="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest"
+          className="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] font-semibold uppercase tracking-widest bg-[#A78BFA]/20 text-[#A78BFA] border border-[#A78BFA]/40 backdrop-blur-md"
           style={{
             fontFamily: 'Barlow, sans-serif',
-            background: 'rgba(193,182,255,0.12)',
-            border: '1px solid rgba(193,182,255,0.25)',
-            color: '#C1B6FF',
-            backdropFilter: 'blur(8px)',
           }}
         >
           Case Study
@@ -185,10 +144,9 @@ function SecondaryCard({ cs }: { cs: CaseStudy }) {
       <div className="p-6 md:p-8 flex flex-col flex-grow">
         {cs.date && (
           <p
-            className="text-xs mb-3"
+            className="text-xs mb-3 text-slate-500 dark:text-[#D6DCDC]/40"
             style={{
               fontFamily: 'Barlow, sans-serif',
-              color: 'rgba(214,220,220,0.3)',
               letterSpacing: '0.05em',
             }}
           >
@@ -196,22 +154,22 @@ function SecondaryCard({ cs }: { cs: CaseStudy }) {
           </p>
         )}
         <h3
-          className="text-xl font-normal text-[#D6DCDC]/85 leading-snug mb-3 line-clamp-2"
+          className="text-xl font-normal text-slate-900 dark:text-[#D6DCDC]/85 leading-snug mb-3 line-clamp-2"
           style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
         >
           {cs.title}
         </h3>
         {cs.excerpt && (
           <p
-            className="text-sm text-[#D6DCDC]/40 line-clamp-3 leading-relaxed mb-5 flex-grow"
+            className="text-sm text-slate-600 dark:text-[#D6DCDC]/40 line-clamp-3 leading-relaxed mb-5 flex-grow"
             style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
           >
             {cs.excerpt}
           </p>
         )}
         <div
-          className="inline-flex items-center text-xs font-semibold group-hover:gap-3 transition-all duration-300 gap-2"
-          style={{ fontFamily: 'Barlow, sans-serif', letterSpacing: '0.08em', color: '#C1B6FF' }}
+          className="inline-flex items-center text-xs font-semibold group-hover:gap-3 transition-all duration-300 gap-2 text-slate-900 dark:text-[#A78BFA]"
+          style={{ fontFamily: 'Barlow, sans-serif', letterSpacing: '0.08em' }}
         >
           READ CASE STUDY →
         </div>
@@ -347,7 +305,7 @@ export default function CaseStudiesSection() {
             </p>
             <Link
               href="/case-studies"
-              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-widest transition-all duration-200 bg-slate-900 text-white hover:bg-slate-800 dark:bg-[#D6DCDC] dark:text-black dark:hover:bg-white cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-widest transition-all duration-200 bg-[#A78BFA] text-black hover:bg-[#B89FFF] cursor-pointer shadow-md shadow-[#A78BFA]/20"
               style={{
                 fontFamily: 'Barlow, sans-serif',
                 letterSpacing: '0.1em',

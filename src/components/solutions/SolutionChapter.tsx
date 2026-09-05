@@ -17,47 +17,40 @@ function VisualWebsite() {
       {/* Structured modular grid — UI wireframe geometry */}
       <div className="relative z-10 w-full max-w-xs space-y-3 qft-float-slow" style={{ animationDelay: '0s' }}>
         {/* Browser chrome bar */}
-        <div className="rounded-xl p-3 flex items-center gap-2"
-          style={{ background: '#0E0E0E', border: '1px solid rgba(214,220,220,0.12)' }}>
+        <div className="rounded-xl p-3 flex items-center gap-2 bg-slate-900 text-white dark:bg-[#0E0E0E] border border-slate-800 dark:border-[#D6DCDC]/15 shadow-md">
           <div className="flex gap-1.5">
             {['#C1B6FF', '#818CF8', '#D6DCDC'].map((c, i) => (
               <div key={i} className="w-2.5 h-2.5 rounded-full" style={{ background: c, opacity: 0.7 }} />
             ))}
           </div>
-          <div className="flex-1 h-2 rounded-full" style={{ background: 'rgba(214,220,220,0.08)' }} />
-          <div className="w-6 h-2 rounded-full" style={{ background: 'rgba(214,220,220,0.15)' }} />
+          <div className="flex-1 h-2 rounded-full bg-slate-700 dark:bg-[#D6DCDC]/10" />
+          <div className="w-6 h-2 rounded-full bg-slate-700 dark:bg-[#D6DCDC]/20" />
         </div>
 
         {/* Hero block */}
-        <div className="rounded-xl p-5 space-y-3"
-          style={{ background: '#0C0C0C', border: '1px solid rgba(214,220,220,0.08)' }}>
-          <div className="h-3 w-2/3 rounded-full" style={{ background: 'linear-gradient(90deg, #C1B6FF, #818CF8)', opacity: 0.9 }} />
-          <div className="h-2 w-full rounded-full" style={{ background: 'rgba(214,220,220,0.1)' }} />
-          <div className="h-2 w-3/4 rounded-full" style={{ background: 'rgba(214,220,220,0.07)' }} />
+        <div className="rounded-xl p-5 space-y-3 bg-slate-900 dark:bg-[#0C0C0C] border border-slate-800 dark:border-[#D6DCDC]/10 shadow-lg">
+          <div className="h-3 w-2/3 rounded-full bg-gradient-to-r from-[#C1B6FF] to-[#818CF8] opacity-90" />
+          <div className="h-2 w-full rounded-full bg-slate-700 dark:bg-[#D6DCDC]/10" />
+          <div className="h-2 w-3/4 rounded-full bg-slate-700 dark:bg-[#D6DCDC]/10" />
           <div className="flex gap-2 pt-1">
-            <div className="h-7 w-20 rounded-full" style={{ background: '#D6DCDC', opacity: 0.9 }} />
-            <div className="h-7 w-20 rounded-full" style={{ border: '1px solid rgba(214,220,220,0.3)' }} />
+            <div className="h-7 w-20 rounded-full bg-slate-200 text-slate-900 dark:bg-[#D6DCDC]" />
+            <div className="h-7 w-20 rounded-full border border-slate-600 dark:border-[#D6DCDC]/30" />
           </div>
         </div>
 
         {/* Content grid row */}
         <div className="grid grid-cols-3 gap-2">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="rounded-lg aspect-square"
-              style={{
-                background: i === 1 ? 'rgba(214,220,220,0.08)' : '#0C0C0C',
-                border: `1px solid rgba(214,220,220,${i === 1 ? 0.2 : 0.07})`,
-              }} />
+            <div key={i} className={`rounded-lg aspect-square border ${i === 1 ? 'bg-slate-800 border-slate-700 dark:bg-[#D6DCDC]/10 dark:border-[#D6DCDC]/20' : 'bg-slate-900 border-slate-800 dark:bg-[#0C0C0C] dark:border-[#D6DCDC]/10'}`} />
           ))}
         </div>
 
         {/* Bottom row */}
         <div className="grid grid-cols-2 gap-2">
           {[0, 1].map((i) => (
-            <div key={i} className="rounded-lg p-3 space-y-2"
-              style={{ background: '#0C0C0C', border: '1px solid rgba(214,220,220,0.07)' }}>
-              <div className="h-2 w-full rounded-full" style={{ background: 'rgba(214,220,220,0.1)' }} />
-              <div className="h-2 w-2/3 rounded-full" style={{ background: 'rgba(214,220,220,0.06)' }} />
+            <div key={i} className="rounded-lg p-3 space-y-2 bg-slate-900 dark:bg-[#0C0C0C] border border-slate-800 dark:border-[#D6DCDC]/10">
+              <div className="h-2 w-full rounded-full bg-slate-700 dark:bg-[#D6DCDC]/10" />
+              <div className="h-2 w-2/3 rounded-full bg-slate-700 dark:bg-[#D6DCDC]/10" />
             </div>
           ))}
         </div>
@@ -147,13 +140,12 @@ function VisualContent() {
         {/* Editorial layout blocks */}
         <div className="space-y-3">
           {/* Large headline block */}
-          <div className="rounded-xl p-5" style={{ background: '#0C0C0C', border: '1px solid rgba(214,220,220,0.08)' }}>
-            <div className="h-4 w-3/4 rounded-full mb-2"
-              style={{ background: 'linear-gradient(90deg, #E2E8F0, #C1B6FF)', opacity: 0.9 }} />
-            <div className="h-3 w-1/2 rounded-full mb-4" style={{ background: 'rgba(214,220,220,0.2)' }} />
+          <div className="rounded-xl p-5 bg-slate-900 dark:bg-[#0C0C0C] border border-slate-800 dark:border-[#D6DCDC]/10 shadow-lg">
+            <div className="h-4 w-3/4 rounded-full mb-2 bg-gradient-to-r from-[#E2E8F0] to-[#C1B6FF] opacity-90" />
+            <div className="h-3 w-1/2 rounded-full mb-4 bg-slate-700 dark:bg-[#D6DCDC]/20" />
             <div className="space-y-1.5">
               {[1, 0.7, 0.85, 0.6].map((w, i) => (
-                <div key={i} className="h-2 rounded-full" style={{ width: `${w * 100}%`, background: 'rgba(214,220,220,0.08)' }} />
+                <div key={i} className="h-2 rounded-full bg-slate-700/60 dark:bg-[#D6DCDC]/10" style={{ width: `${w * 100}%` }} />
               ))}
             </div>
           </div>
@@ -447,7 +439,7 @@ export default function SolutionChapter({
         <div>
           <Link
             href={href}
-            className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-xs font-semibold uppercase tracking-widest transition-all duration-200 cursor-pointer bg-slate-900 text-white hover:bg-slate-800 dark:bg-[#D6DCDC] dark:text-black dark:hover:bg-white hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-xs font-semibold uppercase tracking-widest transition-all duration-200 cursor-pointer bg-[#A78BFA] text-black hover:bg-[#B89FFF] hover:scale-[1.02] active:scale-[0.98] shadow-md shadow-[#A78BFA]/20"
             style={{
               fontFamily: 'Barlow, sans-serif',
               letterSpacing: '0.1em',
@@ -463,11 +455,11 @@ export default function SolutionChapter({
   const visualBlock = (
     <div
       ref={visualContainerRef}
-      className="relative min-h-[360px] sm:min-h-[420px] lg:min-h-[480px] rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 bg-slate-100 dark:bg-[#080808] border border-slate-200 dark:border-[#D6DCDC]/10 hover:border-slate-300 dark:hover:border-white/20"
+      className="relative min-h-[360px] sm:min-h-[420px] lg:min-h-[480px] rounded-3xl overflow-hidden shadow-xl transition-all duration-500 bg-slate-50 dark:bg-[#080808] border border-slate-200/80 dark:border-[#D6DCDC]/10 hover:border-slate-300 dark:hover:border-white/20"
     >
       {/* Accent glow behind visual */}
       <div
-        className="absolute inset-0 opacity-20 dark:opacity-25 pointer-events-none"
+        className="absolute inset-0 opacity-15 dark:opacity-25 pointer-events-none"
         style={{
           background: `radial-gradient(circle at 50% 50%, ${accent} 0%, transparent 65%)`,
           filter: 'blur(50px)',

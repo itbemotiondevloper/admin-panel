@@ -22,7 +22,7 @@ const FOOTER_COLUMNS = [
 ];
 
 export default function FooterPage() {
-  const [footerLogo, setFooterLogo] = useState<string>('/logo2.png');
+  const [footerLogo, setFooterLogo] = useState<string>('/logo1.png');
   const [companyName, setCompanyName] = useState<string>('Quest For Tech');
   const [slugsMap, setSlugsMap] = useState<Record<string, string>>({
     // Fallbacks
@@ -36,7 +36,7 @@ export default function FooterPage() {
   useEffect(() => {
     const handleBrandingSync = () => {
       const savedFooter = localStorage.getItem('branding_footer_logo') || localStorage.getItem('branding_logo_white');
-      if (savedFooter) setFooterLogo(savedFooter);
+      if (savedFooter && savedFooter !== '/logo2.png') setFooterLogo(savedFooter);
     };
 
     // Load initial cached values
@@ -46,7 +46,7 @@ export default function FooterPage() {
       try {
         const s = await settingsService.getSettings();
         if (s.branding) {
-          const logoToUse = s.branding.footerLogo || s.branding.logoWhite || '/logo2.png';
+          const logoToUse = s.branding.footerLogo || s.branding.logoWhite || '/logo1.png';
           setFooterLogo(logoToUse);
           localStorage.setItem('branding_footer_logo', logoToUse);
           if (s.branding.companyName) {
@@ -101,7 +101,7 @@ export default function FooterPage() {
                 src={footerLogo}
                 alt={`${companyName} Logo`}
                 className="object-contain h-8 md:h-9 w-auto max-w-[200px]"
-                onError={(e) => { e.currentTarget.src = '/logo2.png'; }}
+                onError={(e) => { e.currentTarget.src = '/logo1.png'; }}
               />
             </div>
 

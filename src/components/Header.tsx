@@ -9,8 +9,8 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>('dark');
   const [mounted, setMounted] = useState(false);
-  const [logoBlack, setLogoBlack] = useState('/logo1.png');
-  const [logoWhite, setLogoWhite] = useState('/logo2.png');
+  const [logoBlack, setLogoBlack] = useState('/logo2.png');
+  const [logoWhite, setLogoWhite] = useState('/logo1.png');
   const [companyName, setCompanyName] = useState('Quest For Tech');
   const pathname = usePathname();
 
@@ -120,7 +120,7 @@ export default function Header() {
   };
 
   return (
-    <div className="sticky top-0 z-50 w-full bg-[#161616] border-b border-[#2A2A2A]">
+    <div className="sticky top-0 z-50 w-full bg-white dark:bg-[#161616] border-b border-slate-200 dark:border-[#2A2A2A] transition-colors duration-300">
       <header className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
         
         {/* Left: Logo & Navigation */}
@@ -128,16 +128,16 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
             <img
-              src={logoBlack}
-              alt={`${companyName} Logo`}
-              className="object-contain h-6 w-auto block dark:hidden"
-              onError={(e) => { e.currentTarget.src = '/logo1.png'; }}
-            />
-            <img
               src={logoWhite}
               alt={`${companyName} Logo`}
-              className="object-contain h-6 w-auto hidden dark:block"
+              className="object-contain h-6 w-auto block dark:hidden"
               onError={(e) => { e.currentTarget.src = '/logo2.png'; }}
+            />
+            <img
+              src={logoBlack}
+              alt={`${companyName} Logo`}
+              className="object-contain h-6 w-auto hidden dark:block"
+              onError={(e) => { e.currentTarget.src = '/logo1.png'; }}
             />
           </Link>
 
@@ -152,8 +152,8 @@ export default function Header() {
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`text-[14px] transition-colors duration-200 ${
                     isActive
-                      ? 'font-bold text-white'
-                      : 'font-medium text-[#A0A0A0] hover:text-white'
+                      ? 'font-bold text-slate-900 dark:text-white'
+                      : 'font-medium text-slate-600 hover:text-slate-900 dark:text-[#A0A0A0] dark:hover:text-white'
                   }`}
                   style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}
                 >
@@ -169,7 +169,7 @@ export default function Header() {
           {renderThemeToggle()}
           <Link
             href="/request-demo"
-            className="rounded-full bg-[#333333] px-5 py-2 text-[13px] font-semibold text-white transition-all duration-200 hover:bg-[#444444] border border-[#444] active:scale-95"
+            className="rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] px-5 py-2 text-[13px] font-semibold transition-all duration-200 border border-[#A78BFA] active:scale-95 shadow-sm"
             style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}
           >
             Get Started
@@ -184,7 +184,7 @@ export default function Header() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             type="button"
-            className="flex h-9 w-9 items-center justify-center rounded-full text-zinc-300 hover:bg-white/10 transition-colors"
+            className="flex h-9 w-9 items-center justify-center rounded-full text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
             aria-label="Toggle navigation menu"
           >
             {isMenuOpen ? (
@@ -202,7 +202,7 @@ export default function Header() {
 
       {/* Mobile Menu Panel */}
       <div
-        className={`md:hidden transition-all duration-300 ease-in-out absolute top-full left-0 w-full bg-[#161616] border-b border-[#2A2A2A] overflow-hidden ${
+        className={`md:hidden transition-all duration-300 ease-in-out absolute top-full left-0 w-full bg-white dark:bg-[#161616] border-b border-slate-200 dark:border-[#2A2A2A] overflow-hidden ${
           isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
@@ -218,18 +218,18 @@ export default function Header() {
                   if (link.href !== '#') setIsMenuOpen(false);
                 }}
                 className={`py-3 text-[15px] transition-colors ${
-                  isActive ? 'font-bold text-white' : 'font-medium text-[#A0A0A0] hover:text-white'
+                  isActive ? 'font-bold text-slate-900 dark:text-white' : 'font-medium text-slate-600 hover:text-slate-900 dark:text-[#A0A0A0] dark:hover:text-white'
                 }`}
               >
                 {link.label}
               </Link>
             );
           })}
-          <div className="mt-4 pt-4 border-t border-[#2A2A2A]">
+          <div className="mt-4 pt-4 border-t border-slate-200 dark:border-[#2A2A2A]">
             <Link
               href="/request-demo"
               onClick={() => setIsMenuOpen(false)}
-              className="flex w-full items-center justify-center rounded-full bg-[#333333] py-3 text-[14px] font-semibold text-white transition-all hover:bg-[#444444]"
+              className="flex w-full items-center justify-center rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] py-3 text-[14px] font-semibold transition-all"
             >
               Get Started
             </Link>

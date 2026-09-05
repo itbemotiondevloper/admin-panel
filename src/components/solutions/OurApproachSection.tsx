@@ -260,14 +260,11 @@ function DesktopSticky() {
               className="min-h-screen flex items-center"
             >
               <div
-                className="w-full p-8 lg:p-10 rounded-[28px] transition-all duration-500"
-                style={{
-                  background: isActive ? '#0E0E0E' : '#060606',
-                  border: isActive
-                    ? `1px solid ${step.accent}30`
-                    : '1px solid rgba(214,220,220,0.04)',
-                  boxShadow: isActive ? `0 0 60px ${step.accent}08` : 'none',
-                }}
+                className={`w-full p-8 lg:p-10 rounded-[28px] transition-all duration-500 border ${
+                  isActive
+                    ? 'bg-slate-100/90 text-slate-900 border-slate-300 shadow-xl dark:bg-[#0E0E0E] dark:text-[#D6DCDC] dark:border-[#C1B6FF]/30'
+                    : 'bg-slate-50/60 text-slate-400 border-slate-200/60 dark:bg-[#060606] dark:text-white/20 dark:border-white/5 opacity-50'
+                }`}
               >
                 {/* Number */}
                 <div
@@ -275,7 +272,7 @@ function DesktopSticky() {
                   style={{
                     fontFamily: 'Barlow, sans-serif',
                     color: step.accent,
-                    opacity: isActive ? 0.15 : 0.05,
+                    opacity: isActive ? 0.25 : 0.08,
                   }}
                 >
                   {step.number}
@@ -285,17 +282,20 @@ function DesktopSticky() {
                 <div
                   className="w-2 h-2 rounded-full mb-6 transition-all duration-500"
                   style={{
-                    background: isActive ? step.accent : 'rgba(214,220,220,0.12)',
+                    background: isActive ? step.accent : 'rgba(150,150,150,0.3)',
                     boxShadow: isActive ? `0 0 10px ${step.accent}` : 'none',
                   }}
                 />
 
                 {/* Step name */}
                 <h3
-                  className="text-3xl xl:text-4xl font-normal mb-4 transition-colors duration-500"
+                  className={`text-3xl xl:text-4xl font-normal mb-4 transition-colors duration-500 ${
+                    isActive
+                      ? 'text-slate-900 dark:text-[#D6DCDC]'
+                      : 'text-slate-500 dark:text-slate-600'
+                  }`}
                   style={{
                     fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif",
-                    color: isActive ? '#D6DCDC' : 'rgba(214,220,220,0.3)',
                   }}
                 >
                   {step.name}
@@ -303,10 +303,13 @@ function DesktopSticky() {
 
                 {/* Description */}
                 <p
-                  className="text-base leading-relaxed transition-colors duration-500"
+                  className={`text-base leading-relaxed transition-colors duration-500 ${
+                    isActive
+                      ? 'text-slate-700 dark:text-[#D6DCDC]/60'
+                      : 'text-slate-400 dark:text-slate-500'
+                  }`}
                   style={{
                     fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif",
-                    color: isActive ? 'rgba(214,220,220,0.6)' : 'rgba(214,220,220,0.18)',
                   }}
                 >
                   {step.description}

@@ -279,7 +279,7 @@ export default function ConnectedEcosystemSection() {
               <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/5">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-widest transition-all duration-200 bg-slate-900 text-white hover:bg-slate-800 dark:bg-[#D6DCDC] dark:text-black dark:hover:bg-white cursor-pointer"
+                  className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-widest transition-all duration-200 bg-[#A78BFA] text-black hover:bg-[#B89FFF] cursor-pointer shadow-md shadow-[#A78BFA]/20"
                   style={{
                     fontFamily: 'Barlow, sans-serif',
                     letterSpacing: '0.1em',

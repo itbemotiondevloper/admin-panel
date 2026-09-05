@@ -46,32 +46,26 @@ function CtaAbstractVisual() {
 
 export default function SolutionsFinalCtaSection() {
   return (
-    <section className="relative w-full bg-white dark:bg-black overflow-hidden transition-colors duration-300">
-      <div
-        className="w-full h-px bg-slate-200 dark:bg-transparent"
-        style={{ background: 'linear-gradient(90deg, transparent, rgba(214,220,220,0.07), transparent)' }}
-      />
-
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16 md:py-20">
-        {/* Full-panel gradient container */}
+    <section className="relative w-full bg-white dark:bg-black overflow-hidden py-16 md:py-24 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        {/* Modern clean container */}
         <div
-          className="relative overflow-hidden rounded-[36px] min-h-[70vh] flex items-center bg-slate-900 text-white dark:bg-gradient-to-br dark:from-[#0A0A0A] dark:via-[#111116] dark:to-[#07070A] border border-slate-800 dark:border-[#D6DCDC]/10 shadow-2xl"
+          className="relative overflow-hidden rounded-[32px] p-8 sm:p-12 lg:p-16 bg-slate-900 text-white dark:bg-[#0B0B0B] dark:border dark:border-[#D6DCDC]/15 shadow-2xl transition-all duration-300"
         >
-          {/* Top hairline gradient */}
+          {/* Subtle background glow */}
           <div
-            className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px]"
-            style={{ background: 'linear-gradient(90deg, transparent, #C1B6FF, transparent)' }}
+            className="pointer-events-none absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] opacity-15"
+            style={{
+              background: 'radial-gradient(ellipse at 80% 50%, #A78BFA 0%, transparent 65%)',
+              filter: 'blur(90px)',
+            }}
           />
 
-          {/* Abstract visual */}
-          <CtaAbstractVisual />
-
-          {/* Content */}
-          <div className="relative z-10 max-w-xl px-8 sm:px-12 md:px-16 lg:px-20 py-16 lg:py-0">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="inline-block w-5 h-px bg-white/40 dark:bg-[#D6DCDC]/40" />
+          <div className="relative z-10 max-w-2xl">
+            <div className="flex items-center gap-3 mb-6">
+              <span className="inline-block w-5 h-px bg-[#A78BFA]" />
               <span
-                className="text-[11px] font-semibold uppercase tracking-[0.25em] text-white/70 dark:text-[#D6DCDC]/50"
+                className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#A78BFA]"
                 style={{ fontFamily: 'Barlow, sans-serif' }}
               >
                 Ready to Start?
@@ -79,16 +73,14 @@ export default function SolutionsFinalCtaSection() {
             </div>
 
             <h2
-              className="text-5xl sm:text-6xl md:text-7xl lg:text-[80px] font-normal leading-[1.06] tracking-tight text-white dark:text-[#D6DCDC] mb-6"
+              className="text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.08] tracking-tight text-white dark:text-[#D6DCDC] mb-6"
               style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
             >
-              Not Sure What{' '}
-              <br className="hidden sm:inline" />
-              You Need?
+              Not Sure What You Need?
             </h2>
 
             <p
-              className="text-base sm:text-lg md:text-xl font-normal text-white/80 dark:text-[#D6DCDC]/58 leading-relaxed mb-10 max-w-lg"
+              className="text-base sm:text-lg font-normal text-slate-300 dark:text-[#D6DCDC]/60 leading-relaxed mb-10"
               style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
             >
               You don't need to have everything figured out before you talk to us. Tell us what
@@ -99,7 +91,7 @@ export default function SolutionsFinalCtaSection() {
             <div className="flex flex-wrap items-center gap-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-xs font-semibold uppercase tracking-widest transition-all duration-200 bg-white text-slate-900 hover:bg-slate-100 dark:bg-[#D6DCDC] dark:text-black dark:hover:bg-white cursor-pointer hover:scale-[1.02] active:scale-[0.98] shadow-lg"
+                className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-xs font-semibold uppercase tracking-widest transition-all duration-200 bg-[#A78BFA] text-black hover:bg-[#B89FFF] cursor-pointer hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-[#A78BFA]/25"
                 style={{
                   fontFamily: 'Barlow, sans-serif',
                   letterSpacing: '0.1em',
