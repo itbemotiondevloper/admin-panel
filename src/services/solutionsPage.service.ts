@@ -3,182 +3,167 @@ import { db } from '@/lib/firebase/config';
 
 export interface SolutionsPageData {
   hero: {
+    eyebrow: string;
     title: string;
     desc: string;
-    trustText: string;
+    ctaPrimaryText: string;
+    ctaPrimaryHref: string;
+    ctaSecondaryText: string;
+    ctaSecondaryHref: string;
   };
-  commandCenter: {
+  connected: {
+    badge: string;
     title: string;
     desc: string;
-    modules: {
+    ctaText: string;
+    ctaHref: string;
+    scenarios: {
       id: string;
-      label: string;
-      sublabel: string;
-      inspectorTitle: string;
-      inspectorDesc: string;
-      metricValue: string;
-      metricLabel: string;
-    }[];
-  };
-  stats: {
-    value: string;
-    label: string;
-  }[];
-  controlDeck: {
-    title: string;
-    desc: string;
-    outlets: {
-      key: string;
       title: string;
-      statusBadge: string;
-      revenue: string;
-      metricLabel: string;
+      capabilities: string[];
+      description: string;
     }[];
   };
-  integrations: {
+  approach: {
+    badge: string;
     title: string;
     desc: string;
-    items: {
-      id: string;
+    steps: {
+      number: string;
       name: string;
-      subtext: string;
+      description: string;
+      accent: string;
     }[];
   };
-  calculator: {
+  whyUs: {
+    badge: string;
     title: string;
     desc: string;
-    factorOrders: number;
-    factorOutlets: number;
-    factorHoursOrders: number;
-    factorHoursOutlets: number;
+    pillars: {
+      title: string;
+      description: string;
+      accent: string;
+    }[];
   };
 }
 
 export const DEFAULT_SOLUTIONS_PAGE_DATA: SolutionsPageData = {
   hero: {
-    title: "Spend more time *serving customers.*",
-    desc: "Running a restaurant is busy enough. Digitory brings billing, orders, inventory, kitchen management, and reports into one simple system, so your team can work faster and with fewer mistakes.",
-    trustText: "Trusted by 500+ restaurants, cafés, bars, and cloud kitchens across India."
+    eyebrow: "Digital Solutions & Services",
+    title: "The Right Strategy. The Right Technology. The Right Execution.",
+    desc: "From building your digital foundation to improving search visibility, generating qualified leads, and engineering custom technology — Quest For Tech brings strategy, creativity, marketing, and data together to create compounding growth.",
+    ctaPrimaryText: "LET'S TALK →",
+    ctaPrimaryHref: "/contact",
+    ctaSecondaryText: "EXPLORE SOLUTIONS ↓",
+    ctaSecondaryHref: "#our-solutions"
   },
-  commandCenter: {
-    title: "Everything your restaurant needs, *in one place*",
-    desc: "Digitory connects every part of your restaurant, from the front counter to the kitchen and from inventory to business reports. With everything working together, your daily operations become simpler and easier to manage.",
-    modules: [
+  connected: {
+    badge: "Connected Solutions",
+    title: "Digital Services Designed to Work Better Together",
+    desc: "Single-service tactics create fragmented results. We build connected digital ecosystems where each solution reinforces the others.",
+    ctaText: "LET'S BUILD YOUR STRATEGY →",
+    ctaHref: "/contact",
+    scenarios: [
       {
-        id: "pos",
-        label: "POS & Billing",
-        sublabel: "15s Billing Counter",
-        inspectorTitle: "POS & Billing Hub",
-        inspectorDesc: "Ultra-fast counter POS, visual table management, QR digital menus, and split billing in 15 seconds.",
-        metricValue: "15 sec",
-        metricLabel: "Avg Checkout Time"
+        id: "visibility",
+        title: "Need More Visibility?",
+        capabilities: ["SEO", "Content", "Website Development"],
+        description: "Align your website design, content authority, and search engine optimization to establish search dominance and capture high-intent organic traffic."
       },
       {
-        id: "kds",
-        label: "Kitchen KDS",
-        sublabel: "35% Faster Prep",
-        inspectorTitle: "Kitchen KDS Hub",
-        inspectorDesc: "Direct routing from orders to specific kitchen displays. Eliminates paper tickets, coordinates prep stages, and minimizes communication errors.",
-        metricValue: "35%",
-        metricLabel: "Faster Food Prep"
+        id: "leads",
+        title: "Need More Qualified Leads?",
+        capabilities: ["SEO", "Content", "Performance Marketing", "Website Development"],
+        description: "Combine strategic search positioning, targeted paid campaigns, conversion-focused landing pages, and compelling messaging to drive qualified leads."
       },
       {
-        id: "inventory",
-        label: "Smart Inventory",
-        sublabel: "Recipe Auto-Deduct",
-        inspectorTitle: "Smart Inventory Hub",
-        inspectorDesc: "Tracks raw ingredients and auto-deducts them based on recipe configurations. Sends proactive alerts before items run out of stock.",
-        metricValue: "98%",
-        metricLabel: "Inventory Accuracy"
+        id: "launch",
+        title: "Launching Something New?",
+        capabilities: ["Website Development", "Content", "SEO", "Performance Marketing"],
+        description: "Build market presence rapidly with a high-performance web experience, launch content strategy, organic search groundwork, and targeted ad distribution."
       },
       {
-        id: "multioutlet",
-        label: "Multi-Outlet Hub",
-        sublabel: "Global Menu Push",
-        inspectorTitle: "Multi-Outlet Hub",
-        inspectorDesc: "Push menu updates globally, manage multi-store configurations, sync pricing tiers, and monitor centralized reports without logging into separate accounts.",
-        metricValue: "1-Click",
-        metricLabel: "Global Menu Sync"
-      },
-      {
-        id: "ai",
-        label: "AI Forecast BI",
-        sublabel: "Real-Time Reports",
-        inspectorTitle: "AI Forecast BI Engine",
-        inspectorDesc: "Anticipate customer demands, optimize staff shifts, and reduce raw ingredient spoilage through predictive AI and live dashboard widgets.",
-        metricValue: "92%",
-        metricLabel: "Forecasting Precision"
-      },
-      {
-        id: "integrations",
-        label: "Swiggy & Zomato",
-        sublabel: "2-Way Sync Engine",
-        inspectorTitle: "Swiggy & Zomato Engine",
-        inspectorDesc: "Eliminate manual entries on separate tablets. Real-time direct integrations map online orders directly into your billing terminal and kitchen setup.",
-        metricValue: "0 min",
-        metricLabel: "Manual Order Delay"
+        id: "custom",
+        title: "Need a Custom Digital Solution?",
+        capabilities: ["Custom Development", "AI & Technology Solutions"],
+        description: "Engineer bespoke software applications, API integrations, workflow automation, and intelligent AI models built around your exact business requirements."
       }
     ]
   },
-  stats: [
-    { value: "22%", label: "Faster Table Turnover" },
-    { value: "32%", label: "Less Raw Wastage" },
-    { value: "98%", label: "Order Kitchen Accuracy" },
-    { value: "15 hrs", label: "Saved Weekly per Manager" }
-  ],
-  controlDeck: {
-    title: "One Dashboard. *Every location in sync.*",
-    desc: "Monitor revenue, stock transfers, and store health across cities directly from your smartphone.",
-    outlets: [
+  approach: {
+    badge: "Our Approach",
+    title: "We Don't Start With a Package. We Start With a Problem.",
+    desc: "Every business has different goals, audiences, challenges, and opportunities. That's why we first understand what you need, then determine the right solution.",
+    steps: [
       {
-        key: "Chain Overview",
-        title: "Chain Overview (4 Outlets)",
-        statusBadge: "4 / 4 Outlets Online",
-        revenue: "₹ 14,85,200",
-        metricLabel: "↑ Consolidated Real-Time Sync"
+        number: "01",
+        name: "Understand",
+        description: "We start by deeply understanding your business, your audience, your goals, and the challenges standing between where you are and where you want to be.",
+        accent: "#7C3AED"
       },
       {
-        key: "Mumbai Flagship",
-        title: "Mumbai Flagship Outlet",
-        statusBadge: "Online",
-        revenue: "₹ 5,42,800",
-        metricLabel: "↑ 12% increase from yesterday"
+        number: "02",
+        name: "Research",
+        description: "We research your market, your competitors, your customers, and your data — looking for the insights and opportunities that will inform a smarter strategy.",
+        accent: "#6366F1"
       },
       {
-        key: "Delhi QSR",
-        title: "Delhi QSR Outlet",
-        statusBadge: "Online",
-        revenue: "₹ 4,12,400",
-        metricLabel: "↑ Peak hour sales active"
+        number: "03",
+        name: "Strategise",
+        description: "We build a clear direction built around your priorities — not a generic template. Strategy is the foundation everything else is built on.",
+        accent: "#8B5CF6"
       },
       {
-        key: "Bangalore Cloud",
-        title: "Bangalore Cloud Kitchen",
-        statusBadge: "Online",
-        revenue: "₹ 5,30,000",
-        metricLabel: "↑ High order volume"
+        number: "04",
+        name: "Execute",
+        description: "We apply the right combination of marketing, creativity, content, and technology — working with precision and purpose to turn strategy into reality.",
+        accent: "#4F46E5"
+      },
+      {
+        number: "05",
+        name: "Measure",
+        description: "We track the metrics that matter to your business, not just vanity numbers. Good measurement makes everything downstream more accountable.",
+        accent: "#7C3AED"
+      },
+      {
+        number: "06",
+        name: "Improve",
+        description: "We learn from the results and look for better ways forward. Continuous improvement is how we create compounding value over time.",
+        accent: "#6366F1"
       }
     ]
   },
-  integrations: {
-    title: "Connects with *your favorite apps.*",
-    desc: "1-click setup with Swiggy, Zomato, Razorpay, Paytm, Tally, WhatsApp, and POS hardware.",
-    items: [
-      { id: "swiggy", name: "Swiggy Direct", subtext: "2-way menu & order sync." },
-      { id: "razorpay", name: "Razorpay", subtext: "UPI & Card reconciliation." },
-      { id: "zomato", name: "Zomato Connect", subtext: "Auto-accept & instant toggles." },
-      { id: "tally", name: "Tally Prime", subtext: "Automated daily sales entries." },
-      { id: "paytm", name: "Paytm", subtext: "Instant QR payments." },
-      { id: "whatsapp", name: "WhatsApp", subtext: "Automated billing alerts." }
+  whyUs: {
+    badge: "Why Quest For Tech",
+    title: "Built around outcomes, not outputs.",
+    desc: "We don't measure success by deliverable checklists. We measure success by the impact we create for your business.",
+    pillars: [
+      {
+        title: "Business-First Thinking",
+        description: "We start with your goals, not a predefined package.",
+        accent: "#7C3AED"
+      },
+      {
+        title: "Technology & AI Know-How",
+        description: "We use modern technology and AI where they can genuinely improve the work.",
+        accent: "#6366F1"
+      },
+      {
+        title: "Data-Backed Decisions",
+        description: "We use data to understand performance and make better decisions.",
+        accent: "#8B5CF6"
+      },
+      {
+        title: "ROI-Driven Thinking",
+        description: "We focus on outcomes that create real business value, not vanity metrics.",
+        accent: "#4F46E5"
+      },
+      {
+        title: "Continuous Improvement",
+        description: "We keep learning, testing, and looking for better ways forward.",
+        accent: "#7C3AED"
+      }
     ]
-  },
-  calculator: {
-    title: "See how much *you can save*",
-    desc: "Use our interactive calculator to see exactly how much Digitory can help you save by reducing food waste, optimizing staff hours, and increasing your daily margins.",
-    factorOrders: 15.5,
-    factorOutlets: 12550,
-    factorHoursOrders: 0.008,
-    factorHoursOutlets: 4
   }
 };
 
@@ -194,33 +179,33 @@ export const solutionsPageService = {
         const data = snap.data() as Partial<SolutionsPageData>;
         pageDataCache = {
           hero: {
+            eyebrow: data.hero?.eyebrow || DEFAULT_SOLUTIONS_PAGE_DATA.hero.eyebrow,
             title: data.hero?.title || DEFAULT_SOLUTIONS_PAGE_DATA.hero.title,
             desc: data.hero?.desc || DEFAULT_SOLUTIONS_PAGE_DATA.hero.desc,
-            trustText: data.hero?.trustText || DEFAULT_SOLUTIONS_PAGE_DATA.hero.trustText
+            ctaPrimaryText: data.hero?.ctaPrimaryText || DEFAULT_SOLUTIONS_PAGE_DATA.hero.ctaPrimaryText,
+            ctaPrimaryHref: data.hero?.ctaPrimaryHref || DEFAULT_SOLUTIONS_PAGE_DATA.hero.ctaPrimaryHref,
+            ctaSecondaryText: data.hero?.ctaSecondaryText || DEFAULT_SOLUTIONS_PAGE_DATA.hero.ctaSecondaryText,
+            ctaSecondaryHref: data.hero?.ctaSecondaryHref || DEFAULT_SOLUTIONS_PAGE_DATA.hero.ctaSecondaryHref
           },
-          commandCenter: {
-            title: data.commandCenter?.title || DEFAULT_SOLUTIONS_PAGE_DATA.commandCenter.title,
-            desc: data.commandCenter?.desc || DEFAULT_SOLUTIONS_PAGE_DATA.commandCenter.desc,
-            modules: data.commandCenter?.modules || DEFAULT_SOLUTIONS_PAGE_DATA.commandCenter.modules
+          connected: {
+            badge: data.connected?.badge || DEFAULT_SOLUTIONS_PAGE_DATA.connected.badge,
+            title: data.connected?.title || DEFAULT_SOLUTIONS_PAGE_DATA.connected.title,
+            desc: data.connected?.desc || DEFAULT_SOLUTIONS_PAGE_DATA.connected.desc,
+            ctaText: data.connected?.ctaText || DEFAULT_SOLUTIONS_PAGE_DATA.connected.ctaText,
+            ctaHref: data.connected?.ctaHref || DEFAULT_SOLUTIONS_PAGE_DATA.connected.ctaHref,
+            scenarios: data.connected?.scenarios || DEFAULT_SOLUTIONS_PAGE_DATA.connected.scenarios
           },
-          stats: data.stats || DEFAULT_SOLUTIONS_PAGE_DATA.stats,
-          controlDeck: {
-            title: data.controlDeck?.title || DEFAULT_SOLUTIONS_PAGE_DATA.controlDeck.title,
-            desc: data.controlDeck?.desc || DEFAULT_SOLUTIONS_PAGE_DATA.controlDeck.desc,
-            outlets: data.controlDeck?.outlets || DEFAULT_SOLUTIONS_PAGE_DATA.controlDeck.outlets
+          approach: {
+            badge: data.approach?.badge || DEFAULT_SOLUTIONS_PAGE_DATA.approach.badge,
+            title: data.approach?.title || DEFAULT_SOLUTIONS_PAGE_DATA.approach.title,
+            desc: data.approach?.desc || DEFAULT_SOLUTIONS_PAGE_DATA.approach.desc,
+            steps: data.approach?.steps || DEFAULT_SOLUTIONS_PAGE_DATA.approach.steps
           },
-          integrations: {
-            title: data.integrations?.title || DEFAULT_SOLUTIONS_PAGE_DATA.integrations.title,
-            desc: data.integrations?.desc || DEFAULT_SOLUTIONS_PAGE_DATA.integrations.desc,
-            items: data.integrations?.items || DEFAULT_SOLUTIONS_PAGE_DATA.integrations.items
-          },
-          calculator: {
-            title: data.calculator?.title || DEFAULT_SOLUTIONS_PAGE_DATA.calculator.title,
-            desc: data.calculator?.desc || DEFAULT_SOLUTIONS_PAGE_DATA.calculator.desc,
-            factorOrders: typeof data.calculator?.factorOrders === 'number' ? data.calculator.factorOrders : DEFAULT_SOLUTIONS_PAGE_DATA.calculator.factorOrders,
-            factorOutlets: typeof data.calculator?.factorOutlets === 'number' ? data.calculator.factorOutlets : DEFAULT_SOLUTIONS_PAGE_DATA.calculator.factorOutlets,
-            factorHoursOrders: typeof data.calculator?.factorHoursOrders === 'number' ? data.calculator.factorHoursOrders : DEFAULT_SOLUTIONS_PAGE_DATA.calculator.factorHoursOrders,
-            factorHoursOutlets: typeof data.calculator?.factorHoursOutlets === 'number' ? data.calculator.factorHoursOutlets : DEFAULT_SOLUTIONS_PAGE_DATA.calculator.factorHoursOutlets
+          whyUs: {
+            badge: data.whyUs?.badge || DEFAULT_SOLUTIONS_PAGE_DATA.whyUs.badge,
+            title: data.whyUs?.title || DEFAULT_SOLUTIONS_PAGE_DATA.whyUs.title,
+            desc: data.whyUs?.desc || DEFAULT_SOLUTIONS_PAGE_DATA.whyUs.desc,
+            pillars: data.whyUs?.pillars || DEFAULT_SOLUTIONS_PAGE_DATA.whyUs.pillars
           }
         };
         return pageDataCache;

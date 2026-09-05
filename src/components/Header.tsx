@@ -107,16 +107,16 @@ export default function Header() {
 
   const navLinks = [
     { label: 'Home', href: '/' },
-    { label: 'Solutions', href: '/solutions' },
-    { label: 'About us', href: '#' },
-    { label: 'Resources', href: '/blogs' },
+    { label: 'About', href: '/about' },
+    { label: 'Services', href: '/solutions' },
+    { label: 'Industries', href: '/industries' },
+    { label: 'Case Studies', href: '/case-studies' },
+    { label: 'Resources', href: '/resources' },
     { label: 'Contact', href: '/contact' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href === '#') {
-      e.preventDefault();
-    }
+    // Normal navigation
   };
 
   return (

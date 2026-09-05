@@ -6,31 +6,64 @@ const points = [
   {
     title: 'Business-First Thinking',
     description: 'We start with your goals, not a predefined package.',
-    accent: '#C1B6FF',
+    accent: '#7C3AED',
   },
   {
     title: 'Technology & AI Know-How',
     description: 'We use modern technology and AI where they can genuinely improve the work.',
-    accent: '#A78BFA',
+    accent: '#6366F1',
   },
   {
     title: 'Data-Backed Decisions',
     description: 'We use data to understand performance and make better decisions.',
-    accent: '#D6DCDC',
+    accent: '#8B5CF6',
   },
   {
     title: 'ROI-Driven Thinking',
     description: 'We focus on outcomes that create real business value, not vanity metrics.',
-    accent: '#818CF8',
+    accent: '#4F46E5',
   },
   {
     title: 'Continuous Improvement',
     description: 'We keep learning, testing, and looking for better ways forward.',
-    accent: '#E2E8F0',
+    accent: '#7C3AED',
   },
 ];
 
+interface PillarItem {
+  title: string;
+  description: string;
+  accent: string;
+}
+
 export default function WhyQuestForTechSection() {
+  const [whyUsData, setWhyUsData] = React.useState({
+    badge: 'Why Quest For Tech',
+    title: 'Built around outcomes, not outputs.',
+    desc: "We don't measure success by deliverable checklists. We measure success by the impact we create for your business.",
+    pillars: points as PillarItem[],
+  });
+
+  React.useEffect(() => {
+    const loadWhyUs = async () => {
+      try {
+        const { solutionsPageService } = await import('@/services/solutionsPage.service');
+        const pageData = await solutionsPageService.getPageData();
+        if (pageData && pageData.whyUs) {
+          setWhyUsData({
+            badge: pageData.whyUs.badge || 'Why Quest For Tech',
+            title: pageData.whyUs.title || 'Built around outcomes, not outputs.',
+            desc: pageData.whyUs.desc || "We don't measure success by deliverable checklists.",
+            pillars: pageData.whyUs.pillars && pageData.whyUs.pillars.length > 0 ? pageData.whyUs.pillars : (points as PillarItem[]),
+          });
+        }
+      } catch (err) {
+        console.warn('Why Us section fetch failed:', err);
+      }
+    };
+    loadWhyUs();
+  }, []);
+
   return (
     <section className="relative w-full bg-white dark:bg-black overflow-hidden transition-colors duration-300">
       {/* Right side glow */}
@@ -57,14 +90,14 @@ export default function WhyQuestForTechSection() {
                 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-[#D6DCDC]/50"
                 style={{ fontFamily: 'Barlow, sans-serif' }}
               >
-                Why Quest For Tech
+                {whyUsData.badge}
               </span>
             </div>
             <h2
               className="text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.1] tracking-tight text-slate-900 dark:text-[#D6DCDC]"
               style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
             >
-              Built around outcomes, not outputs.
+              {whyUsData.title}
             </h2>
           </div>
           <div className="lg:col-span-5 flex items-end">
@@ -72,14 +105,14 @@ export default function WhyQuestForTechSection() {
               className="text-base sm:text-lg text-slate-600 dark:text-[#D6DCDC]/50 leading-relaxed"
               style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
             >
-              We don't measure success by deliverable checklists. We measure success by the impact we create for your business.
+              {whyUsData.desc}
             </p>
           </div>
         </div>
 
-        {/* Grid of 5 Points */}
+        {/* Grid of Points */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {points.map((p, i) => (
+          {whyUsData.pillars.map((p, i) => (
             <div
               key={p.title}
               className={`rounded-3xl p-8 sm:p-10 transition-all duration-300 bg-slate-50 dark:bg-[#0B0B0B] border border-slate-200 dark:border-[#D6DCDC]/10 hover:border-slate-300 dark:hover:border-[#D6DCDC]/30 hover:shadow-lg ${
@@ -89,11 +122,11 @@ export default function WhyQuestForTechSection() {
               <div className="flex items-center justify-between mb-8">
                 <span
                   className="text-xs font-semibold uppercase tracking-[0.2em]"
-                  style={{ fontFamily: 'Barlow, sans-serif', color: p.accent }}
+                  style={{ fontFamily: 'Barlow, sans-serif', color: p.accent || '#7C3AED' }}
                 >
                   0{i + 1}
                 </span>
-                <span className="w-2 h-2 rounded-full" style={{ background: p.accent, opacity: 0.6 }} />
+                <span className="w-2 h-2 rounded-full" style={{ background: p.accent || '#7C3AED', opacity: 0.6 }} />
               </div>
 
               <h3

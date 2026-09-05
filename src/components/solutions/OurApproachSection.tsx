@@ -8,79 +8,91 @@ const processSteps = [
     name: 'Understand',
     description:
       'We start by deeply understanding your business, your audience, your goals, and the challenges standing between where you are and where you want to be.',
-    accent: '#C1B6FF',
+    accent: '#7C3AED',
   },
   {
     number: '02',
     name: 'Research',
     description:
       'We research your market, your competitors, your customers, and your data — looking for the insights and opportunities that will inform a smarter strategy.',
-    accent: '#A78BFA',
+    accent: '#6366F1',
   },
   {
     number: '03',
     name: 'Strategise',
     description:
       'We build a clear direction built around your priorities — not a generic template. Strategy is the foundation everything else is built on.',
-    accent: '#D6DCDC',
+    accent: '#8B5CF6',
   },
   {
     number: '04',
     name: 'Execute',
     description:
       'We apply the right combination of marketing, creativity, content, and technology — working with precision and purpose to turn strategy into reality.',
-    accent: '#818CF8',
+    accent: '#4F46E5',
   },
   {
     number: '05',
     name: 'Measure',
     description:
       'We track the metrics that matter to your business, not just vanity numbers. Good measurement makes everything downstream more accountable.',
-    accent: '#C1B6FF',
+    accent: '#7C3AED',
   },
   {
     number: '06',
     name: 'Improve',
     description:
       'We learn from the results and look for better ways forward. Continuous improvement is how we create compounding value over time.',
-    accent: '#E2E8F0',
+    accent: '#6366F1',
   },
 ];
 
+interface StepItem {
+  number: string;
+  name: string;
+  description: string;
+  accent: string;
+}
+
+interface ApproachData {
+  badge: string;
+  title: string;
+  desc: string;
+  steps: StepItem[];
+}
+
 // ─── Mobile vertical timeline (no sticky, no GSAP) ───────────────────────────
-function MobileTimeline() {
+function MobileTimeline({ data }: { data: ApproachData }) {
   return (
     <div className="relative pl-10">
       {/* Vertical line */}
       <div
-        className="absolute left-3 top-0 bottom-0 w-px"
-        style={{ background: 'rgba(214,220,220,0.08)' }}
+        className="absolute left-3 top-0 bottom-0 w-px bg-slate-200 dark:bg-white/10"
       />
-      {processSteps.map((step, i) => (
+      {data.steps.map((step) => (
         <div key={step.number} className="relative mb-12 last:mb-0">
           {/* Timeline node */}
           <div
-            className="absolute -left-7 top-1 w-2 h-2 rounded-full"
-            style={{ background: step.accent, boxShadow: `0 0 8px ${step.accent}` }}
+            className="absolute -left-7 top-1 w-2.5 h-2.5 rounded-full"
+            style={{ background: step.accent || '#7C3AED', boxShadow: `0 0 8px ${step.accent || '#7C3AED'}` }}
           />
           {/* Content */}
           <span
-            className="text-xs font-normal mb-2 block"
-            style={{ fontFamily: 'Barlow, sans-serif', color: step.accent, opacity: 0.8 }}
+            className="text-xs font-bold mb-2 block tracking-wider"
+            style={{ fontFamily: 'Barlow, sans-serif', color: step.accent || '#7C3AED' }}
           >
             {step.number}
           </span>
           <h3
-            className="text-2xl font-normal text-[#D6DCDC] mb-3"
+            className="text-2xl font-normal text-slate-900 dark:text-[#D6DCDC] mb-3"
             style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
           >
             {step.name}
           </h3>
           <p
-            className="text-sm leading-relaxed"
+            className="text-sm leading-relaxed text-slate-600 dark:text-[#D6DCDC]/50"
             style={{
               fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif",
-              color: 'rgba(214,220,220,0.5)',
             }}
           >
             {step.description}
@@ -92,7 +104,7 @@ function MobileTimeline() {
 }
 
 // ─── Desktop sticky storytelling (GSAP ScrollTrigger) ────────────────────────
-function DesktopSticky() {
+function DesktopSticky({ data }: { data: ApproachData }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const stepsRef = useRef<(HTMLDivElement | null)[]>([]);
   const progressBarRef = useRef<HTMLDivElement>(null);
@@ -149,9 +161,9 @@ function DesktopSticky() {
     return () => {
       ctx?.revert();
     };
-  }, []);
+  }, [data]);
 
-  const activeAccent = processSteps[activeStep]?.accent || '#C1B6FF';
+  const activeAccent = data.steps[activeStep]?.accent || '#C1B6FF';
 
   return (
     <div ref={sectionRef} className="grid grid-cols-12 gap-0 relative">
@@ -168,7 +180,7 @@ function DesktopSticky() {
               className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-[#D6DCDC]/50"
               style={{ fontFamily: 'Barlow, sans-serif' }}
             >
-              Our Approach
+              {data.badge}
             </span>
           </div>
 
@@ -176,16 +188,13 @@ function DesktopSticky() {
             className="text-4xl xl:text-5xl font-normal leading-[1.1] tracking-tight text-slate-900 dark:text-[#D6DCDC] mb-6"
             style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
           >
-            We Don't Start With a Package.
-            <br />
-            We Start With a Problem.
+            {data.title}
           </h2>
           <p
             className="text-base text-slate-600 dark:text-[#D6DCDC]/50 leading-relaxed mb-10 max-w-sm"
             style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
           >
-            Every business has different goals, audiences, challenges, and opportunities. That's why
-            we first understand what you need, then determine the right solution.
+            {data.desc}
           </p>
 
           {/* Step counter */}
@@ -197,10 +206,10 @@ function DesktopSticky() {
               {String(activeStep + 1).padStart(2, '0')}
             </span>
             <span
-              className="text-sm text-[#D6DCDC]/30"
+              className="text-sm text-slate-400 dark:text-[#D6DCDC]/30 font-semibold"
               style={{ fontFamily: 'Barlow, sans-serif' }}
             >
-              / 06
+              / {String(data.steps.length).padStart(2, '0')}
             </span>
           </div>
 
@@ -212,7 +221,7 @@ function DesktopSticky() {
               color: activeAccent,
             }}
           >
-            {processSteps[activeStep]?.name}
+            {data.steps[activeStep]?.name}
           </div>
 
           {/* Vertical progress track */}
@@ -233,15 +242,15 @@ function DesktopSticky() {
               />
             </div>
             {/* Step dots */}
-            {processSteps.map((step, i) => (
+            {data.steps.map((step, i) => (
               <div
                 key={i}
                 className="absolute w-2 h-2 rounded-full -left-[3px] transition-all duration-400"
                 style={{
-                  top: `${(i / (processSteps.length - 1)) * 100}%`,
+                  top: `${(i / (data.steps.length - 1)) * 100}%`,
                   transform: 'translateY(-50%)',
-                  background: i <= activeStep ? step.accent : 'rgba(214,220,220,0.12)',
-                  boxShadow: i === activeStep ? `0 0 8px ${step.accent}` : 'none',
+                  background: i <= activeStep ? (step.accent || '#7C3AED') : 'rgba(214,220,220,0.12)',
+                  boxShadow: i === activeStep ? `0 0 8px ${step.accent || '#7C3AED'}` : 'none',
                 }}
               />
             ))}
@@ -251,7 +260,7 @@ function DesktopSticky() {
 
       {/* ── Right scrolling steps ── */}
       <div className="col-span-7 pl-12 lg:pl-16">
-        {processSteps.map((step, i) => {
+        {data.steps.map((step, i) => {
           const isActive = activeStep === i;
           return (
             <div
@@ -271,7 +280,7 @@ function DesktopSticky() {
                   className="text-[80px] font-normal leading-none mb-6 select-none transition-all duration-500"
                   style={{
                     fontFamily: 'Barlow, sans-serif',
-                    color: step.accent,
+                    color: step.accent || '#7C3AED',
                     opacity: isActive ? 0.25 : 0.08,
                   }}
                 >
@@ -282,8 +291,8 @@ function DesktopSticky() {
                 <div
                   className="w-2 h-2 rounded-full mb-6 transition-all duration-500"
                   style={{
-                    background: isActive ? step.accent : 'rgba(150,150,150,0.3)',
-                    boxShadow: isActive ? `0 0 10px ${step.accent}` : 'none',
+                    background: isActive ? (step.accent || '#7C3AED') : 'rgba(150,150,150,0.3)',
+                    boxShadow: isActive ? `0 0 10px ${step.accent || '#7C3AED'}` : 'none',
                   }}
                 />
 
@@ -326,6 +335,33 @@ function DesktopSticky() {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 export default function OurApproachSection() {
+  const [approachData, setApproachData] = useState<ApproachData>({
+    badge: 'Our Approach',
+    title: "We Don't Start With a Package. We Start With a Problem.",
+    desc: "Every business has different goals, audiences, challenges, and opportunities. That's why we first understand what you need, then determine the right solution.",
+    steps: processSteps,
+  });
+
+  useEffect(() => {
+    const loadApproach = async () => {
+      try {
+        const { solutionsPageService } = await import('@/services/solutionsPage.service');
+        const pageData = await solutionsPageService.getPageData();
+        if (pageData && pageData.approach) {
+          setApproachData({
+            badge: pageData.approach.badge || 'Our Approach',
+            title: pageData.approach.title || "We Don't Start With a Package. We Start With a Problem.",
+            desc: pageData.approach.desc || 'Every business has different goals, audiences, challenges, and opportunities.',
+            steps: pageData.approach.steps && pageData.approach.steps.length > 0 ? pageData.approach.steps : processSteps,
+          });
+        }
+      } catch (err) {
+        console.warn('Approach section fetch failed:', err);
+      }
+    };
+    loadApproach();
+  }, []);
+
   return (
     <section className="relative w-full bg-white dark:bg-black overflow-x-clip transition-colors duration-300">
       <div
@@ -343,7 +379,7 @@ export default function OurApproachSection() {
 
       {/* Desktop (lg+) — sticky storytelling */}
       <div className="hidden lg:block max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-        <DesktopSticky />
+        <DesktopSticky data={approachData} />
       </div>
 
       {/* Mobile/tablet — vertical timeline */}
@@ -356,23 +392,23 @@ export default function OurApproachSection() {
               className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-[#D6DCDC]/50"
               style={{ fontFamily: 'Barlow, sans-serif' }}
             >
-              Our Approach
+              {approachData.badge}
             </span>
           </div>
           <h2
             className="text-3xl sm:text-4xl font-normal leading-[1.1] tracking-tight text-slate-900 dark:text-[#D6DCDC] mb-4"
             style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
           >
-            We Don't Start With a Package. We Start With a Problem.
+            {approachData.title}
           </h2>
           <p
             className="text-base text-slate-600 dark:text-[#D6DCDC]/50 leading-relaxed"
             style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
           >
-            Every business has different goals, audiences, challenges, and opportunities.
+            {approachData.desc}
           </p>
         </div>
-        <MobileTimeline />
+        <MobileTimeline data={approachData} />
       </div>
     </section>
   );

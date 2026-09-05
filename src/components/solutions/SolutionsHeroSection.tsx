@@ -93,8 +93,8 @@ function HeroSolutionTabExplorer() {
                 type="button"
                 className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? 'bg-[#A78BFA] text-black border border-[#A78BFA]'
-                    : 'bg-transparent text-slate-500 hover:text-slate-900 dark:text-[#D6DCDC]/40 dark:hover:text-white border border-transparent'
+                    ? 'bg-[#7C3AED] text-white dark:bg-[#A78BFA] dark:text-black shadow-md shadow-[#7C3AED]/25'
+                    : 'bg-transparent text-slate-600 hover:text-slate-900 dark:text-[#D6DCDC]/50 dark:hover:text-white border border-transparent'
                 }`}
                 style={{ fontFamily: 'Barlow, sans-serif' }}
               >
@@ -175,6 +175,34 @@ function HeroSolutionTabExplorer() {
 }
 
 export default function SolutionsHeroSection() {
+  const [heroData, setHeroData] = useState({
+    eyebrow: 'Digital Solutions & Services',
+    title: 'The Right Strategy. The Right Technology. The Right Execution.',
+    desc: 'From building your digital foundation to improving search visibility, generating qualified leads, and engineering custom technology — Quest For Tech brings strategy, creativity, marketing, and data together to create compounding growth.',
+    ctaPrimaryText: "LET'S TALK →",
+    ctaPrimaryHref: '/contact',
+    ctaSecondaryText: 'EXPLORE SOLUTIONS ↓',
+    ctaSecondaryHref: '#our-solutions',
+  });
+
+  React.useEffect(() => {
+    const loadHero = async () => {
+      try {
+        const { solutionsPageService } = await import('@/services/solutionsPage.service');
+        const pageData = await solutionsPageService.getPageData();
+        if (pageData && pageData.hero) {
+          setHeroData((prev) => ({
+            ...prev,
+            ...pageData.hero,
+          }));
+        }
+      } catch (err) {
+        console.warn('Hero section fetch failed, using default text:', err);
+      }
+    };
+    loadHero();
+  }, []);
+
   return (
     <section className="relative w-full bg-white dark:bg-black overflow-hidden pt-24 pb-16 lg:pt-28 lg:pb-24 transition-colors duration-300">
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -189,7 +217,7 @@ export default function SolutionsHeroSection() {
                 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-[#D6DCDC]/60"
                 style={{ fontFamily: 'Barlow, sans-serif' }}
               >
-                Digital Solutions & Services
+                {heroData.eyebrow}
               </span>
             </div>
 
@@ -198,13 +226,7 @@ export default function SolutionsHeroSection() {
               className="text-4xl sm:text-5xl md:text-6xl lg:text-[66px] font-normal leading-[1.08] tracking-tight text-slate-900 dark:text-[#D6DCDC] mb-6"
               style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
             >
-              The Right Strategy.{' '}
-              <br className="hidden sm:inline" />
-              The Right Technology.{' '}
-              <br className="hidden sm:inline" />
-              <span className="text-slate-900 dark:text-white">
-                The Right Execution.
-              </span>
+              {heroData.title}
             </h1>
 
             {/* Description */}
@@ -212,26 +234,24 @@ export default function SolutionsHeroSection() {
               className="text-base sm:text-lg lg:text-xl font-normal text-slate-600 dark:text-[#D6DCDC]/60 leading-relaxed mb-10 max-w-2xl"
               style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
             >
-              From building your digital foundation to improving search visibility, generating qualified leads,
-              and engineering custom technology — Quest For Tech brings strategy, creativity, marketing, and data
-              together to create compounding growth.
+              {heroData.desc}
             </p>
 
             {/* CTAs */}
             <div className="flex flex-wrap items-center gap-4">
               <Link
-                href="/contact"
+                href={heroData.ctaPrimaryHref}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] px-8 py-4 text-xs font-semibold uppercase tracking-widest transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-lg shadow-[#A78BFA]/20"
                 style={{ fontFamily: 'Barlow, sans-serif', letterSpacing: '0.1em' }}
               >
-                LET'S TALK →
+                {heroData.ctaPrimaryText}
               </Link>
               <Link
-                href="#our-solutions"
+                href={heroData.ctaSecondaryHref}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 text-slate-800 dark:border-[#D6DCDC]/20 dark:text-[#D6DCDC] bg-transparent px-8 py-4 text-xs font-semibold uppercase tracking-widest transition-all duration-200 hover:bg-slate-100 dark:hover:bg-white/5 cursor-pointer"
                 style={{ fontFamily: 'Barlow, sans-serif', letterSpacing: '0.1em' }}
               >
-                EXPLORE SOLUTIONS ↓
+                {heroData.ctaSecondaryText}
               </Link>
             </div>
           </div>

@@ -76,7 +76,7 @@ function EcosystemNetwork({ activeCapabilities }: EcosystemNetworkProps) {
   return (
     <svg
       viewBox="0 0 400 380"
-      className="w-full h-full"
+      className="w-full h-full select-none"
       aria-hidden
     >
       {/* Edge lines */}
@@ -93,10 +93,14 @@ function EcosystemNetwork({ activeCapabilities }: EcosystemNetworkProps) {
             key={i}
             x1={na.x} y1={na.y}
             x2={nb.x} y2={nb.y}
-            stroke={bothActive ? '#C1B6FF' : 'rgba(214,220,220,0.06)'}
-            strokeWidth={bothActive ? 1.5 : 0.8}
+            className={
+              bothActive
+                ? 'stroke-[#818CF8] dark:stroke-[#C1B6FF]'
+                : 'stroke-slate-300 dark:stroke-slate-800'
+            }
+            strokeWidth={bothActive ? 1.8 : 1}
             strokeDasharray={bothActive ? '0' : '4 3'}
-            opacity={bothActive ? 0.7 : eitherActive ? 0.12 : 0.06}
+            opacity={bothActive ? 0.9 : eitherActive ? 0.45 : 0.25}
             style={{ transition: 'all 0.4s ease' }}
           />
         );
@@ -114,7 +118,7 @@ function EcosystemNetwork({ activeCapabilities }: EcosystemNetworkProps) {
                 cy={node.y}
                 r={32}
                 fill={node.accent}
-                fillOpacity={0.05}
+                fillOpacity={0.15}
                 style={{ transition: 'all 0.4s ease' }}
               />
             )}
@@ -124,10 +128,12 @@ function EcosystemNetwork({ activeCapabilities }: EcosystemNetworkProps) {
               cx={node.x}
               cy={node.y}
               r={24}
-              fill={isActive ? node.accent : '#0C0C0C'}
-              fillOpacity={isActive ? 0.12 : 1}
-              stroke={isActive ? node.accent : 'rgba(214,220,220,0.08)'}
-              strokeWidth={isActive ? 1.5 : 1}
+              className={
+                isActive
+                  ? 'fill-purple-500/15 dark:fill-purple-400/20 stroke-[#7C3AED] dark:stroke-[#C1B6FF]'
+                  : 'fill-white dark:fill-[#0C0C0C] stroke-slate-300 dark:stroke-[#D6DCDC]/15'
+              }
+              strokeWidth={isActive ? 1.8 : 1}
               style={{ transition: 'all 0.4s ease' }}
             />
 
@@ -136,7 +142,11 @@ function EcosystemNetwork({ activeCapabilities }: EcosystemNetworkProps) {
               cx={node.x}
               cy={node.y}
               r={5}
-              fill={isActive ? node.accent : 'rgba(214,220,220,0.2)'}
+              className={
+                isActive
+                  ? 'fill-[#6D28D9] dark:fill-[#C1B6FF]'
+                  : 'fill-slate-400 dark:fill-slate-600'
+              }
               style={{
                 filter: isActive ? `drop-shadow(0 0 6px ${node.accent})` : undefined,
                 transition: 'all 0.4s ease',
@@ -148,11 +158,14 @@ function EcosystemNetwork({ activeCapabilities }: EcosystemNetworkProps) {
               x={node.x}
               y={node.y + 38}
               textAnchor="middle"
-              fontSize={10}
+              fontSize={11}
               fontFamily="Barlow, sans-serif"
               letterSpacing="0.5"
-              fill={isActive ? node.accent : 'rgba(214,220,220,0.3)'}
-              fontWeight={isActive ? 600 : 400}
+              className={
+                isActive
+                  ? 'fill-[#5B21B6] dark:fill-[#C1B6FF] font-semibold'
+                  : 'fill-slate-600 dark:fill-slate-400 font-medium'
+              }
               style={{ transition: 'all 0.4s ease' }}
             >
               {node.label}
@@ -165,8 +178,41 @@ function EcosystemNetwork({ activeCapabilities }: EcosystemNetworkProps) {
 }
 
 export default function ConnectedEcosystemSection() {
+  const [sectionData, setSectionData] = useState({
+    badge: 'Connected Solutions',
+    title: 'Digital Services Designed to Work Better Together',
+    desc: 'Single-service tactics create fragmented results. We build connected digital ecosystems where each solution reinforces the others.',
+    ctaText: "LET'S BUILD YOUR STRATEGY →",
+    ctaHref: '/contact',
+  });
+  const [scenarioList, setScenarioList] = useState<Scenario[]>(scenarios);
   const [activeScenarioId, setActiveScenarioId] = useState<string>('leads');
-  const activeScenario = scenarios.find((s) => s.id === activeScenarioId) || scenarios[1];
+
+  React.useEffect(() => {
+    const loadConnected = async () => {
+      try {
+        const { solutionsPageService } = await import('@/services/solutionsPage.service');
+        const pageData = await solutionsPageService.getPageData();
+        if (pageData && pageData.connected) {
+          setSectionData({
+            badge: pageData.connected.badge || 'Connected Solutions',
+            title: pageData.connected.title || 'Digital Services Designed to Work Better Together',
+            desc: pageData.connected.desc || 'Single-service tactics create fragmented results.',
+            ctaText: pageData.connected.ctaText || "LET'S BUILD YOUR STRATEGY →",
+            ctaHref: pageData.connected.ctaHref || '/contact',
+          });
+          if (pageData.connected.scenarios && pageData.connected.scenarios.length > 0) {
+            setScenarioList(pageData.connected.scenarios);
+          }
+        }
+      } catch (err) {
+        console.warn('Connected section fetch failed:', err);
+      }
+    };
+    loadConnected();
+  }, []);
+
+  const activeScenario = scenarioList.find((s) => s.id === activeScenarioId) || scenarioList[0];
 
   return (
     <section className="relative w-full bg-white dark:bg-black overflow-x-clip py-24 md:py-32 transition-colors duration-300">
@@ -193,7 +239,7 @@ export default function ConnectedEcosystemSection() {
               className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-[#D6DCDC]/50"
               style={{ fontFamily: 'Barlow, sans-serif' }}
             >
-              Connected Solutions
+              {sectionData.badge}
             </span>
           </div>
 
@@ -201,14 +247,14 @@ export default function ConnectedEcosystemSection() {
             className="text-4xl sm:text-5xl font-normal leading-[1.1] tracking-tight text-slate-900 dark:text-[#D6DCDC] mb-6"
             style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
           >
-            Digital Services Designed to Work Better Together
+            {sectionData.title}
           </h2>
 
           <p
             className="text-base sm:text-lg text-slate-600 dark:text-[#D6DCDC]/50 leading-relaxed"
             style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
           >
-            Single-service tactics create fragmented results. We build connected digital ecosystems where each solution reinforces the others.
+            {sectionData.desc}
           </p>
         </div>
 
@@ -235,7 +281,7 @@ export default function ConnectedEcosystemSection() {
                 </span>
 
                 <div className="space-y-2">
-                  {scenarios.map((scenario) => {
+                  {scenarioList.map((scenario) => {
                     const isActive = scenario.id === activeScenarioId;
                     return (
                       <button
@@ -278,14 +324,14 @@ export default function ConnectedEcosystemSection() {
               {/* CTA */}
               <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/5">
                 <Link
-                  href="/contact"
+                  href={sectionData.ctaHref}
                   className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-xs font-semibold uppercase tracking-widest transition-all duration-200 bg-[#A78BFA] text-black hover:bg-[#B89FFF] cursor-pointer shadow-md shadow-[#A78BFA]/20"
                   style={{
                     fontFamily: 'Barlow, sans-serif',
                     letterSpacing: '0.1em',
                   }}
                 >
-                  LET'S BUILD YOUR STRATEGY →
+                  {sectionData.ctaText}
                 </Link>
               </div>
             </div>

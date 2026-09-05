@@ -283,9 +283,9 @@ export default function SolutionEditorPage() {
                 <input
                   type="text"
                   name="title"
-                  value={formData.title}
+                  value={formData.title || ""}
                   onChange={handleChange}
-                  placeholder="e.g. Billing & Order Management POS Engine"
+                  placeholder="e.g. Website Development"
                   className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
                   required
                 />
@@ -296,12 +296,37 @@ export default function SolutionEditorPage() {
                 <input
                   type="text"
                   name="slug"
-                  value={formData.slug}
+                  value={formData.slug || ""}
                   onChange={handleChange}
-                  placeholder="e.g. pos"
+                  placeholder="e.g. website-development"
                   className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
                   required
                   disabled={!isNew}
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-extrabold uppercase tracking-wider text-zinc-500 mb-2">Chapter Number (e.g. 01, 02)</label>
+                <input
+                  type="text"
+                  name="number"
+                  value={formData.number || ""}
+                  onChange={handleChange}
+                  placeholder="e.g. 01"
+                  className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-extrabold uppercase tracking-wider text-zinc-500 mb-2">Short Label *</label>
+                <input
+                  type="text"
+                  name="shortLabel"
+                  value={formData.shortLabel || ""}
+                  onChange={handleChange}
+                  placeholder="e.g. Website Dev"
+                  className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
+                  required
                 />
               </div>
 
@@ -347,29 +372,52 @@ export default function SolutionEditorPage() {
               </div>
 
               <div>
-                <label className="block text-[10px] font-extrabold uppercase tracking-wider text-zinc-500 mb-2">Short Label *</label>
-                <input
-                  type="text"
-                  name="shortLabel"
-                  value={formData.shortLabel}
-                  onChange={handleChange}
-                  placeholder="e.g. Multi-Channel POS"
-                  className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
-                  required
-                />
-              </div>
-
-              <div>
                 <label className="block text-[10px] font-extrabold uppercase tracking-wider text-zinc-500 mb-2">Badge</label>
                 <input
                   type="text"
                   name="badge"
-                  value={formData.badge}
+                  value={formData.badge || ""}
                   onChange={handleChange}
-                  placeholder="e.g. BILLING & ORDERS"
+                  placeholder="e.g. FOUNDATION & UX"
                   className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
                 />
               </div>
+
+              <div>
+                <label className="block text-[10px] font-extrabold uppercase tracking-wider text-zinc-500 mb-2">Accent Color Hex</label>
+                <input
+                  type="text"
+                  name="accent"
+                  value={formData.accent || ""}
+                  onChange={handleChange}
+                  placeholder="e.g. #A78BFA"
+                  className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[10px] font-extrabold uppercase tracking-wider text-zinc-500 mb-2">Display Order Priority</label>
+                <input
+                  type="number"
+                  name="order"
+                  value={formData.order ?? 0}
+                  onChange={(e) => setFormData((prev: any) => ({ ...prev, order: parseInt(e.target.value) || 0 }))}
+                  placeholder="0"
+                  className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-extrabold uppercase tracking-wider text-zinc-500 mb-2">List Headline (Hero statement)</label>
+              <input
+                type="text"
+                name="headline"
+                value={formData.headline || ""}
+                onChange={handleChange}
+                placeholder="e.g. Build a digital foundation that works for your business."
+                className="w-full px-3.5 py-2.5 text-xs font-semibold rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
+              />
             </div>
 
             <div>

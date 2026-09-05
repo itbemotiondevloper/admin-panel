@@ -24,8 +24,8 @@ export async function generateMetadata(): Promise<Metadata> {
   }
   const companyName = settings?.branding?.companyName || 'Quest For Tech';
   const siteTitle = settings?.branding?.siteTitle || `${companyName} - Digital Solutions`;
-  const faviconDark = settings?.branding?.favicon || '/favicon1.png';
-  const faviconLight = settings?.branding?.faviconLight || '/favicon2.png';
+  const faviconDark = (settings?.branding as any)?.favicon || '/favicon1.png';
+  const faviconLight = (settings?.branding as any)?.faviconLight || '/favicon2.png';
 
   return {
     title: siteTitle,

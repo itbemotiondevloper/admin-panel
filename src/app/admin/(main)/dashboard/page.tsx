@@ -728,12 +728,24 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               {/* Section 1: Hero */}
               <div className="p-6 bg-zinc-50/50 dark:bg-black/10 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 space-y-4">
                 <h3 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 border-b border-zinc-200 dark:border-zinc-850 pb-2">1. Hero Section</h3>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   <div>
-                    <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Hero Title (Use *text* to highlight orange)</label>
+                    <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Eyebrow Tagline</label>
                     <input
                       type="text"
-                      value={solutionsPageData.hero.title}
+                      value={solutionsPageData.hero?.eyebrow || ''}
+                      onChange={(e) => setSolutionsPageData({
+                        ...solutionsPageData,
+                        hero: { ...solutionsPageData.hero, eyebrow: e.target.value }
+                      })}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white font-semibold"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Hero Main Title</label>
+                    <input
+                      type="text"
+                      value={solutionsPageData.hero?.title || ''}
                       onChange={(e) => setSolutionsPageData({
                         ...solutionsPageData,
                         hero: { ...solutionsPageData.hero, title: e.target.value }
@@ -742,10 +754,10 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Hero Subtitle / Description</label>
+                    <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Hero Description</label>
                     <textarea
-                      rows={2}
-                      value={solutionsPageData.hero.desc}
+                      rows={3}
+                      value={solutionsPageData.hero?.desc || ''}
                       onChange={(e) => setSolutionsPageData({
                         ...solutionsPageData,
                         hero: { ...solutionsPageData.hero, desc: e.target.value }
@@ -753,304 +765,128 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                       className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
                     />
                   </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Primary Button CTA Text</label>
+                      <input
+                        type="text"
+                        value={solutionsPageData.hero?.ctaPrimaryText || ''}
+                        onChange={(e) => setSolutionsPageData({
+                          ...solutionsPageData,
+                          hero: { ...solutionsPageData.hero, ctaPrimaryText: e.target.value }
+                        })}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Secondary Button CTA Text</label>
+                      <input
+                        type="text"
+                        value={solutionsPageData.hero?.ctaSecondaryText || ''}
+                        onChange={(e) => setSolutionsPageData({
+                          ...solutionsPageData,
+                          hero: { ...solutionsPageData.hero, ctaSecondaryText: e.target.value }
+                        })}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Section 2: Connected Ecosystem */}
+              <div className="p-6 bg-zinc-50/50 dark:bg-black/10 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 space-y-4">
+                <h3 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 border-b border-zinc-200 dark:border-zinc-850 pb-2">2. Connected Solutions Section</h3>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Badge Label</label>
+                      <input
+                        type="text"
+                        value={solutionsPageData.connected?.badge || ''}
+                        onChange={(e) => setSolutionsPageData({
+                          ...solutionsPageData,
+                          connected: { ...solutionsPageData.connected, badge: e.target.value }
+                        })}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">CTA Text</label>
+                      <input
+                        type="text"
+                        value={solutionsPageData.connected?.ctaText || ''}
+                        onChange={(e) => setSolutionsPageData({
+                          ...solutionsPageData,
+                          connected: { ...solutionsPageData.connected, ctaText: e.target.value }
+                        })}
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
+                      />
+                    </div>
+                  </div>
                   <div>
-                    <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Trust / Social Proof Footer Text</label>
+                    <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Title</label>
                     <input
                       type="text"
-                      value={solutionsPageData.hero.trustText}
+                      value={solutionsPageData.connected?.title || ''}
                       onChange={(e) => setSolutionsPageData({
                         ...solutionsPageData,
-                        hero: { ...solutionsPageData.hero, trustText: e.target.value }
+                        connected: { ...solutionsPageData.connected, title: e.target.value }
                       })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm font-semibold text-zinc-900 dark:text-white"
                     />
                   </div>
-                </div>
-              </div>
-
-              {/* Section 2: Command Center */}
-              <div className="p-6 bg-zinc-50/50 dark:bg-black/10 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 space-y-4">
-                <h3 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 border-b border-zinc-200 dark:border-zinc-850 pb-2">2. Radial Command Center Section</h3>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Title (Use *text* to highlight)</label>
-                      <input
-                        type="text"
-                        value={solutionsPageData.commandCenter.title}
-                        onChange={(e) => setSolutionsPageData({
-                          ...solutionsPageData,
-                          commandCenter: { ...solutionsPageData.commandCenter, title: e.target.value }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white font-semibold"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Description</label>
-                      <textarea
-                        rows={2}
-                        value={solutionsPageData.commandCenter.desc}
-                        onChange={(e) => setSolutionsPageData({
-                          ...solutionsPageData,
-                          commandCenter: { ...solutionsPageData.commandCenter, desc: e.target.value }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-4 pt-2">
-                    <h4 className="text-xs font-extrabold uppercase text-zinc-400">Command Center Modules:</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {solutionsPageData.commandCenter.modules.map((m, idx) => (
-                        <div key={m.id} className="p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl space-y-3">
-                          <span className="text-[10px] font-black uppercase text-[#FF4F18]">{m.id.toUpperCase()} MODULE</span>
-                          <div className="grid grid-cols-2 gap-2">
-                            <div>
-                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Label</label>
-                              <input
-                                type="text"
-                                value={m.label}
-                                onChange={(e) => {
-                                  const newMods = [...solutionsPageData.commandCenter.modules];
-                                  newMods[idx] = { ...m, label: e.target.value };
-                                  setSolutionsPageData({
-                                    ...solutionsPageData,
-                                    commandCenter: { ...solutionsPageData.commandCenter, modules: newMods }
-                                  });
-                                }}
-                                className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white"
-                              />
-                            </div>
-                            <div>
-                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Sublabel</label>
-                              <input
-                                type="text"
-                                value={m.sublabel}
-                                onChange={(e) => {
-                                  const newMods = [...solutionsPageData.commandCenter.modules];
-                                  newMods[idx] = { ...m, sublabel: e.target.value };
-                                  setSolutionsPageData({
-                                    ...solutionsPageData,
-                                    commandCenter: { ...solutionsPageData.commandCenter, modules: newMods }
-                                  });
-                                }}
-                                className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white"
-                              />
-                            </div>
-                          </div>
-                          <div>
-                            <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Inspector Title</label>
-                            <input
-                              type="text"
-                              value={m.inspectorTitle}
-                              onChange={(e) => {
-                                const newMods = [...solutionsPageData.commandCenter.modules];
-                                newMods[idx] = { ...m, inspectorTitle: e.target.value };
-                                setSolutionsPageData({
-                                  ...solutionsPageData,
-                                  commandCenter: { ...solutionsPageData.commandCenter, modules: newMods }
-                                });
-                              }}
-                              className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white"
-                            />
-                          </div>
-                          <div>
-                            <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Inspector Description</label>
-                            <textarea
-                              rows={2}
-                              value={m.inspectorDesc}
-                              onChange={(e) => {
-                                const newMods = [...solutionsPageData.commandCenter.modules];
-                                newMods[idx] = { ...m, inspectorDesc: e.target.value };
-                                setSolutionsPageData({
-                                  ...solutionsPageData,
-                                  commandCenter: { ...solutionsPageData.commandCenter, modules: newMods }
-                                });
-                              }}
-                              className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white resize-none"
-                            />
-                          </div>
-                          <div className="grid grid-cols-2 gap-2">
-                            <div>
-                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Metric Value</label>
-                              <input
-                                type="text"
-                                value={m.metricValue}
-                                onChange={(e) => {
-                                  const newMods = [...solutionsPageData.commandCenter.modules];
-                                  newMods[idx] = { ...m, metricValue: e.target.value };
-                                  setSolutionsPageData({
-                                    ...solutionsPageData,
-                                    commandCenter: { ...solutionsPageData.commandCenter, modules: newMods }
-                                  });
-                                }}
-                                className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white"
-                              />
-                            </div>
-                            <div>
-                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Metric Label</label>
-                              <input
-                                type="text"
-                                value={m.metricLabel}
-                                onChange={(e) => {
-                                  const newMods = [...solutionsPageData.commandCenter.modules];
-                                  newMods[idx] = { ...m, metricLabel: e.target.value };
-                                  setSolutionsPageData({
-                                    ...solutionsPageData,
-                                    commandCenter: { ...solutionsPageData.commandCenter, modules: newMods }
-                                  });
-                                }}
-                                className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Section 3: Stats */}
-              <div className="p-6 bg-zinc-50/50 dark:bg-black/10 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 space-y-4">
-                <h3 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 border-b border-zinc-200 dark:border-zinc-850 pb-2">3. Stats Row Section</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                  {solutionsPageData.stats.map((s, idx) => (
-                    <div key={idx} className="p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl space-y-2">
-                      <div>
-                        <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Value (e.g. 22%)</label>
-                        <input
-                          type="text"
-                          value={s.value}
-                          onChange={(e) => {
-                            const newStats = [...solutionsPageData.stats];
-                            newStats[idx] = { ...s, value: e.target.value };
-                            setSolutionsPageData({ ...solutionsPageData, stats: newStats });
-                          }}
-                          className="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-850 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white font-bold text-[#FF4F18]"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Label (e.g. Turnover)</label>
-                        <input
-                          type="text"
-                          value={s.label}
-                          onChange={(e) => {
-                            const newStats = [...solutionsPageData.stats];
-                            newStats[idx] = { ...s, label: e.target.value };
-                            setSolutionsPageData({ ...solutionsPageData, stats: newStats });
-                          }}
-                          className="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-850 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white font-medium"
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Section 4: Chain Control Deck */}
-              <div className="p-6 bg-zinc-50/50 dark:bg-black/10 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 space-y-4">
-                <h3 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 border-b border-zinc-200 dark:border-zinc-850 pb-2">4. Chain Control Deck Section</h3>
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Title (Use *text* to highlight)</label>
-                      <input
-                        type="text"
-                        value={solutionsPageData.controlDeck.title}
-                        onChange={(e) => setSolutionsPageData({
-                          ...solutionsPageData,
-                          controlDeck: { ...solutionsPageData.controlDeck, title: e.target.value }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white font-semibold"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Description</label>
-                      <textarea
-                        rows={2}
-                        value={solutionsPageData.controlDeck.desc}
-                        onChange={(e) => setSolutionsPageData({
-                          ...solutionsPageData,
-                          controlDeck: { ...solutionsPageData.controlDeck, desc: e.target.value }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
-                      />
-                    </div>
+                  <div>
+                    <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Description</label>
+                    <textarea
+                      rows={2}
+                      value={solutionsPageData.connected?.desc || ''}
+                      onChange={(e) => setSolutionsPageData({
+                        ...solutionsPageData,
+                        connected: { ...solutionsPageData.connected, desc: e.target.value }
+                      })}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
+                    />
                   </div>
 
                   <div className="space-y-3 pt-2">
-                    <h4 className="text-xs font-extrabold uppercase text-zinc-400">Location Outlets Data:</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {solutionsPageData.controlDeck.outlets.map((o, idx) => (
-                        <div key={o.key} className="p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl space-y-2">
-                          <span className="text-[10px] font-black uppercase text-zinc-550">{o.key}</span>
-                          <div>
-                            <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Card Header Title</label>
-                            <input
-                              type="text"
-                              value={o.title}
-                              onChange={(e) => {
-                                const newOutlets = [...solutionsPageData.controlDeck.outlets];
-                                newOutlets[idx] = { ...o, title: e.target.value };
-                                setSolutionsPageData({
-                                  ...solutionsPageData,
-                                  controlDeck: { ...solutionsPageData.controlDeck, outlets: newOutlets }
-                                });
-                              }}
-                              className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white"
-                            />
-                          </div>
-                          <div className="grid grid-cols-2 gap-2">
+                    <h4 className="text-xs font-extrabold uppercase text-zinc-400">Goal Scenarios:</h4>
+                    <div className="space-y-3">
+                      {(solutionsPageData.connected?.scenarios || []).map((sc, idx) => (
+                        <div key={sc.id || idx} className="p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl space-y-2">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div>
-                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Status Badge</label>
+                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Scenario Title</label>
                               <input
                                 type="text"
-                                value={o.statusBadge}
+                                value={sc.title}
                                 onChange={(e) => {
-                                  const newOutlets = [...solutionsPageData.controlDeck.outlets];
-                                  newOutlets[idx] = { ...o, statusBadge: e.target.value };
+                                  const newSc = [...(solutionsPageData.connected?.scenarios || [])];
+                                  newSc[idx] = { ...sc, title: e.target.value };
                                   setSolutionsPageData({
                                     ...solutionsPageData,
-                                    controlDeck: { ...solutionsPageData.controlDeck, outlets: newOutlets }
+                                    connected: { ...solutionsPageData.connected, scenarios: newSc }
                                   });
                                 }}
-                                className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white"
+                                className="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 font-bold"
                               />
                             </div>
                             <div>
-                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Revenue Value</label>
+                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Description</label>
                               <input
                                 type="text"
-                                value={o.revenue}
+                                value={sc.description}
                                 onChange={(e) => {
-                                  const newOutlets = [...solutionsPageData.controlDeck.outlets];
-                                  newOutlets[idx] = { ...o, revenue: e.target.value };
+                                  const newSc = [...(solutionsPageData.connected?.scenarios || [])];
+                                  newSc[idx] = { ...sc, description: e.target.value };
                                   setSolutionsPageData({
                                     ...solutionsPageData,
-                                    controlDeck: { ...solutionsPageData.controlDeck, outlets: newOutlets }
+                                    connected: { ...solutionsPageData.connected, scenarios: newSc }
                                   });
                                 }}
-                                className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white font-bold"
+                                className="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950"
                               />
                             </div>
-                          </div>
-                          <div>
-                            <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Metric Label</label>
-                            <input
-                              type="text"
-                              value={o.metricLabel}
-                              onChange={(e) => {
-                                const newOutlets = [...solutionsPageData.controlDeck.outlets];
-                                newOutlets[idx] = { ...o, metricLabel: e.target.value };
-                                setSolutionsPageData({
-                                  ...solutionsPageData,
-                                  controlDeck: { ...solutionsPageData.controlDeck, outlets: newOutlets }
-                                });
-                              }}
-                              className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white"
-                            />
                           </div>
                         </div>
                       ))}
@@ -1059,74 +895,91 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 </div>
               </div>
 
-              {/* Section 5: Integrations */}
+              {/* Section 3: Our Approach */}
               <div className="p-6 bg-zinc-50/50 dark:bg-black/10 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 space-y-4">
-                <h3 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 border-b border-zinc-200 dark:border-zinc-850 pb-2">5. Apps Integrations Section</h3>
+                <h3 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 border-b border-zinc-200 dark:border-zinc-850 pb-2">3. Our Approach Section</h3>
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Title (Use *text* to highlight)</label>
+                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Badge Label</label>
                       <input
                         type="text"
-                        value={solutionsPageData.integrations.title}
+                        value={solutionsPageData.approach?.badge || ''}
                         onChange={(e) => setSolutionsPageData({
                           ...solutionsPageData,
-                          integrations: { ...solutionsPageData.integrations, title: e.target.value }
+                          approach: { ...solutionsPageData.approach, badge: e.target.value }
                         })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white font-semibold"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Description</label>
-                      <textarea
-                        rows={2}
-                        value={solutionsPageData.integrations.desc}
+                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Title</label>
+                      <input
+                        type="text"
+                        value={solutionsPageData.approach?.title || ''}
                         onChange={(e) => setSolutionsPageData({
                           ...solutionsPageData,
-                          integrations: { ...solutionsPageData.integrations, desc: e.target.value }
+                          approach: { ...solutionsPageData.approach, title: e.target.value }
                         })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm font-semibold text-zinc-900 dark:text-white"
                       />
                     </div>
+                  </div>
+                  <div>
+                    <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Description</label>
+                    <textarea
+                      rows={2}
+                      value={solutionsPageData.approach?.desc || ''}
+                      onChange={(e) => setSolutionsPageData({
+                        ...solutionsPageData,
+                        approach: { ...solutionsPageData.approach, desc: e.target.value }
+                      })}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
+                    />
                   </div>
 
                   <div className="space-y-3 pt-2">
-                    <h4 className="text-xs font-extrabold uppercase text-zinc-400">Integration Apps:</h4>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                      {solutionsPageData.integrations.items.map((item, idx) => (
-                        <div key={item.id} className="p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl space-y-2">
-                          <span className="text-[10px] font-black uppercase text-zinc-550">{item.id.toUpperCase()}</span>
-                          <div>
-                            <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">App Name</label>
-                            <input
-                              type="text"
-                              value={item.name}
-                              onChange={(e) => {
-                                const newItems = [...solutionsPageData.integrations.items];
-                                newItems[idx] = { ...item, name: e.target.value };
-                                setSolutionsPageData({
-                                  ...solutionsPageData,
-                                  integrations: { ...solutionsPageData.integrations, items: newItems }
-                                });
-                              }}
-                              className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white font-bold"
-                            />
+                    <h4 className="text-xs font-extrabold uppercase text-zinc-400">Process Steps (6 Steps):</h4>
+                    <div className="space-y-3">
+                      {(solutionsPageData.approach?.steps || []).map((step, idx) => (
+                        <div key={step.number || idx} className="p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl space-y-2">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="text-xs font-bold text-[#FF4F18]">{step.number}</span>
+                            <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">{step.name}</span>
                           </div>
-                          <div>
-                            <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Subtext description</label>
-                            <input
-                              type="text"
-                              value={item.subtext}
-                              onChange={(e) => {
-                                const newItems = [...solutionsPageData.integrations.items];
-                                newItems[idx] = { ...item, subtext: e.target.value };
-                                setSolutionsPageData({
-                                  ...solutionsPageData,
-                                  integrations: { ...solutionsPageData.integrations, items: newItems }
-                                });
-                              }}
-                              className="w-full px-2 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-white"
-                            />
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Step Name</label>
+                              <input
+                                type="text"
+                                value={step.name}
+                                onChange={(e) => {
+                                  const newSteps = [...(solutionsPageData.approach?.steps || [])];
+                                  newSteps[idx] = { ...step, name: e.target.value };
+                                  setSolutionsPageData({
+                                    ...solutionsPageData,
+                                    approach: { ...solutionsPageData.approach, steps: newSteps }
+                                  });
+                                }}
+                                className="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 font-bold"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Description</label>
+                              <input
+                                type="text"
+                                value={step.description}
+                                onChange={(e) => {
+                                  const newSteps = [...(solutionsPageData.approach?.steps || [])];
+                                  newSteps[idx] = { ...step, description: e.target.value };
+                                  setSolutionsPageData({
+                                    ...solutionsPageData,
+                                    approach: { ...solutionsPageData.approach, steps: newSteps }
+                                  });
+                                }}
+                                className="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950"
+                              />
+                            </div>
                           </div>
                         </div>
                       ))}
@@ -1135,89 +988,90 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 </div>
               </div>
 
-              {/* Section 6: ROI Calculator */}
+              {/* Section 4: Why Quest For Tech */}
               <div className="p-6 bg-zinc-50/50 dark:bg-black/10 rounded-2xl border border-zinc-200 dark:border-zinc-800/80 space-y-4">
-                <h3 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 border-b border-zinc-200 dark:border-zinc-850 pb-2">6. ROI Savings Calculator Section</h3>
+                <h3 className="text-sm font-extrabold uppercase tracking-wider text-zinc-500 border-b border-zinc-200 dark:border-zinc-850 pb-2">4. Why Quest For Tech Section</h3>
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Title (Use *text* to highlight)</label>
+                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Badge Label</label>
                       <input
                         type="text"
-                        value={solutionsPageData.calculator.title}
+                        value={solutionsPageData.whyUs?.badge || ''}
                         onChange={(e) => setSolutionsPageData({
                           ...solutionsPageData,
-                          calculator: { ...solutionsPageData.calculator, title: e.target.value }
+                          whyUs: { ...solutionsPageData.whyUs, badge: e.target.value }
                         })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white font-semibold"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Description</label>
-                      <textarea
-                        rows={2}
-                        value={solutionsPageData.calculator.desc}
+                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Title</label>
+                      <input
+                        type="text"
+                        value={solutionsPageData.whyUs?.title || ''}
                         onChange={(e) => setSolutionsPageData({
                           ...solutionsPageData,
-                          calculator: { ...solutionsPageData.calculator, desc: e.target.value }
+                          whyUs: { ...solutionsPageData.whyUs, title: e.target.value }
                         })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm font-semibold text-zinc-900 dark:text-white"
                       />
                     </div>
                   </div>
+                  <div>
+                    <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Description</label>
+                    <textarea
+                      rows={2}
+                      value={solutionsPageData.whyUs?.desc || ''}
+                      onChange={(e) => setSolutionsPageData({
+                        ...solutionsPageData,
+                        whyUs: { ...solutionsPageData.whyUs, desc: e.target.value }
+                      })}
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
+                    />
+                  </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 pt-2">
-                    <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Savings factor / Order (₹)</label>
-                      <input
-                        type="number"
-                        step="0.1"
-                        value={solutionsPageData.calculator.factorOrders}
-                        onChange={(e) => setSolutionsPageData({
-                          ...solutionsPageData,
-                          calculator: { ...solutionsPageData.calculator, factorOrders: Number(e.target.value) }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white font-semibold"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Savings factor / Outlet (₹)</label>
-                      <input
-                        type="number"
-                        step="1"
-                        value={solutionsPageData.calculator.factorOutlets}
-                        onChange={(e) => setSolutionsPageData({
-                          ...solutionsPageData,
-                          calculator: { ...solutionsPageData.calculator, factorOutlets: Number(e.target.value) }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white font-semibold"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Hours saved / Order</label>
-                      <input
-                        type="number"
-                        step="0.001"
-                        value={solutionsPageData.calculator.factorHoursOrders}
-                        onChange={(e) => setSolutionsPageData({
-                          ...solutionsPageData,
-                          calculator: { ...solutionsPageData.calculator, factorHoursOrders: Number(e.target.value) }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white font-semibold"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Hours saved / Outlet</label>
-                      <input
-                        type="number"
-                        step="0.1"
-                        value={solutionsPageData.calculator.factorHoursOutlets}
-                        onChange={(e) => setSolutionsPageData({
-                          ...solutionsPageData,
-                          calculator: { ...solutionsPageData.calculator, factorHoursOutlets: Number(e.target.value) }
-                        })}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white font-semibold"
-                      />
+                  <div className="space-y-3 pt-2">
+                    <h4 className="text-xs font-extrabold uppercase text-zinc-400">Pillars & Values (5 Pillars):</h4>
+                    <div className="space-y-3">
+                      {(solutionsPageData.whyUs?.pillars || []).map((pillar, idx) => (
+                        <div key={idx} className="p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl space-y-2">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Pillar Title</label>
+                              <input
+                                type="text"
+                                value={pillar.title}
+                                onChange={(e) => {
+                                  const newPillars = [...(solutionsPageData.whyUs?.pillars || [])];
+                                  newPillars[idx] = { ...pillar, title: e.target.value };
+                                  setSolutionsPageData({
+                                    ...solutionsPageData,
+                                    whyUs: { ...solutionsPageData.whyUs, pillars: newPillars }
+                                  });
+                                }}
+                                className="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950 font-bold"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-[10px] font-semibold text-zinc-500 mb-0.5">Description</label>
+                              <input
+                                type="text"
+                                value={pillar.description}
+                                onChange={(e) => {
+                                  const newPillars = [...(solutionsPageData.whyUs?.pillars || [])];
+                                  newPillars[idx] = { ...pillar, description: e.target.value };
+                                  setSolutionsPageData({
+                                    ...solutionsPageData,
+                                    whyUs: { ...solutionsPageData.whyUs, pillars: newPillars }
+                                  });
+                                }}
+                                className="w-full px-3 py-1.5 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs bg-zinc-50 dark:bg-zinc-950"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>

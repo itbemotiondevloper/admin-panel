@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import SolutionChapter from './SolutionChapter';
 
-const solutions = [
+const DEFAULT_SOLUTIONS = [
   {
     number: '01',
     id: 'website-development',
@@ -60,6 +60,32 @@ export default function SolutionsListSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const chapterRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [activeChapterIndex, setActiveChapterIndex] = useState(0);
+  const [solutionsList, setSolutionsList] = useState(DEFAULT_SOLUTIONS);
+
+  useEffect(() => {
+    const loadBackendSolutions = async () => {
+      try {
+        const { solutionsService } = await import('@/services/solutions.service');
+        const data = await solutionsService.getSolutions();
+        if (data && data.length > 0) {
+          const mapped = data.map((item: any, idx: number) => ({
+            number: item.number || String(idx + 1).padStart(2, '0'),
+            id: item.slug || item.id || `solution-${idx}`,
+            title: item.title || item.shortLabel || 'Solution',
+            headline: item.headline || item.subtitle || '',
+            description: item.description || '',
+            ctaText: item.ctaText || `Explore ${item.title || item.shortLabel}`,
+            href: item.href || `/solutions/${item.slug || item.id}`,
+          }));
+          setSolutionsList(mapped);
+        }
+      } catch (err) {
+        console.warn('Dynamic solutions fetch failed, using default solutions list:', err);
+      }
+    };
+
+    loadBackendSolutions();
+  }, []);
 
   useEffect(() => {
     let ctx: any;
@@ -91,27 +117,27 @@ export default function SolutionsListSection() {
     return () => {
       ctx?.revert();
     };
-  }, []);
+  }, [solutionsList]);
 
-  const activeSol = solutions[activeChapterIndex] || solutions[0];
+  const activeSol = solutionsList[activeChapterIndex] || solutionsList[0];
 
   return (
     <section ref={sectionRef} id="our-solutions" className="relative w-full bg-white dark:bg-black overflow-x-clip transition-colors duration-300">
       {/* ── Sticky Locked Section Header ── */}
-      <div className="sticky top-20 z-30 bg-white/90 dark:bg-black/90 backdrop-blur-md border-b border-slate-200 dark:border-[#D6DCDC]/10 py-5 transition-all duration-300">
+      <div className="sticky top-20 z-30 bg-white/85 dark:bg-black/85 backdrop-blur-xl border-b border-slate-200/80 dark:border-[#D6DCDC]/10 py-4 transition-all duration-300 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex items-center justify-between gap-4">
           <div>
-            <div className="flex items-center gap-3 mb-1.5">
-              <span className="inline-block w-5 h-px bg-slate-400 dark:bg-[#D6DCDC]/40" />
+            <div className="flex items-center gap-3 mb-1">
+              <span className="inline-block w-5 h-px bg-[#7C3AED] dark:bg-[#D6DCDC]/40" />
               <span
-                className="text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500 dark:text-[#D6DCDC]/60"
+                className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#7C3AED] dark:text-[#D6DCDC]/60"
                 style={{ fontFamily: 'Barlow, sans-serif' }}
               >
                 Our Solutions
               </span>
             </div>
             <h2
-              className="text-2xl sm:text-3xl md:text-4xl font-normal text-slate-900 dark:text-[#D6DCDC] leading-tight tracking-tight"
+              className="text-xl sm:text-2xl md:text-3xl font-normal text-slate-900 dark:text-[#D6DCDC] leading-tight tracking-tight"
               style={{ fontFamily: "'Wix Madefor Text', 'Helvetica Neue', Arial, sans-serif" }}
             >
               Five services. One connected digital strategy.
@@ -119,13 +145,13 @@ export default function SolutionsListSection() {
           </div>
 
           {/* Active Solution Counter Pill */}
-          <div className="hidden sm:flex items-center gap-3 px-4 py-2 rounded-full border border-slate-200 dark:border-[#D6DCDC]/15 bg-slate-100/90 dark:bg-[#0E0E0E]/90 backdrop-blur-md shrink-0">
-            <span className="w-2 h-2 rounded-full bg-slate-900 dark:bg-[#C1B6FF] qft-pulse-glow" style={{ boxShadow: '0 0 8px rgba(0,0,0,0.2)' }} />
+          <div className="hidden sm:flex items-center gap-3 px-4 py-2 rounded-full border border-slate-200 dark:border-[#D6DCDC]/15 bg-slate-100/90 dark:bg-[#0E0E0E]/90 backdrop-blur-md shrink-0 shadow-sm">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#7C3AED] dark:bg-[#C1B6FF] qft-pulse-glow" style={{ boxShadow: '0 0 10px #7C3AED' }} />
             <span
               className="text-xs font-semibold text-slate-700 dark:text-[#D6DCDC]"
               style={{ fontFamily: 'Barlow, sans-serif' }}
             >
-              {activeSol.number} / 05 — <span className="text-slate-900 dark:text-[#C1B6FF]">{activeSol.title}</span>
+              {activeSol.number} / 05 — <span className="text-[#7C3AED] dark:text-[#C1B6FF] font-bold">{activeSol.title}</span>
             </span>
           </div>
         </div>
@@ -133,7 +159,7 @@ export default function SolutionsListSection() {
 
       {/* ── Scrolling Solution Chapters ── */}
       <div className="space-y-4 pt-4">
-        {solutions.map((sol, i) => (
+        {solutionsList.map((sol, i) => (
           <div key={sol.id} ref={(el) => { chapterRefs.current[i] = el; }}>
             <SolutionChapter
               {...sol}
