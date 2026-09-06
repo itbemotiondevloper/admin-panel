@@ -87,7 +87,6 @@ body {
 
 /* Header customization in dark mode */
 .dark header {
-  background-color: rgba(23, 23, 26, 0.8) !important;
   border-color: rgba(63, 63, 70, 0.4) !important;
 }
 

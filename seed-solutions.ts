@@ -166,46 +166,107 @@ const solutionsToSeed = [
     number: "01",
     shortLabel: "Website Dev",
     category: "Digital Solutions",
-    title: "Website Development",
-    headline: "Build a digital foundation that works for your business.",
-    subtitle: "Digital Foundations Built to Perform",
-    description: "We design and develop fast, responsive, user-focused websites built around your brand, audience, and business goals.",
-    ctaText: "Explore Website Development",
+    title: "Website Development That Works for Your Business",
+    headline: "Your website should do more than look good.",
+    subtitle: "Fast, Responsive, User-Focused Web Experiences",
+    description: "We build fast, responsive, user-focused websites that communicate your brand, make it easier for people to find what you offer, and turn digital visits into meaningful business opportunities. From corporate and B2B websites to e-commerce and custom digital experiences, we combine strategy, design, technology, and usability to build websites around your business goals.",
+    ctaText: "Start Your Website Project",
     href: "/solutions/website-development",
     badge: "FOUNDATION & UX",
-    accent: "#D6DCDC",
+    accent: "#FF4F18",
     order: 0,
     metricLabel: "Lighthouse Speed",
     metricVal: "99/100",
+    trustText: "100+ Websites Created across different industries, audiences, and digital requirements.",
+    heroOverviewTitle: "Your Website Is More Than a Digital Brochure",
+    heroOverviewDesc: "Your website is often the first place people experience your business. It shapes how they perceive your brand, how easily they understand your offering, how much they trust you, and whether they take the next step. That's why we don't approach website development as simply a design or coding exercise. We look at the bigger picture — your business, your audience, your competitors, your marketing goals, and the actions you want users to take. The result is a website designed to function as a business asset, not just an online presence.",
+    whyChooseTitle: "Websites Built Around Different Business Needs",
+    whyChooseDesc: "Every business needs something different from its website. We build digital experiences based on what your business actually needs — not a fixed template or package.",
     whyChoose: [
-      { title: "Custom Next.js Stack", desc: "Built with modern Next.js for blazing fast performance and SEO." },
-      { title: "Mobile First UX", desc: "Designed to provide flawless user experience on mobile devices." },
-      { title: "CMS Integration", desc: "Easy content management for your marketing team." }
+      { title: "Corporate Websites", desc: "Build a professional digital presence that clearly communicates your business, capabilities, expertise, and value." },
+      { title: "B2B Websites", desc: "Make complex products, services, and solutions easier for decision-makers to understand, evaluate, and enquire about." },
+      { title: "E-commerce Websites", desc: "Create online stores designed to showcase products, simplify the buying journey, and support business growth." },
+      { title: "Service-Based Websites", desc: "Turn your services and expertise into a clear digital experience that builds credibility and encourages enquiries." },
+      { title: "Product & Brand Websites", desc: "Create engaging digital experiences that give your products or brand a stronger online presence." },
+      { title: "Custom Website Experiences", desc: "When your requirements go beyond standard website structures, we build experiences around your specific goals and functionality." }
     ],
-    featuresTitle: "Capabilities",
+    whyChooseCta: "Explore Our Website Capabilities",
+    userGoalsTitle: "Built Around Users. Designed Around Goals.",
+    userGoalsDesc: "A website can look impressive and still fail to do its job. That's why we begin by understanding what the website needs to achieve. The website is then designed and developed around these answers.",
+    userGoalsItems: [
+      { title: "Your Audience", desc: "Who are you trying to reach, and what matters to them?" },
+      { title: "Your Business Goals", desc: "Is the website expected to generate enquiries, support sales, build credibility, showcase products, or serve another purpose?" },
+      { title: "User Intent", desc: "What are visitors looking for when they arrive, and what information do they need to move forward?" },
+      { title: "User Journey", desc: "How should someone move from discovering your business to taking action?" },
+      { title: "Content & Communication", desc: "How can your offering be presented clearly and persuasively?" },
+      { title: "Conversion Opportunities", desc: "Where should users be encouraged to enquire, contact, buy, book, or take the next step?" }
+    ],
+    featuresTitle: "What Goes Into a QFT Website",
+    featuresSubtitle: "Strategy, Design & Technology Working Together",
+    featuresDesc: "A strong website is the result of multiple elements working together.",
     features: [
-      { title: "Performance Engineering", desc: "Optimized for Core Web Vitals and lightning load times." },
-      { title: "Conversion Architecture", desc: "Strategic layout and UX to convert visitors into leads." }
+      { title: "Strategic Structure", desc: "We organise your website around clear objectives, logical information architecture, and intuitive user journeys." },
+      { title: "UI & Visual Design", desc: "We create digital interfaces that reflect your brand while keeping the experience clear, engaging, and easy to navigate." },
+      { title: "UX-Focused Development", desc: "We focus on how people actually use the website — from navigation and information discovery to calls-to-action and conversion paths." },
+      { title: "Responsive Development", desc: "Your website should provide a consistent experience across desktops, tablets, and mobile devices." },
+      { title: "Performance", desc: "We keep speed and efficiency in mind so your website can deliver a smoother experience for users." },
+      { title: "SEO-Ready Foundation", desc: "Website structure, content organisation, and technical considerations are developed with discoverability in mind." },
+      { title: "Conversion-Focused Experiences", desc: "From calls-to-action and forms to landing pages and user journeys, we create opportunities for visitors to take meaningful action." },
+      { title: "Scalable Foundation", desc: "Your website should be able to evolve as your business, content, products, and digital requirements grow." }
     ],
-    businessTypesTitle: "Suitable Industries",
-    businessTypesDesc: "Tailored web solutions across sectors.",
-    businessTypes: [
-      { name: "B2B SaaS & Tech", desc: "High-converting corporate web platforms." },
-      { name: "E-Commerce", desc: "Fast, custom storefronts optimized for checkout conversions." }
+    processTitle: "Our Website Development Process",
+    processSubtitle: "From Business Understanding to Digital Experience",
+    processDesc: "We don't start by opening a design file. We start by understanding what we're building and why.",
+    processSteps: [
+      { number: "01", name: "Understand", desc: "We learn about your business, audience, objectives, existing digital presence, and challenges." },
+      { number: "02", name: "Research", desc: "We study your industry, competitors, audience behaviour, content requirements, and relevant search intent." },
+      { number: "03", name: "Structure", desc: "We define the website architecture, page hierarchy, content structure, and user journeys." },
+      { number: "04", name: "Design", desc: "We translate the strategy into a visual and user experience that fits your brand and business objectives." },
+      { number: "05", name: "Develop", desc: "We bring the experience to life through responsive, functional, and performance-conscious development." },
+      { number: "06", name: "Launch & Improve", desc: "Before launch, we test the experience across key areas. After launch, the website can continue to evolve based on user behaviour, feedback, and business needs." }
     ],
-    opsTitle: "Digital Foundation",
-    opsParagraph: "Full control over your digital web platform.",
-    opsHighlights: "99/100 Speed · Zero Lag UX",
-    ctaBlock: { title: "Ready to build your digital foundation?", desc: "Talk to our web development team today." },
-    layerTitle: "Performance Web Stack Architecture",
-    layerDesc: "Modern Jamstack architecture for ultimate speed.",
-    metricsTitle: "Web Development Impact",
-    metricsItems: [
-      { value: "99/100", label: "PageSpeed Score", desc: "Lightning fast page load across desktop & mobile." }
+    ecosystemTitle: "Your Website Should Work With Your Marketing",
+    ecosystemSubtitle: "A Website Doesn't Operate in Isolation",
+    ecosystemDesc: "Your website is part of your wider digital ecosystem. That's why our website development approach considers how the website can work alongside your other digital efforts. The goal isn't simply to launch a website. It's to build a digital foundation that can support everything you do online.",
+    ecosystemItems: [
+      { title: "Website + SEO", desc: "Build a website that provides a strong foundation for organic visibility and relevant search traffic." },
+      { title: "Website + Content", desc: "Create pages and experiences that help your audience understand your business while supporting search and conversion." },
+      { title: "Website + Performance Marketing", desc: "Develop landing experiences that align with campaigns, audience intent, messaging, and conversion goals." },
+      { title: "Website + Custom Development", desc: "Extend your website with custom functionality, integrations, or technology when standard solutions aren't enough." }
     ],
+    whyQftTitle: "Why Build Your Website With QFT?",
+    whyQftSubtitle: "We Think Beyond the Build",
+    whyQftItems: [
+      { title: "Business-First Thinking", desc: "We focus on what your website needs to achieve for your business — not just what it needs to look like." },
+      { title: "Design With Purpose", desc: "We bring creative thinking into the experience while keeping usability and communication at the centre." },
+      { title: "Marketing-Aware Development", desc: "We understand how websites interact with SEO, content, paid campaigns, and the wider customer journey." },
+      { title: "Technology That Fits", desc: "We work across platforms and technologies to create solutions suited to the requirements of each project." },
+      { title: "Performance & User Experience", desc: "Speed, responsiveness, usability, and accessibility of information all contribute to a better digital experience." },
+      { title: "Built to Evolve", desc: "We build with the understanding that your website may need to change as your business grows." }
+    ],
+    trackRecord: {
+      title: "100+ Websites Created",
+      subtitle: "Experience That Goes Beyond the Launch",
+      desc: "We've built websites for businesses across different industries, audiences, and digital requirements. Every project starts from a different point. Our role is to understand that starting point, identify what the website needs to accomplish, and build an experience around it.",
+      ctaText: "View Our Work"
+    },
+    faqsTitle: "Frequently Asked Questions",
     faqs: [
-      { question: "Will my website be mobile-responsive?", answer: "Yes, all our websites are engineered mobile-first and tested on all device sizes." }
-    ]
+      { question: "What types of websites does Quest For Tech develop?", answer: "We develop corporate, B2B, service-based, product, brand, e-commerce, and custom website experiences based on the requirements of each business." },
+      { question: "Do you build websites for B2B businesses?", answer: "Yes. We build B2B websites with a focus on communicating complex offerings clearly, establishing credibility, supporting decision-makers, and generating relevant enquiries." },
+      { question: "Do you develop e-commerce websites?", answer: "Yes. Our website development capabilities include e-commerce experiences designed around product discovery, user experience, and the customer journey." },
+      { question: "Which website platforms do you work with?", answer: "Our capabilities include WordPress, Shopify, Wix, and custom website development. The right platform depends on the requirements, functionality, scalability, and goals of the project." },
+      { question: "Can you redesign an existing website?", answer: "Yes. An existing website can be evaluated and redesigned when its structure, experience, performance, visual identity, or business effectiveness needs improvement." },
+      { question: "Will my website be mobile-friendly?", answer: "Yes. Responsive development is an important part of our website development approach, allowing the experience to adapt across different screen sizes and devices." },
+      { question: "Can you build a website that is SEO-ready?", answer: "Yes. We consider website structure, content organisation, user experience, and relevant technical considerations to create a strong foundation for SEO." },
+      { question: "Can you maintain and improve my website after launch?", answer: "Website development doesn't have to end at launch. As your business and digital requirements evolve, your website can be improved, expanded, and optimised over time." }
+    ],
+    ctaBlock: {
+      title: "Build a Website That Moves Your Business Forward",
+      desc: "Your website is an investment in how your business is discovered, understood, trusted, and chosen. Let's build one that makes that investment count.",
+      ctaPrimaryText: "Start Your Website Project",
+      ctaSecondaryText: "Talk to Our Team"
+    }
   },
   {
     id: "seo",

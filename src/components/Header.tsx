@@ -120,29 +120,29 @@ export default function Header() {
   };
 
   return (
-    <div className="sticky top-0 z-50 w-full bg-white dark:bg-[#161616] border-b border-slate-200 dark:border-[#2A2A2A] transition-colors duration-300">
-      <header className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
+    <div className="sticky top-4 z-50 w-full px-4 sm:px-6 lg:px-8 pointer-events-none">
+      <div className="mx-auto max-w-5xl w-full bg-slate-900/90 dark:bg-[#141416]/95 backdrop-blur-xl border border-slate-700/50 dark:border-[#D6DCDC]/15 rounded-full px-5 sm:px-7 py-2.5 shadow-2xl transition-all duration-300 pointer-events-auto flex items-center justify-between">
         
         {/* Left: Logo & Navigation */}
-        <div className="flex items-center gap-12">
+        <div className="flex items-center gap-8 sm:gap-10">
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
             <img
-              src={logoWhite}
+              src={logoBlack}
               alt={`${companyName} Logo`}
-              className="object-contain h-6 w-auto block dark:hidden"
+              className="object-contain h-5.5 w-auto block dark:hidden"
               onError={(e) => { e.currentTarget.src = '/logo2.png'; }}
             />
             <img
-              src={logoBlack}
+              src={logoWhite}
               alt={`${companyName} Logo`}
-              className="object-contain h-6 w-auto hidden dark:block"
+              className="object-contain h-5.5 w-auto hidden dark:block"
               onError={(e) => { e.currentTarget.src = '/logo1.png'; }}
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             {navLinks.map((link) => {
               const isActive = pathname === link.href || (link.href !== '/' && pathname?.startsWith(link.href));
               return (
@@ -150,10 +150,10 @@ export default function Header() {
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`text-[14px] transition-colors duration-200 ${
+                  className={`text-[13.5px] transition-colors duration-200 ${
                     isActive
-                      ? 'font-bold text-slate-900 dark:text-white'
-                      : 'font-medium text-slate-600 hover:text-slate-900 dark:text-[#A0A0A0] dark:hover:text-white'
+                      ? 'font-bold text-white'
+                      : 'font-medium text-slate-300 hover:text-white dark:text-[#A0A0A0] dark:hover:text-white'
                   }`}
                   style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}
                 >
@@ -165,11 +165,11 @@ export default function Header() {
         </div>
 
         {/* Right: Action Button & Theme Toggle */}
-        <div className="hidden md:flex items-center gap-5">
+        <div className="hidden md:flex items-center gap-4">
           {renderThemeToggle()}
           <Link
             href="/request-demo"
-            className="rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] px-5 py-2 text-[13px] font-semibold transition-all duration-200 border border-[#A78BFA] active:scale-95 shadow-sm"
+            className="rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] px-4.5 py-1.5 text-[12.5px] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-sm"
             style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}
           >
             Get Started
@@ -184,29 +184,29 @@ export default function Header() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             type="button"
-            className="flex h-9 w-9 items-center justify-center rounded-full text-slate-700 dark:text-zinc-300 hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
+            className="flex h-8.5 w-8.5 items-center justify-center rounded-full text-slate-200 hover:bg-white/10 transition-colors"
             aria-label="Toggle navigation menu"
           >
             {isMenuOpen ? (
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+              <svg className="h-4.5 w-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
           </button>
         </div>
-      </header>
+      </div>
 
       {/* Mobile Menu Panel */}
       <div
-        className={`md:hidden transition-all duration-300 ease-in-out absolute top-full left-0 w-full bg-white dark:bg-[#161616] border-b border-slate-200 dark:border-[#2A2A2A] overflow-hidden ${
-          isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        className={`md:hidden transition-all duration-300 ease-in-out mx-auto max-w-5xl mt-2 rounded-3xl bg-slate-900/95 dark:bg-[#141416]/95 border border-slate-700/50 dark:border-[#D6DCDC]/15 overflow-hidden shadow-2xl pointer-events-auto ${
+          isMenuOpen ? 'max-h-96 opacity-100 p-6' : 'max-h-0 opacity-0 p-0'
         }`}
       >
-        <div className="flex flex-col gap-1 p-6">
+        <div className="flex flex-col gap-1">
           {navLinks.map((link) => {
             const isActive = pathname === link.href || (link.href !== '/' && pathname?.startsWith(link.href));
             return (
@@ -217,19 +217,19 @@ export default function Header() {
                   handleNavClick(e, link.href);
                   if (link.href !== '#') setIsMenuOpen(false);
                 }}
-                className={`py-3 text-[15px] transition-colors ${
-                  isActive ? 'font-bold text-slate-900 dark:text-white' : 'font-medium text-slate-600 hover:text-slate-900 dark:text-[#A0A0A0] dark:hover:text-white'
+                className={`py-2.5 text-[14px] transition-colors ${
+                  isActive ? 'font-bold text-white' : 'font-medium text-slate-300 hover:text-white'
                 }`}
               >
                 {link.label}
               </Link>
             );
           })}
-          <div className="mt-4 pt-4 border-t border-slate-200 dark:border-[#2A2A2A]">
+          <div className="mt-3 pt-3 border-t border-white/10">
             <Link
               href="/request-demo"
               onClick={() => setIsMenuOpen(false)}
-              className="flex w-full items-center justify-center rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] py-3 text-[14px] font-semibold transition-all"
+              className="flex w-full items-center justify-center rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] py-2.5 text-[13px] font-semibold transition-all"
             >
               Get Started
             </Link>
