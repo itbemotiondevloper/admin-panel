@@ -191,6 +191,105 @@ function EcosystemSplitList({ items }: { items: any[] }) {
   );
 }
 
+// 5. Capability Accordion Section with Scroll-Active Expand/Shrink Effect
+function CapabilityAccordionSection({ solution }: { solution: any }) {
+  const [activeIdx, setActiveIdx] = useState<number>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let ctx: any;
+    const initScrollTrigger = async () => {
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
+      if (!containerRef.current) return;
+      const items = containerRef.current.querySelectorAll('.capability-accordion-item');
+
+      items.forEach((item, idx) => {
+        ScrollTrigger.create({
+          trigger: item,
+          start: 'top 55%',
+          end: 'bottom 45%',
+          onEnter: () => setActiveIdx(idx),
+          onEnterBack: () => setActiveIdx(idx),
+        });
+      });
+    };
+
+    initScrollTrigger();
+  }, [solution]);
+
+  return (
+    <section className="gsap-reveal max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28 text-left">
+      <div className="max-w-3xl space-y-4 mb-16">
+        <div className="flex items-center gap-3">
+          <span className="inline-block w-5 h-px bg-[#A78BFA]" />
+          <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#A78BFA]" style={{ fontFamily: 'Barlow, sans-serif' }}>
+            INTEGRATED CAPABILITIES
+          </span>
+        </div>
+        
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-slate-900 dark:text-[#D6DCDC] tracking-tight" style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}>
+          {solution.featuresTitle || "What Goes Into a QFT Website"}
+        </h2>
+      </div>
+
+      {/* Accordion List - Active Item Expands & Inactive Items Moderately Shrink with Soft Blur */}
+      <div ref={containerRef} className="divide-y divide-slate-200 dark:divide-[#D6DCDC]/10 border-t border-b border-slate-200 dark:border-[#D6DCDC]/10 py-2">
+        {solution.features.map((feat: any, idx: number) => {
+          const isActive = activeIdx === idx;
+          return (
+            <div 
+              key={idx} 
+              onClick={() => setActiveIdx(idx)}
+              onMouseEnter={() => setActiveIdx(idx)}
+              className={`capability-scroll-item capability-accordion-item group rounded-2xl border transition-all duration-600 ease-[cubic-bezier(0.25,1,0.5,1)] cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-4 origin-left ${
+                isActive
+                  ? 'py-7 sm:py-8 px-6 sm:px-8 bg-white dark:bg-[#141417] border-[#7C3AED]/40 dark:border-[#A78BFA]/50 shadow-[0_20px_40px_rgba(124,58,237,0.12)] scale-100 opacity-100 my-2.5 z-10 blur-none'
+                  : 'py-4 sm:py-4.5 px-5 sm:px-6 bg-transparent border-transparent opacity-45 hover:opacity-85 scale-[0.97] blur-[1px] hover:blur-none my-0.5'
+              }`}
+            >
+              <div className="flex items-center gap-4 md:w-5/12">
+                <span 
+                  className={`font-mono text-xs font-bold transition-all duration-500 ${
+                    isActive 
+                      ? 'px-3 py-1.5 rounded-lg bg-[#7C3AED] text-white dark:bg-[#A78BFA] dark:text-black border-transparent shadow-md scale-105' 
+                      : 'px-2 py-0.5 rounded text-[#7C3AED] dark:text-[#A78BFA] bg-[#7C3AED]/10 dark:bg-[#A78BFA]/10 border border-[#A78BFA]/20 scale-95'
+                  }`}
+                >
+                  0{idx + 1}
+                </span>
+                <h3 
+                  className={`font-normal transition-all duration-500 ${
+                    isActive 
+                      ? 'text-xl sm:text-2xl text-[#7C3AED] dark:text-[#A78BFA] font-medium tracking-tight' 
+                      : 'text-base sm:text-lg text-slate-700 dark:text-[#D6DCDC]/70 font-normal'
+                  }`} 
+                  style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}
+                >
+                  {feat.title}
+                </h3>
+              </div>
+
+              <p 
+                className={`md:w-7/12 leading-relaxed font-normal transition-all duration-500 ${
+                  isActive 
+                    ? 'text-base sm:text-lg text-slate-800 dark:text-[#D6DCDC]/90' 
+                    : 'text-xs sm:text-sm text-slate-500 dark:text-[#D6DCDC]/50'
+                }`} 
+                style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}
+              >
+                {feat.desc}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
 
 export function SolutionsDetailsSharedContent({ defaultModule }: SolutionsDetailsSharedProps) {
   const searchParams = useSearchParams();
@@ -258,6 +357,28 @@ export function SolutionsDetailsSharedContent({ defaultModule }: SolutionsDetail
             }
           );
         });
+
+        // Staggered pop-up scroll animation for individual capabilities items
+        const capabilityItems = mainRef.current?.querySelectorAll('.capability-scroll-item');
+        if (capabilityItems && capabilityItems.length > 0) {
+          gsap.fromTo(
+            capabilityItems,
+            { opacity: 0, y: 50, scale: 0.96 },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.7,
+              stagger: 0.12,
+              ease: 'back.out(1.4)',
+              scrollTrigger: {
+                trigger: capabilityItems[0],
+                start: 'top 85%',
+                toggleActions: 'play none none reverse',
+              },
+            }
+          );
+        }
       }, mainRef);
 
       setTimeout(() => {
@@ -534,39 +655,9 @@ export function SolutionsDetailsSharedContent({ defaultModule }: SolutionsDetail
           </section>
         )}
 
-        {/* ── SECTION 5: CAPABILITIES (Horizontal Feature Row Layout) ── */}
+        {/* ── SECTION 5: CAPABILITIES (Interactive Expandable Accordion List on Scroll/Click) ── */}
         {solution.features && solution.features.length > 0 && (
-          <section className="gsap-reveal max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20 lg:py-28 text-left">
-            <div className="max-w-3xl space-y-4 mb-16">
-              <div className="flex items-center gap-3">
-                <span className="inline-block w-5 h-px bg-[#A78BFA]" />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#A78BFA]" style={{ fontFamily: 'Barlow, sans-serif' }}>
-                  INTEGRATED CAPABILITIES
-                </span>
-              </div>
-              
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-normal text-slate-900 dark:text-[#D6DCDC] tracking-tight" style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}>
-                {solution.featuresTitle || "What Goes Into a QFT Website"}
-              </h2>
-            </div>
-
-            {/* Horizontal Line Feature Row List */}
-            <div className="divide-y divide-[#D6DCDC]/10 border-t border-b border-[#D6DCDC]/10">
-              {solution.features.map((feat: any, idx: number) => (
-                <div key={idx} className="py-6 sm:py-8 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-white/[0.02] px-4 transition-colors">
-                  <div className="flex items-center gap-4 md:w-1/3">
-                    <span className="font-mono text-xs font-bold text-[#A78BFA]">0{idx + 1}</span>
-                    <h3 className="text-lg sm:text-xl font-normal text-[#D6DCDC]" style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}>
-                      {feat.title}
-                    </h3>
-                  </div>
-                  <p className="text-sm text-[#D6DCDC]/60 md:w-2/3 leading-relaxed font-normal" style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}>
-                    {feat.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
+          <CapabilityAccordionSection solution={solution} />
         )}
 
         {/* ── SECTION 6: PROCESS (Horizontal Flow Timeline) ── */}
