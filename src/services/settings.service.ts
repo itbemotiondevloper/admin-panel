@@ -11,6 +11,12 @@ export interface SettingsData {
     siteTitle?: string;
     favicon?: string;
   };
+  analytics?: {
+    googleAnalyticsId?: string;
+    facebookPixelId?: string;
+    customHeadScripts?: string;
+    customBodyScripts?: string;
+  };
   solutionsGridTitle: string;
   solutionsGridDesc: string;
   customCategories?: string[];
@@ -26,6 +32,12 @@ const DEFAULT_SETTINGS: SettingsData = {
     companyName: 'Quest For Tech',
     siteTitle: 'Quest For Tech - Digital Solutions',
     favicon: '/favicon1.png'
+  },
+  analytics: {
+    googleAnalyticsId: '',
+    facebookPixelId: '',
+    customHeadScripts: '',
+    customBodyScripts: ''
   },
   solutionsGridTitle: 'Twelve powerful features to help your restaurant run better',
   solutionsGridDesc: 'Click on any feature card below to open its full specifications and details on a new page.',
@@ -58,6 +70,12 @@ export const settingsService = {
             siteTitle: data.branding?.siteTitle || `${companyName} - Restaurant Operating System`,
             favicon: data.branding?.favicon || DEFAULT_SETTINGS.branding.favicon
           },
+          analytics: {
+            googleAnalyticsId: data.analytics?.googleAnalyticsId || '',
+            facebookPixelId: data.analytics?.facebookPixelId || '',
+            customHeadScripts: data.analytics?.customHeadScripts || '',
+            customBodyScripts: data.analytics?.customBodyScripts || ''
+          },
           solutionsGridTitle: data.solutionsGridTitle || DEFAULT_SETTINGS.solutionsGridTitle,
           solutionsGridDesc: data.solutionsGridDesc || DEFAULT_SETTINGS.solutionsGridDesc,
           customCategories: data.customCategories || DEFAULT_SETTINGS.customCategories,
@@ -86,6 +104,12 @@ export const settingsService = {
         companyName: payload.branding?.companyName || current.branding.companyName,
         siteTitle: payload.branding?.siteTitle !== undefined ? payload.branding.siteTitle : (current.branding.siteTitle || `${current.branding.companyName} - Restaurant Operating System`),
         favicon: payload.branding?.favicon || current.branding.favicon || '/favicon1.png'
+      },
+      analytics: {
+        googleAnalyticsId: payload.analytics?.googleAnalyticsId !== undefined ? payload.analytics.googleAnalyticsId : (current.analytics?.googleAnalyticsId || ''),
+        facebookPixelId: payload.analytics?.facebookPixelId !== undefined ? payload.analytics.facebookPixelId : (current.analytics?.facebookPixelId || ''),
+        customHeadScripts: payload.analytics?.customHeadScripts !== undefined ? payload.analytics.customHeadScripts : (current.analytics?.customHeadScripts || ''),
+        customBodyScripts: payload.analytics?.customBodyScripts !== undefined ? payload.analytics.customBodyScripts : (current.analytics?.customBodyScripts || '')
       },
       solutionsGridTitle: payload.solutionsGridTitle || current.solutionsGridTitle,
       solutionsGridDesc: payload.solutionsGridDesc || current.solutionsGridDesc,

@@ -23,6 +23,13 @@ export default function Options({ className }: OptionsProps) {
   const [faviconUrl, setFaviconUrl] = useState('/favicon.ico');
   const [desktopVideoUrl, setDesktopVideoUrl] = useState('/Digitory.mp4');
   const [mobileVideoUrl, setMobileVideoUrl] = useState('/mobile.mp4');
+
+  // Analytics & Pixel tracking variables
+  const [googleAnalyticsId, setGoogleAnalyticsId] = useState('');
+  const [facebookPixelId, setFacebookPixelId] = useState('');
+  const [customHeadScripts, setCustomHeadScripts] = useState('');
+  const [customBodyScripts, setCustomBodyScripts] = useState('');
+
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState('');
 
@@ -39,6 +46,12 @@ export default function Options({ className }: OptionsProps) {
           if (s.branding.siteTitle) setSiteTitle(s.branding.siteTitle);
           else if (s.branding.companyName) setSiteTitle(`${s.branding.companyName} - Restaurant Operating System`);
           if (s.branding.favicon) setFaviconUrl(s.branding.favicon);
+        }
+        if (s.analytics) {
+          if (s.analytics.googleAnalyticsId) setGoogleAnalyticsId(s.analytics.googleAnalyticsId);
+          if (s.analytics.facebookPixelId) setFacebookPixelId(s.analytics.facebookPixelId);
+          if (s.analytics.customHeadScripts) setCustomHeadScripts(s.analytics.customHeadScripts);
+          if (s.analytics.customBodyScripts) setCustomBodyScripts(s.analytics.customBodyScripts);
         }
         if (s.desktopVideoUrl) setDesktopVideoUrl(s.desktopVideoUrl);
         if (s.mobileVideoUrl) setMobileVideoUrl(s.mobileVideoUrl);
@@ -134,10 +147,16 @@ export default function Options({ className }: OptionsProps) {
           siteTitle,
           favicon: faviconUrl
         },
+        analytics: {
+          googleAnalyticsId,
+          facebookPixelId,
+          customHeadScripts,
+          customBodyScripts
+        },
         desktopVideoUrl,
         mobileVideoUrl
       });
-      setMessage('✅ Branding settings updated successfully!');
+      setMessage('✅ Branding & Analytics settings updated successfully!');
       
       localStorage.setItem('branding_logo_black', logoBlackUrl);
       localStorage.setItem('branding_logo_white', logoWhiteUrl);

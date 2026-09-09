@@ -23,7 +23,7 @@ export const dynamic = 'force-dynamic';
 
 export default async function SolutionsPage() {
   return (
-    <div className="min-h-screen bg-black flex flex-col font-sans">
+    <div className="min-h-screen bg-white dark:bg-black text-zinc-900 dark:text-white flex flex-col font-sans transition-colors duration-300">
       {/* Header */}
       <Header />
 

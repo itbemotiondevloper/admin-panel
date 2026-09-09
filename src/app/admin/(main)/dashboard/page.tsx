@@ -641,6 +641,18 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
     });
   };
 
+  const handleDuplicateSolution = async (id: string) => {
+    try {
+      showToast('Duplicating solution...', 'info');
+      const duplicated = await solutionsService.duplicateSolution(id);
+      setData((prev) => [...prev, duplicated]);
+      showToast(`Duplicated solution! Created slug "${duplicated.slug}"`, 'success');
+    } catch (err: any) {
+      console.error(err);
+      showToast(err.message || 'Failed to duplicate solution', 'error');
+    }
+  };
+
   const handleOpenCreateUpdate = () => {
     setEditingUpdate(null);
     setUpdateForm({
@@ -1624,10 +1636,16 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                       <>
                         <td className="px-6 py-4 font-medium max-w-[250px] truncate">{item.title}</td>
                         <td className="px-6 py-4">{item.slug}</td>
-                        <td className="px-6 py-4">
+                        <td className="px-6 py-4 space-x-3">
                           <Link href={`/admin/solutions/${item._id}`} className="text-[#FF4F18] font-bold hover:underline transition-opacity">
                             Edit Solution
                           </Link>
+                          <button
+                            onClick={() => handleDuplicateSolution(item._id)}
+                            className="text-xs font-bold px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] dark:hover:bg-[#A78BFA]/20 dark:hover:text-[#A78BFA] transition-colors cursor-pointer"
+                          >
+                            Duplicate
+                          </button>
                         </td>
                       </>
                     )}

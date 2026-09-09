@@ -3,8 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Route } from "next";
-import { HomeIcon, SettingsIcon, SearchIcon, FileText, CheckCircle, MessageSquare, Inbox, Users, Megaphone, LogOut } from "lucide-react";
+import { HomeIcon, SettingsIcon, SearchIcon, FileText, CheckCircle, MessageSquare, Inbox, Users, Megaphone, LogOut, ChevronDown, ChevronRight } from "lucide-react";
 import { authService } from "@/services/auth.service";
 import { usePermissions } from "@/hooks/usePermissions";
 import { settingsService } from "@/services/settings.service";
@@ -13,11 +12,19 @@ interface NavbarProps {
   className?: string;
 }
 
-interface ILink {
+interface NavSubItem {
   label: string;
   href: string;
   Icon: typeof HomeIcon;
   permission?: string;
+}
+
+interface ILink {
+  label: string;
+  href?: string;
+  Icon: typeof HomeIcon;
+  permission?: string;
+  subItems?: NavSubItem[];
 }
 
 const links: ILink[] = [
@@ -50,6 +57,26 @@ const links: ILink[] = [
     href: "/admin/blogs",
     Icon: FileText,
     permission: "manage_blogs",
+    subItems: [
+      {
+        label: "All Posts",
+        href: "/admin/blogs",
+        Icon: FileText,
+        permission: "manage_blogs",
+      },
+      {
+        label: "Comments",
+        href: "/admin/comments",
+        Icon: MessageSquare,
+        permission: "manage_comments",
+      },
+      {
+        label: "Registered Users",
+        href: "/admin/users",
+        Icon: Users,
+        permission: "manage_users",
+      },
+    ],
   },
   {
     label: "Solutions Cards",
@@ -62,18 +89,6 @@ const links: ILink[] = [
     href: "/admin/solutions-page",
     Icon: FileText,
     permission: "manage_solutions",
-  },
-  {
-    label: "Comments",
-    href: "/admin/comments",
-    Icon: MessageSquare,
-    permission: "manage_comments",
-  },
-  {
-    label: "Registered Users",
-    href: "/admin/users",
-    Icon: Users,
-    permission: "manage_users",
   },
   {
     label: "Staff / Admins",
@@ -172,22 +187,39 @@ const Navbar: React.FC<NavbarProps> = ({ className }) => {
         {/* Main Navigation */}
         <div className="flex h-full flex-col gap-1.5 overflow-y-auto pr-2 custom-scrollbar">
           {links
-            .filter(link => hasPermission(link.permission))
+            .filter(link => {
+              if (link.subItems) {
+                return link.subItems.some(sub => hasPermission(sub.permission));
+              }
+              return hasPermission(link.permission);
+            })
             .map((link, indx) => {
-              // Determine active state by checking path and tab query param
-              const linkUrl = new URL(link.href, 'http://localhost');
+              if (link.subItems) {
+                return (
+                  <NavDropdown
+                    key={indx}
+                    link={link}
+                    pathname={pathname}
+                    searchParams={searchParams}
+                    hasPermission={hasPermission}
+                  />
+                );
+              }
+
+              // Single item logic
+              const linkUrl = new URL(link.href!, 'http://localhost');
               const linkTab = linkUrl.searchParams.get('tab');
               const currentTab = searchParams.get('tab');
               
               const isTabMatch = linkTab 
                 ? currentTab === linkTab 
-                : !currentTab; // default match if tab is undefined
+                : !currentTab;
                 
               const isPathMatch = pathname === linkUrl.pathname || (linkUrl.pathname !== '/admin/dashboard' && pathname.startsWith(linkUrl.pathname));
               const isActive = isPathMatch && isTabMatch;
 
               return (
-                <NavItem key={indx} {...link} isActive={isActive} />
+                <NavItem key={indx} {...link} href={link.href!} isActive={isActive} />
               );
             })}
         </div>
@@ -207,7 +239,84 @@ const Navbar: React.FC<NavbarProps> = ({ className }) => {
   );
 };
 
-const NavItem: React.FC<ILink & { className?: string; isActive?: boolean }> = ({
+const NavDropdown: React.FC<{
+  link: ILink;
+  pathname: string;
+  searchParams: ReturnType<typeof useSearchParams>;
+  hasPermission: (perm?: string) => boolean;
+}> = ({ link, pathname, searchParams, hasPermission }) => {
+  const allowedSubItems = (link.subItems || []).filter(sub => hasPermission(sub.permission));
+  
+  const hasActiveChild = allowedSubItems.some(sub => {
+    return pathname === sub.href || pathname.startsWith(sub.href + '/');
+  });
+
+  const [isOpen, setIsOpen] = useState<boolean>(hasActiveChild);
+
+  useEffect(() => {
+    if (hasActiveChild) {
+      setIsOpen(true);
+    }
+  }, [hasActiveChild]);
+
+  const Icon = link.Icon;
+
+  return (
+    <div className="flex flex-col gap-1">
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className={clsx(
+          "w-full flex items-center justify-between rounded-xl px-3 py-2.5 transition-all duration-200 font-semibold text-[14px] cursor-pointer",
+          hasActiveChild
+            ? "bg-[#FFF3EF]/50 dark:bg-orange-950/10 text-[#FF4F18]"
+            : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white"
+        )}
+      >
+        <div className="flex items-center">
+          <Icon size={18} className="mr-3 shrink-0" strokeWidth={hasActiveChild ? 2.5 : 2} />
+          <span>{link.label}</span>
+        </div>
+        {isOpen ? (
+          <ChevronDown size={16} className="text-zinc-400 dark:text-zinc-500" />
+        ) : (
+          <ChevronRight size={16} className="text-zinc-400 dark:text-zinc-500" />
+        )}
+      </button>
+
+      {isOpen && (
+        <div className="flex flex-col gap-1 pl-4 ml-3 border-l border-zinc-200 dark:border-zinc-800">
+          {allowedSubItems.map((sub, idx) => {
+            const isActive = pathname === sub.href || (sub.href !== '/admin/blogs' && pathname.startsWith(sub.href));
+            // For /admin/blogs exact vs subpages like /admin/blogs/add
+            const isBlogActive = sub.href === '/admin/blogs' && pathname.startsWith('/admin/blogs');
+            const subActive = sub.href === '/admin/blogs' ? isBlogActive : isActive;
+
+            const SubIcon = sub.Icon;
+
+            return (
+              <Link
+                key={idx}
+                href={sub.href}
+                className={clsx(
+                  "flex items-center rounded-lg px-2.5 py-2 text-[13px] transition-all duration-200 font-medium",
+                  subActive
+                    ? "bg-[#FFF3EF] dark:bg-orange-950/20 text-[#FF4F18] font-bold"
+                    : "text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white"
+                )}
+              >
+                <SubIcon size={16} className="mr-2.5 shrink-0" strokeWidth={subActive ? 2.5 : 1.75} />
+                {sub.label}
+              </Link>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const NavItem: React.FC<ILink & { href: string; className?: string; isActive?: boolean }> = ({
   label,
   href,
   Icon,
@@ -232,3 +341,4 @@ const NavItem: React.FC<ILink & { className?: string; isActive?: boolean }> = ({
 };
 
 export default Navbar;
+

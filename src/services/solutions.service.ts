@@ -122,6 +122,35 @@ export const solutionsService = {
     this.clearCache();
   },
 
+  // Duplicate solution with auto-incremented slug (-2, -3, etc.)
+  async duplicateSolution(id: string) {
+    const original = await this.getSolutionById(id);
+    if (!original) throw new Error("Solution to duplicate was not found");
+
+    const baseSlug = original.slug ? original.slug.replace(/-\d+$/, '') : 'solution';
+    let count = 2;
+    let newSlug = `${baseSlug}-${count}`;
+
+    // Loop until we find a free slug
+    while (await this.getSolutionBySlug(newSlug)) {
+      count++;
+      newSlug = `${baseSlug}-${count}`;
+    }
+
+    const newTitle = original.title ? `${original.title} (Copy)` : `Copy of ${id}`;
+
+    // Omit original _id and id properties
+    const { _id, id: origId, ...copyData } = original;
+
+    const payload = {
+      ...copyData,
+      title: newTitle,
+      slug: newSlug
+    };
+
+    return await this.createSolution(payload);
+  },
+
   clearCache() {
     cachedSolutions = null;
     fetchPromise = null;

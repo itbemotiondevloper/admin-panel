@@ -247,7 +247,7 @@ const NotionBlogEditor: React.FC<NotionBlogEditorProps> = ({
       <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#2c2c2c] bg-[#191919]/90 px-6 py-3 backdrop-blur-md">
         <div className="flex items-center gap-3">
           <button
-            onClick={() => router.push("/admin/dashboard?tab=blogs")}
+            onClick={() => router.push("/admin/blogs")}
             className="flex items-center gap-1 rounded px-2 py-1 text-sm text-[#8c8c8c] hover:bg-[#252525] hover:text-white transition-all cursor-pointer"
             type="button"
           >

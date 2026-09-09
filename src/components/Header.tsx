@@ -121,7 +121,7 @@ export default function Header() {
 
   return (
     <div className="sticky top-4 z-50 w-full px-4 sm:px-6 lg:px-8 pointer-events-none">
-      <div className="mx-auto max-w-5xl w-full bg-slate-900/90 dark:bg-[#141416]/95 backdrop-blur-xl border border-slate-700/50 dark:border-[#D6DCDC]/15 rounded-full px-5 sm:px-7 py-2.5 shadow-2xl transition-all duration-300 pointer-events-auto flex items-center justify-between">
+      <div className="mx-auto max-w-5xl w-full bg-white/85 dark:bg-[#141416]/95 backdrop-blur-xl border border-zinc-200/80 dark:border-[#D6DCDC]/15 rounded-full px-5 sm:px-7 py-2.5 shadow-lg dark:shadow-2xl transition-all duration-300 pointer-events-auto flex items-center justify-between">
         
         {/* Left: Logo & Navigation */}
         <div className="flex items-center gap-8 sm:gap-10">
@@ -152,8 +152,8 @@ export default function Header() {
                   onClick={(e) => handleNavClick(e, link.href)}
                   className={`text-[13.5px] transition-colors duration-200 ${
                     isActive
-                      ? 'font-bold text-white'
-                      : 'font-medium text-slate-300 hover:text-white dark:text-[#A0A0A0] dark:hover:text-white'
+                      ? 'font-bold text-zinc-900 dark:text-white'
+                      : 'font-medium text-zinc-600 hover:text-zinc-900 dark:text-[#A0A0A0] dark:hover:text-white'
                   }`}
                   style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}
                 >
@@ -169,7 +169,7 @@ export default function Header() {
           {renderThemeToggle()}
           <Link
             href="/request-demo"
-            className="rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] px-4.5 py-1.5 text-[12.5px] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-sm"
+            className="rounded-full bg-[#FF4F18] dark:bg-[#A78BFA] text-white dark:text-black hover:bg-[#e03f0d] dark:hover:bg-[#B89FFF] px-4.5 py-1.5 text-[12.5px] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-sm"
             style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}
           >
             Get Started
@@ -184,7 +184,7 @@ export default function Header() {
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             type="button"
-            className="flex h-8.5 w-8.5 items-center justify-center rounded-full text-slate-200 hover:bg-white/10 transition-colors"
+            className="flex h-8.5 w-8.5 items-center justify-center rounded-full text-zinc-700 hover:bg-zinc-100 dark:text-slate-200 dark:hover:bg-white/10 transition-colors"
             aria-label="Toggle navigation menu"
           >
             {isMenuOpen ? (
@@ -202,7 +202,7 @@ export default function Header() {
 
       {/* Mobile Menu Panel */}
       <div
-        className={`md:hidden transition-all duration-300 ease-in-out mx-auto max-w-5xl mt-2 rounded-3xl bg-slate-900/95 dark:bg-[#141416]/95 border border-slate-700/50 dark:border-[#D6DCDC]/15 overflow-hidden shadow-2xl pointer-events-auto ${
+        className={`md:hidden transition-all duration-300 ease-in-out mx-auto max-w-5xl mt-2 rounded-3xl bg-white/95 dark:bg-[#141416]/95 border border-zinc-200/80 dark:border-[#D6DCDC]/15 overflow-hidden shadow-2xl pointer-events-auto ${
           isMenuOpen ? 'max-h-96 opacity-100 p-6' : 'max-h-0 opacity-0 p-0'
         }`}
       >
@@ -218,18 +218,18 @@ export default function Header() {
                   if (link.href !== '#') setIsMenuOpen(false);
                 }}
                 className={`py-2.5 text-[14px] transition-colors ${
-                  isActive ? 'font-bold text-white' : 'font-medium text-slate-300 hover:text-white'
+                  isActive ? 'font-bold text-zinc-900 dark:text-white' : 'font-medium text-zinc-600 hover:text-zinc-900 dark:text-slate-300 dark:hover:text-white'
                 }`}
               >
                 {link.label}
               </Link>
             );
           })}
-          <div className="mt-3 pt-3 border-t border-white/10">
+          <div className="mt-3 pt-3 border-t border-zinc-200 dark:border-white/10">
             <Link
               href="/request-demo"
               onClick={() => setIsMenuOpen(false)}
-              className="flex w-full items-center justify-center rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] py-2.5 text-[13px] font-semibold transition-all"
+              className="flex w-full items-center justify-center rounded-full bg-[#FF4F18] dark:bg-[#A78BFA] text-white dark:text-black hover:bg-[#e03f0d] dark:hover:bg-[#B89FFF] py-2.5 text-[13px] font-semibold transition-all"
             >
               Get Started
             </Link>

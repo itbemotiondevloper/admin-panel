@@ -278,14 +278,38 @@ export default function SolutionEditorPage() {
           </div>
         </div>
 
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FF4F18] hover:bg-[#E03F0D] text-white text-sm font-bold rounded-full transition-all shadow-md select-none disabled:opacity-60 cursor-pointer"
-        >
-          {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-          Save Solution
-        </button>
+        <div className="flex items-center gap-3">
+          {!isNew && (
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+                  setSaving(true);
+                  const dup = await solutionsService.duplicateSolution(id);
+                  router.push(`/admin/solutions/${dup._id}`);
+                } catch (err: any) {
+                  console.error(err);
+                  alert(err.message || "Failed to duplicate solution");
+                } finally {
+                  setSaving(false);
+                }
+              }}
+              disabled={saving}
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 text-sm font-bold rounded-full transition-all cursor-pointer"
+            >
+              Duplicate
+            </button>
+          )}
+
+          <button
+            onClick={handleSave}
+            disabled={saving}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FF4F18] hover:bg-[#E03F0D] text-white text-sm font-bold rounded-full transition-all shadow-md select-none disabled:opacity-60 cursor-pointer"
+          >
+            {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
+            Save Solution
+          </button>
+        </div>
       </div>
 
       <form onSubmit={handleSave} className="grid grid-cols-1 lg:grid-cols-12 gap-8">

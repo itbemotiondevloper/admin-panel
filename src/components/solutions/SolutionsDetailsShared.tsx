@@ -134,32 +134,108 @@ function WhatWeBuildInteractive({ items }: { items: any[] }) {
   );
 }
 
-// 3. Process Horizontal Timeline (Replaces repetitive grid cards)
+// 3. Process Interactive Horizontal Stepper & Spotlight Component
 function ProcessHorizontalTimeline({ steps }: { steps: any[] }) {
-  return (
-    <div className="w-full relative">
-      {/* Connecting line */}
-      <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-slate-200 dark:bg-[#D6DCDC]/15 -translate-y-1/2 z-0" />
+  const [activeStep, setActiveStep] = useState(0);
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6 relative z-10">
-        {steps.map((step, idx) => (
-          <div 
-            key={idx}
-            className="bg-slate-50 dark:bg-[#090909] p-6 rounded-2xl border border-slate-200 dark:border-[#D6DCDC]/15 space-y-4 hover:border-[#A78BFA]/50 transition-all flex flex-col justify-between"
-          >
-            <div className="w-10 h-10 rounded-xl bg-[#7C3AED]/10 text-[#7C3AED] dark:bg-[#A78BFA]/10 dark:text-[#A78BFA] flex items-center justify-center font-mono font-bold text-xs border border-[#A78BFA]/20">
-              {step.number || `0${idx + 1}`}
+  return (
+    <div className="w-full space-y-10">
+      {/* Connected Top Stepper Bar with Progress Line */}
+      <div className="relative w-full">
+        {/* Background track line */}
+        <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-slate-200 dark:bg-white/10 -translate-y-1/2 z-0" />
+        
+        {/* Active filled progress line */}
+        <div 
+          className="absolute top-1/2 left-0 h-0.5 bg-gradient-to-r from-[#7C3AED] to-[#A78BFA] -translate-y-1/2 z-0 transition-all duration-500 ease-out" 
+          style={{ width: `${(activeStep / (steps.length - 1)) * 100}%` }}
+        />
+
+        {/* Stepper nodes grid */}
+        <div className="grid grid-cols-6 gap-2 relative z-10">
+          {steps.map((step, idx) => {
+            const isActive = activeStep === idx;
+            const isCompleted = activeStep > idx;
+
+            return (
+              <button
+                key={idx}
+                onClick={() => setActiveStep(idx)}
+                onMouseEnter={() => setActiveStep(idx)}
+                className="group flex flex-col items-center gap-3 cursor-pointer focus:outline-none"
+              >
+                {/* Node Pill Circle */}
+                <div 
+                  className={`w-10 h-10 rounded-full flex items-center justify-center font-mono font-bold text-xs transition-all duration-300 border ${
+                    isActive
+                      ? 'bg-[#7C3AED] text-white dark:bg-[#A78BFA] dark:text-black border-transparent shadow-[0_0_20px_rgba(167,139,250,0.6)] scale-110'
+                      : isCompleted
+                      ? 'bg-[#7C3AED]/20 text-[#7C3AED] dark:bg-[#A78BFA]/20 dark:text-[#A78BFA] border-[#A78BFA]/40'
+                      : 'bg-white dark:bg-[#121215] text-slate-400 dark:text-[#D6DCDC]/40 border-slate-200 dark:border-white/10 group-hover:border-[#A78BFA]/50 group-hover:scale-105'
+                  }`}
+                >
+                  {isCompleted ? '✓' : step.number || `0${idx + 1}`}
+                </div>
+
+                {/* Step Title Label under node */}
+                <span 
+                  className={`text-xs font-normal text-center hidden sm:block transition-colors duration-300 ${
+                    isActive 
+                      ? 'text-[#7C3AED] dark:text-[#A78BFA] font-medium' 
+                      : 'text-slate-500 dark:text-[#D6DCDC]/50 group-hover:text-slate-900 dark:group-hover:text-[#D6DCDC]'
+                  }`}
+                  style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}
+                >
+                  {step.name}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Active Step Spotlight Card */}
+      <div className="relative w-full rounded-3xl border border-slate-200 dark:border-[#D6DCDC]/15 bg-white dark:bg-[#121215] p-8 sm:p-12 shadow-2xl transition-all duration-500 overflow-hidden">
+        {/* Subtle Ambient Accent Glow */}
+        <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#7C3AED]/15 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center text-left">
+          {/* Left Step Indicator & Title */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#7C3AED]/10 dark:bg-[#A78BFA]/10 border border-[#A78BFA]/20 text-xs font-mono text-[#7C3AED] dark:text-[#A78BFA]">
+              PHASE 0{activeStep + 1} OF 0{steps.length}
             </div>
-            <div className="space-y-2">
-              <h4 className="text-base font-normal text-slate-900 dark:text-[#D6DCDC]" style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}>
-                {step.name}
-              </h4>
-              <p className="text-xs text-slate-600 dark:text-[#D6DCDC]/55 leading-relaxed font-normal" style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}>
-                {step.desc}
-              </p>
+
+            <h3 className="text-2xl sm:text-3xl font-normal text-slate-900 dark:text-[#D6DCDC]" style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}>
+              {steps[activeStep]?.name}
+            </h3>
+          </div>
+
+          {/* Right Description & Details */}
+          <div className="lg:col-span-7 space-y-4 border-t lg:border-t-0 lg:border-l border-slate-200 dark:border-white/10 pt-6 lg:pt-0 lg:pl-8">
+            <p className="text-base sm:text-lg text-slate-600 dark:text-[#D6DCDC]/70 leading-relaxed font-normal" style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}>
+              {steps[activeStep]?.desc}
+            </p>
+
+            <div className="pt-2 flex items-center gap-6">
+              <button 
+                onClick={() => setActiveStep(prev => Math.max(0, prev - 1))}
+                disabled={activeStep === 0}
+                className="text-xs font-mono text-slate-400 dark:text-[#D6DCDC]/40 hover:text-[#A78BFA] disabled:opacity-30 disabled:pointer-events-none transition-colors"
+              >
+                ← PREVIOUS PHASE
+              </button>
+              <span className="text-slate-300 dark:text-white/10">|</span>
+              <button 
+                onClick={() => setActiveStep(prev => Math.min(steps.length - 1, prev + 1))}
+                disabled={activeStep === steps.length - 1}
+                className="text-xs font-mono text-[#7C3AED] dark:text-[#A78BFA] hover:underline disabled:opacity-30 disabled:pointer-events-none transition-colors"
+              >
+                NEXT PHASE →
+              </button>
             </div>
           </div>
-        ))}
+        </div>
       </div>
     </div>
   );

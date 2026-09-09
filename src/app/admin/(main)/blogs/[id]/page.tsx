@@ -22,7 +22,7 @@ export default function EditBlog({ params }: EditBlogProps) {
           setPost(data);
         } else {
           alert("Post not found");
-          router.push("/admin/dashboard?tab=blogs");
+          router.push("/admin/blogs");
         }
       })
       .catch((err) => {
@@ -37,7 +37,7 @@ export default function EditBlog({ params }: EditBlogProps) {
   const submitHandler = async (data: any) => {
     try {
       await postsService.updatePost(id, data);
-      router.push("/admin/dashboard?tab=blogs");
+      router.push("/admin/blogs");
     } catch (err: any) {
       console.error(err);
       alert(err.message || "Failed to update blog");
@@ -48,7 +48,7 @@ export default function EditBlog({ params }: EditBlogProps) {
     if (confirm("Are you sure you want to delete this post?")) {
       try {
         await postsService.deletePost(id);
-        router.push("/admin/dashboard?tab=blogs");
+        router.push("/admin/blogs");
       } catch (err: any) {
         console.error(err);
         alert("Failed to delete post");

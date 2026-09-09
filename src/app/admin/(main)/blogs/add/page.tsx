@@ -11,7 +11,7 @@ function AddBlog() {
   const submitHandler = async (data: any) => {
     try {
       await postsService.createPost(data);
-      router.push("/admin/dashboard?tab=blogs");
+      router.push("/admin/blogs");
     } catch (err) {
       console.error(err);
       alert("Failed to create blog");
