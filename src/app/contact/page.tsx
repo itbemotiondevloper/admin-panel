@@ -14,8 +14,8 @@ export default function ContactPage() {
       try {
         const { settingsService } = await import('@/services/settings.service');
         const s = await settingsService.getSettings();
-        if (s.desktopVideoUrl) setDesktopVideo(s.desktopVideoUrl);
-        if (s.mobileVideoUrl) setMobileVideo(s.mobileVideoUrl);
+        if (s.contactDesktopVideoUrl || s.desktopVideoUrl) setDesktopVideo(s.contactDesktopVideoUrl || s.desktopVideoUrl!);
+        if (s.contactMobileVideoUrl || s.mobileVideoUrl) setMobileVideo(s.contactMobileVideoUrl || s.mobileVideoUrl!);
       } catch (err) {
         console.error('Failed to load dynamic videos:', err);
       }

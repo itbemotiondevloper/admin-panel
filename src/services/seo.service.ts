@@ -5,6 +5,7 @@ import {
   doc, 
   setDoc,
   updateDoc,
+  deleteDoc,
   query, 
   where,
   orderBy,
@@ -12,6 +13,18 @@ import {
   Timestamp 
 } from 'firebase/firestore';
 import { db } from '@/lib/firebase/config';
+
+export type RedirectRule = {
+  id: string;
+  sourceUrl: string;
+  destinationUrl: string;
+  type: 301 | 302;
+  status: 'active' | 'inactive';
+  notes?: string;
+  hits?: number;
+  createdAt?: string;
+  updatedAt?: string;
+};
 
 export type SeoForm = {
   title: string;
@@ -39,14 +52,18 @@ const DEFAULT_WEBSITE_PAGES: Array<{ id: string; name: string; url: string; page
 export const seoService = {
   // Aggregate all SEO entries from /seo, /solutions, and /posts
   async getSeoEntries() {
-    // 1. Fetch static Pages and Solutions from /seo collection
-    const seoRef = collection(db, 'seo');
-    const seoSnap = await getDocs(seoRef);
-    const seoList = seoSnap.docs.map(d => ({
-      _id: d.id,
-      id: d.id,
-      ...d.data()
-    })) as any[];
+    let seoList: any[] = [];
+    try {
+      const seoRef = collection(db, 'seo');
+      const seoSnap = await getDocs(seoRef);
+      seoList = seoSnap.docs.map(d => ({
+        _id: d.id,
+        id: d.id,
+        ...d.data()
+      })) as any[];
+    } catch (err) {
+      console.warn('Could not fetch /seo collection, using defaults:', err);
+    }
 
     // Build static website pages, merging saved SEO records with defaults
     const staticPages = DEFAULT_WEBSITE_PAGES.map(defPage => {
@@ -82,54 +99,62 @@ export const seoService = {
     const allWebsitePages = [...staticPages, ...additionalPages];
 
     // 2. Fetch solutions from /solutions
-    const solRef = collection(db, 'solutions');
-    const solSnap = await getDocs(solRef);
-    const solList = solSnap.docs.map(d => {
-      const data = d.data();
-      // Look up if there's an existing SEO record in /seo with the same ID, or create a default one
-      const existingSeo = seoList.find(s => s._id === d.id);
-      return {
-        _id: d.id,
-        id: d.id,
-        pageType: 'Solution' as const,
-        name: data.title || data.name || 'Solution',
-        url: `/solutions/${data.slug}`,
-        slug: data.slug || '',
-        status: 'Published',
-        seo: existingSeo ? existingSeo.seo : null,
-        updatedAt: data.updatedAt || new Date().toISOString()
-      };
-    });
+    let solList: any[] = [];
+    try {
+      const solRef = collection(db, 'solutions');
+      const solSnap = await getDocs(solRef);
+      solList = solSnap.docs.map(d => {
+        const data = d.data();
+        const existingSeo = seoList.find(s => s._id === d.id);
+        return {
+          _id: d.id,
+          id: d.id,
+          pageType: 'Solution' as const,
+          name: data.title || data.name || 'Solution',
+          url: `/solutions/${data.slug}`,
+          slug: data.slug || '',
+          status: 'Published',
+          seo: existingSeo ? existingSeo.seo : null,
+          updatedAt: data.updatedAt || new Date().toISOString()
+        };
+      });
+    } catch (err) {
+      console.warn('Could not fetch /solutions collection:', err);
+    }
 
     // 3. Fetch blogs from /posts
-    const postsRef = collection(db, 'posts');
-    const postsSnap = await getDocs(postsRef);
-    const postsList = postsSnap.docs.map(d => {
-      const data = d.data();
-      // Map post.seo to normalized fields
-      const pSeo = data.seo || {};
-      const seo = {
-        title: pSeo.metaTitle || pSeo.title || '',
-        description: pSeo.metaDescription || pSeo.description || '',
-        keywords: pSeo.keywords || [],
-        canonicalUrl: pSeo.canonicalUrl || '',
-        robotsIndex: pSeo.robotsIndex || 'index',
-        robotsFollow: pSeo.robotsFollow || 'follow',
-        openGraph: pSeo.openGraph || { title: '', description: '', image: '' },
-        twitterCard: pSeo.twitterCard || { title: '', description: '', image: '' }
-      };
-      return {
-        _id: d.id,
-        id: d.id,
-        pageType: 'Post' as const,
-        name: data.title || 'Blog Post',
-        url: `/blog/${data.slug}`,
-        slug: data.slug || '',
-        status: data.status || 'Draft',
-        seo: (seo.title || seo.description) ? seo : null,
-        updatedAt: data.updatedAt || new Date().toISOString()
-      };
-    });
+    let postsList: any[] = [];
+    try {
+      const postsRef = collection(db, 'posts');
+      const postsSnap = await getDocs(postsRef);
+      postsList = postsSnap.docs.map(d => {
+        const data = d.data();
+        const pSeo = data.seo || {};
+        const seo = {
+          title: pSeo.metaTitle || pSeo.title || '',
+          description: pSeo.metaDescription || pSeo.description || '',
+          keywords: pSeo.keywords || [],
+          canonicalUrl: pSeo.canonicalUrl || '',
+          robotsIndex: pSeo.robotsIndex || 'index',
+          robotsFollow: pSeo.robotsFollow || 'follow',
+          openGraph: pSeo.openGraph || { title: '', description: '', image: '' },
+          twitterCard: pSeo.twitterCard || { title: '', description: '', image: '' }
+        };
+        return {
+          _id: d.id,
+          id: d.id,
+          pageType: 'Post' as const,
+          name: data.title || 'Blog Post',
+          url: `/blog/${data.slug}`,
+          slug: data.slug || '',
+          status: data.status || 'Draft',
+          seo: (seo.title || seo.description) ? seo : null,
+          updatedAt: data.updatedAt || new Date().toISOString()
+        };
+      });
+    } catch (err) {
+      console.warn('Could not fetch /posts collection:', err);
+    }
 
     return [...allWebsitePages, ...solList, ...postsList] as any[];
   },
@@ -395,5 +420,75 @@ Quest For Tech (QFT) / Digitory is a premier digital engineering & custom web ar
       urlsCount,
       lastGenerated: new Date().toISOString()
     };
+  },
+
+  // -------------------------------------------------------------
+  // Redirect Rules (301 & 302 Management)
+  // -------------------------------------------------------------
+  async getRedirects(): Promise<RedirectRule[]> {
+    try {
+      const colRef = collection(db, 'redirects');
+      const snap = await getDocs(colRef);
+      const list = snap.docs.map(d => {
+        const data = d.data();
+        return {
+          id: d.id,
+          sourceUrl: data.sourceUrl || data.oldUrl || '',
+          destinationUrl: data.destinationUrl || data.newUrl || '',
+          type: data.type === 302 || data.type === '302' ? 302 : 301,
+          status: data.status || (data.isEnabled === false ? 'inactive' : 'active'),
+          notes: data.notes || '',
+          hits: data.hits || 0,
+          createdAt: data.createdAt || new Date().toISOString(),
+          updatedAt: data.updatedAt || new Date().toISOString(),
+        } as RedirectRule;
+      });
+      return list;
+    } catch (err) {
+      console.error('Failed to get redirects:', err);
+      return [];
+    }
+  },
+
+  async saveRedirect(rule: Partial<RedirectRule> & { sourceUrl: string; destinationUrl: string }) {
+    const docId = rule.id || doc(collection(db, 'redirects')).id;
+    const docRef = doc(db, 'redirects', docId);
+    
+    // Normalize source and destination URLs (ensure leading slash if relative)
+    let src = rule.sourceUrl.trim();
+    if (!src.startsWith('/') && !src.startsWith('http')) {
+      src = '/' + src;
+    }
+    let dest = rule.destinationUrl.trim();
+    if (!dest.startsWith('/') && !dest.startsWith('http')) {
+      dest = '/' + dest;
+    }
+
+    const payload = {
+      sourceUrl: src,
+      destinationUrl: dest,
+      type: rule.type || 301,
+      status: rule.status || 'active',
+      notes: rule.notes || '',
+      hits: rule.hits || 0,
+      updatedAt: new Date().toISOString(),
+      createdAt: rule.createdAt || new Date().toISOString(),
+    };
+
+    await setDoc(docRef, payload, { merge: true });
+    return { id: docId, ...payload };
+  },
+
+  async deleteRedirect(id: string) {
+    const docRef = doc(db, 'redirects', id);
+    await deleteDoc(docRef);
+  },
+
+  async toggleRedirectStatus(id: string, newStatus: 'active' | 'inactive') {
+    const docRef = doc(db, 'redirects', id);
+    await updateDoc(docRef, {
+      status: newStatus,
+      updatedAt: new Date().toISOString()
+    });
   }
 };

@@ -22,6 +22,10 @@ export interface SettingsData {
   customCategories?: string[];
   desktopVideoUrl?: string;
   mobileVideoUrl?: string;
+  contactDesktopVideoUrl?: string;
+  contactMobileVideoUrl?: string;
+  demoDesktopVideoUrl?: string;
+  demoMobileVideoUrl?: string;
 }
 
 const DEFAULT_SETTINGS: SettingsData = {
@@ -43,7 +47,11 @@ const DEFAULT_SETTINGS: SettingsData = {
   solutionsGridDesc: 'Click on any feature card below to open its full specifications and details on a new page.',
   customCategories: [],
   desktopVideoUrl: '/Digitory.mp4',
-  mobileVideoUrl: '/mobile.mp4'
+  mobileVideoUrl: '/mobile.mp4',
+  contactDesktopVideoUrl: '/Digitory.mp4',
+  contactMobileVideoUrl: '/mobile.mp4',
+  demoDesktopVideoUrl: '/Digitory.mp4',
+  demoMobileVideoUrl: '/mobile.mp4'
 };
 
 let settingsCache: SettingsData | null = null;
@@ -80,7 +88,11 @@ export const settingsService = {
           solutionsGridDesc: data.solutionsGridDesc || DEFAULT_SETTINGS.solutionsGridDesc,
           customCategories: data.customCategories || DEFAULT_SETTINGS.customCategories,
           desktopVideoUrl: data.desktopVideoUrl || DEFAULT_SETTINGS.desktopVideoUrl,
-          mobileVideoUrl: data.mobileVideoUrl || DEFAULT_SETTINGS.mobileVideoUrl
+          mobileVideoUrl: data.mobileVideoUrl || DEFAULT_SETTINGS.mobileVideoUrl,
+          contactDesktopVideoUrl: data.contactDesktopVideoUrl || data.desktopVideoUrl || DEFAULT_SETTINGS.contactDesktopVideoUrl,
+          contactMobileVideoUrl: data.contactMobileVideoUrl || data.mobileVideoUrl || DEFAULT_SETTINGS.contactMobileVideoUrl,
+          demoDesktopVideoUrl: data.demoDesktopVideoUrl || data.desktopVideoUrl || DEFAULT_SETTINGS.demoDesktopVideoUrl,
+          demoMobileVideoUrl: data.demoMobileVideoUrl || data.mobileVideoUrl || DEFAULT_SETTINGS.demoMobileVideoUrl
         };
         return settingsCache;
       }
@@ -115,7 +127,11 @@ export const settingsService = {
       solutionsGridDesc: payload.solutionsGridDesc || current.solutionsGridDesc,
       customCategories: payload.customCategories || current.customCategories || [],
       desktopVideoUrl: payload.desktopVideoUrl || current.desktopVideoUrl || '/Digitory.mp4',
-      mobileVideoUrl: payload.mobileVideoUrl || current.mobileVideoUrl || '/mobile.mp4'
+      mobileVideoUrl: payload.mobileVideoUrl || current.mobileVideoUrl || '/mobile.mp4',
+      contactDesktopVideoUrl: payload.contactDesktopVideoUrl || current.contactDesktopVideoUrl || payload.desktopVideoUrl || '/Digitory.mp4',
+      contactMobileVideoUrl: payload.contactMobileVideoUrl || current.contactMobileVideoUrl || payload.mobileVideoUrl || '/mobile.mp4',
+      demoDesktopVideoUrl: payload.demoDesktopVideoUrl || current.demoDesktopVideoUrl || payload.desktopVideoUrl || '/Digitory.mp4',
+      demoMobileVideoUrl: payload.demoMobileVideoUrl || current.demoMobileVideoUrl || payload.mobileVideoUrl || '/mobile.mp4'
     };
 
     await setDoc(docRef, updated, { merge: true });

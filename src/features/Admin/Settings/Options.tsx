@@ -23,6 +23,10 @@ export default function Options({ className }: OptionsProps) {
   const [faviconUrl, setFaviconUrl] = useState('/favicon.ico');
   const [desktopVideoUrl, setDesktopVideoUrl] = useState('/Digitory.mp4');
   const [mobileVideoUrl, setMobileVideoUrl] = useState('/mobile.mp4');
+  const [contactDesktopVideoUrl, setContactDesktopVideoUrl] = useState('/Digitory.mp4');
+  const [contactMobileVideoUrl, setContactMobileVideoUrl] = useState('/mobile.mp4');
+  const [demoDesktopVideoUrl, setDemoDesktopVideoUrl] = useState('/Digitory.mp4');
+  const [demoMobileVideoUrl, setDemoMobileVideoUrl] = useState('/mobile.mp4');
 
   // Analytics & Pixel tracking variables
   const [googleAnalyticsId, setGoogleAnalyticsId] = useState('');
@@ -55,6 +59,14 @@ export default function Options({ className }: OptionsProps) {
         }
         if (s.desktopVideoUrl) setDesktopVideoUrl(s.desktopVideoUrl);
         if (s.mobileVideoUrl) setMobileVideoUrl(s.mobileVideoUrl);
+        if (s.contactDesktopVideoUrl) setContactDesktopVideoUrl(s.contactDesktopVideoUrl);
+        else if (s.desktopVideoUrl) setContactDesktopVideoUrl(s.desktopVideoUrl);
+        if (s.contactMobileVideoUrl) setContactMobileVideoUrl(s.contactMobileVideoUrl);
+        else if (s.mobileVideoUrl) setContactMobileVideoUrl(s.mobileVideoUrl);
+        if (s.demoDesktopVideoUrl) setDemoDesktopVideoUrl(s.demoDesktopVideoUrl);
+        else if (s.desktopVideoUrl) setDemoDesktopVideoUrl(s.desktopVideoUrl);
+        if (s.demoMobileVideoUrl) setDemoMobileVideoUrl(s.demoMobileVideoUrl);
+        else if (s.mobileVideoUrl) setDemoMobileVideoUrl(s.mobileVideoUrl);
       } catch (err) {
         console.error('Failed to load branding settings:', err);
       } finally {
@@ -114,22 +126,26 @@ export default function Options({ className }: OptionsProps) {
     }
   };
 
-  const handleUploadVideo = async (e: React.ChangeEvent<HTMLInputElement>, target: 'desktop' | 'mobile') => {
+  const handleUploadVideo = async (e: React.ChangeEvent<HTMLInputElement>, target: 'contactDesktop' | 'contactMobile' | 'demoDesktop' | 'demoMobile') => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     try {
       setMessage(`Uploading ${target} video...`);
       const url = await settingsService.uploadBrandingLogo(file, file.name);
-      if (target === 'desktop') {
-        setDesktopVideoUrl(url);
-      } else {
-        setMobileVideoUrl(url);
+      if (target === 'contactDesktop') {
+        setContactDesktopVideoUrl(url);
+      } else if (target === 'contactMobile') {
+        setContactMobileVideoUrl(url);
+      } else if (target === 'demoDesktop') {
+        setDemoDesktopVideoUrl(url);
+      } else if (target === 'demoMobile') {
+        setDemoMobileVideoUrl(url);
       }
-      setMessage(`✅ ${target === 'desktop' ? 'Desktop' : 'Mobile'} video uploaded successfully!`);
+      setMessage(`✅ Video uploaded successfully!`);
     } catch (err) {
       console.error('Video upload failed:', err);
-      setMessage(`❌ Failed to upload ${target} video file`);
+      setMessage(`❌ Failed to upload video file`);
     }
   };
 
@@ -154,9 +170,13 @@ export default function Options({ className }: OptionsProps) {
           customBodyScripts
         },
         desktopVideoUrl,
-        mobileVideoUrl
+        mobileVideoUrl,
+        contactDesktopVideoUrl,
+        contactMobileVideoUrl,
+        demoDesktopVideoUrl,
+        demoMobileVideoUrl
       });
-      setMessage('✅ Branding & Analytics settings updated successfully!');
+      setMessage('✅ Branding & Media settings updated successfully!');
       
       localStorage.setItem('branding_logo_black', logoBlackUrl);
       localStorage.setItem('branding_logo_white', logoWhiteUrl);
@@ -164,7 +184,7 @@ export default function Options({ className }: OptionsProps) {
       window.dispatchEvent(new Event('branding_logo_update'));
     } catch (err: any) {
       console.error(err);
-      setMessage('❌ ' + (err.message || 'Failed to update branding settings'));
+      setMessage('❌ ' + (err.message || 'Failed to update settings'));
     } finally {
       setSaving(false);
     }
@@ -291,42 +311,84 @@ export default function Options({ className }: OptionsProps) {
           </div>
         </div>
 
-        {/* Video Assets Settings */}
+        {/* Video Assets Settings: Contact Page */}
         <div className="space-y-4 pt-4 border-t border-zinc-100 dark:border-zinc-800">
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wide text-zinc-500 mb-1">Hero Video Assets</h3>
-            <p className="text-[10px] text-zinc-400 leading-tight">Video assets displayed on Contact Us and Book a Demo page heroes.</p>
+            <h3 className="text-xs font-bold uppercase tracking-wide text-zinc-500 mb-1">📞 Contact Page Hero Videos</h3>
+            <p className="text-[10px] text-zinc-400 leading-tight">Desktop and Mobile video background assets for the Contact Us page.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label className="block text-[11px] font-bold text-zinc-500 uppercase">Desktop Video URL</label>
+              <label className="block text-[11px] font-bold text-zinc-500 uppercase">Contact Desktop Video URL</label>
               <div className="flex gap-2">
                 <input
-                  value={desktopVideoUrl}
-                  onChange={(e) => setDesktopVideoUrl(e.target.value)}
+                  value={contactDesktopVideoUrl}
+                  onChange={(e) => setContactDesktopVideoUrl(e.target.value)}
                   className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
                   placeholder="/Digitory.mp4"
                 />
                 <label className="flex items-center justify-center gap-1.5 border border-zinc-350 dark:border-zinc-700 px-3 rounded-xl cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] font-bold shrink-0">
                   <Upload size={12} className="text-zinc-400" />
                   <span>Upload Video</span>
-                  <input type="file" accept="video/*" onChange={(e) => handleUploadVideo(e, 'desktop')} className="hidden" />
+                  <input type="file" accept="video/*" onChange={(e) => handleUploadVideo(e, 'contactDesktop')} className="hidden" />
                 </label>
               </div>
             </div>
             <div className="space-y-2">
-              <label className="block text-[11px] font-bold text-zinc-500 uppercase">Mobile Video URL</label>
+              <label className="block text-[11px] font-bold text-zinc-500 uppercase">Contact Mobile Video URL</label>
               <div className="flex gap-2">
                 <input
-                  value={mobileVideoUrl}
-                  onChange={(e) => setMobileVideoUrl(e.target.value)}
+                  value={contactMobileVideoUrl}
+                  onChange={(e) => setContactMobileVideoUrl(e.target.value)}
                   className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
                   placeholder="/mobile.mp4"
                 />
                 <label className="flex items-center justify-center gap-1.5 border border-zinc-350 dark:border-zinc-700 px-3 rounded-xl cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] font-bold shrink-0">
                   <Upload size={12} className="text-zinc-400" />
                   <span>Upload Video</span>
-                  <input type="file" accept="video/*" onChange={(e) => handleUploadVideo(e, 'mobile')} className="hidden" />
+                  <input type="file" accept="video/*" onChange={(e) => handleUploadVideo(e, 'contactMobile')} className="hidden" />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Video Assets Settings: Book / Request a Demo Page */}
+        <div className="space-y-4 pt-4 border-t border-zinc-100 dark:border-zinc-800">
+          <div>
+            <h3 className="text-xs font-bold uppercase tracking-wide text-zinc-500 mb-1">🚀 Request / Book a Demo Hero Videos</h3>
+            <p className="text-[10px] text-zinc-400 leading-tight">Desktop and Mobile video background assets for the Book / Request a Demo page.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="block text-[11px] font-bold text-zinc-500 uppercase">Demo Desktop Video URL</label>
+              <div className="flex gap-2">
+                <input
+                  value={demoDesktopVideoUrl}
+                  onChange={(e) => setDemoDesktopVideoUrl(e.target.value)}
+                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+                  placeholder="/Digitory.mp4"
+                />
+                <label className="flex items-center justify-center gap-1.5 border border-zinc-350 dark:border-zinc-700 px-3 rounded-xl cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] font-bold shrink-0">
+                  <Upload size={12} className="text-zinc-400" />
+                  <span>Upload Video</span>
+                  <input type="file" accept="video/*" onChange={(e) => handleUploadVideo(e, 'demoDesktop')} className="hidden" />
+                </label>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label className="block text-[11px] font-bold text-zinc-500 uppercase">Demo Mobile Video URL</label>
+              <div className="flex gap-2">
+                <input
+                  value={demoMobileVideoUrl}
+                  onChange={(e) => setDemoMobileVideoUrl(e.target.value)}
+                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+                  placeholder="/mobile.mp4"
+                />
+                <label className="flex items-center justify-center gap-1.5 border border-zinc-350 dark:border-zinc-700 px-3 rounded-xl cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] font-bold shrink-0">
+                  <Upload size={12} className="text-zinc-400" />
+                  <span>Upload Video</span>
+                  <input type="file" accept="video/*" onChange={(e) => handleUploadVideo(e, 'demoMobile')} className="hidden" />
                 </label>
               </div>
             </div>

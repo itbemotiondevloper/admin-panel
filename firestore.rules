@@ -262,12 +262,18 @@ service cloud.firestore {
     // SEO Page and config security rules
     match /seo/{pageId} {
       allow read: if true;
-      allow write: if hasPermission("manage_seo");
+      allow write: if hasPermission("manage_seo") || hasPermission("manage_blogs");
     }
 
     match /seoConfig/{configId} {
       allow read: if true;
-      allow write: if hasPermission("manage_seo");
+      allow write: if hasPermission("manage_seo") || hasPermission("manage_blogs");
+    }
+
+    // Redirects collection rules (301 & 302 URLs)
+    match /redirects/{redirectId} {
+      allow read: if true;
+      allow write: if hasPermission("manage_seo") || hasPermission("manage_blogs");
     }
 
     // Settings config security rules

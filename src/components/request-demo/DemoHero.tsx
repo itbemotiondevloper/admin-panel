@@ -11,8 +11,8 @@ export default function DemoHero() {
       try {
         const { settingsService } = await import('@/services/settings.service');
         const s = await settingsService.getSettings();
-        if (s.desktopVideoUrl) setDesktopVideo(s.desktopVideoUrl);
-        if (s.mobileVideoUrl) setMobileVideo(s.mobileVideoUrl);
+        if (s.demoDesktopVideoUrl || s.desktopVideoUrl) setDesktopVideo(s.demoDesktopVideoUrl || s.desktopVideoUrl!);
+        if (s.demoMobileVideoUrl || s.mobileVideoUrl) setMobileVideo(s.demoMobileVideoUrl || s.mobileVideoUrl!);
       } catch (err) {
         console.error('Failed to load dynamic videos:', err);
       }
