@@ -99,6 +99,12 @@ service cloud.firestore {
       allow write: if hasPermission("manage_solutions");
     }
 
+    // Industries rules
+    match /industries/{industryId} {
+      allow read: if true;
+      allow write: if hasPermission("manage_solutions") || hasPermission("manage_blogs") || hasPermission("manage_users");
+    }
+
     // Helper functions for validation
     function isRequiredString(val, maxLen) {
       return val is string && val.size() > 0 && val.size() <= maxLen;
@@ -279,7 +285,7 @@ service cloud.firestore {
     // Settings config security rules
     match /settings/{settingId} {
       allow read: if true;
-      allow write: if hasPermission("manage_settings");
+      allow write: if hasPermission("manage_settings") || hasPermission("manage_solutions") || hasPermission("manage_blogs") || hasPermission("manage_users");
     }
 
     // Reports rules

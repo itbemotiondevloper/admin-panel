@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
 import { usePathname, useSearchParams } from "next/navigation";
-import { HomeIcon, SettingsIcon, SearchIcon, FileText, CheckCircle, MessageSquare, Inbox, Users, Megaphone, LogOut, ChevronDown, ChevronRight } from "lucide-react";
+import { HomeIcon, SettingsIcon, SearchIcon, FileText, CheckCircle, MessageSquare, Inbox, Users, Megaphone, LogOut, ChevronDown, ChevronRight, Building2, Factory } from "lucide-react";
 import { authService } from "@/services/auth.service";
 import { usePermissions } from "@/hooks/usePermissions";
 import { settingsService } from "@/services/settings.service";
@@ -88,6 +88,18 @@ const links: ILink[] = [
     label: "Solutions Page",
     href: "/admin/solutions-page",
     Icon: FileText,
+    permission: "manage_solutions",
+  },
+  {
+    label: "Industries Cards",
+    href: "/admin/industries",
+    Icon: Factory,
+    permission: "manage_solutions",
+  },
+  {
+    label: "Industries Page",
+    href: "/admin/industries-page",
+    Icon: Building2,
     permission: "manage_solutions",
   },
   {
