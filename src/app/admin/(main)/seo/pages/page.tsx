@@ -127,13 +127,13 @@ export default function SeoPagesList() {
         </div>
 
         <div className="relative group">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-[#FF4F18] transition-colors" size={18} />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-zinc-900 dark:group-focus-within:text-white transition-colors" size={18} />
           <input 
             type="text" 
             placeholder="Search title, description, URL..." 
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="pl-11 pr-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18] w-full lg:w-80 transition-all duration-200 text-sm font-medium dark:text-white"
+            className="pl-11 pr-4 py-2.5 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:focus:border-zinc-100 dark:focus:ring-zinc-100 w-full lg:w-80 transition-all duration-200 text-sm font-medium dark:text-white"
           />
         </div>
       </div>
@@ -154,7 +154,7 @@ export default function SeoPagesList() {
               onClick={() => setActiveFilter(tab.id as any)}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                 isActive 
-                  ? 'bg-[#FF4F18] text-white shadow-[0_3px_10px_rgba(255,79,24,0.3)]' 
+                  ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 font-extrabold shadow-sm' 
                   : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white'
               }`}
             >
@@ -226,7 +226,7 @@ export default function SeoPagesList() {
                         {hasTitle ? (
                           page.seo.title
                         ) : (
-                          <span className="text-[#FF4F18] italic font-semibold flex items-center gap-1">
+                          <span className="text-red-500 italic font-semibold flex items-center gap-1">
                             <AlertCircle size={12} /> Missing SEO Title
                           </span>
                         )}
@@ -262,7 +262,7 @@ export default function SeoPagesList() {
                       <button 
                         type="button"
                         onClick={() => openModal(page)}
-                        className="inline-flex items-center gap-1.5 whitespace-nowrap text-[#FF4F18] hover:text-white font-extrabold border border-[#FF4F18] hover:bg-[#FF4F18] px-3.5 py-1.5 rounded-xl transition-all duration-200 text-xs cursor-pointer shadow-xs"
+                        className="inline-flex items-center gap-1.5 whitespace-nowrap text-zinc-900 dark:text-white hover:text-white dark:hover:text-zinc-950 font-extrabold border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-900 dark:hover:bg-zinc-100 px-3.5 py-1.5 rounded-xl transition-all duration-200 text-xs cursor-pointer shadow-xs"
                       >
                         <Edit3 size={13} />
                         <span>Edit SEO</span>
@@ -307,7 +307,7 @@ export default function SeoPagesList() {
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`px-4 py-2.5 transition-colors border-b-2 cursor-pointer ${
                     activeTab === tab.id 
-                      ? 'border-[#FF4F18] text-[#FF4F18]' 
+                      ? 'border-zinc-900 text-zinc-900 dark:border-white dark:text-white font-extrabold' 
                       : 'border-transparent text-zinc-500 hover:text-zinc-900 dark:hover:text-white'
                   }`}
                 >
@@ -328,14 +328,14 @@ export default function SeoPagesList() {
                 <>
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">
-                      Meta Title <span className="text-[#FF4F18]">*</span>
+                      Meta Title <span className="text-red-500">*</span>
                     </label>
                     <input
                       type="text"
                       value={form.title}
                       onChange={e => setForm({ ...form, title: e.target.value })}
                       placeholder="Page Title | Brand Name"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#FF4F18] dark:text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 dark:text-white"
                       required
                     />
                     <div className={`text-[11px] mt-1 font-semibold ${form.title.length < 30 || form.title.length > 60 ? 'text-amber-600 dark:text-amber-400' : 'text-green-600 dark:text-green-400'}`}>
@@ -345,14 +345,14 @@ export default function SeoPagesList() {
 
                   <div>
                     <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">
-                      Meta Description <span className="text-[#FF4F18]">*</span>
+                      Meta Description <span className="text-red-500">*</span>
                     </label>
                     <textarea
                       value={form.description}
                       onChange={e => setForm({ ...form, description: e.target.value })}
                       rows={3}
                       placeholder="A clear, compelling summary of this page for search engine snippet results..."
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#FF4F18] dark:text-white resize-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 dark:text-white resize-none"
                       required
                     />
                     <div className={`text-[11px] mt-1 font-semibold ${form.description.length < 80 || form.description.length > 160 ? 'text-amber-600 dark:text-amber-400' : 'text-green-600 dark:text-green-400'}`}>
@@ -369,7 +369,7 @@ export default function SeoPagesList() {
                       value={keywordsInput}
                       onChange={e => setKeywordsInput(e.target.value)}
                       placeholder="custom software, nextjs agency, web development"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#FF4F18] dark:text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 dark:text-white"
                     />
                   </div>
 
@@ -382,7 +382,7 @@ export default function SeoPagesList() {
                       value={form.canonicalUrl}
                       onChange={e => setForm({ ...form, canonicalUrl: e.target.value })}
                       placeholder="https://digitory.io/your-page"
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#FF4F18] dark:text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 dark:text-white"
                     />
                   </div>
                 </>
@@ -433,7 +433,7 @@ export default function SeoPagesList() {
                           value="index"
                           checked={form.robotsIndex === 'index'}
                           onChange={() => setForm({ ...form, robotsIndex: 'index' })}
-                          className="accent-[#FF4F18]"
+                          className="accent-zinc-900 dark:accent-white"
                         />
                         Index (Allow Google to index this page)
                       </label>
@@ -444,7 +444,7 @@ export default function SeoPagesList() {
                           value="noindex"
                           checked={form.robotsIndex === 'noindex'}
                           onChange={() => setForm({ ...form, robotsIndex: 'noindex' })}
-                          className="accent-[#FF4F18]"
+                          className="accent-zinc-900 dark:accent-white"
                         />
                         No Index (Hide from search engines)
                       </label>
@@ -465,7 +465,7 @@ export default function SeoPagesList() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="bg-[#FF4F18] text-white px-6 py-2.5 rounded-xl text-xs font-bold hover:bg-[#e03f0d] transition-all shadow-md disabled:opacity-50 cursor-pointer flex items-center gap-2"
+                  className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-6 py-2.5 rounded-xl text-xs font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all shadow-md disabled:opacity-50 cursor-pointer flex items-center gap-2"
                 >
                   {saving ? 'Saving Changes...' : 'Save SEO'}
                 </button>

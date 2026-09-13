@@ -1,58 +1,71 @@
 import React from 'react';
-import Header from '@/components/Header';
-import FooterPage from '@/components/Footer';
-import ScrollFocusWrapper from '@/components/ScrollFocusWrapper';
-import { generateSeoMetadata } from "@/lib/seo";
+import type { Metadata } from 'next';
+import SmoothScrollProvider from '@/components/solutions/v2/SmoothScrollProvider';
+import SolutionsNav from '@/components/solutions/v2/SolutionsNav';
+import SolutionsHero from '@/components/solutions/v2/SolutionsHero';
+import SolutionsRail from '@/components/solutions/v2/SolutionsRail';
+import ConnectedSolutions from '@/components/solutions/v2/ConnectedSolutions';
+import ApproachTimeline from '@/components/solutions/v2/ApproachTimeline';
+import WhyQuest from '@/components/solutions/v2/WhyQuest';
+import CaseStudiesShowcase from '@/components/solutions/v2/CaseStudiesShowcase';
+import FinalCTA from '@/components/solutions/v2/FinalCTA';
+import SolutionsFooter from '@/components/solutions/v2/SolutionsFooter';
+import CustomCursor from '@/components/solutions/v2/CustomCursor';
 
-import SolutionsHeroSection from '@/components/solutions/SolutionsHeroSection';
-import SolutionsListSection from '@/components/solutions/SolutionsListSection';
-import ConnectedEcosystemSection from '@/components/solutions/ConnectedEcosystemSection';
-import OurApproachSection from '@/components/solutions/OurApproachSection';
-import WhyQuestForTechSection from '@/components/solutions/WhyQuestForTechSection';
-import CaseStudiesSection from '@/components/solutions/CaseStudiesSection';
-import SolutionsFinalCtaSection from '@/components/solutions/SolutionsFinalCtaSection';
-
-export async function generateMetadata() {
-  return await generateSeoMetadata('Page', 'solutions', {
+export const metadata: Metadata = {
+  title: 'Digital Solutions | Quest For Tech',
+  description:
+    'Strategy, creativity, technology and data — brought together to help your business grow. Explore Website Development, SEO, Content, Performance Marketing, and Custom Development.',
+  openGraph: {
     title: 'Digital Solutions | Quest For Tech',
-    description: 'Explore digital solutions built around your business: Website Development, SEO, Content, Performance Marketing, and Custom Development.',
-  });
-}
+    description: 'Ideas to Impact. Strategy-led solutions that work together to create real business impact.',
+    type: 'website',
+  },
+};
 
 export const dynamic = 'force-dynamic';
 
-export default async function SolutionsPage() {
+export default function SolutionsPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-zinc-900 dark:text-white flex flex-col font-sans transition-colors duration-300">
-      {/* Header */}
-      <Header />
+    <SmoothScrollProvider>
+      {/* Custom cursor — desktop only, disabled on reduced motion */}
+      <CustomCursor />
 
-      {/* Main Content */}
-      <main className="flex flex-col">
-        {/* 01. Hero */}
-        <SolutionsHeroSection />
+      {/* Skip to main for accessibility */}
+      <a
+        href="#solutions"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:bg-white focus:text-[#111] focus:px-4 focus:py-2 focus:rounded focus:outline focus:outline-2 focus:outline-[#4F6BFF]"
+      >
+        Skip to main content
+      </a>
 
-        {/* 02. Our Solutions */}
-        <SolutionsListSection />
+      {/* Minimal navigation */}
+      <SolutionsNav />
 
-        {/* 03. Solutions That Work Together */}
-        <ConnectedEcosystemSection />
+      <main id="main-content" className="bg-[#F8F8F5]">
+        {/* 00 — Hero */}
+        <SolutionsHero />
 
-        {/* 04. Our Approach */}
-        <OurApproachSection />
+        {/* 01 — Services horizontal rail */}
+        <SolutionsRail />
 
-        {/* 05. Why Quest For Tech */}
-        <WhyQuestForTechSection />
+        {/* 02 — Connected ecosystem */}
+        <ConnectedSolutions />
 
-        {/* 06. Case Studies */}
-        <CaseStudiesSection />
+        {/* 03 — Our approach */}
+        <ApproachTimeline />
 
-        {/* 07. Final CTA */}
-        <SolutionsFinalCtaSection />
+        {/* 04 — Why Quest For Tech */}
+        <WhyQuest />
+
+        {/* 05 — Case studies */}
+        <CaseStudiesShowcase />
+
+        {/* 06 — Final CTA */}
+        <FinalCTA />
       </main>
 
-      {/* Footer */}
-      <FooterPage />
-    </div>
+      <SolutionsFooter />
+    </SmoothScrollProvider>
   );
 }

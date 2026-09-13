@@ -108,7 +108,7 @@ export default function SeoTools() {
         {/* Sitemap Section */}
         <section className="bg-zinc-50 dark:bg-[#121214] border border-zinc-200 dark:border-zinc-800/80 rounded-3xl p-8 shadow-sm">
           <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-white dark:bg-[#1A1A1D] shadow-sm text-[#FF4F18] rounded-xl flex items-center justify-center border border-zinc-200 dark:border-zinc-800">
+            <div className="w-12 h-12 bg-white dark:bg-[#1A1A1D] shadow-sm text-zinc-900 dark:text-white rounded-xl flex items-center justify-center border border-zinc-200 dark:border-zinc-800">
               <RefreshCw size={24} />
             </div>
             <div>
@@ -160,14 +160,14 @@ export default function SeoTools() {
           <textarea 
             value={robotsTxt}
             onChange={e => setRobotsTxt(e.target.value)}
-            className="w-full h-72 bg-zinc-900 dark:bg-black border border-zinc-800 rounded-2xl p-5 font-mono text-sm text-green-400 outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18] resize-none mb-8 custom-scrollbar shadow-inner"
+            className="w-full h-72 bg-zinc-900 dark:bg-black border border-zinc-800 rounded-2xl p-5 font-mono text-sm text-green-400 outline-none focus:border-zinc-100 focus:ring-1 focus:ring-zinc-100 resize-none mb-8 custom-scrollbar shadow-inner"
             placeholder="User-agent: *"
           />
 
           <button 
             onClick={saveRobots}
             disabled={savingRobots}
-            className="w-full flex items-center justify-center gap-2 bg-[#FF4F18] text-white font-bold py-3.5 rounded-xl hover:bg-[#E03F0D] transition-all duration-200 shadow-[0_4px_14px_rgba(255,79,24,0.35)] hover:shadow-[0_6px_20px_rgba(255,79,24,0.4)] disabled:opacity-50 transform hover:-translate-y-0.5"
+            className="w-full flex items-center justify-center gap-2 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 font-bold py-3.5 rounded-xl hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all duration-200 shadow-sm disabled:opacity-50 transform hover:-translate-y-0.5 cursor-pointer"
           >
             <Save size={18} /> {savingRobots ? 'Saving...' : 'Save robots.txt'}
           </button>

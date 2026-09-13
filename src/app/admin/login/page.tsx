@@ -74,7 +74,7 @@ export default function AdminLogin() {
               value={email}
               onChange={e => setEmail(e.target.value)}
               disabled={loading}
-              className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+              className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#111111] dark:focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
               required
               placeholder="admin@example.com"
             />
@@ -86,7 +86,7 @@ export default function AdminLogin() {
               value={password}
               onChange={e => setPassword(e.target.value)}
               disabled={loading}
-              className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
+              className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#111111] dark:focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed transition-opacity"
               required
               placeholder="••••••••"
             />
@@ -94,7 +94,7 @@ export default function AdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-4 bg-[#FF4F18] text-white font-bold py-3 rounded-xl hover:bg-[#E03F0D] transition-all duration-200 disabled:opacity-80 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 shadow-[0_4px_14px_rgba(255,79,24,0.35)] hover:shadow-[0_6px_20px_rgba(255,79,24,0.45)] hover:-translate-y-0.5 active:translate-y-0"
+            className="w-full mt-4 bg-[#111111] dark:bg-white text-white dark:text-[#111111] font-bold py-3 rounded-xl hover:bg-[#333333] dark:hover:bg-zinc-200 transition-all duration-200 disabled:opacity-80 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 shadow-md hover:-translate-y-0.5 active:translate-y-0"
           >
             {loading ? (
               <>

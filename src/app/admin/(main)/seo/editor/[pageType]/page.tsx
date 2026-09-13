@@ -132,7 +132,7 @@ export default function SeoEditorPage({ params }: { params: { pageType: string }
             value={form.title}
             onChange={e => setForm({ ...form, title: e.target.value })}
             placeholder="Page Title | Brand Name"
-            className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#FF4F18] dark:text-white"
+            className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 dark:text-white"
             required
           />
         </div>
@@ -146,7 +146,7 @@ export default function SeoEditorPage({ params }: { params: { pageType: string }
             onChange={e => setForm({ ...form, description: e.target.value })}
             rows={4}
             placeholder="A compelling description for search engine snippet results..."
-            className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#FF4F18] dark:text-white resize-none"
+            className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 dark:text-white resize-none"
             required
           />
         </div>
@@ -160,7 +160,7 @@ export default function SeoEditorPage({ params }: { params: { pageType: string }
             value={keywordsInput}
             onChange={e => setKeywordsInput(e.target.value)}
             placeholder="keyword 1, keyword 2"
-            className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-[#FF4F18] dark:text-white"
+            className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800/50 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 dark:text-white"
           />
         </div>
 
@@ -174,7 +174,7 @@ export default function SeoEditorPage({ params }: { params: { pageType: string }
           <button
             type="submit"
             disabled={saving}
-            className="bg-[#FF4F18] text-white px-6 py-2.5 rounded-xl text-xs font-bold hover:bg-[#e03f0d] transition-all shadow-md disabled:opacity-50 cursor-pointer flex items-center gap-2"
+            className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-6 py-2.5 rounded-xl text-xs font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all shadow-md disabled:opacity-50 cursor-pointer flex items-center gap-2"
           >
             <Save size={14} />
             {saving ? 'Saving...' : 'Save SEO'}

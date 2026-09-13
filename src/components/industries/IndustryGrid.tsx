@@ -1,0 +1,83 @@
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { ArrowUpRight } from 'lucide-react';
+import { INDUSTRIES_PAGE_DATA } from './industriesData';
+
+export default function IndustryGrid() {
+  const { grid } = INDUSTRIES_PAGE_DATA;
+
+  return (
+    <section id="industries-grid" className="py-20 sm:py-24 lg:py-28 bg-[#F8F8F5] text-[#111111] border-b border-[#111111]/10">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16">
+        
+        {/* SECTION HEADER */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 sm:mb-16 items-end">
+          <div className="lg:col-span-6 space-y-3">
+            <div className="flex items-center gap-3">
+              <span className="w-2 h-2 rounded-full bg-[#111111]" />
+              <span className="text-xs font-mono tracking-[0.25em] uppercase text-[#666666] font-semibold">
+                {grid.eyebrow}
+              </span>
+            </div>
+            <h2 className="text-[36px] sm:text-[48px] lg:text-[56px] font-semibold leading-[0.98] tracking-[-0.04em] text-[#111111]">
+              Built Around<br />
+              Your Industry.
+            </h2>
+          </div>
+          <div className="lg:col-span-6 lg:pl-12">
+            <p className="text-base sm:text-lg text-[#666666] leading-relaxed max-w-[500px]">
+              {grid.subhead}
+            </p>
+          </div>
+        </div>
+
+        {/* 2 ROWS x 3 COLUMNS GRID (Tighter vertical gap: 48px, horizontal gap: 24px) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 sm:gap-y-14">
+          {grid.items.map((item) => (
+            <Link
+              key={item.id}
+              href={`/industries/${item.slug}`}
+              className="group block space-y-4 cursor-pointer"
+            >
+              {/* IMAGE TILE */}
+              <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-[#EBEBE6] border border-[#111111]/10">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.025]"
+                />
+                <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              </div>
+
+              {/* TILE CONTENT */}
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <span className="text-xs font-mono text-[#888888] font-medium">
+                      {item.number}
+                    </span>
+                    <h3 className="text-xl sm:text-2xl font-semibold tracking-tight text-[#111111] transition-transform duration-300 group-hover:translate-x-[2px]">
+                      {item.title}
+                    </h3>
+                  </div>
+
+                  {/* Circular Arrow Button (Subtle thin outline default -> dark fill hover) */}
+                  <div className="w-8 h-8 rounded-full border border-[#111111]/25 flex items-center justify-center text-[#111111] group-hover:border-[#111111] group-hover:bg-[#111111] group-hover:text-white transition-all duration-300">
+                    <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
+                </div>
+
+                <p className="text-xs sm:text-sm text-[#666666] leading-relaxed line-clamp-2 pr-4 font-normal">
+                  {item.shortDesc}
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}

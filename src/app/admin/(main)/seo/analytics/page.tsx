@@ -59,7 +59,7 @@ export default function SeoAnalyticsPage() {
   if (loading) {
     return (
       <div className="p-10 text-center text-zinc-400">
-        <div className="w-6 h-6 border-2 border-[#FF4F18] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+        <div className="w-6 h-6 border-2 border-zinc-900 dark:border-white border-t-transparent rounded-full animate-spin mx-auto mb-2" />
         Loading analytics settings...
       </div>
     );
@@ -71,7 +71,7 @@ export default function SeoAnalyticsPage() {
         
         {/* Header */}
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-white dark:bg-[#1A1A1D] shadow-sm text-[#FF4F18] rounded-xl flex items-center justify-center border border-zinc-200 dark:border-zinc-800">
+          <div className="w-12 h-12 bg-white dark:bg-[#1A1A1D] shadow-sm text-zinc-900 dark:text-white rounded-xl flex items-center justify-center border border-zinc-200 dark:border-zinc-800">
             <Activity size={24} />
           </div>
           <div>
@@ -122,7 +122,7 @@ export default function SeoAnalyticsPage() {
                 type="text"
                 value={googleAnalyticsId}
                 onChange={(e) => setGoogleAnalyticsId(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black text-sm font-mono text-zinc-900 dark:text-white focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
+                className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black text-sm font-mono text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:focus:border-zinc-100 dark:focus:ring-zinc-100"
                 placeholder="G-XXXXXXXXXX"
               />
               <p className="text-xs text-zinc-400">Find this in Google Analytics &gt; Admin &gt; Data Streams.</p>
@@ -136,7 +136,7 @@ export default function SeoAnalyticsPage() {
                 type="text"
                 value={facebookPixelId}
                 onChange={(e) => setFacebookPixelId(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black text-sm font-mono text-zinc-900 dark:text-white focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
+                className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black text-sm font-mono text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:focus:border-zinc-100 dark:focus:ring-zinc-100"
                 placeholder="123456789012345"
               />
               <p className="text-xs text-zinc-400">Find this in Meta Events Manager &gt; Data Sources.</p>
@@ -152,7 +152,7 @@ export default function SeoAnalyticsPage() {
                 rows={4}
                 value={customHeadScripts}
                 onChange={(e) => setCustomHeadScripts(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black text-xs font-mono text-zinc-900 dark:text-white focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18] resize-none custom-scrollbar"
+                className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black text-xs font-mono text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:focus:border-zinc-100 dark:focus:ring-zinc-100 resize-none custom-scrollbar"
                 placeholder="<!-- Code injected into site <head> tag -->"
               />
             </div>
@@ -165,7 +165,7 @@ export default function SeoAnalyticsPage() {
                 rows={4}
                 value={customBodyScripts}
                 onChange={(e) => setCustomBodyScripts(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black text-xs font-mono text-zinc-900 dark:text-white focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18] resize-none custom-scrollbar"
+                className="w-full px-4 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black text-xs font-mono text-zinc-900 dark:text-white focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:focus:border-zinc-100 dark:focus:ring-zinc-100 resize-none custom-scrollbar"
                 placeholder="<!-- Code injected into site <body> tag -->"
               />
             </div>
@@ -189,7 +189,7 @@ export default function SeoAnalyticsPage() {
           <button
             type="submit"
             disabled={saving}
-            className="flex items-center justify-center gap-2 bg-[#FF4F18] text-white font-extrabold px-8 py-3.5 rounded-xl hover:bg-[#E03F0D] transition-all duration-200 shadow-[0_4px_14px_rgba(255,79,24,0.35)] hover:shadow-[0_6px_20px_rgba(255,79,24,0.4)] disabled:opacity-50 transform hover:-translate-y-0.5 cursor-pointer"
+            className="flex items-center justify-center gap-2 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 font-extrabold px-8 py-3.5 rounded-xl hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all duration-200 shadow-sm disabled:opacity-50 transform hover:-translate-y-0.5 cursor-pointer"
           >
             <Save size={18} /> {saving ? 'Saving...' : 'Save Tracking Settings'}
           </button>

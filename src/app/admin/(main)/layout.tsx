@@ -22,7 +22,7 @@ export default function AdminMainLayout({
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center bg-zinc-50 dark:bg-[#0d0d0e] text-zinc-400 font-semibold animate-pulse flex-col">
-        <div className="w-10 h-10 border-4 border-zinc-200 dark:border-zinc-800 border-t-[#FF4F18] rounded-full animate-spin mb-4"></div>
+        <div className="w-10 h-10 border-4 border-zinc-200 dark:border-zinc-800 border-t-[#111111] dark:border-t-white rounded-full animate-spin mb-4"></div>
         Loading Admin Session...
       </div>
     );

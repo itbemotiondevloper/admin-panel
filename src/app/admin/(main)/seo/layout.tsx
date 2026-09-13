@@ -32,7 +32,7 @@ export default function SeoLayout({ children }: { children: React.ReactNode }) {
               href={tab.path}
               className={`px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap transition-all duration-200 ${
                 isActive 
-                  ? 'bg-[#FF4F18] text-white shadow-[0_4px_12px_rgba(255,79,24,0.3)]' 
+                  ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-sm font-extrabold' 
                   : 'bg-zinc-100 dark:bg-[#1A1A1D] text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-[#252528] hover:text-zinc-900 dark:hover:text-white'
               }`}
             >

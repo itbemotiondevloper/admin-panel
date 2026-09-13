@@ -78,7 +78,7 @@ export default function AdminIndustriesPageEditor() {
   if (loading) {
     return (
       <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col items-center justify-center font-sans">
-        <Loader2 className="w-10 h-10 animate-spin text-[#FF4F18] mb-4" />
+        <Loader2 className="w-10 h-10 animate-spin text-zinc-900 dark:text-white mb-4" />
         <p className="text-zinc-500 font-semibold uppercase tracking-wider text-xs">Loading Page Content Editor...</p>
       </div>
     );
@@ -111,7 +111,7 @@ export default function AdminIndustriesPageEditor() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#FF4F18] hover:bg-[#E03F0D] text-white text-sm font-bold rounded-full transition-all shadow-md disabled:opacity-60 cursor-pointer"
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 text-white text-sm font-bold rounded-full transition-all shadow-md disabled:opacity-60 cursor-pointer"
         >
           {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
           Save Page Content
@@ -259,7 +259,7 @@ export default function AdminIndustriesPageEditor() {
           <div className="space-y-4 pt-2">
             {pageData.process.steps.map((step, idx) => (
               <div key={idx} className="p-4 bg-zinc-50 dark:bg-zinc-900/40 rounded-2xl border border-zinc-200 dark:border-zinc-800 space-y-2">
-                <span className="text-xs font-extrabold text-[#FF4F18]">Step 0{idx + 1}</span>
+                <span className="text-xs font-extrabold text-zinc-900 dark:text-white">Step 0{idx + 1}</span>
                 <input
                   type="text"
                   value={step.name}
@@ -332,7 +332,7 @@ export default function AdminIndustriesPageEditor() {
             <button
               type="button"
               onClick={handleAddFaq}
-              className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold text-[#FF4F18] bg-orange-50 dark:bg-orange-950/20 rounded-full hover:bg-orange-100 transition-colors"
+              className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
             >
               <Plus size={14} /> Add FAQ
             </button>

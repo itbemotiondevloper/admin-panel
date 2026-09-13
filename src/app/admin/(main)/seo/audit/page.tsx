@@ -162,7 +162,7 @@ export default function SpeedPerformanceAuditPage() {
   if (loading) {
     return (
       <div className="p-12 text-center text-zinc-400">
-        <div className="w-8 h-8 border-2 border-[#FF4F18] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <div className="w-8 h-8 border-2 border-zinc-900 dark:border-white border-t-transparent rounded-full animate-spin mx-auto mb-3" />
         Loading speed audits...
       </div>
     );
@@ -181,7 +181,7 @@ export default function SpeedPerformanceAuditPage() {
             <button
               type="button"
               onClick={() => setAuditMode('desktop')}
-              className={`p-2 rounded-lg transition-all cursor-pointer ${auditMode === 'desktop' ? 'bg-white dark:bg-zinc-800 text-[#FF4F18] shadow-xs' : 'text-zinc-500'}`}
+              className={`p-2 rounded-lg transition-all cursor-pointer ${auditMode === 'desktop' ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-xs' : 'text-zinc-500'}`}
               title="Desktop audit"
             >
               <Monitor size={16} />
@@ -189,7 +189,7 @@ export default function SpeedPerformanceAuditPage() {
             <button
               type="button"
               onClick={() => setAuditMode('mobile')}
-              className={`p-2 rounded-lg transition-all cursor-pointer ${auditMode === 'mobile' ? 'bg-white dark:bg-zinc-800 text-[#FF4F18] shadow-xs' : 'text-zinc-500'}`}
+              className={`p-2 rounded-lg transition-all cursor-pointer ${auditMode === 'mobile' ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-xs' : 'text-zinc-500'}`}
               title="Mobile audit"
             >
               <Smartphone size={16} />
@@ -200,7 +200,7 @@ export default function SpeedPerformanceAuditPage() {
             type="button"
             onClick={runAudit}
             disabled={auditing}
-            className="bg-[#FF4F18] text-white hover:bg-[#E03F0D] font-extrabold px-5 py-2.5 rounded-xl text-xs transition-all flex items-center gap-2 cursor-pointer disabled:opacity-50"
+            className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 font-extrabold px-5 py-2.5 rounded-xl text-xs transition-all flex items-center gap-2 cursor-pointer hover:bg-zinc-800 dark:hover:bg-zinc-200 disabled:opacity-50"
           >
             {auditing ? <RefreshCw size={14} className="animate-spin" /> : <Play size={14} />}
             {auditing ? 'Running Audit...' : 'Start Audit'}
@@ -219,9 +219,9 @@ export default function SpeedPerformanceAuditPage() {
                 key={p._id}
                 type="button"
                 onClick={() => setSelectedIdx(idx)}
-                className={`w-full text-left px-3.5 py-3 rounded-2xl transition-all flex items-start gap-2.5 cursor-pointer ${isSelected ? 'bg-[#FFF3EF] dark:bg-orange-950/20 text-[#FF4F18]' : 'hover:bg-zinc-50 dark:hover:bg-zinc-900/40 text-zinc-700 dark:text-zinc-300'}`}
+                className={`w-full text-left px-3.5 py-3 rounded-2xl transition-all flex items-start gap-2.5 cursor-pointer ${isSelected ? 'bg-zinc-100 dark:bg-zinc-800/60 text-zinc-900 dark:text-white font-extrabold' : 'hover:bg-zinc-50 dark:hover:bg-zinc-900/40 text-zinc-700 dark:text-zinc-300'}`}
               >
-                <FileText size={16} className={`shrink-0 mt-0.5 ${isSelected ? 'text-[#FF4F18]' : 'text-zinc-400'}`} />
+                <FileText size={16} className={`shrink-0 mt-0.5 ${isSelected ? 'text-zinc-900 dark:text-white' : 'text-zinc-400'}`} />
                 <div className="min-w-0">
                   <p className="text-xs font-bold truncate leading-tight">{p.name}</p>
                   <p className="text-[10px] font-mono opacity-70 truncate mt-0.5">{p.url || `/${p.slug}`}</p>
@@ -301,7 +301,7 @@ export default function SpeedPerformanceAuditPage() {
               <div className="md:col-span-1">
                 <section className="bg-white dark:bg-[#121214] p-6 rounded-3xl border border-zinc-200 dark:border-zinc-800/80 shadow-sm space-y-4 h-full flex flex-col">
                   <h2 className="text-sm font-extrabold uppercase text-zinc-450 tracking-wider border-b border-zinc-100 dark:border-zinc-800/50 pb-2 flex items-center gap-2">
-                    <Sparkles size={14} className="text-[#FF4F18]" /> SEO Issues ({auditIssues.length})
+                    <Sparkles size={14} className="text-zinc-900 dark:text-white" /> SEO Issues ({auditIssues.length})
                   </h2>
 
                   {auditIssues.length === 0 ? (

@@ -714,7 +714,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
 
       {loading && activeTab !== 'solutionsPage' ? (
         <div className="text-center py-32 text-zinc-400 font-semibold animate-pulse flex flex-col items-center justify-center">
-          <div className="w-10 h-10 border-4 border-zinc-200 dark:border-zinc-800 border-t-[#FF4F18] rounded-full animate-spin mb-4"></div>
+          <div className="w-10 h-10 border-4 border-zinc-200 dark:border-zinc-800 border-t-zinc-900 dark:border-t-white rounded-full animate-spin mb-4"></div>
           Loading data...
         </div>
       ) : activeTab === 'solutionsPage' ? (
@@ -750,7 +750,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         ...solutionsPageData,
                         hero: { ...solutionsPageData.hero, eyebrow: e.target.value }
                       })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white font-semibold"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white font-semibold"
                     />
                   </div>
                   <div>
@@ -762,7 +762,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         ...solutionsPageData,
                         hero: { ...solutionsPageData.hero, title: e.target.value }
                       })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white font-semibold"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white font-semibold"
                     />
                   </div>
                   <div>
@@ -774,7 +774,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         ...solutionsPageData,
                         hero: { ...solutionsPageData.hero, desc: e.target.value }
                       })}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-850 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white"
                     />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -956,7 +956,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                       {(solutionsPageData.approach?.steps || []).map((step, idx) => (
                         <div key={step.number || idx} className="p-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl space-y-2">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs font-bold text-[#FF4F18]">{step.number}</span>
+                            <span className="text-xs font-bold text-zinc-900 dark:text-white">{step.number}</span>
                             <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">{step.name}</span>
                           </div>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -1093,7 +1093,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 <button
                   type="submit"
                   disabled={savingSolutionsPage}
-                  className="bg-[#FF4F18] hover:bg-[#E03F0D] text-white px-8 py-3.5 rounded-full text-sm font-bold transition-all shadow-[0_4px_14px_rgba(255,79,24,0.3)] hover:shadow-[0_6px_20px_rgba(255,79,24,0.4)] disabled:opacity-50 transform hover:-translate-y-0.5 duration-200 cursor-pointer"
+                  className="bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 text-white px-8 py-3.5 rounded-full text-sm font-bold transition-all shadow-sm disabled:opacity-60 transform hover:-translate-y-0.5 duration-200 cursor-pointer"
                 >
                   {savingSolutionsPage ? 'Saving Changes...' : 'Save Solutions Page Settings'}
                 </button>
@@ -1101,7 +1101,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             </form>
           ) : (
             <div className="text-center py-32 text-zinc-400 font-semibold animate-pulse flex flex-col items-center justify-center">
-              <div className="w-10 h-10 border-4 border-zinc-200 dark:border-zinc-800 border-t-[#FF4F18] rounded-full animate-spin mb-4"></div>
+              <div className="w-10 h-10 border-4 border-zinc-200 dark:border-zinc-800 border-t-zinc-900 dark:border-t-white rounded-full animate-spin mb-4"></div>
               Loading Solutions Page Content...
             </div>
           )}
@@ -1118,7 +1118,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                     placeholder="Name, Email, or Phone"
                     value={leadSearch}
                     onChange={(e) => setLeadSearch(e.target.value)}
-                    className="w-full px-3 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
+                    className="w-full px-3 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                   />
                 </div>
                 <div className="w-full sm:w-auto">
@@ -1126,7 +1126,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   <select
                     value={leadStatusFilter}
                     onChange={(e) => setLeadStatusFilter(e.target.value)}
-                    className="w-full px-3 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
+                    className="w-full px-3 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                   >
                     <option value="">All Statuses</option>
                     <option value="New">New</option>
@@ -1145,7 +1145,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                     type="date"
                     value={leadStartDate}
                     onChange={(e) => setLeadStartDate(e.target.value)}
-                    className="w-full px-3 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
+                    className="w-full px-3 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                   />
                 </div>
                 <div className="w-full sm:w-auto">
@@ -1154,11 +1154,11 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                     type="date"
                     value={leadEndDate}
                     onChange={(e) => setLeadEndDate(e.target.value)}
-                    className="w-full px-3 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18]"
+                    className="w-full px-3 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                   />
                 </div>
                 <div className="w-full sm:w-auto flex gap-2">
-                  <button type="submit" className="bg-[#FF4F18] text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#E03F0D] transition-colors cursor-pointer">
+                  <button type="submit" className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-4 py-2 rounded-xl text-xs font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors cursor-pointer">
                     Search
                   </button>
                   <button
@@ -1236,7 +1236,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex justify-end bg-zinc-50/50 dark:bg-black/20">
               <button 
                 onClick={handleOpenCreateUpdate}
-                className="bg-[#FF4F18] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#E03F0D] transition-colors shadow-[0_4px_14px_rgba(255,79,24,0.35)] hover:shadow-[0_6px_20px_rgba(255,79,24,0.4)] transform hover:-translate-y-0.5 duration-200"
+                className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm transform hover:-translate-y-0.5 duration-200"
               >
                 + Create Announcement
               </button>
@@ -1244,7 +1244,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
           )}
           {activeTab === 'blogs' && (
             <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex justify-end bg-zinc-50/50 dark:bg-black/20">
-              <Link href="/admin/blogs/add" className="bg-[#FF4F18] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#E03F0D] transition-colors shadow-[0_4px_14px_rgba(255,79,24,0.35)] hover:shadow-[0_6px_20px_rgba(255,79,24,0.4)] transform hover:-translate-y-0.5 duration-200">
+              <Link href="/admin/blogs/add" className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm transform hover:-translate-y-0.5 duration-200">
                 + Create New Post
               </Link>
             </div>
@@ -1261,7 +1261,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                       value={gridTitle}
                       onChange={e => setGridTitle(e.target.value)}
                       placeholder="Twelve powerful features to help your restaurant run better"
-                      className="w-full px-3 py-2 rounded-xl text-sm border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+                      className="w-full px-3 py-2 rounded-xl text-sm border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                     />
                   </div>
                   <div>
@@ -1271,7 +1271,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                       value={gridDesc}
                       onChange={e => setGridDesc(e.target.value)}
                       placeholder="Click on any feature card below to open its full specifications..."
-                      className="w-full px-3 py-2 rounded-xl text-sm border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+                      className="w-full px-3 py-2 rounded-xl text-sm border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                     />
                   </div>
                 </div>
@@ -1279,12 +1279,12 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   <button 
                     type="submit"
                     disabled={savingGridSettings}
-                    className="bg-[#FF4F18] text-white px-4 py-2 rounded-full text-xs font-bold hover:bg-[#E03F0D] transition-all disabled:opacity-50 cursor-pointer"
+                    className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-4 py-2 rounded-full text-xs font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all disabled:opacity-50 cursor-pointer"
                   >
                     {savingGridSettings ? 'Saving...' : 'Save Header Settings'}
                   </button>
                   
-                  <Link href="/admin/solutions/new" className="bg-[#FF4F18]/10 text-[#FF4F18] border border-[#FF4F18]/20 px-4 py-2 rounded-full text-xs font-bold hover:bg-[#FF4F18]/20 transition-all cursor-pointer">
+                  <Link href="/admin/solutions/new" className="bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full text-xs font-bold hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all cursor-pointer">
                     + Create New Solution Card
                   </Link>
                 </div>
@@ -1301,7 +1301,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                     type="text"
                     placeholder="e.g. Marketing & Promo"
                     id="newCategoryInput"
-                    className="flex-1 px-3 py-2 rounded-xl text-xs border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-905 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-zinc-800 dark:text-zinc-200 font-semibold"
+                    className="flex-1 px-3 py-2 rounded-xl text-xs border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-905 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-zinc-800 dark:text-zinc-200 font-semibold"
                   />
                   <button
                     type="button"
@@ -1324,7 +1324,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         showToast('Category added successfully!', 'success');
                       }
                     }}
-                    className="bg-[#FF4F18] hover:bg-[#E03F0D] text-white px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm select-none"
+                    className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer shadow-sm select-none hover:bg-zinc-800 dark:hover:bg-zinc-200"
                   >
                     + Add Category
                   </button>
@@ -1366,7 +1366,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Admin & staff accounts with panel access</p>
               <button 
                 onClick={() => setShowCreateModal(true)} 
-                className="bg-[#FF4F18] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#E03F0D] transition-colors shadow-[0_4px_14px_rgba(255,79,24,0.35)] hover:shadow-[0_6px_20px_rgba(255,79,24,0.4)] transform hover:-translate-y-0.5 duration-200"
+                className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm transform hover:-translate-y-0.5 duration-200"
               >
                 + Create New Admin
               </button>
@@ -1381,7 +1381,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex justify-end bg-zinc-50/50 dark:bg-black/20">
               <button 
                 onClick={handleOpenCreateRole} 
-                className="bg-[#FF4F18] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#E03F0D] transition-colors shadow-[0_4px_14px_rgba(255,79,24,0.35)] hover:shadow-[0_6px_20px_rgba(255,79,24,0.4)] transform hover:-translate-y-0.5 duration-200"
+                className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm transform hover:-translate-y-0.5 duration-200"
               >
                 + Create New Role
               </button>
@@ -1391,7 +1391,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex justify-end bg-zinc-50/50 dark:bg-black/20">
               <button 
                 onClick={handleOpenCreatePage} 
-                className="bg-[#FF4F18] text-white px-5 py-2.5 rounded-full text-sm font-bold hover:bg-[#E03F0D] transition-colors shadow-[0_4px_14px_rgba(255,79,24,0.35)] hover:shadow-[0_6px_20px_rgba(255,79,24,0.4)] transform hover:-translate-y-0.5 duration-200"
+                className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm transform hover:-translate-y-0.5 duration-200"
               >
                 + Create New Page
               </button>
@@ -1430,7 +1430,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   placeholder="Search by person's name..."
                   value={commentSearchName}
                   onChange={(e) => setCommentSearchName(e.target.value)}
-                  className="px-4 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18] w-full sm:w-64"
+                  className="px-4 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 w-full sm:w-64"
                 />
                 {commentSearchName && (
                   <button
@@ -1562,7 +1562,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                          <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
                          <td className="px-6 py-4">{item.lastContactedDate ? new Date(item.lastContactedDate).toLocaleString() : 'Never'}</td>
                          <td className="px-6 py-4">
-                           <button onClick={() => handleOpenEditLead(item)} className="text-[#FF4F18] font-bold hover:underline transition-opacity">
+                           <button onClick={() => handleOpenEditLead(item)} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
                              View/Edit
                            </button>
                          </td>
@@ -1585,7 +1585,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                          <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
                          <td className="px-6 py-4">{item.lastContactedDate ? new Date(item.lastContactedDate).toLocaleString() : 'Never'}</td>
                          <td className="px-6 py-4">
-                           <button onClick={() => handleOpenEditLead(item)} className="text-[#FF4F18] font-bold hover:underline transition-opacity">
+                           <button onClick={() => handleOpenEditLead(item)} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
                              View/Edit
                            </button>
                          </td>
@@ -1603,7 +1603,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         <td className="px-6 py-4 space-x-2">
                           <button 
                             onClick={() => handleOpenEditUpdate(item)} 
-                            className="text-[#FF4F18] font-bold hover:underline transition-opacity"
+                            className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
                           >
                             Edit
                           </button>
@@ -1626,7 +1626,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                           </span>
                         </td>
                         <td className="px-6 py-4">
-                          <Link href={`/admin/blogs/${item._id}`} className="text-[#FF4F18] font-bold hover:underline transition-opacity">
+                          <Link href={`/admin/blogs/${item._id}`} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
                             Edit Post
                           </Link>
                         </td>
@@ -1637,7 +1637,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         <td className="px-6 py-4 font-medium max-w-[250px] truncate">{item.title}</td>
                         <td className="px-6 py-4">{item.slug}</td>
                         <td className="px-6 py-4 space-x-3">
-                          <Link href={`/admin/solutions/${item._id}`} className="text-[#FF4F18] font-bold hover:underline transition-opacity">
+                          <Link href={`/admin/solutions/${item._id}`} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
                             Edit Solution
                           </Link>
                           <button
@@ -1654,7 +1654,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                          <td className="px-6 py-4">
                            <button 
                              onClick={() => setCommentSearchName(item.name)}
-                             className="text-left font-bold text-[#FF4F18] hover:underline"
+                             className="text-left font-bold text-zinc-900 dark:text-white hover:underline"
                              title="Click to view all comments from this person"
                            >
                              {item.name}
@@ -1712,7 +1712,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         <td className="px-6 py-4 font-medium">{item.name}</td>
                         <td className="px-6 py-4">{item.email}</td>
                         <td className="px-6 py-4">
-                          <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#FFF3EF] text-[#FF4F18]">
+                          <span className="px-3 py-1 rounded-full text-xs font-bold bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
                             {item.roleId?.name || 'User'}
                           </span>
                         </td>
@@ -1720,7 +1720,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         <td className="px-6 py-4 space-x-2">
                           <button 
                             onClick={() => handleOpenEditUser(item)} 
-                            className="text-[#FF4F18] font-bold hover:underline transition-opacity"
+                            className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
                           >
                             Edit / Password
                           </button>
@@ -1739,7 +1739,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         <td className="px-6 py-4 space-x-2">
                           <button 
                             onClick={() => handleOpenEditRole(item)} 
-                            className="text-[#FF4F18] font-bold hover:underline transition-opacity"
+                            className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
                           >
                             Edit
                           </button>
@@ -1764,7 +1764,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         <td className="px-6 py-4 space-x-2">
                           <button 
                             onClick={() => handleOpenEditPage(item)} 
-                            className="text-[#FF4F18] font-bold hover:underline transition-opacity"
+                            className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
                           >
                             Edit
                           </button>
@@ -1817,7 +1817,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   value={newUser.name}
                   onChange={(e) => setNewUser(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="Full Name"
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white"
                 />
               </div>
               <div className="space-y-1.5">
@@ -1828,7 +1828,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   value={newUser.email}
                   onChange={(e) => setNewUser(prev => ({ ...prev, email: e.target.value }))}
                   placeholder="email@example.com"
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white"
                 />
               </div>
               <div className="space-y-1.5">
@@ -1840,7 +1840,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   value={newUser.password}
                   onChange={(e) => setNewUser(prev => ({ ...prev, password: e.target.value }))}
                   placeholder="Min 8 characters"
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white"
                 />
               </div>
               <div className="space-y-1.5">
@@ -1849,7 +1849,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   required
                   value={newUser.roleId}
                   onChange={(e) => setNewUser(prev => ({ ...prev, roleId: e.target.value }))}
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white cursor-pointer"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white cursor-pointer"
                 >
                   <option value="" disabled>Select Role</option>
                   {roles.filter((role) => role.name !== 'User').map((role) => (
@@ -1869,7 +1869,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 <button 
                   type="submit"
                   disabled={creatingUser}
-                  className="flex-1 bg-[#FF4F18] hover:bg-[#E03F0D] text-white py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
+                  className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
                 >
                   {creatingUser ? 'Creating...' : 'Create'}
                 </button>
@@ -1895,7 +1895,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   value={updateForm.title}
                   onChange={(e) => setUpdateForm(prev => ({ ...prev, title: e.target.value }))}
                   placeholder="Announcement title"
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -1905,7 +1905,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                     required
                     value={updateForm.category}
                     onChange={(e) => setUpdateForm(prev => ({ ...prev, category: e.target.value }))}
-                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white cursor-pointer"
+                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white cursor-pointer"
                   >
                     <option value="PRODUCT UPDATE">Product Update</option>
                     <option value="INTEGRATION">Integration</option>
@@ -1920,7 +1920,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                     required
                     value={updateForm.publishedAt}
                     onChange={(e) => setUpdateForm(prev => ({ ...prev, publishedAt: e.target.value }))}
-                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white"
                   />
                 </div>
               </div>
@@ -1932,7 +1932,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   value={updateForm.excerpt}
                   onChange={(e) => setUpdateForm(prev => ({ ...prev, excerpt: e.target.value }))}
                   placeholder="Short summary displayed on list card..."
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white resize-none"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white resize-none"
                 />
               </div>
               <div className="space-y-1.5">
@@ -1942,7 +1942,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   value={updateForm.content}
                   onChange={(e) => setUpdateForm(prev => ({ ...prev, content: e.target.value }))}
                   placeholder="Full announcement content..."
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white resize-none"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white resize-none"
                 />
               </div>
               <div className="space-y-2">
@@ -1988,10 +1988,10 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                       className="relative flex flex-col items-center justify-center border-2 border-dashed border-zinc-300 dark:border-zinc-700 rounded-xl p-6 bg-zinc-50/50 dark:bg-zinc-950/20 hover:bg-zinc-50 dark:hover:bg-zinc-900/40 transition-colors cursor-pointer group"
                       onClick={() => imageInputRef.current?.click()}
                     >
-                      <svg className="w-8 h-8 text-zinc-400 mb-2 group-hover:text-[#FF4F18] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-8 h-8 text-zinc-400 mb-2 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
-                      <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 group-hover:text-[#FF4F18] transition-colors">
+                      <span className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors">
                         Click to upload image
                       </span>
                       <span className="text-[10px] text-zinc-400 mt-1">PNG, JPG, WEBP up to 10MB</span>
@@ -2020,7 +2020,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 <button 
                   type="submit"
                   disabled={savingUpdate}
-                  className="flex-1 bg-[#FF4F18] hover:bg-[#E03F0D] text-white py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
+                  className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
                 >
                   {savingUpdate ? 'Saving...' : (editingUpdate ? 'Save Changes' : 'Create')}
                 </button>
@@ -2076,7 +2076,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                           }
                           setRoleForm({ ...roleForm, permissions: nextPerms });
                         }}
-                        className="rounded text-[#FF4F18] focus:ring-[#FF4F18]"
+                        className="rounded text-zinc-900 dark:text-white focus:ring-zinc-900 dark:focus:ring-zinc-100"
                       />
                       <span>{perm.label}</span>
                     </label>
@@ -2095,7 +2095,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 <button 
                   type="submit"
                   disabled={savingRole}
-                  className="flex-1 bg-[#FF4F18] hover:bg-[#E03F0D] text-white py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
+                  className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
                 >
                   {savingRole ? 'Saving...' : (editingRole ? 'Save Changes' : 'Create')}
                 </button>
@@ -2173,7 +2173,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 <button 
                   type="submit"
                   disabled={savingPage}
-                  className="flex-1 bg-[#FF4F18] hover:bg-[#E03F0D] text-white py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
+                  className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
                 >
                   {savingPage ? 'Saving...' : (editingPage ? 'Save Changes' : 'Create')}
                 </button>
@@ -2258,7 +2258,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 <button 
                   type="submit"
                   disabled={savingLead}
-                  className="flex-1 bg-[#FF4F18] hover:bg-[#E03F0D] text-white py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
+                  className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
                 >
                   {savingLead ? 'Saving...' : 'Save Updates'}
                 </button>
@@ -2282,7 +2282,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   required
                   value={editUserForm.name}
                   onChange={(e) => setEditUserForm(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white"
                 />
               </div>
               <div className="space-y-1.5">
@@ -2292,7 +2292,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   required
                   value={editUserForm.email}
                   onChange={(e) => setEditUserForm(prev => ({ ...prev, email: e.target.value }))}
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white"
                 />
               </div>
               <div className="space-y-1.5">
@@ -2306,7 +2306,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   value={editUserForm.password}
                   onChange={(e) => setEditUserForm(prev => ({ ...prev, password: e.target.value }))}
                   placeholder="Leave blank to keep current"
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white"
                 />
               </div>
               <div className="space-y-1.5">
@@ -2315,7 +2315,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   required
                   value={editUserForm.roleId}
                   onChange={(e) => setEditUserForm(prev => ({ ...prev, roleId: e.target.value }))}
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-[#FF4F18] text-sm text-zinc-900 dark:text-white cursor-pointer"
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-sm text-zinc-900 dark:text-white cursor-pointer"
                 >
                   {roles.map((role) => (
                     <option key={role._id} value={role._id}>{role.name}</option>
@@ -2334,7 +2334,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 <button 
                   type="submit"
                   disabled={savingUser}
-                  className="flex-1 bg-[#FF4F18] hover:bg-[#E03F0D] text-white py-2.5 rounded-full text-xs font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-xs font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {savingUser ? 'Saving...' : 'Save Changes'}
                 </button>

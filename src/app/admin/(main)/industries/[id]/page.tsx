@@ -109,7 +109,7 @@ export default function AdminIndustryEditorPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex flex-col items-center justify-center font-sans">
-        <Loader2 className="w-10 h-10 animate-spin text-[#FF4F18] mb-4" />
+        <Loader2 className="w-10 h-10 animate-spin text-zinc-900 dark:text-white mb-4" />
         <p className="text-zinc-500 font-semibold uppercase tracking-wider text-xs">Loading Industry Data...</p>
       </div>
     );
@@ -121,7 +121,7 @@ export default function AdminIndustryEditorPage() {
         <div className="bg-red-50 dark:bg-red-950/20 text-red-700 dark:text-red-400 p-6 rounded-3xl border border-red-200 dark:border-red-900/50 max-w-sm text-center">
           <p className="font-bold mb-2">Error</p>
           <p className="text-sm mb-4">{error}</p>
-          <Link href="/admin/industries" className="text-xs font-black uppercase text-[#FF4F18] hover:underline">
+          <Link href="/admin/industries" className="text-xs font-black uppercase text-zinc-900 dark:text-white hover:underline">
             Back to Industries
           </Link>
         </div>
@@ -147,7 +147,7 @@ export default function AdminIndustryEditorPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#FF4F18] hover:bg-[#E03F0D] text-white text-sm font-bold rounded-full transition-all shadow-md disabled:opacity-60 cursor-pointer"
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 text-white text-sm font-bold rounded-full transition-all shadow-md disabled:opacity-60 cursor-pointer"
         >
           {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
           Save Industry
@@ -171,7 +171,7 @@ export default function AdminIndustryEditorPage() {
                 value={formData.title || ''}
                 onChange={handleChange}
                 placeholder="e.g. Manufacturing"
-                className="w-full px-3.5 py-2.5 text-sm font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-zinc-900 dark:text-white"
+                className="w-full px-3.5 py-2.5 text-sm font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-zinc-900 dark:text-white"
                 required
               />
             </div>
@@ -184,7 +184,7 @@ export default function AdminIndustryEditorPage() {
                 value={formData.slug || ''}
                 onChange={handleChange}
                 placeholder="e.g. manufacturing"
-                className="w-full px-3.5 py-2.5 text-sm font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-zinc-900 dark:text-white"
+                className="w-full px-3.5 py-2.5 text-sm font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-zinc-900 dark:text-white"
                 required
               />
             </div>
@@ -197,7 +197,7 @@ export default function AdminIndustryEditorPage() {
                 value={formData.icon || ''}
                 onChange={handleChange}
                 placeholder="e.g. 🏭 or 🩺 or 🛒"
-                className="w-full px-3.5 py-2.5 text-sm font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-zinc-900 dark:text-white"
+                className="w-full px-3.5 py-2.5 text-sm font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-zinc-900 dark:text-white"
               />
             </div>
 
@@ -208,7 +208,7 @@ export default function AdminIndustryEditorPage() {
                 name="order"
                 value={formData.order ?? 1}
                 onChange={(e) => setFormData(prev => ({ ...prev, order: parseInt(e.target.value) || 1 }))}
-                className="w-full px-3.5 py-2.5 text-sm font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-zinc-900 dark:text-white"
+                className="w-full px-3.5 py-2.5 text-sm font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-zinc-900 dark:text-white"
               />
             </div>
           </div>
@@ -221,7 +221,7 @@ export default function AdminIndustryEditorPage() {
               value={formData.description || ''}
               onChange={handleChange}
               placeholder="Build a stronger digital presence for your manufacturing business..."
-              className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-zinc-900 dark:text-white"
+              className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-zinc-900 dark:text-white"
             />
           </div>
 
@@ -234,7 +234,7 @@ export default function AdminIndustryEditorPage() {
                 value={formData.ctaText || ''}
                 onChange={handleChange}
                 placeholder="e.g. Explore Manufacturing"
-                className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-zinc-900 dark:text-white"
+                className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-zinc-900 dark:text-white"
               />
             </div>
 
@@ -246,7 +246,7 @@ export default function AdminIndustryEditorPage() {
                 value={formData.ctaHref || ''}
                 onChange={handleChange}
                 placeholder="e.g. /industries/manufacturing"
-                className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-zinc-900 dark:text-white"
+                className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-zinc-900 dark:text-white"
               />
             </div>
           </div>
@@ -266,7 +266,7 @@ export default function AdminIndustryEditorPage() {
               value={formData.heroTitle || ''}
               onChange={handleChange}
               placeholder="e.g. Digital Growth Strategies for Manufacturing Leaders"
-              className="w-full px-3.5 py-2.5 text-sm font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-zinc-900 dark:text-white"
+              className="w-full px-3.5 py-2.5 text-sm font-semibold rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-zinc-900 dark:text-white"
             />
           </div>
 
@@ -278,7 +278,7 @@ export default function AdminIndustryEditorPage() {
               value={formData.heroSubtitle || ''}
               onChange={handleChange}
               placeholder="Transform complex industrial capabilities into clear, high-converting digital experiences..."
-              className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18] text-zinc-900 dark:text-white"
+              className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100 text-zinc-900 dark:text-white"
             />
           </div>
 
@@ -289,7 +289,7 @@ export default function AdminIndustryEditorPage() {
               <button
                 type="button"
                 onClick={handleAddChallenge}
-                className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold text-[#FF4F18] bg-orange-50 dark:bg-orange-950/20 rounded-full hover:bg-orange-100 transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800 rounded-full hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
               >
                 <Plus size={14} /> Add Challenge
               </button>

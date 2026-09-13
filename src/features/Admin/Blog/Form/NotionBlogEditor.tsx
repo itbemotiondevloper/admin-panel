@@ -349,7 +349,7 @@ const NotionBlogEditor: React.FC<NotionBlogEditorProps> = ({
                 <div className="relative group w-full mb-8 rounded-lg overflow-hidden border border-[#2d2d2d] bg-[#202020] min-h-[140px] flex flex-col items-center justify-center">
                   {isUploadingCover ? (
                     <div className="flex flex-col items-center justify-center text-[#8c8c8c] py-8 w-full">
-                      <div className="w-6 h-6 border-2 border-[#FF4F18] border-t-transparent rounded-full animate-spin mb-2" />
+                      <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin mb-2" />
                       <span className="text-xs font-medium">Uploading cover image...</span>
                     </div>
                   ) : coverPreview ? (
@@ -410,7 +410,7 @@ const NotionBlogEditor: React.FC<NotionBlogEditorProps> = ({
                   <div>
                     <select
                       {...form.register("contentType")}
-                      className="bg-transparent text-white border-none outline-none focus:ring-0 p-0 text-sm focus:outline-none dark:bg-zinc-950 font-semibold text-[#FF4F18]"
+                      className="bg-transparent text-white border-none outline-none focus:ring-0 p-0 text-sm focus:outline-none dark:bg-zinc-950 font-bold"
                     >
                       <option value="blog" className="bg-[#121214] text-white font-normal">Blog Article</option>
                       <option value="case-study" className="bg-[#121214] text-white font-normal">Case Study</option>

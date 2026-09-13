@@ -90,10 +90,10 @@ export default function AdminIndustriesPage() {
           </Link>
           <Link
             href="/admin/industries/new"
-            className="inline-flex items-center gap-2 bg-[#FF4F18] text-white px-5 py-2.5 rounded-full text-xs font-bold hover:bg-[#E03F0D] transition-colors shadow-md"
+            className="inline-flex items-center gap-2 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-xs font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-md"
           >
             <Plus size={16} />
-            Create Industry Card
+            Add Industry
           </Link>
         </div>
       </div>
@@ -107,7 +107,7 @@ export default function AdminIndustriesPage() {
             placeholder="Search industries by title, slug, or description..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+            className="w-full pl-10 pr-4 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
           />
         </div>
         <div className="text-xs text-zinc-400 font-semibold px-2">
@@ -119,7 +119,7 @@ export default function AdminIndustriesPage() {
       <div className="bg-white dark:bg-[#121214] border border-zinc-200 dark:border-zinc-800/80 rounded-3xl shadow-sm overflow-hidden">
         {loading ? (
           <div className="p-16 text-center text-zinc-400 font-semibold flex flex-col items-center justify-center">
-            <Loader2 className="w-8 h-8 animate-spin text-[#FF4F18] mb-3" />
+            <Loader2 className="w-8 h-8 animate-spin text-zinc-900 dark:text-white mb-3" />
             Loading Industry Cards...
           </div>
         ) : (
@@ -172,7 +172,7 @@ export default function AdminIndustriesPage() {
 
                         <Link
                           href={`/admin/industries/${item.id || item._id}`}
-                          className="p-2 rounded-lg text-zinc-500 hover:text-[#FF4F18] hover:bg-orange-50 dark:hover:bg-orange-950/30 transition-all"
+                          className="p-2 rounded-lg text-zinc-500 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all"
                           title="Edit Industry"
                         >
                           <Edit2 size={16} />

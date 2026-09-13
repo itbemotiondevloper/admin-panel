@@ -199,7 +199,7 @@ export default function Options({ className }: OptionsProps) {
   if (loading) {
     return (
       <div className="p-8 text-center text-zinc-400">
-        <div className="w-6 h-6 border-2 border-[#FF4F18] border-t-transparent rounded-full animate-spin mx-auto mb-2" />
+        <div className="w-6 h-6 border-2 border-zinc-900 dark:border-white border-t-transparent rounded-full animate-spin mx-auto mb-2" />
         Loading settings...
       </div>
     );
@@ -225,7 +225,7 @@ export default function Options({ className }: OptionsProps) {
               <img src={logoBlackUrl} alt="Light Mode Logo Preview" className="h-7 max-w-full object-contain" onError={(e) => { e.currentTarget.src = '/digitory-black.png'; }} />
             </div>
 
-            <label className="flex items-center justify-center gap-2 border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-[#FF4F18]/50 px-3 py-2.5 rounded-xl cursor-pointer hover:bg-white dark:hover:bg-zinc-900 transition-colors text-xs font-semibold">
+            <label className="flex items-center justify-center gap-2 border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-zinc-900/50 dark:hover:border-zinc-100/50 px-3 py-2.5 rounded-xl cursor-pointer hover:bg-white dark:hover:bg-zinc-900 transition-colors text-xs font-semibold">
               <Upload size={14} className="text-zinc-400" />
               <span>Upload Light Logo</span>
               <input type="file" accept="image/*" onChange={(e) => handleUploadImage(e, 'black')} className="hidden" />
@@ -243,7 +243,7 @@ export default function Options({ className }: OptionsProps) {
               <img src={logoWhiteUrl} alt="Dark Mode Logo Preview" className="h-7 max-w-full object-contain" onError={(e) => { e.currentTarget.src = '/digitory-white.png'; }} />
             </div>
 
-            <label className="flex items-center justify-center gap-2 border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-[#FF4F18]/50 px-3 py-2.5 rounded-xl cursor-pointer hover:bg-white dark:hover:bg-zinc-900 transition-colors text-xs font-semibold">
+            <label className="flex items-center justify-center gap-2 border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-zinc-900/50 dark:hover:border-zinc-100/50 px-3 py-2.5 rounded-xl cursor-pointer hover:bg-white dark:hover:bg-zinc-900 transition-colors text-xs font-semibold">
               <Upload size={14} className="text-zinc-400" />
               <span>Upload Dark Logo</span>
               <input type="file" accept="image/*" onChange={(e) => handleUploadImage(e, 'white')} className="hidden" />
@@ -261,7 +261,7 @@ export default function Options({ className }: OptionsProps) {
               <img src={logoFooterUrl} alt="Footer Logo Preview" className="h-7 max-w-full object-contain" onError={(e) => { e.currentTarget.src = '/digitory-white.png'; }} />
             </div>
 
-            <label className="flex items-center justify-center gap-2 border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-[#FF4F18]/50 px-3 py-2.5 rounded-xl cursor-pointer hover:bg-white dark:hover:bg-zinc-900 transition-colors text-xs font-semibold">
+            <label className="flex items-center justify-center gap-2 border-2 border-dashed border-zinc-300 dark:border-zinc-700 hover:border-zinc-900/50 dark:hover:border-zinc-100/50 px-3 py-2.5 rounded-xl cursor-pointer hover:bg-white dark:hover:bg-zinc-900 transition-colors text-xs font-semibold">
               <Upload size={14} className="text-zinc-400" />
               <span>Upload Footer Logo</span>
               <input type="file" accept="image/*" onChange={(e) => handleUploadImage(e, 'footer')} className="hidden" />
@@ -275,7 +275,7 @@ export default function Options({ className }: OptionsProps) {
             <input
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
               placeholder="Digitory"
             />
           </div>
@@ -285,7 +285,7 @@ export default function Options({ className }: OptionsProps) {
             <input
               value={siteTitle}
               onChange={(e) => setSiteTitle(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+              className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
               placeholder="Digitory - Restaurant Operating System"
             />
           </div>
@@ -299,7 +299,7 @@ export default function Options({ className }: OptionsProps) {
               <input
                 value={faviconUrl}
                 onChange={(e) => setFaviconUrl(e.target.value)}
-                className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+                className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                 placeholder="/favicon.ico"
               />
               <label className="flex items-center justify-center gap-1.5 border border-zinc-350 dark:border-zinc-700 px-3 rounded-xl cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] font-bold shrink-0">
@@ -324,7 +324,7 @@ export default function Options({ className }: OptionsProps) {
                 <input
                   value={contactDesktopVideoUrl}
                   onChange={(e) => setContactDesktopVideoUrl(e.target.value)}
-                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                   placeholder="/Digitory.mp4"
                 />
                 <label className="flex items-center justify-center gap-1.5 border border-zinc-350 dark:border-zinc-700 px-3 rounded-xl cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] font-bold shrink-0">
@@ -340,7 +340,7 @@ export default function Options({ className }: OptionsProps) {
                 <input
                   value={contactMobileVideoUrl}
                   onChange={(e) => setContactMobileVideoUrl(e.target.value)}
-                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                   placeholder="/mobile.mp4"
                 />
                 <label className="flex items-center justify-center gap-1.5 border border-zinc-350 dark:border-zinc-700 px-3 rounded-xl cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] font-bold shrink-0">
@@ -366,7 +366,7 @@ export default function Options({ className }: OptionsProps) {
                 <input
                   value={demoDesktopVideoUrl}
                   onChange={(e) => setDemoDesktopVideoUrl(e.target.value)}
-                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                   placeholder="/Digitory.mp4"
                 />
                 <label className="flex items-center justify-center gap-1.5 border border-zinc-350 dark:border-zinc-700 px-3 rounded-xl cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] font-bold shrink-0">
@@ -382,7 +382,7 @@ export default function Options({ className }: OptionsProps) {
                 <input
                   value={demoMobileVideoUrl}
                   onChange={(e) => setDemoMobileVideoUrl(e.target.value)}
-                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-[#FF4F18]"
+                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs focus:outline-none focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                   placeholder="/mobile.mp4"
                 />
                 <label className="flex items-center justify-center gap-1.5 border border-zinc-350 dark:border-zinc-700 px-3 rounded-xl cursor-pointer hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] font-bold shrink-0">
@@ -402,7 +402,7 @@ export default function Options({ className }: OptionsProps) {
               <span>{message}</span>
             </p>
           )}
-          <Button type="submit" disabled={saving} className="bg-[#FF4F18] text-white hover:bg-[#E03F0D] font-extrabold px-6 py-2.5 rounded-xl text-xs ml-auto shrink-0 shadow-xs cursor-pointer">
+          <Button type="submit" disabled={saving} className="bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 text-white font-extrabold px-6 py-2.5 rounded-xl text-xs ml-auto shrink-0 shadow-xs cursor-pointer">
             {saving ? 'Saving...' : 'Save Settings'}
           </Button>
         </div>

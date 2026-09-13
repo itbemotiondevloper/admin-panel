@@ -260,7 +260,7 @@ export default function SeoManagementPage() {
             {[
               { label: 'SEO Score', value: `${analytics.score}%`, color: analytics.score >= 70 ? 'text-green-500' : analytics.score >= 40 ? 'text-yellow-500' : 'text-red-500' },
               { label: 'Missing Titles', value: analytics.missingTitle, color: analytics.missingTitle > 0 ? 'text-red-500' : 'text-green-500' },
-              { label: 'Missing Descriptions', value: analytics.missingDesc, color: analytics.missingDesc > 0 ? 'text-orange-500' : 'text-green-500' },
+              { label: 'Missing Descriptions', value: analytics.missingDesc, color: analytics.missingDesc > 0 ? 'text-amber-500' : 'text-green-500' },
               { label: 'No-Index Pages', value: analytics.noIndex, color: analytics.noIndex > 0 ? 'text-yellow-500' : 'text-green-500' },
             ].map(card => (
               <div key={card.label} className="bg-white dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4">
@@ -279,8 +279,8 @@ export default function SeoManagementPage() {
               onClick={() => { setActiveSection(section); setEditing(null); setSelectedPageIndex(0); }}
               className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-200 ${
                 activeSection === section
-                  ? 'bg-[#FF4F18] text-white shadow-[0_4px_14px_rgba(255,79,24,0.35)]'
-                  : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-[#FF4F18]/40'
+                  ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-sm'
+                  : 'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:border-zinc-900/40 dark:hover:border-zinc-100/40'
               }`}
             >
               {section === 'website' ? '🌐 Website Pages' : '📝 Blog Posts'}
@@ -297,7 +297,7 @@ export default function SeoManagementPage() {
           <div className="flex-1 min-w-0 bg-white dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800 rounded-2xl overflow-hidden">
             {loading ? (
               <div className="p-12 text-center text-zinc-400">
-                <div className="w-8 h-8 border-2 border-[#FF4F18] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+                <div className="w-8 h-8 border-2 border-zinc-900 dark:border-white border-t-transparent rounded-full animate-spin mx-auto mb-3" />
                 Loading pages...
               </div>
             ) : (
@@ -325,7 +325,7 @@ export default function SeoManagementPage() {
                         onClick={() => {
                           if (globalIdx !== -1) setSelectedPageIndex(globalIdx);
                         }}
-                        className={`cursor-pointer transition-colors group ${isSelected ? 'bg-[#FFF3EF] dark:bg-orange-950/20' : 'hover:bg-zinc-50 dark:hover:bg-zinc-800/30'}`}
+                        className={`cursor-pointer transition-colors group ${isSelected ? 'bg-zinc-100 dark:bg-zinc-800/50' : 'hover:bg-zinc-50 dark:hover:bg-zinc-800/30'}`}
                       >
                         <td className="px-5 py-3.5">
                           <div className="font-semibold text-zinc-900 dark:text-white">{page.name}</div>
@@ -350,7 +350,7 @@ export default function SeoManagementPage() {
                               if (globalIdx !== -1) setSelectedPageIndex(globalIdx);
                               openEditor(page);
                             }}
-                            className={`text-xs font-bold transition-colors ${editing?._id === page._id ? 'text-[#FF4F18]' : 'text-zinc-405 hover:text-[#FF4F18] font-extrabold border border-zinc-200 dark:border-zinc-800 px-3 py-1.5 rounded-xl bg-white dark:bg-zinc-900 shadow-xs'}`}
+                            className={`text-xs font-bold transition-colors ${editing?._id === page._id ? 'text-zinc-900 dark:text-white' : 'text-zinc-450 hover:text-zinc-900 dark:hover:text-white font-extrabold border border-zinc-200 dark:border-zinc-800 px-3 py-1.5 rounded-xl bg-white dark:bg-zinc-900 shadow-xs'}`}
                           >
                             {editing?._id === page._id ? 'Editing ›' : 'Edit SEO'}
                           </button>
@@ -385,7 +385,7 @@ export default function SeoManagementPage() {
                       type="button"
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id as any)}
-                      className={`px-4 py-3 capitalize transition-colors ${activeTab === tab.id ? 'text-[#FF4F18] border-b-2 border-[#FF4F18]' : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300'}`}
+                      className={`px-4 py-3 capitalize transition-colors ${activeTab === tab.id ? 'text-zinc-900 dark:text-white border-b-2 border-zinc-900 dark:border-white font-extrabold' : 'text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300'}`}
                     >
                       {tab.label}
                     </button>
@@ -401,7 +401,7 @@ export default function SeoManagementPage() {
                           <input
                             value={form.title}
                             onChange={e => setForm({ ...form, title: e.target.value })}
-                            className="w-full px-3 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F18]"
+                            className="w-full px-3 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                             placeholder="Page Title | Brand Name"
                           />
                           <div className={`text-xs mt-1 font-semibold ${form.title.length < 30 || form.title.length > 60 ? 'text-amber-500' : 'text-green-600'}`}>{form.title.length}/60 chars (ideal: 30-60)</div>
@@ -412,7 +412,7 @@ export default function SeoManagementPage() {
                             value={form.description}
                             onChange={e => setForm({ ...form, description: e.target.value })}
                             rows={3}
-                            className="w-full px-3 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F18] resize-none"
+                            className="w-full px-3 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 resize-none"
                             placeholder="A compelling description for search engines..."
                           />
                           <div className={`text-xs mt-1 font-semibold ${form.description.length < 80 || form.description.length > 160 ? 'text-amber-500' : 'text-green-600'}`}>{form.description.length}/160 chars (ideal: 80-160)</div>
@@ -422,7 +422,7 @@ export default function SeoManagementPage() {
                           <input
                             value={keywordsInput}
                             onChange={e => setKeywordsInput(e.target.value)}
-                            className="w-full px-3 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F18]"
+                            className="w-full px-3 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                             placeholder="restaurant app, order management"
                           />
                         </div>
@@ -431,7 +431,7 @@ export default function SeoManagementPage() {
                           <input
                             value={form.canonicalUrl}
                             onChange={e => setForm({ ...form, canonicalUrl: e.target.value })}
-                            className="w-full px-3 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF4F18]"
+                            className="w-full px-3 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100"
                             placeholder="https://..."
                           />
                         </div>
@@ -476,7 +476,7 @@ export default function SeoManagementPage() {
                         <div className="flex gap-4">
                           {['index', 'noindex'].map(val => (
                             <label key={val} className="flex items-center gap-1.5 cursor-pointer text-sm font-semibold capitalize">
-                              <input type="radio" value={val} checked={form.robotsIndex === val} onChange={() => setForm({ ...form, robotsIndex: val as any })} className="accent-[#FF4F18]" />
+                              <input type="radio" value={val} checked={form.robotsIndex === val} onChange={() => setForm({ ...form, robotsIndex: val as any })} className="accent-zinc-900 dark:accent-white" />
                               {val}
                             </label>
                           ))}
@@ -487,7 +487,7 @@ export default function SeoManagementPage() {
 
                   <div className="px-5 py-4 border-t border-zinc-150 dark:border-zinc-800 bg-white dark:bg-zinc-900/80 sticky bottom-0 flex gap-2">
                     <button type="button" onClick={() => setEditing(null)} className="flex-1 py-2.5 rounded-full text-sm font-bold text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800">Cancel</button>
-                    <button type="submit" disabled={saving} className="flex-1 bg-[#FF4F18] text-white py-2.5 rounded-full text-sm font-bold shadow-xs hover:bg-[#E03F0D] cursor-pointer">{saving ? 'Saving...' : 'Save SEO'}</button>
+                    <button type="submit" disabled={saving} className="flex-1 bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 py-2.5 rounded-full text-sm font-bold shadow-xs hover:bg-zinc-800 dark:hover:bg-zinc-200 cursor-pointer">{saving ? 'Saving...' : 'Save SEO'}</button>
                   </div>
                 </form>
               </>
@@ -502,7 +502,7 @@ export default function SeoManagementPage() {
                         type="button"
                         key={mode}
                         onClick={() => setAuditMode(mode)}
-                        className={`px-2.5 py-1 rounded-md text-[10px] font-bold cursor-pointer ${auditMode === mode ? 'bg-white dark:bg-zinc-800 text-[#FF4F18]' : 'text-zinc-500'}`}
+                        className={`px-2.5 py-1 rounded-md text-[10px] font-bold cursor-pointer ${auditMode === mode ? 'bg-white dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-xs' : 'text-zinc-500'}`}
                       >
                         {mode === 'desktop' ? 'Desktop' : 'Mobile'}
                       </button>
@@ -534,7 +534,7 @@ export default function SeoManagementPage() {
                       type="button"
                       onClick={runPerformanceAudit}
                       disabled={perfRunning}
-                      className="bg-[#FF4F18] text-white text-[9px] font-extrabold px-2.5 py-0.5 rounded-full cursor-pointer hover:bg-[#E03F0D] disabled:opacity-50"
+                      className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 text-[9px] font-extrabold px-2.5 py-0.5 rounded-full cursor-pointer hover:bg-zinc-800 dark:hover:bg-zinc-200 disabled:opacity-50"
                     >
                       {perfRunning ? 'Audit running...' : 'Run Audit Test'}
                     </button>

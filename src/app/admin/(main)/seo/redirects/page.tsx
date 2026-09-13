@@ -154,7 +154,7 @@ export default function SeoRedirectsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-white flex items-center gap-2.5">
-            <Link2 className="text-[#FF4F18]" size={26} />
+            <Link2 className="text-zinc-900 dark:text-white" size={26} />
             <span>301 & 302 URL Redirects</span>
           </h2>
           <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
@@ -164,7 +164,7 @@ export default function SeoRedirectsPage() {
 
         <button
           onClick={openAddModal}
-          className="inline-flex items-center gap-2 bg-[#FF4F18] text-white hover:bg-[#e03f0d] px-5 py-2.5 rounded-xl font-bold text-xs shadow-md transition-all duration-200 hover:scale-[1.02] cursor-pointer"
+          className="inline-flex items-center gap-2 bg-zinc-900 hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-md transition-all duration-200 cursor-pointer"
         >
           <Plus size={16} />
           <span>Add Redirect Rule</span>
@@ -204,7 +204,7 @@ export default function SeoRedirectsPage() {
                 onClick={() => setFilterType(tab.id as any)}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-[#FF4F18] text-white shadow-sm'
+                    ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 shadow-sm'
                     : 'bg-zinc-100 dark:bg-zinc-900 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-800'
                 }`}
               >
@@ -221,13 +221,13 @@ export default function SeoRedirectsPage() {
 
         {/* Search Box */}
         <div className="relative group min-w-[240px]">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-[#FF4F18] transition-colors" size={16} />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-zinc-900 dark:group-focus-within:text-white transition-colors" size={16} />
           <input
             type="text"
             placeholder="Search source or target URL..."
             value={search}
             onChange={e => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:border-[#FF4F18] focus:ring-1 focus:ring-[#FF4F18] text-xs font-medium dark:text-white transition-all"
+            className="w-full pl-10 pr-4 py-2 bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:focus:border-zinc-100 dark:focus:ring-zinc-100 text-xs font-medium dark:text-white transition-all"
           />
         </div>
       </div>
@@ -323,7 +323,7 @@ export default function SeoRedirectsPage() {
                       <button
                         type="button"
                         onClick={() => openEditModal(rule)}
-                        className="p-2 text-zinc-500 hover:text-[#FF4F18] dark:hover:text-[#FF4F18] rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+                        className="p-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-white rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
                         title="Edit Redirect"
                       >
                         <Edit2 size={15} />
@@ -380,14 +380,14 @@ export default function SeoRedirectsPage() {
               {/* Source Path */}
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">
-                  Source Path (Old URL) <span className="text-[#FF4F18]">*</span>
+                  Source Path (Old URL) <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={formSource}
                   onChange={e => setFormSource(e.target.value)}
                   placeholder="/old-blog-post or /services/legacy"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#FF4F18] dark:text-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 dark:text-white"
                   required
                 />
                 <p className="text-[11px] text-zinc-400 mt-1">Relative path on your domain (e.g. `/old-page`).</p>
@@ -396,14 +396,14 @@ export default function SeoRedirectsPage() {
               {/* Destination Path */}
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">
-                  Destination Path (New URL) <span className="text-[#FF4F18]">*</span>
+                  Destination Path (New URL) <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={formDestination}
                   onChange={e => setFormDestination(e.target.value)}
                   placeholder="/blogs/new-post or https://external-domain.com"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-[#FF4F18] dark:text-white"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 dark:text-white"
                   required
                 />
                 <p className="text-[11px] text-zinc-400 mt-1">Target destination path or full external URL.</p>
@@ -456,7 +456,7 @@ export default function SeoRedirectsPage() {
                       value="active"
                       checked={formStatus === 'active'}
                       onChange={() => setFormStatus('active')}
-                      className="accent-[#FF4F18]"
+                      className="accent-zinc-900 dark:accent-white"
                     />
                     Active (Redirect is enabled)
                   </label>
@@ -467,7 +467,7 @@ export default function SeoRedirectsPage() {
                       value="inactive"
                       checked={formStatus === 'inactive'}
                       onChange={() => setFormStatus('inactive')}
-                      className="accent-[#FF4F18]"
+                      className="accent-zinc-900 dark:accent-white"
                     />
                     Inactive (Paused)
                   </label>
@@ -484,7 +484,7 @@ export default function SeoRedirectsPage() {
                   value={formNotes}
                   onChange={e => setFormNotes(e.target.value)}
                   placeholder="e.g. Migration from old CMS path"
-                  className="w-full px-3.5 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-[#FF4F18] dark:text-white"
+                  className="w-full px-3.5 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 dark:text-white"
                 />
               </div>
 
@@ -500,7 +500,7 @@ export default function SeoRedirectsPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="bg-[#FF4F18] text-white px-6 py-2.5 rounded-xl text-xs font-bold hover:bg-[#e03f0d] transition-all shadow-md disabled:opacity-50 cursor-pointer flex items-center gap-2"
+                  className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-6 py-2.5 rounded-xl text-xs font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all shadow-md disabled:opacity-50 cursor-pointer flex items-center gap-2"
                 >
                   {saving ? 'Saving Rule...' : 'Save Redirect Rule'}
                 </button>

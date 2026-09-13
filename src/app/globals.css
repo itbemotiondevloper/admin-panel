@@ -48,18 +48,6 @@ body {
 }
 
 /* Main typography color adjustments */
-.dark .text-black,
-.dark .text-zinc-900,
-.dark .text-zinc-950,
-.dark .text-\[\#111111\],
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4,
-.dark h5 {
-  color: #ffffff !important;
-}
-
 .dark .text-zinc-650,
 .dark .text-zinc-600,
 .dark .text-zinc-750,
@@ -67,6 +55,27 @@ body {
 .dark .text-\[\#666666\] {
   color: #a1a1aa !important;
 }
+
+/* Editorial Light Overrides */
+.qft-editorial-light {
+  background-color: #F8F8F5 !important;
+  color: #111111 !important;
+}
+.qft-editorial-light h1,
+.qft-editorial-light h2,
+.qft-editorial-light h3,
+.qft-editorial-light h4,
+.qft-editorial-light .text-\[\#111111\] {
+  color: #111111 !important;
+}
+.qft-editorial-light p,
+.qft-editorial-light .text-\[\#666666\] {
+  color: #666666 !important;
+}
+.qft-editorial-light .text-\[\#888888\] {
+  color: #888888 !important;
+}
+
 
 .dark .text-zinc-500,
 .dark .text-zinc-550,
@@ -291,6 +300,46 @@ body {
   [class*="qft-"] {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   QFT Solutions v2 — Design System Tokens & Animations
+   ========================================================================== */
+
+/* Scroll line animation for hero */
+@keyframes scroll-line {
+  0%   { transform: scaleY(0); opacity: 1; }
+  60%  { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+.animate-scroll-line {
+  animation: scroll-line 2.2s ease-in-out infinite;
+  transform-origin: top;
+}
+
+/* Lenis integration */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* Premium text selection */
+::selection { background: rgba(79, 107, 255, 0.15); color: #111; }
+
+/* Minimal scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #F8F8F5; }
+::-webkit-scrollbar-thumb { background: rgba(17,17,17,0.15); border-radius: 2px; }
+
+/* Prevent overflow on solutions */
+#main-content { overflow-x: hidden; }
+
+/* Reduced motion — flatten v2 animations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-scroll-line, [data-reveal-line] {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
 

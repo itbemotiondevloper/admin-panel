@@ -47,17 +47,16 @@ const links: ILink[] = [
     permission: "manage_contacts",
   },
   {
-    label: "Announcements",
-    href: "/admin/updates",
-    Icon: Megaphone,
-    permission: "manage_blogs",
-  },
-  {
-    label: "Blog Posts",
-    href: "/admin/blogs",
+    label: "Resources",
     Icon: FileText,
     permission: "manage_blogs",
     subItems: [
+      {
+        label: "Announcements",
+        href: "/admin/updates",
+        Icon: Megaphone,
+        permission: "manage_blogs",
+      },
       {
         label: "All Posts",
         href: "/admin/blogs",
@@ -79,40 +78,61 @@ const links: ILink[] = [
     ],
   },
   {
-    label: "Solutions Cards",
-    href: "/admin/solutions",
+    label: "Solutions",
     Icon: CheckCircle,
     permission: "manage_solutions",
+    subItems: [
+      {
+        label: "Solutions List",
+        href: "/admin/solutions-page",
+        Icon: FileText,
+        permission: "manage_solutions",
+      },
+      {
+        label: "Solutions Details",
+        href: "/admin/solutions",
+        Icon: CheckCircle,
+        permission: "manage_solutions",
+      },
+    ],
   },
   {
-    label: "Solutions Page",
-    href: "/admin/solutions-page",
-    Icon: FileText,
-    permission: "manage_solutions",
-  },
-  {
-    label: "Industries Cards",
-    href: "/admin/industries",
+    label: "Industries",
     Icon: Factory,
     permission: "manage_solutions",
+    subItems: [
+      {
+        label: "Industries List",
+        href: "/admin/industries-page",
+        Icon: Building2,
+        permission: "manage_solutions",
+      },
+      {
+        label: "Industries Details",
+        href: "/admin/industries",
+        Icon: Factory,
+        permission: "manage_solutions",
+      },
+    ],
   },
   {
-    label: "Industries Page",
-    href: "/admin/industries-page",
-    Icon: Building2,
-    permission: "manage_solutions",
-  },
-  {
-    label: "Staff / Admins",
-    href: "/admin/admins",
+    label: "Admin",
     Icon: Users,
     permission: "manage_users",
-  },
-  {
-    label: "Roles",
-    href: "/admin/roles",
-    Icon: SettingsIcon,
-    permission: "manage_users",
+    subItems: [
+      {
+        label: "Staff / Admins",
+        href: "/admin/admins",
+        Icon: Users,
+        permission: "manage_users",
+      },
+      {
+        label: "Roles",
+        href: "/admin/roles",
+        Icon: SettingsIcon,
+        permission: "manage_users",
+      },
+    ],
   },
   {
     label: "Settings",
@@ -281,7 +301,7 @@ const NavDropdown: React.FC<{
         className={clsx(
           "w-full flex items-center justify-between rounded-xl px-3 py-2.5 transition-all duration-200 font-semibold text-[14px] cursor-pointer",
           hasActiveChild
-            ? "bg-[#FFF3EF]/50 dark:bg-orange-950/10 text-[#FF4F18]"
+            ? "bg-zinc-100 dark:bg-zinc-800/60 text-zinc-900 dark:text-white font-bold"
             : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white"
         )}
       >
@@ -299,10 +319,7 @@ const NavDropdown: React.FC<{
       {isOpen && (
         <div className="flex flex-col gap-1 pl-4 ml-3 border-l border-zinc-200 dark:border-zinc-800">
           {allowedSubItems.map((sub, idx) => {
-            const isActive = pathname === sub.href || (sub.href !== '/admin/blogs' && pathname.startsWith(sub.href));
-            // For /admin/blogs exact vs subpages like /admin/blogs/add
-            const isBlogActive = sub.href === '/admin/blogs' && pathname.startsWith('/admin/blogs');
-            const subActive = sub.href === '/admin/blogs' ? isBlogActive : isActive;
+            const subActive = pathname === sub.href || pathname.startsWith(sub.href + '/');
 
             const SubIcon = sub.Icon;
 
@@ -313,7 +330,7 @@ const NavDropdown: React.FC<{
                 className={clsx(
                   "flex items-center rounded-lg px-2.5 py-2 text-[13px] transition-all duration-200 font-medium",
                   subActive
-                    ? "bg-[#FFF3EF] dark:bg-orange-950/20 text-[#FF4F18] font-bold"
+                    ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 font-bold shadow-sm"
                     : "text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white"
                 )}
               >
@@ -340,7 +357,7 @@ const NavItem: React.FC<ILink & { href: string; className?: string; isActive?: b
       className={clsx(
         "flex items-center rounded-xl px-3 py-2.5 transition-all duration-200 font-semibold text-[14px]",
         isActive 
-          ? "bg-[#FFF3EF] dark:bg-orange-950/20 text-[#FF4F18]" 
+          ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 font-bold shadow-sm" 
           : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white",
         className,
       )}
