@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { INDUSTRIES_PAGE_DATA } from './industriesData';
@@ -9,9 +9,71 @@ export default function IndustryCaseStudies() {
   const { caseStudies } = INDUSTRIES_PAGE_DATA;
   const primaryItem = caseStudies.items.find(i => i.isPrimary) || caseStudies.items[0];
   const secondaryItem = caseStudies.items.find(i => !i.isPrimary) || caseStudies.items[1];
+  const sectionRef = useRef<HTMLElement>(null);
+  const primaryImgRef = useRef<HTMLImageElement>(null);
+  const secondaryImgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    let ctx: gsap.Context | null = null;
+    const run = async () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
+      if (!sectionRef.current) return;
+
+      ctx = gsap.context(() => {
+        if (primaryImgRef.current) {
+          gsap.fromTo(
+            primaryImgRef.current,
+            { clipPath: 'inset(0 0 100% 0)', scale: 1.06 },
+            {
+              clipPath: 'inset(0 0 0% 0)',
+              scale: 1,
+              duration: 1.2,
+              ease: 'power4.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 70%',
+                once: true,
+              },
+            }
+          );
+        }
+
+        if (secondaryImgRef.current) {
+          gsap.fromTo(
+            secondaryImgRef.current,
+            { clipPath: 'inset(0 0 100% 0)', scale: 1.06 },
+            {
+              clipPath: 'inset(0 0 0% 0)',
+              scale: 1,
+              duration: 1.2,
+              delay: 0.15,
+              ease: 'power4.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 70%',
+                once: true,
+              },
+            }
+          );
+        }
+      }, sectionRef);
+    };
+
+    run();
+    return () => {
+      if (ctx) ctx.revert();
+    };
+  }, []);
 
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-[#F8F8F5] text-[#111111] border-b border-[#111111]/10">
+    <section
+      ref={sectionRef}
+      className="py-20 sm:py-24 lg:py-28 bg-[#F8F8F5] text-[#111111] border-b border-[#111111]/10"
+    >
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16">
         
         {/* SECTION HEADER */}
@@ -46,6 +108,7 @@ export default function IndustryCaseStudies() {
               className="lg:col-span-8 group block relative rounded-xl overflow-hidden bg-[#EBEBE6] border border-[#111111]/10 p-6 sm:p-10 flex flex-col justify-between min-h-[400px] sm:min-h-[460px]"
             >
               <img
+                ref={primaryImgRef}
                 src={primaryItem.image}
                 alt={primaryItem.title}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"
@@ -82,6 +145,7 @@ export default function IndustryCaseStudies() {
               className="lg:col-span-4 group block relative rounded-xl overflow-hidden bg-[#EBEBE6] border border-[#111111]/10 p-6 sm:p-8 flex flex-col justify-between min-h-[340px] sm:min-h-[460px]"
             >
               <img
+                ref={secondaryImgRef}
                 src={secondaryItem.image}
                 alt={secondaryItem.title}
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.025]"

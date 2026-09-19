@@ -91,13 +91,13 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fafafa] dark:bg-[#08080a] transition-colors duration-300 flex flex-col font-sans relative">
+    <div className="min-h-screen bg-[#F8F8F5] text-[#111111] transition-colors duration-300 flex flex-col font-sans relative">
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50">
         <Header />
       </div>
 
-      <main className="flex-1 w-full bg-[#fafafa] dark:bg-[#08080a] text-zinc-900 dark:text-zinc-100 transition-colors duration-300">
+      <main className="flex-1 w-full bg-[#F8F8F5] text-[#111111] transition-colors duration-300">
 
         {/* Cinematic Video Hero Section */}
         <section className="relative w-full h-[50vh] md:h-[80vh] md:min-h-[500px] flex items-center justify-center overflow-hidden">

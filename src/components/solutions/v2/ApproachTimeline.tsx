@@ -15,7 +15,7 @@ const STEPS = [
 
 export default function ApproachTimeline() {
   const sectionRef = useRef<HTMLElement>(null);
-  const stickyRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
   const pathRef = useRef<SVGPathElement>(null);
   const loopPathRef = useRef<SVGPathElement>(null);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
@@ -27,40 +27,49 @@ export default function ApproachTimeline() {
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       gsap.registerPlugin(ScrollTrigger);
 
-      if (!pathRef.current || !sectionRef.current) return;
+      if (!pathRef.current || !triggerRef.current) return;
 
-      const len = pathRef.current.getTotalLength?.() ?? 800;
-      gsap.set(pathRef.current, { strokeDasharray: len, strokeDashoffset: len });
+      const pathElem = pathRef.current;
+      const len = pathElem.getTotalLength?.() ?? 800;
+      gsap.set(pathElem, { strokeDasharray: len, strokeDashoffset: len });
 
       if (loopPathRef.current) {
         const loopLen = loopPathRef.current.getTotalLength?.() ?? 300;
         gsap.set(loopPathRef.current, { strokeDasharray: loopLen, strokeDashoffset: loopLen });
       }
 
-      // ScrollTrigger for path progression
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 0.6,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          // Animate SVG path draw
-          gsap.set(pathRef.current, { strokeDashoffset: len * (1 - progress) });
+      // GSAP ScrollTrigger with pin: true to lock section during full animation scrub
+      const ctx = gsap.context(() => {
+        if (!triggerRef.current) return;
+        ScrollTrigger.create({
+          trigger: triggerRef.current,
+          start: 'top top',
+          end: '+=250%',
+          pin: true,
+          scrub: 0.8,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            if (!pathRef.current) return;
+            const progress = self.progress;
+            // Animate stroke path draw
+            gsap.set(pathRef.current, { strokeDashoffset: len * (1 - progress) });
 
-          if (loopPathRef.current) {
-            const loopProgress = Math.max(0, (progress - 0.85) / 0.15);
-            const loopLen = loopPathRef.current.getTotalLength?.() ?? 300;
-            gsap.set(loopPathRef.current, { strokeDashoffset: loopLen * (1 - loopProgress) });
-          }
+            if (loopPathRef.current) {
+              const loopProgress = Math.max(0, (progress - 0.82) / 0.18);
+              const loopLen = loopPathRef.current.getTotalLength?.() ?? 300;
+              gsap.set(loopPathRef.current, { strokeDashoffset: loopLen * (1 - loopProgress) });
+            }
 
-          const currentIdx = Math.min(
-            Math.floor(progress * STEPS.length),
-            STEPS.length - 1
-          );
-          setActiveStepIndex(currentIdx);
-        },
-      });
+            const currentIdx = Math.min(
+              Math.floor(progress * STEPS.length),
+              STEPS.length - 1
+            );
+            setActiveStepIndex(currentIdx);
+          },
+        });
+      }, triggerRef);
+
+      return () => ctx.revert();
     };
 
     run();
@@ -70,15 +79,16 @@ export default function ApproachTimeline() {
     <section
       ref={sectionRef}
       id="approach"
-      className="relative w-full bg-[#FBFBF8] min-h-[190vh] border-b border-[rgba(17,17,17,0.06)]"
+      className="relative w-full bg-[#F8F8F5] border-b border-[rgba(17,17,17,0.06)]"
       aria-label="Our Approach"
     >
-      <div ref={stickyRef} className="sticky top-0 w-full min-h-[100vh] flex items-center py-20">
+      {/* Pinned Container for GSAP ScrollTrigger */}
+      <div ref={triggerRef} className="w-full min-h-screen flex items-center pt-20 lg:pt-24 pb-12 box-border">
         <div className="max-w-[1440px] mx-auto w-full px-8 lg:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
 
-            {/* LEFT: Sticky Heading */}
-            <div className="lg:col-span-5 flex flex-col">
+            {/* LEFT: Heading & Intro (Aligned towards the top) */}
+            <div className="lg:col-span-5 flex flex-col self-start lg:pt-0 -mt-2">
               <FadeReveal>
                 <div className="flex items-center gap-3 mb-5">
                   <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">03</span>
@@ -113,10 +123,10 @@ export default function ApproachTimeline() {
             </div>
 
             {/* RIGHT: Scroll-Driven Progressive Story Path */}
-            <div className="lg:col-span-7 relative flex flex-col justify-center pl-0 lg:pl-6">
+            <div className="lg:col-span-7 relative flex flex-col justify-start self-start -mt-8 lg:-mt-16 pl-0 lg:pl-6">
               
-              {/* SVG Vertical Flow Path (Desktop & Tablet) */}
-              <div className="relative w-full py-4">
+              {/* SVG Vertical Flow Path */}
+              <div className="relative w-full pt-0 pb-2">
                 <svg
                   viewBox="0 0 500 520"
                   className="w-full h-auto overflow-visible"
@@ -190,7 +200,7 @@ export default function ApproachTimeline() {
                           {step.id} — {step.name}
                         </text>
 
-                        {/* Revealed supporting copy (Directive #5) */}
+                        {/* Revealed supporting copy */}
                         <text
                           x={pos.x + 24}
                           y={pos.y + 14}

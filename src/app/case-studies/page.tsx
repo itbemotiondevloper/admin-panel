@@ -54,21 +54,21 @@ export default function CaseStudiesListingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0d0d0e] transition-colors duration-300 flex flex-col justify-between font-sans">
+    <div className="min-h-screen bg-[#F8F8F5] text-[#111111] transition-colors duration-300 flex flex-col justify-between font-sans">
       <div>
         <Header />
         
         {/* Hero Header */}
-        <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-8 md:pt-20 md:pb-12">
+        <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8 md:pt-28 md:pb-12">
           <div className="max-w-3xl">
-            <span className="text-[11px] md:text-[12px] font-extrabold uppercase tracking-widest text-[#FF4F18] block mb-3">
+            <span className="text-[11px] md:text-[12px] font-extrabold uppercase tracking-widest text-[#4F6BFF] block mb-3">
               Case Studies & Client Impact
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-[850] tracking-tight text-[#111111] dark:text-white leading-[1.15] mb-6">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#111111] leading-[1.15] mb-6" style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}>
               We Don't Just Build. <br />
-              <span className="text-[#FF4F18]">We Measure What We Build.</span>
+              <span className="text-[#4F6BFF]">We Measure What We Build.</span>
             </h1>
-            <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            <p className="text-base sm:text-lg text-[#666666] leading-relaxed">
               Explore how we combine strategy, creativity, scalable technology, and continuous optimization to deliver measurable business outcomes for our clients.
             </p>
           </div>
@@ -77,18 +77,18 @@ export default function CaseStudiesListingPage() {
         {/* Listing Grid */}
         <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
           {isLoading ? (
-            <div className="text-center py-20 text-zinc-500 font-semibold animate-pulse">
+            <div className="text-center py-20 text-[#666666] font-semibold animate-pulse">
               Loading Case Studies...
             </div>
           ) : caseStudies.length === 0 ? (
-            <div className="rounded-[32px] border border-zinc-200/60 dark:border-zinc-800/60 bg-zinc-50 dark:bg-zinc-900/30 p-12 text-center my-8">
-              <h3 className="text-xl font-bold text-zinc-900 dark:text-white mb-2">New Case Studies Coming Soon</h3>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-md mx-auto mb-6">
+            <div className="rounded-[32px] border border-[#111111]/10 bg-[#EBEBE6] p-12 text-center my-8">
+              <h3 className="text-xl font-bold text-[#111111] mb-2">New Case Studies Coming Soon</h3>
+              <p className="text-sm text-[#666666] max-w-md mx-auto mb-6">
                 We're currently documenting our latest project results and success metrics. Check back soon or contact us to discuss how we can deliver results for your business.
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FF4F18] text-sm font-bold text-white transition-all hover:bg-[#E03F0D]"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#111111] text-sm font-semibold text-white transition-all hover:bg-[#4F6BFF]"
               >
                 Let's Talk About Your Project
               </Link>
@@ -99,31 +99,31 @@ export default function CaseStudiesListingPage() {
                 <Link
                   key={item.id}
                   href={`/case-studies/${item.slug}`}
-                  className="flex flex-col h-full bg-white dark:bg-[#121214] rounded-[28px] border border-zinc-200/60 dark:border-zinc-800/60 overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 group"
+                  className="flex flex-col h-full bg-[#EBEBE6] rounded-[24px] border border-[#111111]/10 overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 group"
                 >
-                  <div className="relative aspect-16/10 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+                  <div className="relative aspect-16/10 w-full overflow-hidden bg-[#DFDFDA]">
                     <img
                       src={item.image}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute top-4 left-4 bg-[#FF4F18] text-white text-[10px] font-extrabold px-3 py-1 rounded-full tracking-wider uppercase">
+                    <div className="absolute top-4 left-4 bg-[#111111] text-white text-[10px] font-extrabold px-3 py-1 rounded-full tracking-wider uppercase">
                       Case Study
                     </div>
                   </div>
                   <div className="p-6 md:p-8 flex flex-col justify-between flex-grow">
                     <div>
-                      <p className="text-xs font-semibold text-zinc-400 mb-2">{item.date}</p>
-                      <h3 className="text-xl font-extrabold text-[#111111] dark:text-white group-hover:text-[#FF4F18] transition-colors leading-snug mb-3">
+                      <p className="text-xs font-semibold text-[#888888] mb-2">{item.date}</p>
+                      <h3 className="text-xl font-bold text-[#111111] group-hover:text-[#4F6BFF] transition-colors leading-snug mb-3">
                         {item.title}
                       </h3>
                       {item.excerpt && (
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400 line-clamp-3 leading-relaxed mb-4">
+                        <p className="text-xs text-[#666666] line-clamp-3 leading-relaxed mb-4">
                           {item.excerpt}
                         </p>
                       )}
                     </div>
-                    <div className="inline-flex items-center text-xs font-bold text-[#FF4F18] group-hover:translate-x-1 transition-transform">
+                    <div className="inline-flex items-center text-xs font-bold text-[#111111] group-hover:text-[#4F6BFF] group-hover:translate-x-1 transition-all">
                       Read Case Study <span className="ml-1">→</span>
                     </div>
                   </div>

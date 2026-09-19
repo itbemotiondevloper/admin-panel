@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import SmoothScrollProvider from '@/components/solutions/v2/SmoothScrollProvider';
-import SolutionsNav from '@/components/solutions/v2/SolutionsNav';
+import Header from '@/components/Header';
 import SolutionsHero from '@/components/solutions/v2/SolutionsHero';
 import SolutionsRail from '@/components/solutions/v2/SolutionsRail';
 import ConnectedSolutions from '@/components/solutions/v2/ConnectedSolutions';
@@ -31,16 +31,8 @@ export default function SolutionsPage() {
       {/* Custom cursor — desktop only, disabled on reduced motion */}
       <CustomCursor />
 
-      {/* Skip to main for accessibility */}
-      <a
-        href="#solutions"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:bg-white focus:text-[#111] focus:px-4 focus:py-2 focus:rounded focus:outline focus:outline-2 focus:outline-[#4F6BFF]"
-      >
-        Skip to main content
-      </a>
-
-      {/* Minimal navigation */}
-      <SolutionsNav />
+      {/* Navigation */}
+      <Header />
 
       <main id="main-content" className="bg-[#F8F8F5]">
         {/* 00 — Hero */}

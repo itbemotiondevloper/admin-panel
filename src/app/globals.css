@@ -23,123 +23,82 @@ body {
   font-family: var(--font-plus-jakarta-sans), sans-serif;
 }
 
-/* --- Dark Mode Styles & Overrides --- */
+/* Dark Mode Styles & Overrides */
 
 .dark {
-  --background: #0d0d0e;
-  --foreground: #f4f4f5;
+  --background: #0D0D0E;
+  --foreground: #F4F4F5;
 }
 
 .dark body {
-  background-color: #0d0d0e !important;
-  color: #f4f4f5 !important;
+  background-color: #0D0D0E !important;
+  color: #F4F4F5 !important;
 }
 
-/* Sections with light backgrounds */
-.dark .bg-\[\#F8F9FA\] {
-  background-color: #121214 !important;
+/* Sections with light editorial backgrounds (#F8F8F5 -> #0D0D0E or #121214) */
+.dark .bg-\[\#F8F8F5\],
+.dark .bg-\[\#F8F9FA\],
+.dark .bg-\[\#FAF6F0\],
+.dark .qft-editorial-light {
+  background-color: #0D0D0E !important;
+  color: #F4F4F5 !important;
 }
 
-/* Card structures */
+/* Card structures & visual tiles (#EBEBE6 -> #161618) */
+.dark .bg-\[\#EBEBE6\],
+.dark .bg-\[\#DFDFDA\],
 .dark .bg-white,
 .dark .bg-\[\#FFF\] {
-  background-color: #17171a !important;
-  border-color: rgba(63, 63, 70, 0.3) !important;
+  background-color: #161618 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Main typography color adjustments */
-.dark .text-zinc-650,
+/* Main typography color adjustments in dark mode */
+.dark h1, .dark h2, .dark h3, .dark h4,
+.dark .text-\[\#111111\],
+.dark .text-zinc-900 {
+  color: #FFFFFF !important;
+}
+
+.dark p,
+.dark .text-\[\#666666\],
 .dark .text-zinc-600,
-.dark .text-zinc-750,
-.dark .text-zinc-800,
-.dark .text-\[\#666666\] {
-  color: #a1a1aa !important;
+.dark .text-zinc-500 {
+  color: #A1A1AA !important;
 }
 
-/* Editorial Light Overrides */
-.qft-editorial-light {
-  background-color: #F8F8F5 !important;
-  color: #111111 !important;
-}
-.qft-editorial-light h1,
-.qft-editorial-light h2,
-.qft-editorial-light h3,
-.qft-editorial-light h4,
-.qft-editorial-light .text-\[\#111111\] {
-  color: #111111 !important;
-}
-.qft-editorial-light p,
-.qft-editorial-light .text-\[\#666666\] {
-  color: #666666 !important;
-}
-.qft-editorial-light .text-\[\#888888\] {
-  color: #888888 !important;
-}
-
-
-.dark .text-zinc-500,
-.dark .text-zinc-550,
-.dark .text-zinc-400,
 .dark .text-\[\#888888\],
-.dark .text-\[\#999999\] {
-  color: #71717a !important;
+.dark .text-\[\#999999\],
+.dark .text-zinc-400 {
+  color: #71717A !important;
 }
 
-/* Borders */
+/* Dark mode pill tags and badges */
+.dark .bg-white\/80,
+.dark .bg-white\/90 {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Dark mode buttons */
+.dark .bg-\[\#111111\] {
+  background-color: #FFFFFF !important;
+  color: #111111 !important;
+}
+
+.dark .bg-\[\#111111\]:hover {
+  background-color: #E2E8F0 !important;
+}
+
+/* Dark mode borders & dividers */
+.dark .border-\[\#111111\]\/10,
+.dark .border-\[\#111111\]\/12,
+.dark .border-\[\#111111\]\/20,
+.dark .border-\[\#111111\]\/25,
 .dark .border-zinc-200,
-.dark .border-zinc-100,
-.dark .border-zinc-200\/50,
-.dark .border-zinc-200\/60,
 .dark hr {
-  border-color: rgba(63, 63, 70, 0.4) !important;
-}
-
-/* Header customization in dark mode */
-.dark header {
-  border-color: rgba(63, 63, 70, 0.4) !important;
-}
-
-.dark header span,
-.dark header a:not(.bg-\[\#FF4F18\]) {
-  color: #ffffff !important;
-}
-
-.dark header a.text-zinc-650:hover {
-  color: #FF4F18 !important;
-}
-
-/* Mobile nav panel */
-.dark .md\:hidden.bg-\[\#EAEAEA\]\/90 {
-  background-color: rgba(23, 23, 26, 0.95) !important;
-  border-color: rgba(63, 63, 70, 0.4) !important;
-}
-
-.dark .md\:hidden.bg-\[\#EAEAEA\]\/90 a:not(.bg-\[\#FF4F18\]) {
-  color: #ffffff !important;
-}
-
-/* Tabs active border color */
-.dark nav button.text-black {
-  color: #ffffff !important;
-  border-color: #ffffff !important;
-}
-
-.dark nav button.text-\[\#999999\] {
-  color: #71717a !important;
-}
-
-.dark nav button.text-\[\#999999\]:hover {
-  color: #ffffff !important;
-}
-
-/* Specific component fixes */
-.dark .bg-\[\#FAF6F0\] {
-  background-color: #1d1b18 !important;
-  border-color: rgba(120, 110, 90, 0.2) !important;
-}
-
-.dark .border-orange-200\/50 {
-  border-color: rgba(255, 79, 24, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 .dark .bg-\[\#FF4F18\]\/25 {

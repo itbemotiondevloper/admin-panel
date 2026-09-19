@@ -1,10 +1,50 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { INDUSTRIES_PAGE_DATA } from './industriesData';
 
 export default function IndustryStats() {
   const { stats } = INDUSTRIES_PAGE_DATA;
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let ctx: gsap.Context | null = null;
+    const run = async () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const { gsap } = await import('gsap');
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
+      if (!containerRef.current) return;
+      const items = containerRef.current.querySelectorAll('.stat-box');
+      if (!items || items.length === 0) return;
+
+      ctx = gsap.context(() => {
+        gsap.fromTo(
+          items,
+          { opacity: 0, y: 30, scale: 0.95 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none reverse',
+            },
+          }
+        );
+      }, containerRef);
+    };
+
+    run();
+    return () => {
+      if (ctx) ctx.revert();
+    };
+  }, []);
 
   return (
     <section className="py-20 sm:py-24 lg:py-28 bg-[#F8F8F5] text-[#111111] border-b border-[#111111]/10">
@@ -33,9 +73,9 @@ export default function IndustryStats() {
         </div>
 
         {/* HORIZONTAL STATS ROW WITH THIN DIVIDERS */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 pt-8 border-t border-[#111111]/10">
+        <div ref={containerRef} className="grid grid-cols-2 lg:grid-cols-4 gap-8 pt-8 border-t border-[#111111]/10">
           {stats.items.map((stat, idx) => (
-            <div key={idx} className="space-y-2">
+            <div key={idx} className="stat-box space-y-2">
               <p className="text-[40px] sm:text-[52px] lg:text-[64px] font-semibold tracking-[-0.04em] leading-none text-[#111111]">
                 {stat.number}
               </p>

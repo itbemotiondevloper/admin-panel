@@ -11,10 +11,10 @@ export default function BlogPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0d0d0e] transition-colors duration-300 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F8F8F5] text-[#111111] transition-colors duration-300 flex flex-col justify-between font-sans">
       <div>
         <Header />
-        <div className="pt-0">
+        <div className="pt-20 sm:pt-24">
           <BlogHero 
             selectedCategory={selectedCategory} 
             onSelectCategory={setSelectedCategory}

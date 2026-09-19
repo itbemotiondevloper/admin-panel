@@ -183,21 +183,21 @@ export default function BlogHero({
           <div className="pt-8 md:pt-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Content Column */}
             <div className="lg:col-span-6 flex flex-col items-start pr-0 lg:pr-4">
-              <span className="inline-block px-3.5 py-1.5 rounded-full bg-[#FFF3EF] dark:bg-[#FF4F18]/10 text-[11px] font-extrabold text-[#FF4F18] tracking-widest uppercase mb-4 border border-orange-100 dark:border-transparent">
+              <span className="inline-block px-3.5 py-1.5 rounded-full bg-[#111111]/5 text-[11px] font-bold text-[#4F6BFF] tracking-widest uppercase mb-4 border border-[#111111]/10">
                 FEATURED ARTICLE
               </span>
 
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-white leading-[1.15] mb-4 text-left">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#111111] leading-[1.15] mb-4 text-left" style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}>
                 {title}
               </h1>
 
-              <p className="text-xs font-bold text-zinc-400 mb-6 uppercase tracking-wide">
+              <p className="text-xs font-bold text-[#888888] mb-6 uppercase tracking-wide">
                 {date}
               </p>
 
               <Link
                 href={`/blogs/${slug}`}
-                className="inline-flex justify-center items-center text-center rounded-full bg-[#FF4F18] px-6 py-3 text-[15px] font-semibold text-white transition-all duration-200 hover:bg-[#E03F0D] shadow-[0_8px_20px_rgba(255,79,24,0.35)] hover:shadow-[0_10px_24px_rgba(255,79,24,0.45)] active:scale-[0.98] cursor-pointer group"
+                className="inline-flex justify-center items-center text-center rounded-full bg-[#111111] px-6 py-3 text-[15px] font-semibold text-white transition-all duration-300 hover:bg-[#4F6BFF] shadow-sm hover:shadow-md cursor-pointer group"
               >
                 <span>Read article</span>
                 <svg

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import SmoothScrollProvider from '@/components/solutions/v2/SmoothScrollProvider';
-import SolutionsNav from '@/components/solutions/v2/SolutionsNav';
+import Header from '@/components/Header';
 import CustomCursor from '@/components/solutions/v2/CustomCursor';
 import SolutionsFooter from '@/components/solutions/v2/SolutionsFooter';
 
@@ -36,16 +36,8 @@ export default function SolutionDetailTemplate({
       {/* Custom Cursor — Desktop only */}
       <CustomCursor />
 
-      {/* Accessibility skip link */}
-      <a
-        href="#hero"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:bg-white focus:text-[#111] focus:px-4 focus:py-2 focus:rounded"
-      >
-        Skip to main content
-      </a>
-
       {/* Solutions Navigation */}
-      <SolutionsNav />
+      <Header />
 
       <main id="main-content" className="bg-[#F8F8F5]">
         {/* 01 — HERO SECTION */}

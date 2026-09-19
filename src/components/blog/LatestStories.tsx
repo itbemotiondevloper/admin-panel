@@ -78,23 +78,23 @@ export default function LatestStories({
       {/* Section Header: Title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 md:mb-12">
         <div>
-          <span className="text-[11px] md:text-[12px] font-extrabold uppercase tracking-widest text-[#FF4F18] block mb-2">
+          <span className="text-[11px] md:text-[12px] font-bold uppercase tracking-widest text-[#4F6BFF] block mb-2">
             Blog & Articles
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-[850] tracking-tight text-[#111111] dark:text-white leading-[1.15]">
-            Latest <span className="text-[#FF4F18]">Stories</span>
+          <h2 className="text-3xl sm:text-4xl md:text-[44px] font-bold tracking-tight text-[#111111] leading-[1.15]" style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}>
+            Latest <span className="text-[#4F6BFF]">Stories</span>
           </h2>
         </div>
       </div>
 
       {/* Article Grid */}
       {isLoading ? (
-        <div className="text-center py-20 text-zinc-500 font-semibold animate-pulse">Loading stories...</div>
+        <div className="text-center py-20 text-[#888888] font-semibold animate-pulse">Loading stories...</div>
       ) : (() => {
         const storiesToRender = isFiltering ? filteredStories : allStories;
         if (storiesToRender.length === 0) {
           return (
-            <div className="text-center py-16 text-zinc-500 dark:text-zinc-400 font-semibold">
+            <div className="text-center py-16 text-[#666666] font-semibold">
               No stories found matching your criteria.
             </div>
           );
@@ -107,7 +107,7 @@ export default function LatestStories({
                 href={`/blogs/${article.slug}`}
                 className="flex flex-col h-full bg-transparent group"
               >
-                <div className="relative aspect-16/10 w-full overflow-hidden rounded-[24px] bg-zinc-100 dark:bg-zinc-900 mb-4 border border-zinc-200/60 dark:border-zinc-800/60 shadow-2xs shrink-0">
+                <div className="relative aspect-16/10 w-full overflow-hidden rounded-[20px] bg-[#EBEBE6] mb-4 border border-[#111111]/10 shadow-2xs shrink-0">
                   <Image
                     src={encodeURI(article.image)}
                     alt={article.title}
@@ -115,10 +115,10 @@ export default function LatestStories({
                     className="object-cover group-hover:scale-102 transition-transform duration-300"
                   />
                 </div>
-                <h3 className="text-base font-extrabold leading-snug text-[#111111] dark:text-white group-hover:text-[#FF4F18] transition-colors mb-2 line-clamp-2">
+                <h3 className="text-base font-bold leading-snug text-[#111111] group-hover:text-[#4F6BFF] transition-colors mb-2 line-clamp-2">
                   {article.title}
                 </h3>
-                <p className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 mt-auto">
+                <p className="text-xs font-semibold text-[#888888] mt-auto">
                   {article.date}
                 </p>
               </Link>
@@ -135,7 +135,7 @@ export default function LatestStories({
             <button
               type="button"
               onClick={() => setVisibleCount((prev) => prev + 6)}
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#FF4F18] text-sm font-bold text-white transition-all duration-200 hover:bg-[#E03F0D] shadow-[0_8px_20px_rgba(255,79,24,0.35)] hover:shadow-[0_10px_24px_rgba(255,79,24,0.45)] active:scale-[0.98] cursor-pointer"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#111111] text-sm font-semibold text-white transition-all duration-300 hover:bg-[#4F6BFF] shadow-sm hover:shadow-md active:scale-[0.98] cursor-pointer"
             >
               <span>Load More Stories</span>
               <svg

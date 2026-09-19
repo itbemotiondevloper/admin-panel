@@ -7,7 +7,7 @@ import { IndustryDetailContent } from './industryDetailData';
 
 export default function IndDetailHero({ data }: { data: IndustryDetailContent }) {
   return (
-    <section className="relative pt-32 pb-20 md:pt-40 md:pb-24 lg:pt-44 lg:pb-28 bg-[#F8F8F5] text-[#111111] overflow-hidden border-b border-[#111111]/10">
+    <section className="relative pt-24 pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24 bg-[#F8F8F5] text-[#111111] overflow-hidden border-b border-[#111111]/10">
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
           

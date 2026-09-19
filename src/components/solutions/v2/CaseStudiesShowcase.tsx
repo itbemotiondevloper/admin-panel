@@ -114,7 +114,7 @@ export default function CaseStudiesShowcase() {
     <section
       ref={sectionRef}
       id="case-studies"
-      className="w-full bg-[#FBFBF8] py-24 md:py-32 border-b border-[rgba(17,17,17,0.06)] overflow-hidden"
+      className="w-full bg-[#F8F8F5] py-24 md:py-32 border-b border-[rgba(17,17,17,0.06)] overflow-hidden"
       aria-label="Case Studies"
     >
       <div className="max-w-[1440px] mx-auto px-8 lg:px-16">

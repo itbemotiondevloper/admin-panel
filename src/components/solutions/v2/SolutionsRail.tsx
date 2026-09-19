@@ -10,8 +10,6 @@ interface Service {
   href: string;
   img: string;
   imgAlt: string;
-  width: string; // Tailored desktop card width
-  aspect: string; // Tailored visual aspect ratio
   tag: string;
 }
 
@@ -22,8 +20,6 @@ const SERVICES: Service[] = [
     href: '/solutions/website-development',
     img: '/svc-web.jpg',
     imgAlt: 'Responsive web experience interface composition',
-    width: 'w-[420px]',
-    aspect: 'aspect-[3/4]',
     tag: 'Web & UI Architecture',
   },
   {
@@ -32,8 +28,6 @@ const SERVICES: Service[] = [
     href: '/solutions/seo',
     img: '/svc-seo.jpg',
     imgAlt: 'Search visibility and keyword data visualization',
-    width: 'w-[330px]',
-    aspect: 'aspect-[4/5]',
     tag: 'Search Visibility',
   },
   {
@@ -42,8 +36,6 @@ const SERVICES: Service[] = [
     href: '/solutions/content',
     img: '/svc-content.jpg',
     imgAlt: 'Editorial document and copy planning',
-    width: 'w-[360px]',
-    aspect: 'aspect-square',
     tag: 'Copy & Editorial',
   },
   {
@@ -52,8 +44,6 @@ const SERVICES: Service[] = [
     href: '/solutions/performance-marketing',
     img: '/svc-performance.jpg',
     imgAlt: 'Campaign performance dashboard and analytics',
-    width: 'w-[480px]',
-    aspect: 'aspect-[16/10]',
     tag: 'Acquisition & ROI',
   },
   {
@@ -62,8 +52,6 @@ const SERVICES: Service[] = [
     href: '/solutions/custom-development',
     img: '/svc-dev.jpg',
     imgAlt: 'Custom application code and backend systems interface',
-    width: 'w-[400px]',
-    aspect: 'aspect-[4/3]',
     tag: 'Custom AI & Systems',
   },
 ];
@@ -124,18 +112,18 @@ export default function SolutionsRail() {
       aria-label="Our Solutions"
     >
       {/* ── DESKTOP PINNED HORIZONTAL RAIL CONTAINER ── */}
-      <div ref={triggerRef} className="hidden lg:block w-full min-h-[100vh]">
-        <div className="max-w-[1440px] mx-auto px-16 pt-20 pb-8 flex items-end justify-between">
+      <div ref={triggerRef} className="hidden lg:flex flex-col justify-between w-full h-screen max-h-screen pt-24 pb-12 box-border">
+        <div className="max-w-[1440px] w-full mx-auto px-16 flex items-end justify-between shrink-0 mb-4">
           <div>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-3 mb-3">
               <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">01—05</span>
               <span className="w-4 h-px bg-[#ccc]" />
               <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">OUR SOLUTIONS</span>
             </div>
             <h2
-              className="text-[#111] font-bold leading-[0.92] tracking-[-0.04em]"
+              className="text-[#111] font-bold leading-[0.95] tracking-[-0.04em]"
               style={{
-                fontSize: 'clamp(52px, 6vw, 96px)',
+                fontSize: 'clamp(40px, 4.5vw, 68px)',
                 fontFamily: 'var(--font-plus-jakarta-sans)',
               }}
             >
@@ -165,10 +153,10 @@ export default function SolutionsRail() {
         </div>
 
         {/* Horizontal track */}
-        <div className="w-full overflow-hidden pt-6 pb-20">
+        <div className="w-full overflow-hidden flex-1 flex items-center">
           <div
             ref={trackRef}
-            className="flex items-center gap-12 px-16 will-change-transform"
+            className="flex items-start gap-10 px-16 will-change-transform"
           >
             {SERVICES.map((svc, i) => {
               const isActive = i === activeIndex;
@@ -178,17 +166,17 @@ export default function SolutionsRail() {
                   href={svc.href}
                   data-cursor
                   data-cursor-label="VIEW"
-                  className={`group relative shrink-0 flex flex-col cursor-pointer transition-all duration-500 ${svc.width} ${
+                  className={`group relative shrink-0 w-[380px] flex flex-col cursor-pointer transition-all duration-500 ${
                     isActive ? 'opacity-100 scale-100' : 'opacity-40 hover:opacity-85 scale-[0.97]'
                   }`}
                 >
-                  {/* Photo with varied proportion */}
-                  <div className={`relative overflow-hidden ${svc.aspect} w-full bg-[#E5E5E2] rounded-xl mb-5 shadow-sm border border-[rgba(17,17,17,0.06)]`}>
+                  {/* Image container - uniform size for all cards */}
+                  <div className="relative overflow-hidden aspect-[16/11] w-full bg-[#E5E5E2] rounded-xl mb-4 shadow-sm border border-[rgba(17,17,17,0.06)]">
                     <Image
                       src={svc.img}
                       alt={svc.imgAlt}
                       fill
-                      sizes="500px"
+                      sizes="400px"
                       className="object-cover grayscale transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
@@ -213,7 +201,7 @@ export default function SolutionsRail() {
                     </span>
                     <h3
                       className={`font-bold tracking-tight text-[#111] transition-all duration-300 ${
-                        isActive ? 'text-[24px]' : 'text-[22px] group-hover:text-[#4F6BFF]'
+                        isActive ? 'text-[22px]' : 'text-[20px] group-hover:text-[#4F6BFF]'
                       }`}
                       style={{ fontFamily: 'var(--font-plus-jakarta-sans)' }}
                     >

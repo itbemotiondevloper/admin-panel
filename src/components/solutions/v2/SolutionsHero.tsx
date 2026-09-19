@@ -29,65 +29,73 @@ export default function SolutionsHero() {
 
   // Mount intro animation + Scroll Choreography
   useEffect(() => {
+    let ctx: gsap.Context | null = null;
     const run = async () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const { gsap } = await import('gsap');
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       gsap.registerPlugin(ScrollTrigger);
 
-      // Intro Timeline
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+      if (!heroRef.current) return;
 
-      tl.fromTo(eyebrowRef.current, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6 }, 0.3)
-        .fromTo(line1Ref.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1.0, ease: 'power4.out' }, 0.5)
-        .fromTo(line2Ref.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1.0, ease: 'power4.out' }, 0.65)
-        .fromTo(bodyRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, 0.95)
-        .fromTo(ctaRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, 1.1)
-        .fromTo(visualWrapperRef.current, { opacity: 0, scale: 0.94, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 1.3, ease: 'power4.out' }, 0.6)
-        .fromTo(sideTextRef.current, { opacity: 0 }, { opacity: 1, duration: 0.8 }, 1.3);
+      ctx = gsap.context(() => {
+        // Intro Timeline
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // Hero Scroll Choreography (Desktop only)
-      if (window.innerWidth >= 1024 && heroRef.current) {
-        const scrollTl = gsap.timeline({
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: 0.8,
-            pin: stickyRef.current,
-            pinSpacing: false,
-          },
-        });
+        tl.fromTo(eyebrowRef.current, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.6 }, 0.3)
+          .fromTo(line1Ref.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1.0, ease: 'power4.out' }, 0.5)
+          .fromTo(line2Ref.current, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 1.0, ease: 'power4.out' }, 0.65)
+          .fromTo(bodyRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7 }, 0.95)
+          .fromTo(ctaRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, 1.1)
+          .fromTo(visualWrapperRef.current, { opacity: 0, scale: 0.94, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 1.3, ease: 'power4.out' }, 0.6)
+          .fromTo(sideTextRef.current, { opacity: 0 }, { opacity: 1, duration: 0.8 }, 1.3);
 
-        // "Ideas to" moves up and fades faster
-        scrollTl.to(line1Ref.current, { y: -80, opacity: 0.2, ease: 'none' }, 0);
+        // Hero Scroll Choreography (Desktop only)
+        if (window.innerWidth >= 1024 && heroRef.current) {
+          const scrollTl = gsap.timeline({
+            scrollTrigger: {
+              trigger: heroRef.current,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: 0.8,
+              pin: stickyRef.current,
+              pinSpacing: false,
+            },
+          });
 
-        // "Impact." remains visible slightly longer
-        scrollTl.to(line2Ref.current, { y: -30, opacity: 0.8, ease: 'none' }, 0);
+          // "Ideas to" moves up and fades faster
+          scrollTl.to(line1Ref.current, { y: -80, opacity: 0.2, ease: 'none' }, 0);
 
-        // Paragraph fades earlier
-        scrollTl.to(bodyRef.current, { y: -40, opacity: 0, ease: 'none' }, 0);
+          // "Impact." remains visible slightly longer
+          scrollTl.to(line2Ref.current, { y: -30, opacity: 0.8, ease: 'none' }, 0);
 
-        // CTA moves downward & fades
-        scrollTl.to(ctaRef.current, { y: 40, opacity: 0, ease: 'none' }, 0);
+          // Paragraph fades earlier
+          scrollTl.to(bodyRef.current, { y: -40, opacity: 0, ease: 'none' }, 0);
 
-        // Visual surfaces separate in depth (parallax differential)
-        if (primaryImgRef.current) {
-          scrollTl.to(primaryImgRef.current, { scale: 1.04, y: -20, ease: 'none' }, 0);
+          // CTA moves downward & fades
+          scrollTl.to(ctaRef.current, { y: 40, opacity: 0, ease: 'none' }, 0);
+
+          // Visual surfaces separate in depth (parallax differential)
+          if (primaryImgRef.current) {
+            scrollTl.to(primaryImgRef.current, { scale: 1.04, y: -20, ease: 'none' }, 0);
+          }
+          if (layerAnalyticsRef.current) {
+            scrollTl.to(layerAnalyticsRef.current, { y: -70, x: -20, opacity: 0.95, ease: 'none' }, 0);
+          }
+          if (layerSeoRef.current) {
+            scrollTl.to(layerSeoRef.current, { y: 50, x: 20, ease: 'none' }, 0);
+          }
+          if (layerCodeRef.current) {
+            scrollTl.to(layerCodeRef.current, { y: -100, x: 30, opacity: 0.85, ease: 'none' }, 0);
+          }
         }
-        if (layerAnalyticsRef.current) {
-          scrollTl.to(layerAnalyticsRef.current, { y: -70, x: -20, opacity: 0.95, ease: 'none' }, 0);
-        }
-        if (layerSeoRef.current) {
-          scrollTl.to(layerSeoRef.current, { y: 50, x: 20, ease: 'none' }, 0);
-        }
-        if (layerCodeRef.current) {
-          scrollTl.to(layerCodeRef.current, { y: -100, x: 30, opacity: 0.85, ease: 'none' }, 0);
-        }
-      }
+      }, heroRef);
     };
 
     run();
+    return () => {
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   return (
