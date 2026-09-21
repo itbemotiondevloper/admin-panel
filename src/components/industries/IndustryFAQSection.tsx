@@ -43,7 +43,7 @@ export default function IndustryFAQSection() {
             <div className="pt-2">
               <Link
                 href={faq.ctaHref}
-                className="inline-flex items-center gap-2 text-sm font-medium text-[#111111] hover:text-[#4F6BFF] transition-colors"
+                className="inline-flex items-center gap-2 text-sm font-medium text-[#111111] hover:text-[#A78BFA] transition-colors"
               >
                 <span>{faq.ctaText}</span>
               </Link>
@@ -61,7 +61,7 @@ export default function IndustryFAQSection() {
                     className="w-full flex items-center justify-between gap-6 text-left group cursor-pointer"
                     aria-expanded={isOpen}
                   >
-                    <span className="text-lg sm:text-xl md:text-2xl font-normal tracking-tight text-[#111111] group-hover:text-[#4F6BFF] transition-colors">
+                    <span className="text-lg sm:text-xl md:text-2xl font-normal tracking-tight text-[#111111] group-hover:text-[#A78BFA] transition-colors">
                       {item.question}
                     </span>
                     <div className="w-8 h-8 rounded-full border border-[#111111]/20 flex items-center justify-center text-[#111111] shrink-0 group-hover:border-[#111111] transition-colors">

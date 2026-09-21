@@ -113,7 +113,7 @@ export default function DetailWebsiteAnatomy({ data }: { data: SolutionDetailDat
 
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#111] hover:text-[#4F6BFF] transition-colors duration-200"
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#111] hover:text-[#A78BFA] transition-colors duration-200"
               style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}
             >
               See how we work &rarr;

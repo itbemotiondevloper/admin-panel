@@ -141,7 +141,7 @@ export default function CaseStudiesShowcase() {
 
           <Link
             href="/case-studies"
-            className="inline-flex items-center gap-2 text-[13px] font-semibold text-[#111] hover:text-[#4F6BFF] transition-colors duration-200"
+            className="inline-flex items-center gap-2 text-[13px] font-semibold text-[#111] hover:text-[#A78BFA] transition-colors duration-200"
             style={{ fontFamily: 'var(--font-plus-jakarta-sans)' }}
           >
             Explore All Work →
@@ -183,7 +183,7 @@ export default function CaseStudiesShowcase() {
               {/* Bottom details & metric badge */}
               <div className="relative z-10 pt-20">
                 {/* Metric pill */}
-                <div className="inline-block bg-[#4F6BFF] text-white text-[12px] font-bold px-4 py-1.5 rounded-full mb-4 shadow-sm">
+                <div className="inline-block bg-[#A78BFA] text-black text-[12px] font-bold px-4 py-1.5 rounded-full mb-4 shadow-sm">
                   {primaryCase.metric}
                 </div>
 
@@ -201,7 +201,7 @@ export default function CaseStudiesShowcase() {
                   {primaryCase.excerpt}
                 </p>
 
-                <div className="inline-flex items-center gap-2 text-white text-[13px] font-semibold group-hover:text-[#4F6BFF] transition-colors duration-200">
+                <div className="inline-flex items-center gap-2 text-white text-[13px] font-semibold group-hover:text-[#A78BFA] transition-colors duration-200">
                   Read Case Study
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </div>
@@ -247,7 +247,7 @@ export default function CaseStudiesShowcase() {
                   {secondaryCase.title}
                 </h3>
 
-                <div className="inline-flex items-center gap-1.5 text-white/90 text-[12px] font-semibold group-hover:text-[#4F6BFF] transition-colors duration-200">
+                <div className="inline-flex items-center gap-1.5 text-white/90 text-[12px] font-semibold group-hover:text-[#A78BFA] transition-colors duration-200">
                   Read Story
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </div>

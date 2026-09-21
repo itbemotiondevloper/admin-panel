@@ -49,7 +49,7 @@ export default function DetailProofResults({ data }: { data: SolutionDetailData 
             </p>
             <Link
               href="/case-studies"
-              className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-[#111] hover:text-[#4F6BFF] transition-colors duration-200"
+              className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-[#111] hover:text-[#A78BFA] transition-colors duration-200"
               style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}
             >
               View Our Work &rarr;

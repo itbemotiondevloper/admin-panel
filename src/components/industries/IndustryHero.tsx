@@ -78,7 +78,7 @@ export default function IndustryHero() {
           <div className="lg:col-span-6 space-y-7 z-10">
             {/* Eyebrow badge */}
             <div data-hero-reveal className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/80 border border-[#111111]/10 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-[#4F6BFF] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#A78BFA] animate-pulse" />
               <span className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#555] font-bold">
                 {hero.eyebrow}
               </span>
@@ -91,7 +91,7 @@ export default function IndustryHero() {
               style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}
             >
               Different Industries.<br />
-              <span className="text-[#4F6BFF]">One Growth Engine.</span>
+              <span className="text-[#7C3AED] dark:text-[#A78BFA]">One Growth Engine.</span>
             </h1>
 
             {/* Supporting Copy */}
@@ -108,7 +108,7 @@ export default function IndustryHero() {
               {SECTOR_TAGS.map((tag) => (
                 <span
                   key={tag}
-                  className="text-[11.5px] font-semibold text-[#333] bg-white/90 border border-[#111111]/08 px-3 py-1 rounded-full shadow-2xs hover:border-[#4F6BFF] hover:text-[#4F6BFF] transition-colors duration-200 cursor-default"
+                  className="text-[11.5px] font-semibold text-[#333] bg-white/90 border border-[#111111]/08 px-3 py-1 rounded-full shadow-2xs hover:border-[#A78BFA] hover:text-[#7C3AED] dark:hover:text-[#A78BFA] transition-colors duration-200 cursor-default"
                 >
                   {tag}
                 </span>
@@ -119,7 +119,7 @@ export default function IndustryHero() {
             <div data-hero-reveal className="flex items-center gap-4 pt-3">
               <Link
                 href={hero.ctaHref}
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#111111] hover:bg-[#4F6BFF] text-white text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#111111] hover:bg-[#A78BFA] hover:text-black text-white text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5"
                 style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}
               >
                 <span>{hero.ctaText}</span>
@@ -152,7 +152,7 @@ export default function IndustryHero() {
                 {/* Bottom Left Floating Stats Card */}
                 <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-5 py-3.5 rounded-2xl border border-white/40 shadow-xl max-w-[240px] hidden sm:block">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[10px] font-bold text-[#4F6BFF] uppercase tracking-wider">PROVEN IMPACT</span>
+                    <span className="text-[10px] font-bold text-[#7C3AED] dark:text-[#A78BFA] uppercase tracking-wider">PROVEN IMPACT</span>
                   </div>
                   <p className="text-[20px] font-bold text-[#111] tracking-tight leading-none mb-1">
                     +240% Growth

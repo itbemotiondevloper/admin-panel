@@ -201,7 +201,7 @@ export default function SolutionsRail() {
                     </span>
                     <h3
                       className={`font-bold tracking-tight text-[#111] transition-all duration-300 ${
-                        isActive ? 'text-[22px]' : 'text-[20px] group-hover:text-[#4F6BFF]'
+                        isActive ? 'text-[22px]' : 'text-[20px] group-hover:text-[#A78BFA]'
                       }`}
                       style={{ fontFamily: 'var(--font-plus-jakarta-sans)' }}
                     >

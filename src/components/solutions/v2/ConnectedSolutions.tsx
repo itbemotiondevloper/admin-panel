@@ -17,8 +17,8 @@ function IconWeb() {
 }
 function IconSeo() {
   return (
-    <div className="w-10 h-10 rounded-xl bg-[#EEF2FF] flex items-center justify-center shadow-xs border border-[#4F6BFF]/20">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4F6BFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <div className="w-10 h-10 rounded-xl bg-[#F5F3FF] flex items-center justify-center shadow-xs border border-[#A78BFA]/30">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="11" cy="11" r="8" />
         <path d="m21 21-4.35-4.35" />
       </svg>
@@ -365,7 +365,7 @@ export default function ConnectedSolutions() {
             <div className="h-10 mt-6 text-center max-w-xs">
               {activeNodeObj ? (
                 <p
-                  className="text-[12px] font-medium text-[#4F6BFF] transition-opacity duration-300"
+                  className="text-[12px] font-medium text-[#7C3AED] dark:text-[#A78BFA] transition-opacity duration-300"
                   style={{ fontFamily: 'var(--font-plus-jakarta-sans)' }}
                 >
                   {activeNodeObj.desc}

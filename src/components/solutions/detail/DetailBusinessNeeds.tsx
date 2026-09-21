@@ -98,7 +98,7 @@ export default function DetailBusinessNeeds({ data }: { data: SolutionDetailData
             <div className="flex items-center gap-4">
               <Link
                 href="/solutions"
-                className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-[#111] hover:text-[#4F6BFF] transition-colors duration-200"
+                className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-[#111] hover:text-[#A78BFA] transition-colors duration-200"
                 style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}
               >
                 Explore all website solutions &rarr;
@@ -144,7 +144,7 @@ export default function DetailBusinessNeeds({ data }: { data: SolutionDetailData
                       </span>
                       <h3
                         className={`font-bold transition-all duration-300 ${
-                          isActive ? 'text-[20px] text-[#111]' : 'text-[18px] text-[#333] group-hover:text-[#4F6BFF]'
+                          isActive ? 'text-[20px] text-[#111]' : 'text-[18px] text-[#333] group-hover:text-[#A78BFA]'
                         }`}
                         style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}
                       >

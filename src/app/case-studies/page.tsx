@@ -61,12 +61,12 @@ export default function CaseStudiesListingPage() {
         {/* Hero Header */}
         <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8 md:pt-28 md:pb-12">
           <div className="max-w-3xl">
-            <span className="text-[11px] md:text-[12px] font-extrabold uppercase tracking-widest text-[#4F6BFF] block mb-3">
+            <span className="text-[11px] md:text-[12px] font-extrabold uppercase tracking-widest text-[#7C3AED] dark:text-[#A78BFA] block mb-3">
               Case Studies & Client Impact
             </span>
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[#111111] leading-[1.15] mb-6" style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}>
               We Don't Just Build. <br />
-              <span className="text-[#4F6BFF]">We Measure What We Build.</span>
+              <span className="text-[#7C3AED] dark:text-[#A78BFA]">We Measure What We Build.</span>
             </h1>
             <p className="text-base sm:text-lg text-[#666666] leading-relaxed">
               Explore how we combine strategy, creativity, scalable technology, and continuous optimization to deliver measurable business outcomes for our clients.
@@ -88,7 +88,7 @@ export default function CaseStudiesListingPage() {
               </p>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#111111] text-sm font-semibold text-white transition-all hover:bg-[#4F6BFF]"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#111111] text-sm font-semibold text-white transition-all hover:bg-[#A78BFA] hover:text-black"
               >
                 Let's Talk About Your Project
               </Link>
@@ -114,7 +114,7 @@ export default function CaseStudiesListingPage() {
                   <div className="p-6 md:p-8 flex flex-col justify-between flex-grow">
                     <div>
                       <p className="text-xs font-semibold text-[#888888] mb-2">{item.date}</p>
-                      <h3 className="text-xl font-bold text-[#111111] group-hover:text-[#4F6BFF] transition-colors leading-snug mb-3">
+                      <h3 className="text-xl font-bold text-[#111111] group-hover:text-[#A78BFA] transition-colors leading-snug mb-3">
                         {item.title}
                       </h3>
                       {item.excerpt && (
@@ -123,7 +123,7 @@ export default function CaseStudiesListingPage() {
                         </p>
                       )}
                     </div>
-                    <div className="inline-flex items-center text-xs font-bold text-[#111111] group-hover:text-[#4F6BFF] group-hover:translate-x-1 transition-all">
+                    <div className="inline-flex items-center text-xs font-bold text-[#111111] group-hover:text-[#A78BFA] group-hover:translate-x-1 transition-all">
                       Read Case Study <span className="ml-1">→</span>
                     </div>
                   </div>

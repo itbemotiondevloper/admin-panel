@@ -78,11 +78,11 @@ export default function LatestStories({
       {/* Section Header: Title */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 md:mb-12">
         <div>
-          <span className="text-[11px] md:text-[12px] font-bold uppercase tracking-widest text-[#4F6BFF] block mb-2">
+          <span className="text-[11px] md:text-[12px] font-bold uppercase tracking-widest text-[#7C3AED] dark:text-[#A78BFA] block mb-2">
             Blog & Articles
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-[44px] font-bold tracking-tight text-[#111111] leading-[1.15]" style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}>
-            Latest <span className="text-[#4F6BFF]">Stories</span>
+            Latest <span className="text-[#7C3AED] dark:text-[#A78BFA]">Stories</span>
           </h2>
         </div>
       </div>
@@ -115,7 +115,7 @@ export default function LatestStories({
                     className="object-cover group-hover:scale-102 transition-transform duration-300"
                   />
                 </div>
-                <h3 className="text-base font-bold leading-snug text-[#111111] group-hover:text-[#4F6BFF] transition-colors mb-2 line-clamp-2">
+                <h3 className="text-base font-bold leading-snug text-[#111111] group-hover:text-[#A78BFA] transition-colors mb-2 line-clamp-2">
                   {article.title}
                 </h3>
                 <p className="text-xs font-semibold text-[#888888] mt-auto">
@@ -135,7 +135,7 @@ export default function LatestStories({
             <button
               type="button"
               onClick={() => setVisibleCount((prev) => prev + 6)}
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#111111] text-sm font-semibold text-white transition-all duration-300 hover:bg-[#4F6BFF] shadow-sm hover:shadow-md active:scale-[0.98] cursor-pointer"
+              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-[#111111] text-sm font-semibold text-white transition-all duration-300 hover:bg-[#A78BFA] hover:text-black shadow-sm hover:shadow-md active:scale-[0.98] cursor-pointer"
             >
               <span>Load More Stories</span>
               <svg

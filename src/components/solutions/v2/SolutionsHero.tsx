@@ -9,7 +9,7 @@ const TAGS = [
   { text: '02 SEO & Visibility', color: 'bg-white text-[#111] border border-[rgba(17,17,17,0.12)]' },
   { text: '03 Content Strategy', color: 'bg-white text-[#111] border border-[rgba(17,17,17,0.12)]' },
   { text: '04 Performance', color: 'bg-white text-[#111] border border-[rgba(17,17,17,0.12)]' },
-  { text: '05 Custom Systems', color: 'bg-[#4F6BFF] text-white' },
+  { text: '05 Custom Systems', color: 'bg-[#A78BFA] text-black font-semibold' },
 ];
 
 export default function SolutionsHero() {
@@ -196,7 +196,7 @@ export default function SolutionsHero() {
 
                 <div className="flex items-center gap-3">
                   <div className="flex -space-x-2">
-                    {['#111111', '#4F6BFF', '#D4C5A9', '#888888'].map((bg, i) => (
+                    {['#111111', '#A78BFA', '#D4C5A9', '#888888'].map((bg, i) => (
                       <div
                         key={i}
                         className="w-6 h-6 rounded-full border-2 border-[#F8F8F5]"
@@ -234,7 +234,7 @@ export default function SolutionsHero() {
                   </div>
                   <pre className="text-[10px] font-mono leading-tight text-[#888]">
                     <code>
-                      <span className="text-[#4F6BFF]">export const</span> system = &#123;<br />
+                      <span className="text-[#A78BFA]">export const</span> system = &#123;<br />
                       &nbsp;&nbsp;strategy: <span className="text-[#27C93F]">&apos;outcomes&apos;</span>,<br />
                       &nbsp;&nbsp;stack: [<span className="text-[#27C93F]">&apos;web&apos;</span>, <span className="text-[#27C93F]">&apos;seo&apos;</span>, <span className="text-[#27C93F]">&apos;ai&apos;</span>]<br />
                       &#125;;
@@ -298,9 +298,9 @@ export default function SolutionsHero() {
                   ref={layerSeoRef}
                   className="absolute -bottom-3 right-6 z-30 bg-white/95 backdrop-blur-md px-4 py-2.5 rounded-full shadow-lg border border-[rgba(17,17,17,0.10)] flex items-center gap-3"
                 >
-                  <span className="w-2 h-2 rounded-full bg-[#4F6BFF] animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-[#A78BFA] animate-pulse" />
                   <span className="text-[11px] font-semibold text-[#111]" style={{ fontFamily: 'var(--font-plus-jakarta-sans)' }}>
-                    Search Visibility: <span className="text-[#4F6BFF]">Top 1% Rank</span>
+                    Search Visibility: <span className="text-[#7C3AED] dark:text-[#A78BFA]">Top 1% Rank</span>
                   </span>
                 </div>
 

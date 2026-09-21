@@ -132,7 +132,7 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
 
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2.5 text-[13px] font-semibold text-[#111] hover:text-[#4F6BFF] transition-colors duration-200 px-3 py-3 group"
+                  className="inline-flex items-center gap-2.5 text-[13px] font-semibold text-[#111] hover:text-[#A78BFA] transition-colors duration-200 px-3 py-3 group"
                   style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}
                 >
                   <span className="w-7 h-7 rounded-full border border-[#111] flex items-center justify-center text-[10px] group-hover:bg-[#111] group-hover:text-white transition-all">

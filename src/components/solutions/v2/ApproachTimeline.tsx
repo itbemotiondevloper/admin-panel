@@ -114,7 +114,7 @@ export default function ApproachTimeline() {
                 </p>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 text-[13px] font-semibold text-[#111] hover:text-[#4F6BFF] transition-colors duration-200"
+                  className="inline-flex items-center gap-2 text-[13px] font-semibold text-[#111] hover:text-[#A78BFA] transition-colors duration-200"
                   style={{ fontFamily: 'var(--font-plus-jakarta-sans)' }}
                 >
                   Discuss Your Project →
@@ -155,7 +155,7 @@ export default function ApproachTimeline() {
                   <path
                     ref={loopPathRef}
                     d="M 360 450 C 420 450, 450 410, 420 370 C 390 330, 330 390, 360 450"
-                    stroke="#4F6BFF"
+                    stroke="#A78BFA"
                     strokeWidth="2"
                     strokeDasharray="4 4"
                     fill="none"
@@ -181,7 +181,7 @@ export default function ApproachTimeline() {
                           cx={pos.x}
                           cy={pos.y}
                           r={isCurrent ? 14 : isActive ? 9 : 6}
-                          fill={isCurrent ? '#4F6BFF' : isActive ? '#111' : '#F0F0EC'}
+                          fill={isCurrent ? '#A78BFA' : isActive ? '#111' : '#F0F0EC'}
                           stroke={isCurrent ? '#ffffff' : 'none'}
                           strokeWidth="3"
                           className="transition-all duration-300"
@@ -220,9 +220,9 @@ export default function ApproachTimeline() {
 
               {/* Loop Annotation at Step 06 */}
               <div className="flex justify-end pr-4">
-                <div className="border-l-2 border-[#4F6BFF] pl-3 max-w-[200px]">
+                <div className="border-l-2 border-[#A78BFA] pl-3 max-w-[200px]">
                   <p
-                    className="text-[11.5px] text-[#4F6BFF] font-semibold italic leading-snug"
+                    className="text-[11.5px] text-[#A78BFA] font-semibold italic leading-snug"
                     style={{ fontFamily: 'Georgia, serif' }}
                   >
                     A continuous cycle for greater growth.

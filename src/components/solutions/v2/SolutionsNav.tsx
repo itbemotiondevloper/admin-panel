@@ -151,7 +151,7 @@ export default function SolutionsNav() {
               key={l.label}
               href={l.href}
               onClick={() => setMobileOpen(false)}
-              className="text-[2rem] font-semibold text-[#111] hover:text-[#4F6BFF] transition-colors duration-200"
+              className="text-[2rem] font-semibold text-[#111] hover:text-[#A78BFA] transition-colors duration-200"
               style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}
             >
               {l.label}

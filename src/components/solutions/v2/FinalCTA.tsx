@@ -143,7 +143,7 @@ export default function FinalCTA() {
                 className="absolute top-6 right-6 bg-white/95 backdrop-blur-md px-4 py-3 rounded-xl shadow-lg border border-[rgba(17,17,17,0.10)] max-w-[200px]"
               >
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="w-2 h-2 rounded-full bg-[#4F6BFF]" />
+                  <span className="w-2 h-2 rounded-full bg-[#A78BFA]" />
                   <span className="text-[10px] font-bold text-[#111] uppercase tracking-wider">CLEAR DIRECTION</span>
                 </div>
                 <p

@@ -168,15 +168,15 @@ export default function WhyQuest() {
                 className="capability-card group relative bg-white/90 backdrop-blur-sm border border-[rgba(17,17,17,0.07)] rounded-xl p-5 lg:p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between overflow-hidden"
               >
                 {/* Accent line on hover */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#4F6BFF] to-[#60A5FA] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#A78BFA] to-[#C4B5FD] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-[#F4F4F0] group-hover:bg-[#4F6BFF] text-[#111] group-hover:text-white flex items-center justify-center transition-colors duration-300 shadow-inner">
+                    <div className="w-10 h-10 rounded-lg bg-[#F4F4F0] group-hover:bg-[#A78BFA] text-[#111] group-hover:text-black flex items-center justify-center transition-colors duration-300 shadow-inner">
                       <Icon />
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-[9.5px] font-bold text-[#4F6BFF] bg-[#4F6BFF]/10 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                      <span className="text-[9.5px] font-bold text-[#7C3AED] dark:text-[#A78BFA] bg-[#A78BFA]/15 px-2.5 py-0.5 rounded-full uppercase tracking-wider">
                         {p.badge}
                       </span>
                       <span className="text-[11px] font-mono font-bold text-[#bbb] group-hover:text-[#111] transition-colors">
@@ -186,7 +186,7 @@ export default function WhyQuest() {
                   </div>
 
                   <h3
-                    className="text-[20px] lg:text-[22px] font-bold text-[#111] tracking-tight mb-2 group-hover:text-[#4F6BFF] transition-colors"
+                    className="text-[20px] lg:text-[22px] font-bold text-[#111] tracking-tight mb-2 group-hover:text-[#7C3AED] dark:group-hover:text-[#A78BFA] transition-colors"
                     style={{ fontFamily: 'var(--font-plus-jakarta-sans)' }}
                   >
                     {p.title}
@@ -206,7 +206,7 @@ export default function WhyQuest() {
           {/* Featured Highlight Card 05: Continuous Improvement */}
           <div className="capability-card lg:col-span-2 relative overflow-hidden bg-[#111] text-white rounded-xl p-5 lg:p-6 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4 group border border-white/10">
             {/* Background glow */}
-            <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-[#4F6BFF]/20 rounded-full blur-3xl pointer-events-none group-hover:bg-[#4F6BFF]/35 transition-all duration-700" />
+            <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-[#A78BFA]/20 rounded-full blur-3xl pointer-events-none group-hover:bg-[#A78BFA]/35 transition-all duration-700" />
 
             <div className="flex items-start gap-4 relative z-10">
               <div className="w-11 h-11 rounded-xl bg-white/10 backdrop-blur-md text-[#60A5FA] flex items-center justify-center shrink-0 border border-white/15 shadow-inner">
@@ -235,7 +235,7 @@ export default function WhyQuest() {
             </div>
 
             <div className="relative z-10 shrink-0 self-start md:self-center">
-              <div className="w-10 h-10 rounded-full bg-white/10 group-hover:bg-[#4F6BFF] text-white flex items-center justify-center transition-all duration-300 border border-white/20 group-hover:border-transparent shadow-md">
+              <div className="w-10 h-10 rounded-full bg-white/10 group-hover:bg-[#A78BFA] text-white group-hover:text-black flex items-center justify-center transition-all duration-300 border border-white/20 group-hover:border-transparent shadow-md">
                 <span className="text-[16px] group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </div>
