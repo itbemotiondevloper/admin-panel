@@ -3,26 +3,30 @@ import type { NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   try {
-    // Note: Fetching from the backend API directly inside middleware.
-    // In production, you might want to cache this or use Edge Config.
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'}/redirects/public`, {
-      next: { revalidate: 60 } // Cache for 60 seconds
-    });
-    
-    if (res.ok) {
-      const data = await res.json();
-      const redirects = data.data || [];
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    if (apiUrl) {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 400);
+
+      const res = await fetch(`${apiUrl}/redirects/public`, {
+        signal: controller.signal,
+        next: { revalidate: 60 }
+      });
+      clearTimeout(timeoutId);
       
-      const currentPath = request.nextUrl.pathname;
-      
-      const redirectMatch = redirects.find((r: any) => r.oldUrl === currentPath && r.isEnabled);
-      
-      if (redirectMatch) {
-        return NextResponse.redirect(new URL(redirectMatch.newUrl, request.url), redirectMatch.status || 301);
+      if (res.ok) {
+        const data = await res.json();
+        const redirects = data.data || [];
+        const currentPath = request.nextUrl.pathname;
+        const redirectMatch = redirects.find((r: any) => r.oldUrl === currentPath && r.isEnabled);
+        
+        if (redirectMatch) {
+          return NextResponse.redirect(new URL(redirectMatch.newUrl, request.url), redirectMatch.status || 301);
+        }
       }
     }
   } catch (error) {
-    console.error('Middleware redirect check failed', error);
+    // Fail silently in development/middleware
   }
 
   return NextResponse.next();
@@ -36,7 +40,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - hybridaction (browser extension trackers)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|hybridaction).*)',
   ],
 };

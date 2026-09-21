@@ -193,11 +193,7 @@ export default function ConnectedSolutions() {
           {/* LEFT: Text & Goal Modes */}
           <div className="lg:col-span-6 flex flex-col">
             <FadeReveal>
-              <div className="flex items-center gap-3 mb-5">
-                <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">02</span>
-                <span className="w-4 h-px bg-[#ccc]" />
-                <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">CONNECTED CAPABILITIES</span>
-              </div>
+
               <h2
                 className="font-bold text-[#111] leading-[0.93] tracking-[-0.04em] mb-6"
                 style={{

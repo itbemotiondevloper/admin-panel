@@ -121,12 +121,7 @@ export default function CaseStudiesShowcase() {
         
         {/* Header */}
         <FadeReveal className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-          <div>
-            <div className="flex items-center gap-3 mb-5">
-              <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">05</span>
-              <span className="w-4 h-px bg-[#ccc]" />
-              <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">REAL CHALLENGES. MEASURABLE GROWTH.</span>
-            </div>
+
             <h2
               className="font-bold text-[#111] leading-[0.93] tracking-[-0.04em]"
               style={{
@@ -137,7 +132,6 @@ export default function CaseStudiesShowcase() {
               Real Challenges.<br />
               Measurable Growth.
             </h2>
-          </div>
 
           <Link
             href="/case-studies"

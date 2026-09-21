@@ -223,6 +223,7 @@ export default function BlogHero({
                   src={image}
                   alt={title}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 620px"
                   className="w-full h-full object-cover block"
                   priority
                 />

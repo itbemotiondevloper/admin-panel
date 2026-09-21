@@ -26,14 +26,14 @@ export default function DetailProofResults({ data }: { data: SolutionDetailData 
               <span className="text-[10px] font-bold text-[#777] uppercase tracking-[0.2em]">REAL RESULTS</span>
             </div>
             <h2
-              className="font-bold text-[#111] leading-[0.92] tracking-[-0.04em]"
+              className="font-bold text-[#111] dark:text-white leading-[1.04] tracking-[-0.03em] max-w-xl"
               style={{
-                fontSize: 'clamp(36px, 4.2vw, 72px)',
+                fontSize: 'clamp(32px, 4vw, 62px)',
                 fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif',
               }}
             >
               {data.proofTitleLines.map((line, idx) => (
-                <span key={idx} className="block">
+                <span key={idx} className="block whitespace-normal sm:whitespace-nowrap">
                   {line}
                 </span>
               ))}

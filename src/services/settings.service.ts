@@ -65,8 +65,11 @@ export const settingsService = {
 
     try {
       const docRef = doc(db, 'settings', 'general');
-      const snap = await getDoc(docRef);
-      if (snap.exists()) {
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Firestore fetch timeout')), 2500)
+      );
+      const snap = await Promise.race([getDoc(docRef), timeoutPromise]);
+      if (snap && snap.exists()) {
         const data = snap.data() as Partial<SettingsData>;
         const companyName = data.branding?.companyName || DEFAULT_SETTINGS.branding.companyName;
         settingsCache = {
@@ -97,7 +100,7 @@ export const settingsService = {
         return settingsCache;
       }
     } catch (e) {
-      console.error('Failed to fetch settings from Firestore:', e);
+      // In offline or slow networks, return fallback defaults immediately
     }
 
     return DEFAULT_SETTINGS;

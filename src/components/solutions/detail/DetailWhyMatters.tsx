@@ -10,6 +10,7 @@ export default function DetailWhyMatters({ data }: { data: SolutionDetailData })
   const rightTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let ctx: any = null;
     const run = async () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const { gsap } = await import('gsap');
@@ -18,13 +19,25 @@ export default function DetailWhyMatters({ data }: { data: SolutionDetailData })
 
       if (!sectionRef.current) return;
 
-      if (leftVisualRef.current) {
-        gsap.fromTo(
-          leftVisualRef.current,
-          { opacity: 0, x: -24 },
-          {
-            opacity: 1,
-            x: 0,
+      ctx = gsap.context(() => {
+        if (leftVisualRef.current) {
+          gsap.from(leftVisualRef.current, {
+            opacity: 0,
+            x: -24,
+            duration: 0.9,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 80%',
+              once: true,
+            },
+          });
+        }
+
+        if (rightTextRef.current) {
+          gsap.from(rightTextRef.current, {
+            opacity: 0,
+            y: 28,
             duration: 0.9,
             ease: 'power3.out',
             scrollTrigger: {
@@ -32,30 +45,15 @@ export default function DetailWhyMatters({ data }: { data: SolutionDetailData })
               start: 'top 75%',
               once: true,
             },
-          }
-        );
-      }
-
-      if (rightTextRef.current) {
-        gsap.fromTo(
-          rightTextRef.current,
-          { opacity: 0, y: 28 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.9,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: 'top 70%',
-              once: true,
-            },
-          }
-        );
-      }
+          });
+        }
+      }, sectionRef);
     };
 
     run();
+    return () => {
+      if (ctx) ctx.revert();
+    };
   }, [data]);
 
   return (
@@ -69,7 +67,7 @@ export default function DetailWhyMatters({ data }: { data: SolutionDetailData })
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
 
           {/* ── LEFT: Architectural Photographic Visual with Overlay Text (Matches Approved Image) ── */}
-          <div ref={leftVisualRef} className="lg:col-span-6 relative opacity-0">
+          <div ref={leftVisualRef} className="lg:col-span-6 relative">
             <div className="relative rounded-xl overflow-hidden aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5] w-full bg-[#E5E5E0] border border-[rgba(17,17,17,0.08)] shadow-md">
               <Image
                 src="/abouthero.jpeg"
@@ -97,7 +95,7 @@ export default function DetailWhyMatters({ data }: { data: SolutionDetailData })
           </div>
 
           {/* ── RIGHT: Text & Minimal 3 Key Points (Matches Approved Image) ── */}
-          <div ref={rightTextRef} className="lg:col-span-6 flex flex-col opacity-0">
+          <div ref={rightTextRef} className="lg:col-span-6 flex flex-col">
             <div className="flex items-center gap-3 mb-5">
               <span className="text-[10px] font-bold text-[#777] uppercase tracking-[0.2em]">02</span>
               <span className="w-4 h-px bg-[#ccc]" />

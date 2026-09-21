@@ -24,10 +24,10 @@ export default function SolutionsCta() {
         {/* CTA Button at the bottom */}
         <div className="w-full sm:w-auto">
           <Link
-            href="/request-demo"
+            href="/scan"
             className="w-full sm:w-auto inline-flex justify-center items-center text-center rounded-full bg-[#FF4F18] px-8 py-4 text-[15px] font-bold text-white transition-all duration-200 hover:bg-[#E03F0D] shadow-[0_8px_20px_rgba(255,79,24,0.35)] hover:shadow-[0_10px_24px_rgba(255,79,24,0.45)] active:scale-[0.98] cursor-pointer"
           >
-            Book Free Live Demo <span className="text-white font-normal ml-1.5">→</span>
+            Get Started <span className="text-white font-normal ml-1.5">→</span>
           </Link>
         </div>
 

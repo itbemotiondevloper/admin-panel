@@ -177,7 +177,7 @@ export default function RoiCalculator({ data }: CalculatorProps) {
       {/* Booking CTA Button Centered Below Card */}
       <div className="flex justify-center mt-8">
         <button
-          onClick={() => router.push("/request-demo")}
+          onClick={() => router.push("/scan")}
           className="inline-flex justify-center items-center text-center rounded-full bg-[#FF4F18] px-8 py-3.5 text-[15px] font-bold text-white transition-all duration-200 hover:bg-[#E03F0D] active:scale-[0.98] cursor-pointer"
         >
           Click here to save

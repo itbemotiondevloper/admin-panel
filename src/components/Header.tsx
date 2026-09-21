@@ -162,7 +162,7 @@ export default function Header() {
         <div className="hidden md:flex items-center gap-4">
           {renderThemeToggle()}
           <Link
-            href="/request-demo"
+            href="/scan"
             className="rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] px-4.5 py-1.5 text-[12.5px] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-sm"
             style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}
           >
@@ -221,7 +221,7 @@ export default function Header() {
           })}
           <div className="mt-3 pt-3 border-t border-zinc-200">
             <Link
-              href="/request-demo"
+              href="/scan"
               onClick={() => setIsMenuOpen(false)}
               className="flex w-full items-center justify-center rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] py-2.5 text-[13px] font-semibold transition-all"
             >

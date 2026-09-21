@@ -9,6 +9,8 @@ const NAV = [
   { label: 'About', href: '/about' },
   { label: 'Insights', href: '/resources' },
   { label: 'Contact', href: '/contact' },
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Terms of Service', href: '/terms' },
 ];
 
 export default function SolutionsFooter() {

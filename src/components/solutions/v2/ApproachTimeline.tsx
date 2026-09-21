@@ -90,11 +90,7 @@ export default function ApproachTimeline() {
             {/* LEFT: Heading & Intro (Aligned towards the top) */}
             <div className="lg:col-span-5 flex flex-col self-start lg:pt-0 -mt-2">
               <FadeReveal>
-                <div className="flex items-center gap-3 mb-5">
-                  <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">03</span>
-                  <span className="w-4 h-px bg-[#ccc]" />
-                  <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">OUR PROCESS STORY</span>
-                </div>
+
                 <h2
                   className="font-bold text-[#111] leading-[0.93] tracking-[-0.04em] mb-6"
                   style={{
@@ -124,7 +120,7 @@ export default function ApproachTimeline() {
 
             {/* RIGHT: Scroll-Driven Progressive Story Path */}
             <div className="lg:col-span-7 relative flex flex-col justify-start self-start -mt-8 lg:-mt-16 pl-0 lg:pl-6">
-              
+
               {/* SVG Vertical Flow Path */}
               <div className="relative w-full pt-0 pb-2">
                 <svg
@@ -221,12 +217,7 @@ export default function ApproachTimeline() {
               {/* Loop Annotation at Step 06 */}
               <div className="flex justify-end pr-4">
                 <div className="border-l-2 border-[#A78BFA] pl-3 max-w-[200px]">
-                  <p
-                    className="text-[11.5px] text-[#A78BFA] font-semibold italic leading-snug"
-                    style={{ fontFamily: 'Georgia, serif' }}
-                  >
-                    A continuous cycle for greater growth.
-                  </p>
+
                 </div>
               </div>
 

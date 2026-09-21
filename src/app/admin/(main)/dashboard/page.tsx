@@ -13,6 +13,7 @@ import { announcementsService } from '@/services/announcements.service';
 import { commentsService } from '@/services/comments.service';
 import { settingsService } from '@/services/settings.service';
 import { solutionsPageService, SolutionsPageData } from '@/services/solutionsPage.service';
+import { pagesService } from '@/services/pages.service';
 import { useAuth } from '@/hooks/useAuth';
 import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 import { storage } from '@/lib/firebase/config';
@@ -224,7 +225,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             comments: 'manage_comments',
             users: 'manage_users',
             admins: 'manage_users',
-            roles: 'manage_users'
+            roles: 'manage_users',
+            pages: 'manage_blogs'
           };
           const required = tabPermissions[activeTab];
           if (required && !perms.includes(required)) {
@@ -323,6 +325,50 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
     }
   };
 
+  const handleDeleteLead = async (id: string) => {
+    setConfirmModal({
+      isOpen: true,
+      title: activeTab === 'leads' ? 'Delete Scan Request' : 'Delete Contact Message',
+      message: 'Are you sure you want to permanently delete this entry? This action cannot be undone.',
+      onConfirm: async () => {
+        try {
+          if (activeTab === 'leads') {
+            await leadsService.deleteDemoRequest(id);
+          } else {
+            await leadsService.deleteContactMessage(id);
+          }
+          setData((prev: any) => prev.filter((item: any) => item._id !== id));
+          showToast('Entry deleted successfully!', 'success');
+        } catch (err: any) {
+          console.error(err);
+          showToast(err.message || 'Failed to delete entry', 'error');
+        }
+      }
+    });
+  };
+
+  const handleClearAllRecords = async () => {
+    setConfirmModal({
+      isOpen: true,
+      title: activeTab === 'leads' ? 'Clear All Scan Requests' : 'Clear All Contact Messages',
+      message: 'Are you sure you want to permanently delete all previous entries? This action cannot be undone.',
+      onConfirm: async () => {
+        try {
+          if (activeTab === 'leads') {
+            await leadsService.clearAllDemoRequests();
+          } else {
+            await leadsService.clearAllContactMessages();
+          }
+          setData([]);
+          showToast('All previous entries deleted successfully!', 'success');
+        } catch (err: any) {
+          console.error(err);
+          showToast(err.message || 'Failed to clear entries', 'error');
+        }
+      }
+    });
+  };
+
   const fetchData = async (token: string, clearFilters = false) => {
     setLoading(true);
     try {
@@ -357,10 +403,13 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
           if (!clearFilters && leadEndDate && new Date(item.createdAt) > new Date(leadEndDate + 'T23:59:59')) return false;
           if (!clearFilters && leadSearch) {
             const searchLower = leadSearch.toLowerCase();
+            const servicesStr = Array.isArray(item.lookingFor || item.services) ? (item.lookingFor || item.services).join(' ').toLowerCase() : String(item.lookingFor || item.services || '').toLowerCase();
             return (
               item.name?.toLowerCase().includes(searchLower) ||
               item.email?.toLowerCase().includes(searchLower) ||
-              item.phone?.toLowerCase().includes(searchLower)
+              item.phone?.toLowerCase().includes(searchLower) ||
+              (item.companyName || item.businessName)?.toLowerCase().includes(searchLower) ||
+              servicesStr.includes(searchLower)
             );
           }
           return true;
@@ -373,16 +422,21 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
           if (!clearFilters && leadEndDate && new Date(item.createdAt) > new Date(leadEndDate + 'T23:59:59')) return false;
           if (!clearFilters && leadSearch) {
             const searchLower = leadSearch.toLowerCase();
+            const servicesStr = Array.isArray(item.services) ? item.services.join(' ').toLowerCase() : String(item.services || '').toLowerCase();
             return (
               item.name?.toLowerCase().includes(searchLower) ||
               item.email?.toLowerCase().includes(searchLower) ||
-              item.phone?.toLowerCase().includes(searchLower)
+              item.phone?.toLowerCase().includes(searchLower) ||
+              item.message?.toLowerCase().includes(searchLower) ||
+              servicesStr.includes(searchLower)
             );
           }
           return true;
         });
       } else if (activeTab === 'solutionsPage') {
         docs = [];
+      } else if (activeTab === 'pages') {
+        docs = await pagesService.getPages();
       } else if (activeTab === 'updates') {
         docs = await announcementsService.getAnnouncements();
       } else if (activeTab === 'comments') {
@@ -414,8 +468,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
       message: 'Are you sure you want to delete this page? This action cannot be undone.',
       onConfirm: async () => {
         try {
-          const token = localStorage.getItem('admin_token');
-          await api.delete(`/pages/${id}`, token || '');
+          await pagesService.deletePage(id);
           setData((prev) => prev.filter((item: any) => item._id !== id));
           showToast('Page deleted successfully!', 'success');
         } catch (err) {
@@ -430,15 +483,12 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
     e.preventDefault();
     setSavingPage(true);
     try {
-      const token = localStorage.getItem('admin_token') || '';
       if (editingPage) {
-        const res = await api.put(`/pages/${editingPage._id}`, pageForm, token);
-        const updatedDoc = res.data?.doc || res.data || res;
+        const updatedDoc = await pagesService.updatePage(editingPage._id, pageForm);
         setData((prev) => prev.map((item: any) => (item._id === editingPage._id ? updatedDoc : item)));
         showToast('Page updated successfully!', 'success');
       } else {
-        const res = await api.post('/pages', pageForm, token);
-        const newDoc = res.data?.doc || res.data || res;
+        const newDoc = await pagesService.createPage(pageForm);
         setData((prev) => [newDoc, ...prev]);
         showToast('Page created successfully!', 'success');
       }
@@ -1115,7 +1165,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   <label className="block text-[10px] font-extrabold uppercase tracking-wider text-zinc-500 mb-1">Search</label>
                   <input
                     type="text"
-                    placeholder="Name, Email, or Phone"
+                    placeholder="Search by name, email, phone, company, or services..."
                     value={leadSearch}
                     onChange={(e) => setLeadSearch(e.target.value)}
                     className="w-full px-3 py-2 text-xs font-medium rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 focus:outline-none focus:border-zinc-900 dark:focus:border-zinc-100 focus:ring-1 focus:ring-zinc-900 dark:focus:ring-zinc-100"
@@ -1166,21 +1216,28 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                     onClick={() => {
                       try {
                         const headers = activeTab === 'leads'
-                          ? ['Name', 'Phone', 'Email', 'Business Name', 'Category', 'Purpose', 'Status', 'Created At', 'Last Contacted', 'Call Notes']
-                          : ['Name', 'Phone', 'Email', 'Business Name', 'Category', 'Purpose', 'Status', 'Message', 'Created At', 'Last Contacted', 'Call Notes'];
+                          ? ['Name', 'Phone', 'Email', 'Company Name', 'Looking For', 'Status', 'Created At', 'Last Contacted', 'Call Notes']
+                          : ['Name', 'Phone', 'Email', 'Services', 'Status', 'Message', 'Created At', 'Last Contacted', 'Call Notes'];
                         
                         const rows = data.map((item: any) => {
+                          const servicesStr = Array.isArray(item.lookingFor || item.services) ? (item.lookingFor || item.services).join('; ') : (item.lookingFor || item.services || '');
                           const base = [
                             `"${(item.name || '').replace(/"/g, '""')}"`,
                             `"${(item.phone || '').replace(/"/g, '""')}"`,
                             `"${(item.email || '').replace(/"/g, '""')}"`,
-                            `"${(item.businessName || '').replace(/"/g, '""')}"`,
-                            `"${(item.category || '').replace(/"/g, '""')}"`,
-                            `"${(item.purpose || '').replace(/"/g, '""')}"`,
-                            `"${(item.status || '').replace(/"/g, '""')}"`
                           ];
-                          if (activeTab === 'contacts') {
-                            base.push(`"${(item.message || '').replace(/"/g, '""')}"`);
+                          if (activeTab === 'leads') {
+                            base.push(
+                              `"${(item.companyName || item.businessName || '').replace(/"/g, '""')}"`,
+                              `"${servicesStr.replace(/"/g, '""')}"`,
+                              `"${(item.status || '').replace(/"/g, '""')}"`
+                            );
+                          } else {
+                            base.push(
+                              `"${servicesStr.replace(/"/g, '""')}"`,
+                              `"${(item.status || '').replace(/"/g, '""')}"`,
+                              `"${(item.message || '').replace(/"/g, '""')}"`
+                            );
                           }
                           base.push(
                             `"${item.createdAt ? new Date(item.createdAt).toLocaleString() : ''}"`,
@@ -1206,12 +1263,16 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         showToast('Export failed', 'error');
                       }
                     }}
-                    className="bg-emerald-600 text-white px-4 py-2 rounded-xl text-xs font-bold hover:bg-emerald-700 transition-colors cursor-pointer flex items-center gap-1.5"
+                    className="border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer"
                   >
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                    </svg>
-                    Export Excel
+                    Export CSV
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleClearAllRecords}
+                    className="border border-rose-200 dark:border-rose-900/60 bg-rose-50/50 dark:bg-rose-950/20 hover:bg-rose-100 dark:hover:bg-rose-900/40 text-rose-600 dark:text-rose-400 px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    Clear All Previous Entries
                   </button>
                   {(leadSearch || leadStatusFilter || leadStartDate || leadEndDate) && (
                     <button 
@@ -1388,10 +1449,11 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             </div>
           )}
           {activeTab === 'pages' && (
-            <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex justify-end bg-zinc-50/50 dark:bg-black/20">
+            <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between bg-zinc-50/50 dark:bg-black/20">
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Manage and edit live content for Privacy Policy (<code className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">/privacy</code>), Terms of Service (<code className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">/terms</code>), and custom pages.</p>
               <button 
                 onClick={handleOpenCreatePage} 
-                className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm transform hover:-translate-y-0.5 duration-200"
+                className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm transform hover:-translate-y-0.5 duration-200 cursor-pointer shrink-0"
               >
                 + Create New Page
               </button>
@@ -1453,14 +1515,12 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                       <th className="px-6 py-4 font-semibold">Name</th>
                       <th className="px-6 py-4 font-semibold">Email</th>
                       <th className="px-6 py-4 font-semibold">Phone</th>
-                      <th className="px-6 py-4 font-semibold">Business Name</th>
-                      <th className="px-6 py-4 font-semibold">Category</th>
-                      <th className="px-6 py-4 font-semibold">Purpose</th>
-                      <th className="px-6 py-4 font-semibold">Message</th>
+                      <th className="px-6 py-4 font-semibold">Company Name</th>
+                      <th className="px-6 py-4 font-semibold">Looking For</th>
                       <th className="px-6 py-4 font-semibold">Status</th>
                       <th className="px-6 py-4 font-semibold">Submitted</th>
                       <th className="px-6 py-4 font-semibold">Last Contacted</th>
-                      <th className="px-6 py-4 font-semibold">Actions</th>
+                      <th className="px-6 py-4 font-semibold text-right">Actions</th>
                     </>
                   )}
                   {activeTab === 'contacts' && (
@@ -1468,14 +1528,12 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                       <th className="px-6 py-4 font-semibold">Name</th>
                       <th className="px-6 py-4 font-semibold">Email</th>
                       <th className="px-6 py-4 font-semibold">Phone</th>
-                      <th className="px-6 py-4 font-semibold">Business Name</th>
-                      <th className="px-6 py-4 font-semibold">Category</th>
-                      <th className="px-6 py-4 font-semibold">Purpose</th>
+                      <th className="px-6 py-4 font-semibold">Services</th>
                       <th className="px-6 py-4 font-semibold">Message</th>
                       <th className="px-6 py-4 font-semibold">Status</th>
                       <th className="px-6 py-4 font-semibold">Submitted</th>
                       <th className="px-6 py-4 font-semibold">Last Contacted</th>
-                      <th className="px-6 py-4 font-semibold">Actions</th>
+                      <th className="px-6 py-4 font-semibold text-right">Actions</th>
                     </>
                   )}
                   {activeTab === 'updates' && (
@@ -1550,10 +1608,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                          <td className="px-6 py-4 font-medium">{item.name}</td>
                          <td className="px-6 py-4">{item.email}</td>
                          <td className="px-6 py-4">{item.phone}</td>
-                         <td className="px-6 py-4">{item.businessName || 'N/A'}</td>
-                         <td className="px-6 py-4">{item.category || 'N/A'}</td>
-                         <td className="px-6 py-4">{item.purpose || 'N/A'}</td>
-                         <td className="px-6 py-4 max-w-[150px] truncate">{item.message || 'N/A'}</td>
+                         <td className="px-6 py-4">{item.companyName || item.businessName || 'N/A'}</td>
+                         <td className="px-6 py-4 max-w-[200px] truncate">{Array.isArray(item.lookingFor || item.services) ? (item.lookingFor || item.services).join(', ') : (item.lookingFor || item.services || 'N/A')}</td>
                          <td className="px-6 py-4">
                            <span className="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
                              {item.status}
@@ -1561,9 +1617,12 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                          </td>
                          <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
                          <td className="px-6 py-4">{item.lastContactedDate ? new Date(item.lastContactedDate).toLocaleString() : 'Never'}</td>
-                         <td className="px-6 py-4">
+                         <td className="px-6 py-4 text-right whitespace-nowrap space-x-3">
                            <button onClick={() => handleOpenEditLead(item)} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
                              View/Edit
+                           </button>
+                           <button onClick={() => handleDeleteLead(item._id)} className="text-rose-600 hover:text-rose-700 font-bold transition-opacity">
+                             Delete
                            </button>
                          </td>
                        </>
@@ -1573,9 +1632,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                          <td className="px-6 py-4 font-medium">{item.name}</td>
                          <td className="px-6 py-4">{item.email}</td>
                          <td className="px-6 py-4">{item.phone}</td>
-                         <td className="px-6 py-4">{item.businessName || 'N/A'}</td>
-                         <td className="px-6 py-4">{item.category || 'N/A'}</td>
-                         <td className="px-6 py-4">{item.purpose || 'N/A'}</td>
+                         <td className="px-6 py-4 max-w-[200px] truncate">{Array.isArray(item.services) ? item.services.join(', ') : (item.services || 'N/A')}</td>
                          <td className="px-6 py-4 max-w-[150px] truncate">{item.message || 'N/A'}</td>
                          <td className="px-6 py-4">
                            <span className="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
@@ -1584,9 +1641,12 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                          </td>
                          <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
                          <td className="px-6 py-4">{item.lastContactedDate ? new Date(item.lastContactedDate).toLocaleString() : 'Never'}</td>
-                         <td className="px-6 py-4">
+                         <td className="px-6 py-4 text-right whitespace-nowrap space-x-3">
                            <button onClick={() => handleOpenEditLead(item)} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
                              View/Edit
+                           </button>
+                           <button onClick={() => handleDeleteLead(item._id)} className="text-rose-600 hover:text-rose-700 font-bold transition-opacity">
+                             Delete
                            </button>
                          </td>
                        </>
@@ -2198,9 +2258,17 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 <div><span className="text-zinc-500 font-bold uppercase text-[10px] tracking-wider block">Email</span><span className="font-medium text-zinc-900 dark:text-white">{editingLead.email}</span></div>
                 <div><span className="text-zinc-500 font-bold uppercase text-[10px] tracking-wider block">Phone</span><span className="font-medium text-zinc-900 dark:text-white">{editingLead.phone}</span></div>
                 <div><span className="text-zinc-500 font-bold uppercase text-[10px] tracking-wider block">Submitted</span><span className="font-medium text-zinc-900 dark:text-white">{new Date(editingLead.createdAt).toLocaleString()}</span></div>
-                {editingLead.businessName && <div><span className="text-zinc-500 font-bold uppercase text-[10px] tracking-wider block">Business Name</span><span className="font-medium text-zinc-900 dark:text-white">{editingLead.businessName}</span></div>}
-                {editingLead.category && <div><span className="text-zinc-500 font-bold uppercase text-[10px] tracking-wider block">Category</span><span className="font-medium text-zinc-900 dark:text-white">{editingLead.category}</span></div>}
-                {editingLead.purpose && <div><span className="text-zinc-500 font-bold uppercase text-[10px] tracking-wider block">Purpose</span><span className="font-medium text-zinc-900 dark:text-white">{editingLead.purpose}</span></div>}
+                {(editingLead.companyName || editingLead.businessName) && <div><span className="text-zinc-500 font-bold uppercase text-[10px] tracking-wider block">Company Name</span><span className="font-medium text-zinc-900 dark:text-white">{editingLead.companyName || editingLead.businessName}</span></div>}
+                {(editingLead.services || editingLead.lookingFor) && (
+                  <div className="col-span-2">
+                    <span className="text-zinc-500 font-bold uppercase text-[10px] tracking-wider block">Looking For / Services</span>
+                    <span className="font-medium text-zinc-900 dark:text-white">
+                      {Array.isArray(editingLead.lookingFor || editingLead.services) 
+                        ? (editingLead.lookingFor || editingLead.services).join(', ') 
+                        : (editingLead.lookingFor || editingLead.services)}
+                    </span>
+                  </div>
+                )}
                 {editingLead.message && <div className="col-span-2"><span className="text-zinc-500 font-bold uppercase text-[10px] tracking-wider block">Message</span><span className="font-medium text-zinc-900 dark:text-white">{editingLead.message}</span></div>}
               </div>
             </div>

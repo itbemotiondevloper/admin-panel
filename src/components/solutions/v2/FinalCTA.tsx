@@ -76,13 +76,7 @@ export default function FinalCTA() {
 
           {/* LEFT: CTA Typography */}
           <div className="lg:col-span-6 z-10">
-            <FadeReveal>
-              <div className="flex items-center gap-3 mb-5">
-                <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">06</span>
-                <span className="w-4 h-px bg-[#ccc]" />
-                <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">LET&apos;S TALK</span>
-              </div>
-            </FadeReveal>
+
 
             <h2
               ref={h2Ref}

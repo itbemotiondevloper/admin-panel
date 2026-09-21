@@ -22,12 +22,11 @@ export default function IndDetailHero({ data }: { data: IndustryDetailContent })
             </div>
 
             {/* Headline */}
-            <h1 className="text-[44px] sm:text-[60px] md:text-[72px] lg:text-[78px] font-semibold leading-[0.95] tracking-[-0.04em] text-[#111111]">
+            <h1 className="text-[30px] sm:text-[38px] md:text-[44px] lg:text-[50px] font-bold leading-[1.1] tracking-[-0.03em] text-[#111111] dark:text-white">
               {data.heroHeadlineLines.map((line, idx) => (
-                <React.Fragment key={idx}>
+                <span key={idx} className="block whitespace-normal sm:whitespace-nowrap">
                   {line}
-                  {idx < data.heroHeadlineLines.length - 1 && <br />}
-                </React.Fragment>
+                </span>
               ))}
             </h1>
 

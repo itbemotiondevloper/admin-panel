@@ -35,7 +35,7 @@ const links: ILink[] = [
     permission: "manage_blogs",
   },
   {
-    label: "Demo Requests",
+    label: "Scan Requests",
     href: "/admin/leads",
     Icon: Inbox,
     permission: "manage_leads",
@@ -45,6 +45,12 @@ const links: ILink[] = [
     href: "/admin/contacts",
     Icon: MessageSquare,
     permission: "manage_contacts",
+  },
+  {
+    label: "Terms & Policies",
+    href: "/admin/pages",
+    Icon: FileText,
+    permission: "manage_blogs",
   },
   {
     label: "Resources",

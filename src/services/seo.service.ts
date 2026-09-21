@@ -44,6 +44,7 @@ const DEFAULT_WEBSITE_PAGES: Array<{ id: string; name: string; url: string; page
   { id: 'blogs-main', name: 'Blogs & Insights', url: '/blogs', pageType: 'Page', slug: 'blogs' },
   { id: 'case-studies', name: 'Case Studies', url: '/case-studies', pageType: 'Page', slug: 'case-studies' },
   { id: 'contact', name: 'Contact Us', url: '/contact', pageType: 'Page', slug: 'contact' },
+  { id: 'scan', name: 'Scan Page', url: '/scan', pageType: 'Page', slug: 'scan' },
   { id: 'request-demo', name: 'Request Demo', url: '/request-demo', pageType: 'Page', slug: 'request-demo' },
   { id: 'privacy', name: 'Privacy Policy', url: '/privacy', pageType: 'Page', slug: 'privacy' },
   { id: 'terms', name: 'Terms of Service', url: '/terms', pageType: 'Page', slug: 'terms' },

@@ -21,6 +21,14 @@ export interface FAQItem {
   answer: string;
 }
 
+export interface AnatomyItem {
+  number: string;
+  tag?: string;
+  title: string;
+  description: string;
+  icon?: string;
+}
+
 export interface SolutionDetailData {
   slug: string;
   badge: string;
@@ -50,6 +58,7 @@ export interface SolutionDetailData {
   anatomyTitleLines: string[];
   anatomySubhead: string;
   anatomyList: string[];
+  anatomyItems?: AnatomyItem[];
   
   // Section 6: Proof & Results
   proofTitleLines: string[];
@@ -111,18 +120,47 @@ export const SOLUTIONS_DETAIL_DATA: Record<string, SolutionDetailData> = {
     ],
 
     // Strategy, Design & Technology (Section 05)
-    anatomyTitleLines: ['Strategy, Design', '& Technology.', 'In Sync.'],
-    anatomySubhead: 'A strong website is the result of strategy, creative design and reliable technology working together.',
+    anatomyTitleLines: ['Strategy, Design & Technology,', 'in sync.'],
+    anatomySubhead: 'How we combine strategic thinking, bespoke design, and modern engineering to build websites that accelerate business growth.',
     anatomyList: [
       'Strategic Structure',
       'UI & Visual Design',
       'UX-Focused Development',
       'Performance & SEO',
-      'Scalable Foundation',
+    ],
+    anatomyItems: [
+      {
+        number: '01',
+        tag: 'STRATEGY',
+        title: 'Strategic Architecture',
+        description: 'Conversion pathways, content hierarchy, and information architecture engineered around user intent and business objectives.',
+        icon: 'search',
+      },
+      {
+        number: '02',
+        tag: 'DESIGN',
+        title: 'UI & Visual Craft',
+        description: 'Bespoke design systems, responsive typography, and micro-interactions that elevate brand trust and turn visitors into buyers.',
+        icon: 'code',
+      },
+      {
+        number: '03',
+        tag: 'ENGINEERING',
+        title: 'UX-Focused Code',
+        description: 'Modern Next.js architecture, modular React components, frictionless user flows, and enterprise-grade reliability.',
+        icon: 'check',
+      },
+      {
+        number: '04',
+        tag: 'GROWTH',
+        title: 'Performance & SEO',
+        description: 'Sub-second page speeds, Core Web Vitals optimization, and semantic structured data for long-term search engine dominance.',
+        icon: 'growth',
+      },
     ],
 
     // Proof & Results
-    proofTitleLines: ['Websites', 'That Create', 'Real Growth.'],
+    proofTitleLines: ['Websites That Create', 'Real Growth.'],
     proofSubhead: 'From growing visibility to generating enquiries, our websites help businesses move forward.',
     proofCards: [
       {

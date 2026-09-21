@@ -3,23 +3,23 @@
 import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import FooterPage from '@/components/Footer';
-import { api } from '@/lib/api';
+import { pagesService } from '@/services/pages.service';
 
 export default function TermsPage() {
+  const [title, setTitle] = useState('Terms of Service');
   const [content, setContent] = useState('');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('/pages/slug/terms')
-      .then((res) => {
-        if (res.data?.content) {
-          setContent(res.data.content);
+    pagesService.getPageBySlug('terms')
+      .then((page) => {
+        if (page?.content) {
+          if (page.title) setTitle(page.title);
+          setContent(page.content);
         }
       })
       .catch((err) => {
         console.error('Failed to load terms page:', err);
-        // Fallback default
-        setContent(`3. Real-Time Analytics & Growth\nWith real-time reports accessible on any device, decision-makers can monitor daily sales, food cost percentages, and best-selling items at a glance.\n\nWhy India Trust Digitory\nBy providing 100% transparency into kitchen operations, Digitory enables restaurant founders to expand from 1 to 50+ locations with confidence.\n\nWhat's next\nLearn more about how Digitory can transform your restaurant business today.`);
       })
       .finally(() => setLoading(false));
   }, []);

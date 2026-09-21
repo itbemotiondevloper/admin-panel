@@ -153,7 +153,7 @@ export default function RestaurantOSHero({ data }: HeroProps) {
           {/* Action CTAs — Book a Demo turns Green on success */}
           <div className="flex flex-wrap gap-4 items-center">
             <button 
-              onClick={() => router.push("/request-demo")}
+              onClick={() => router.push("/scan")}
               className="inline-flex justify-center items-center text-center rounded-full bg-[#FF4F18] px-6 py-3 text-[15px] font-semibold text-white transition-all duration-200 hover:bg-[#E03F0D] active:scale-[0.98] cursor-pointer"
             >
               Book a Live Demo
@@ -309,7 +309,7 @@ export default function RestaurantOSHero({ data }: HeroProps) {
                     setDispatchState("success");
                   }, 1500);
                 } else if (dispatchState === "success") {
-                  router.push("/request-demo");
+                  router.push("/scan");
                 }
               }}
               disabled={dispatchState === "loading"}

@@ -3,14 +3,17 @@ import { doc, getDoc } from 'firebase/firestore';
 import { db } from './firebase/config';
 import { settingsService } from '@/services/settings.service';
 
+const seoCache = new Map<string, { data: Metadata; expiresAt: number }>();
+const CACHE_TTL = 60 * 1000; // 1 minute in-memory cache
+
 export async function generateSeoMetadata(pageType: string, idOrSlug: string, fallback: Partial<Metadata> = {}): Promise<Metadata> {
   let settings;
   try {
     settings = await settingsService.getSettings();
   } catch (e) {
-    settings = { branding: { companyName: 'Digitory' } };
+    settings = { branding: { companyName: 'Quest For Tech' } };
   }
-  const companyName = settings?.branding?.companyName || 'Digitory';
+  const companyName = settings?.branding?.companyName || 'Quest For Tech';
 
   const customizeTitle = (title: any) => {
     if (typeof title === 'string') {
@@ -19,25 +22,39 @@ export async function generateSeoMetadata(pageType: string, idOrSlug: string, fa
     return title;
   };
 
+  const cacheKey = `${pageType}_${idOrSlug}`;
+  const cached = seoCache.get(cacheKey);
+  if (cached && cached.expiresAt > Date.now()) {
+    return cached.data;
+  }
+
   try {
     const docRef = doc(db, 'seo', idOrSlug);
-    const snap = await getDoc(docRef);
+    // Strict timeout for SSR to ensure zero delay if Firestore connection is slow/offline
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('SEO fetch timeout')), 800)
+    );
+    const snap = await Promise.race([getDoc(docRef), timeoutPromise]);
     
-    if (!snap.exists()) {
-      return {
+    if (!snap || !snap.exists()) {
+      const res = {
         ...fallback,
         title: customizeTitle(fallback.title)
       } as Metadata;
+      seoCache.set(cacheKey, { data: res, expiresAt: Date.now() + CACHE_TTL });
+      return res;
     }
 
     const docData = snap.data();
     const seo = docData.seo;
 
     if (!seo) {
-      return {
+      const res = {
         ...fallback,
         title: customizeTitle(fallback.title)
       } as Metadata;
+      seoCache.set(cacheKey, { data: res, expiresAt: Date.now() + CACHE_TTL });
+      return res;
     }
 
     const metadata: Metadata = {
@@ -70,12 +87,15 @@ export async function generateSeoMetadata(pageType: string, idOrSlug: string, fa
       };
     }
 
+    seoCache.set(cacheKey, { data: metadata, expiresAt: Date.now() + CACHE_TTL });
     return metadata;
   } catch (err) {
-    console.error('Failed to fetch SEO metadata', err);
-    return {
+    const res = {
       ...fallback,
       title: customizeTitle(fallback.title)
     } as Metadata;
+    // Cache the fallback briefly so subsequent requests don't retry immediately
+    seoCache.set(cacheKey, { data: res, expiresAt: Date.now() + 15000 });
+    return res;
   }
 }

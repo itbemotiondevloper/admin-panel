@@ -16,21 +16,22 @@ export default function SmoothScrollProvider({ children }: { children: import('r
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reducedMotion) return;
 
-    let raf = 0;
-    let gsap: any;
-    let ScrollTrigger: any;
+    let gsapTickerCb: ((time: number) => void) | null = null;
+    let scrollCb: (() => void) | null = null;
+    let gsapInstance: any = null;
 
     const init = async () => {
       const { default: Lenis } = await import('lenis');
       const gsapModule = await import('gsap');
       const stModule = await import('gsap/ScrollTrigger');
 
-      gsap = gsapModule.gsap;
-      ScrollTrigger = stModule.ScrollTrigger;
+      const gsap = gsapModule.gsap;
+      gsapInstance = gsap;
+      const ScrollTrigger = stModule.ScrollTrigger;
       gsap.registerPlugin(ScrollTrigger);
 
       const lenis = new Lenis({
-        duration: 1.1,
+        duration: 1.0,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         smoothWheel: true,
         wheelMultiplier: 0.9,
@@ -39,21 +40,27 @@ export default function SmoothScrollProvider({ children }: { children: import('r
 
       lenisRef.current = lenis;
 
-      // Tie Lenis to GSAP ticker for ScrollTrigger compatibility
-      gsap.ticker.add((time: number) => {
+      gsapTickerCb = (time: number) => {
         lenis.raf(time * 1000);
-      });
+      };
 
+      gsap.ticker.add(gsapTickerCb);
       gsap.ticker.lagSmoothing(0);
 
-      lenis.on('scroll', ScrollTrigger.update);
+      scrollCb = () => {
+        ScrollTrigger.update();
+      };
+      lenis.on('scroll', scrollCb);
     };
 
     init();
 
     return () => {
-      cancelAnimationFrame(raf);
+      if (gsapInstance && gsapTickerCb) {
+        gsapInstance.ticker.remove(gsapTickerCb);
+      }
       if (lenisRef.current) {
+        if (scrollCb) lenisRef.current.off('scroll', scrollCb);
         lenisRef.current.destroy();
         lenisRef.current = null;
       }

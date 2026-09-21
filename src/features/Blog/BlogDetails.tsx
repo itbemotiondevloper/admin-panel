@@ -471,7 +471,7 @@ function BlogDetails({ blog }: { blog: any }) {
               How to run a company with Digitory
             </p>
             <Link
-              href="/request-demo"
+              href="/scan"
               className="inline-flex items-center gap-1.5 bg-[#1E1E1E] dark:bg-white text-white dark:text-zinc-950 px-4 py-2 rounded-xl text-xs font-bold shadow-xs hover:bg-black dark:hover:bg-zinc-100 transition-all group cursor-pointer"
             >
               <span>Try in Digitory</span>

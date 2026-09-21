@@ -15,17 +15,25 @@ import { db } from '@/lib/firebase/config';
 export const announcementsService = {
   // Public & Admin listing
   async getAnnouncements() {
-    const ref = collection(db, 'updates');
-    const q = query(ref, orderBy('publishedAt', 'desc'));
-    const snap = await getDocs(q);
-    return snap.docs.map(d => ({
-      _id: d.id,
-      id: d.id,
-      ...d.data(),
-      // Ensure ISO string representation of createdAt and updatedAt for Next.js JSON compatibility
-      createdAt: (d.data() as any).createdAt?.toDate ? (d.data() as any).createdAt.toDate().toISOString() : (d.data() as any).createdAt,
-      updatedAt: (d.data() as any).updatedAt?.toDate ? (d.data() as any).updatedAt.toDate().toISOString() : (d.data() as any).updatedAt
-    }));
+    try {
+      const ref = collection(db, 'updates');
+      const q = query(ref, orderBy('publishedAt', 'desc'));
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Announcements fetch timeout')), 2500)
+      );
+      const snap = await Promise.race([getDocs(q), timeoutPromise]);
+      return snap.docs.map(d => ({
+        _id: d.id,
+        id: d.id,
+        ...d.data(),
+        // Ensure ISO string representation of createdAt and updatedAt for Next.js JSON compatibility
+        createdAt: (d.data() as any).createdAt?.toDate ? (d.data() as any).createdAt.toDate().toISOString() : (d.data() as any).createdAt,
+        updatedAt: (d.data() as any).updatedAt?.toDate ? (d.data() as any).updatedAt.toDate().toISOString() : (d.data() as any).updatedAt
+      }));
+    } catch (err) {
+      console.warn('Could not fetch announcements:', err);
+      return [];
+    }
   },
 
   // Admin CRUD

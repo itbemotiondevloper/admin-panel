@@ -87,7 +87,7 @@ export default function Hero() {
           {/* CTAs */}
           <div className="flex flex-wrap gap-4 items-center">
             <Link
-              href="/request-demo"
+              href="/scan"
               className="inline-flex justify-center items-center text-center rounded-full bg-[#FF4F18] px-6 py-3 text-[15px] font-semibold text-white transition-all duration-200 hover:bg-[#E03F0D] shadow-[0_8px_20px_rgba(255,79,24,0.35)] hover:shadow-[0_10px_24px_rgba(255,79,24,0.45)] active:scale-[0.98] cursor-pointer"
             >
               Book a demo
@@ -610,7 +610,7 @@ export default function Hero() {
               {activeTab === 'how' && (
                 <button
                   type="button"
-                  onClick={() => router.push("/request-demo")}
+                  onClick={() => router.push("/scan")}
                   className="w-full flex items-center justify-center gap-2 rounded-full bg-emerald-600 py-3.5 text-xs font-black text-white transition-all hover:bg-emerald-750 shadow-[0_4px_12px_rgba(16,185,129,0.2)] active:scale-[0.98] cursor-pointer animate-[fadeIn_0.3s_ease]"
                 >
                   Book a Live Demo

@@ -100,8 +100,7 @@ export const INDUSTRY_DETAILS_MAP: Record<string, IndustryDetailContent> = {
     eyebrow: "01 — MANUFACTURING",
     
     heroHeadlineLines: [
-      "Engineering",
-      "Digital Growth",
+      "Engineering Digital Growth",
       "for Manufacturing."
     ],
     heroBody: "We build websites and digital solutions for manufacturing businesses that showcase your capabilities, build trust and generate real business opportunities.",

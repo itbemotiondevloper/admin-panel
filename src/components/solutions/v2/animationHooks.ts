@@ -13,35 +13,42 @@ export function useRevealLines(
     if (!ref.current) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    let ctx: any;
+    let isMounted = true;
+    let ctx: any = null;
     const init = async () => {
       const { gsap } = await import('gsap');
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       gsap.registerPlugin(ScrollTrigger);
 
-      const lines = ref.current!.querySelectorAll('[data-reveal-line]');
+      if (!isMounted || !ref.current) return;
+
+      const lines = ref.current.querySelectorAll('[data-reveal-line]');
       if (!lines.length) return;
 
-      gsap.set(lines, { y: '105%' });
-
       ctx = gsap.context(() => {
-        gsap.to(lines, {
-          y: '0%',
-          duration: 1.0,
-          ease: 'power4.out',
-          stagger: options?.stagger ?? 0.08,
-          delay: options?.delay ?? 0,
-          scrollTrigger: {
-            trigger: ref.current,
-            start: options?.start ?? 'top 80%',
-            once: true,
-          },
-        });
-      });
+        gsap.fromTo(lines, 
+          { y: '105%' },
+          {
+            y: '0%',
+            duration: 1.0,
+            ease: 'power4.out',
+            stagger: options?.stagger ?? 0.08,
+            delay: options?.delay ?? 0,
+            scrollTrigger: {
+              trigger: ref.current,
+              start: options?.start ?? 'top 80%',
+              once: true,
+            },
+          }
+        );
+      }, ref);
     };
 
     init();
-    return () => ctx?.revert();
+    return () => {
+      isMounted = false;
+      if (ctx) ctx.revert();
+    };
   }, [ref, options?.delay, options?.stagger, options?.start]);
 }
 
@@ -56,18 +63,19 @@ export function useScrollReveal(
     if (!ref.current) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    let ctx: any;
+    let isMounted = true;
+    let ctx: any = null;
     const init = async () => {
       const { gsap } = await import('gsap');
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       gsap.registerPlugin(ScrollTrigger);
 
-      gsap.set(ref.current, { opacity: 0, y: options?.y ?? 32 });
+      if (!isMounted || !ref.current) return;
 
       ctx = gsap.context(() => {
-        gsap.to(ref.current, {
-          opacity: 1,
-          y: 0,
+        gsap.from(ref.current, {
+          opacity: 0,
+          y: options?.y ?? 32,
           duration: options?.duration ?? 0.9,
           ease: 'power3.out',
           delay: options?.delay ?? 0,
@@ -77,11 +85,14 @@ export function useScrollReveal(
             once: true,
           },
         });
-      });
+      }, ref);
     };
 
     init();
-    return () => ctx?.revert();
+    return () => {
+      isMounted = false;
+      if (ctx) ctx.revert();
+    };
   }, [ref]);
 }
 

@@ -179,8 +179,11 @@ export const industriesPageService = {
     if (pageDataCache && !bypassCache) return pageDataCache;
     try {
       const docRef = doc(db, 'settings', 'industriesPage');
-      const snap = await getDoc(docRef);
-      if (snap.exists()) {
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('IndustriesPage fetch timeout')), 1000)
+      );
+      const snap = await Promise.race([getDoc(docRef), timeoutPromise]);
+      if (snap && snap.exists()) {
         const data = snap.data() as Partial<IndustriesPageData>;
         pageDataCache = {
           hero: {

@@ -23,7 +23,7 @@ export default function AboutHero() {
 
           <div className="flex flex-wrap gap-4 items-center pt-2">
             <Link
-              href="/request-demo"
+              href="/scan"
               className="inline-flex justify-center items-center text-center rounded-full bg-[#FF4F18] px-6 py-3 text-[15px] font-semibold text-white transition-all duration-200 hover:bg-[#E03F0D] shadow-[0_8px_20px_rgba(255,79,24,0.35)] hover:shadow-[0_10px_24px_rgba(255,79,24,0.45)] active:scale-[0.98] cursor-pointer"
             >
               Book a demo

@@ -115,11 +115,7 @@ export default function SolutionsRail() {
       <div ref={triggerRef} className="hidden lg:flex flex-col justify-between w-full h-screen max-h-screen pt-24 pb-12 box-border">
         <div className="max-w-[1440px] w-full mx-auto px-16 flex items-end justify-between shrink-0 mb-4">
           <div>
-            <div className="flex items-center gap-3 mb-3">
-              <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">01—05</span>
-              <span className="w-4 h-px bg-[#ccc]" />
-              <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">OUR SOLUTIONS</span>
-            </div>
+
             <h2
               className="text-[#111] font-bold leading-[0.95] tracking-[-0.04em]"
               style={{
@@ -218,11 +214,7 @@ export default function SolutionsRail() {
       {/* ── MOBILE VERTICAL FALLBACK (No scroll-jacking) ── */}
       <div className="block lg:hidden px-8 py-16">
         <div className="mb-10">
-          <div className="flex items-center gap-3 mb-3">
-            <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">01—05</span>
-            <span className="w-4 h-px bg-[#ccc]" />
-            <span className="text-[10px] font-semibold text-[#999] uppercase tracking-[0.18em]">OUR SOLUTIONS</span>
-          </div>
+
           <h2
             className="text-[#111] font-bold leading-[0.95] tracking-[-0.04em]"
             style={{

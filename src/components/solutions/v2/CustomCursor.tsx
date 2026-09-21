@@ -88,7 +88,7 @@ export default function CustomCursor() {
         aria-hidden
       >
         <div
-          className={`rounded-full bg-[#111] transition-all duration-150 ${isHovering ? 'opacity-0' : 'opacity-100'}`}
+          className={`rounded-full bg-[#111] dark:bg-white transition-all duration-150 ${isHovering ? 'opacity-0' : 'opacity-100'}`}
           style={{ width: 7, height: 7 }}
         />
       </div>
@@ -102,14 +102,14 @@ export default function CustomCursor() {
       >
         <div
           className={[
-            'rounded-full border border-[rgba(17,17,17,0.35)] flex items-center justify-center transition-all duration-300',
+            'rounded-full border border-[rgba(17,17,17,0.35)] dark:border-white/50 flex items-center justify-center transition-all duration-300',
             isHovering
-              ? 'w-14 h-14 bg-[#111] border-[#111]'
+              ? 'w-14 h-14 bg-[#111] dark:bg-white border-[#111] dark:border-white'
               : 'w-8 h-8 bg-transparent',
           ].join(' ')}
         >
           {isHovering && (
-            <span className="text-white text-[10px] font-semibold tracking-wider">
+            <span className="text-white dark:text-black text-[10px] font-semibold tracking-wider">
               {label || '→'}
             </span>
           )}

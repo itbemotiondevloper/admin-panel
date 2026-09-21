@@ -16,12 +16,14 @@ const geistMono = Geist_Mono({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  let settings;
+  let settings: any = null;
   try {
     const { settingsService } = await import('@/services/settings.service');
-    settings = await settingsService.getSettings(true);
+    // Fast timeout race to avoid 10s server hang on Firestore connection latency
+    const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve(null), 1200));
+    settings = await Promise.race([settingsService.getSettings(), timeoutPromise]);
   } catch (e) {
-    settings = { branding: { companyName: 'Quest For Tech', favicon: '/favicon1.png' } };
+    // Fail silently to default branding
   }
   const companyName = settings?.branding?.companyName || 'Quest For Tech';
   const siteTitle = settings?.branding?.siteTitle || `${companyName} - Digital Solutions`;

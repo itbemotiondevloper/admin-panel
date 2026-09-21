@@ -24,7 +24,7 @@ export default function DetailBusinessNeeds({ data }: { data: SolutionDetailData
       if (!trackRef.current || !triggerRef.current) return;
 
       const track = trackRef.current;
-      const getScrollAmount = () => -(track.scrollWidth - window.innerWidth + 120);
+      const getScrollAmount = () => -Math.max(0, track.scrollWidth - window.innerWidth + 120);
 
       ctx = gsap.context(() => {
         if (!triggerRef.current) return;

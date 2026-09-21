@@ -38,27 +38,80 @@ export interface PostPayload {
 
 export const postsService = {
   async getPosts(options?: { status?: 'Draft' | 'Published'; isFeatured?: boolean; contentType?: 'blog' | 'case-study'; limitCount?: number }) {
-    const ref = collection(db, 'posts');
-    let q = query(ref);
+    try {
+      const ref = collection(db, 'posts');
+      let q = query(ref);
 
-    if (options?.status) {
-      q = query(q, where('status', '==', options.status));
-    }
-    if (options?.isFeatured !== undefined) {
-      q = query(q, where('isFeatured', '==', options.isFeatured));
-    }
+      if (options?.status) {
+        q = query(q, where('status', '==', options.status));
+      }
+      if (options?.isFeatured !== undefined) {
+        q = query(q, where('isFeatured', '==', options.isFeatured));
+      }
 
-    const snapshot = await getDocs(q);
-    let list = snapshot.docs.map(doc => {
-      const data = doc.data() as any;
-      const createdAtDate = data.createdAt?.toDate ? data.createdAt.toDate() : new Date(data.createdAt || Date.now());
-      const contentType = data.contentType || 'blog';
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Firestore timeout')), 2500)
+      );
+      const snapshot = await Promise.race([getDocs(q), timeoutPromise]);
+      let list = snapshot.docs.map(doc => {
+        const data = doc.data() as any;
+        const createdAtDate = data.createdAt?.toDate ? data.createdAt.toDate() : new Date(data.createdAt || Date.now());
+        const contentType = data.contentType || 'blog';
+        return {
+          _id: doc.id,
+          id: doc.id,
+          ...data,
+          contentType,
+          createdAtDate,
+          category: {
+            _id: data.categoryId || '',
+            name: data.categoryName || 'Uncategorized'
+          },
+          author: {
+            _id: data.authorId || '',
+            name: data.authorName || 'Admin'
+          }
+        };
+      });
+
+      if (options?.contentType) {
+        if (options.contentType === 'case-study') {
+          list = list.filter(item => item.contentType === 'case-study');
+        } else {
+          list = list.filter(item => !item.contentType || item.contentType === 'blog');
+        }
+      }
+
+      // Sort descending by date
+      list.sort((a, b) => b.createdAtDate.getTime() - a.createdAtDate.getTime());
+
+      // Slice to match limit
+      if (options?.limitCount) {
+        return list.slice(0, options.limitCount);
+      }
+      return list;
+    } catch (e) {
+      return [];
+    }
+  },
+
+  async getPublishedPostBySlug(slug: string): Promise<any> {
+    try {
+      const ref = collection(db, 'posts');
+      const q = query(ref, where('slug', '==', slug), where('status', '==', 'Published'), limit(1));
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Firestore timeout')), 2500)
+      );
+      const snapshot = await Promise.race([getDocs(q), timeoutPromise]);
+      if (snapshot.empty) return null;
+      const docSnap = snapshot.docs[0];
+      const data = docSnap.data() as any;
       return {
-        _id: doc.id,
-        id: doc.id,
+        _id: docSnap.id,
+        id: docSnap.id,
         ...data,
-        contentType,
-        createdAtDate,
+        createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt,
+        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate().toISOString() : data.updatedAt,
         category: {
           _id: data.categoryId || '',
           name: data.categoryName || 'Uncategorized'
@@ -67,71 +120,39 @@ export const postsService = {
           _id: data.authorId || '',
           name: data.authorName || 'Admin'
         }
-      };
-    });
-
-    if (options?.contentType) {
-      if (options.contentType === 'case-study') {
-        list = list.filter(item => item.contentType === 'case-study');
-      } else {
-        list = list.filter(item => !item.contentType || item.contentType === 'blog');
-      }
+      } as any;
+    } catch (e) {
+      return null;
     }
-
-    // Sort descending by date
-    list.sort((a, b) => b.createdAtDate.getTime() - a.createdAtDate.getTime());
-
-    // Slice to match limit
-    if (options?.limitCount) {
-      return list.slice(0, options.limitCount);
-    }
-    return list;
-  },
-
-  async getPublishedPostBySlug(slug: string): Promise<any> {
-    const ref = collection(db, 'posts');
-    const q = query(ref, where('slug', '==', slug), where('status', '==', 'Published'), limit(1));
-    const snapshot = await getDocs(q);
-    if (snapshot.empty) return null;
-    const docSnap = snapshot.docs[0];
-    const data = docSnap.data() as any;
-    return {
-      _id: docSnap.id,
-      id: docSnap.id,
-      ...data,
-      createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt,
-      updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate().toISOString() : data.updatedAt,
-      category: {
-        _id: data.categoryId || '',
-        name: data.categoryName || 'Uncategorized'
-      },
-      author: {
-        _id: data.authorId || '',
-        name: data.authorName || 'Admin'
-      }
-    } as any;
   },
 
   async getPostById(id: string): Promise<any> {
-    const docRef = doc(db, 'posts', id);
-    const docSnap = await getDoc(docRef);
-    if (!docSnap.exists()) return null;
-    const data = docSnap.data() as any;
-    return {
-      _id: docSnap.id,
-      id: docSnap.id,
-      ...data,
-      createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt,
-      updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate().toISOString() : data.updatedAt,
-      category: {
-        _id: data.categoryId || '',
-        name: data.categoryName || 'Uncategorized'
-      },
-      author: {
-        _id: data.authorId || '',
-        name: data.authorName || 'Admin'
-      }
-    } as any;
+    try {
+      const docRef = doc(db, 'posts', id);
+      const timeoutPromise = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Firestore timeout')), 2500)
+      );
+      const docSnap = await Promise.race([getDoc(docRef), timeoutPromise]);
+      if (!docSnap.exists()) return null;
+      const data = docSnap.data() as any;
+      return {
+        _id: docSnap.id,
+        id: docSnap.id,
+        ...data,
+        createdAt: data.createdAt?.toDate ? data.createdAt.toDate().toISOString() : data.createdAt,
+        updatedAt: data.updatedAt?.toDate ? data.updatedAt.toDate().toISOString() : data.updatedAt,
+        category: {
+          _id: data.categoryId || '',
+          name: data.categoryName || 'Uncategorized'
+        },
+        author: {
+          _id: data.authorId || '',
+          name: data.authorName || 'Admin'
+        }
+      } as any;
+    } catch (e) {
+      return null;
+    }
   },
 
   async createPost(payload: PostPayload) {

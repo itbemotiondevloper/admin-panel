@@ -15,21 +15,29 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
   const sideTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let ctx: any = null;
     const run = async () => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const { gsap } = await import('gsap');
+      try {
+        const { gsap } = await import('gsap');
+        if (!heroRef.current) return;
 
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-      tl.fromTo(badgeRef.current, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5 }, 0.2)
-        .fromTo(h1Ref.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.9, ease: 'power4.out' }, 0.35)
-        .fromTo(bodyRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, 0.7)
-        .fromTo(ctaRef.current, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5 }, 0.9)
-        .fromTo(visualRef.current, { opacity: 0, scale: 0.97, y: 24 }, { opacity: 1, scale: 1, y: 0, duration: 1.1, ease: 'power4.out' }, 0.4)
-        .fromTo(sideTextRef.current, { opacity: 0 }, { opacity: 1, duration: 0.8 }, 1.1);
+        ctx = gsap.context(() => {
+          gsap.fromTo(
+            [badgeRef.current, h1Ref.current, bodyRef.current, ctaRef.current, visualRef.current],
+            { y: 15, opacity: 0.9 },
+            { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: 'power2.out' }
+          );
+        }, heroRef);
+      } catch (err) {
+        // Silently continue without animations
+      }
     };
 
     run();
+    return () => {
+      if (ctx) ctx.revert();
+    };
   }, [data]);
 
   return (
@@ -42,7 +50,7 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
       {/* Right Edge Vertical Annotation — Matches Approved Design Header Right */}
       <div
         ref={sideTextRef}
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 hidden xl:flex flex-col items-center gap-6 opacity-0"
+        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 hidden xl:flex flex-col items-center gap-6"
         aria-hidden
       >
         <div className="flex flex-col items-center gap-1 text-right">
@@ -82,7 +90,7 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
           {/* ── LEFT COLUMN (~45% Width) — Matches Approved Typography Layout ── */}
           <div className="lg:col-span-6 xl:col-span-5 flex flex-col z-10">
             {/* Eyebrow */}
-            <div ref={badgeRef} className="flex items-center gap-3 mb-6 opacity-0">
+            <div ref={badgeRef} className="flex items-center gap-3 mb-6">
               <span className="w-4 h-px bg-[#111]" />
               <span
                 className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#777]"
@@ -95,7 +103,7 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
             {/* Headline with 4 lines matching approved reference image */}
             <h1
               ref={h1Ref}
-              className="opacity-0 font-bold text-[#111] leading-[0.93] tracking-[-0.04em] mb-6"
+              className="font-bold text-[#111] leading-[0.93] tracking-[-0.04em] mb-6"
               style={{
                 fontSize: 'clamp(52px, 6vw, 104px)',
                 fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif',
@@ -109,7 +117,7 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
             </h1>
 
             {/* Supporting Copy */}
-            <div ref={bodyRef} className="opacity-0 mb-8 max-w-[420px]">
+            <div ref={bodyRef} className="mb-8 max-w-[420px]">
               <p
                 className="text-[15.5px] leading-relaxed text-[#676767]"
                 style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}
@@ -119,7 +127,7 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
             </div>
 
             {/* CTAs */}
-            <div ref={ctaRef} className="opacity-0 flex flex-col gap-6">
+            <div ref={ctaRef} className="flex flex-col gap-6">
               <div className="flex flex-wrap items-center gap-4">
                 <Link
                   href="/contact"
@@ -165,7 +173,7 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
           </div>
 
           {/* ── RIGHT COLUMN — Physical Concrete Plinth & Laptop/Phone Device Mockup ── */}
-          <div ref={visualRef} className="lg:col-span-6 xl:col-span-7 relative flex items-center justify-center opacity-0 mt-6 lg:mt-0">
+          <div ref={visualRef} className="lg:col-span-6 xl:col-span-7 relative flex items-center justify-center mt-6 lg:mt-0">
             <div className="relative w-full max-w-[620px] aspect-[4/3] flex items-center justify-center">
               
               {/* Studio Concrete / Stone Plinth Base (Matches Approved Photography) */}

@@ -24,9 +24,18 @@ export async function generateMetadata({ params }: RouteProps): Promise<Metadata
   };
 }
 
-export const dynamic = 'force-dynamic';
+export async function generateStaticParams() {
+  return [
+    { slug: 'website-development' },
+    { slug: 'search-engine-optimization' },
+    { slug: 'content-strategy-creation' },
+    { slug: 'performance-marketing' },
+    { slug: 'custom-technology-development' },
+  ];
+}
 
 export default async function Page({ params }: RouteProps) {
-  const { slug } = await params;
+  const resolvedParams = await params;
+  const slug = resolvedParams?.slug || 'website-development';
   return <SolutionDetailTemplate slug={slug} />;
 }

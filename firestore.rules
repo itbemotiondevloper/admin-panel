@@ -105,6 +105,12 @@ service cloud.firestore {
       allow write: if hasPermission("manage_solutions") || hasPermission("manage_blogs") || hasPermission("manage_users");
     }
 
+    // Pages (Privacy, Terms, Custom Pages) rules
+    match /pages/{pageId} {
+      allow read: if true;
+      allow write: if hasPermission("manage_blogs") || hasPermission("manage_users") || hasPermission("manage_solutions") || hasPermission("manage_seo");
+    }
+
     // Helper functions for validation
     function isRequiredString(val, maxLen) {
       return val is string && val.size() > 0 && val.size() <= maxLen;
@@ -121,15 +127,9 @@ service cloud.firestore {
     // Contact Messages rules
     match /contactMessages/{messageId} {
       allow create: if
-        request.resource.data.keys().hasOnly([
-          "name", "phone", "email", "businessName", "category", "purpose", "message", "status", "createdAt", "updatedAt"
-        ]) &&
         isRequiredString(request.resource.data.name, 100) &&
-        isRequiredString(request.resource.data.phone, 20) &&
+        isRequiredString(request.resource.data.phone, 30) &&
         isRequiredString(request.resource.data.email, 120) &&
-        isRequiredString(request.resource.data.businessName, 150) &&
-        isOptionalString(request.resource.data.category, 100) &&
-        isRequiredString(request.resource.data.purpose, 100) &&
         isRequiredString(request.resource.data.message, 2000) &&
         request.resource.data.status == "New" &&
         request.resource.data.createdAt == request.time &&
@@ -147,22 +147,15 @@ service cloud.firestore {
         (request.resource.data.lastContactedDate == null || request.resource.data.lastContactedDate is timestamp) &&
         request.resource.data.updatedAt == request.time;
 
-      allow delete: if false;
+      allow delete: if hasPermission("manage_contacts");
     }
 
-    // Demo Requests rules
+    // Demo / Scan Requests rules
     match /demoRequests/{requestId} {
       allow create: if
-        request.resource.data.keys().hasOnly([
-          "name", "phone", "email", "businessName", "category", "purpose", "message", "status", "createdAt", "updatedAt"
-        ]) &&
         isRequiredString(request.resource.data.name, 100) &&
-        isRequiredString(request.resource.data.phone, 20) &&
+        isRequiredString(request.resource.data.phone, 30) &&
         isRequiredString(request.resource.data.email, 120) &&
-        isRequiredString(request.resource.data.businessName, 150) &&
-        isOptionalString(request.resource.data.category, 100) &&
-        isRequiredString(request.resource.data.purpose, 100) &&
-        isRequiredString(request.resource.data.message, 2000) &&
         request.resource.data.status == "New" &&
         request.resource.data.createdAt == request.time &&
         request.resource.data.updatedAt == request.time;
@@ -179,7 +172,7 @@ service cloud.firestore {
         (request.resource.data.lastContactedDate == null || request.resource.data.lastContactedDate is timestamp) &&
         request.resource.data.updatedAt == request.time;
 
-      allow delete: if false;
+      allow delete: if hasPermission("manage_leads");
     }
 
     // Updates/Announcements rules

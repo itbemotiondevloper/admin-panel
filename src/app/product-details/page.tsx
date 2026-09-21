@@ -194,10 +194,10 @@ export default function ProductDetailsPage() {
             </h2>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                href="/request-demo"
+                href="/scan"
                 className="w-full sm:w-auto inline-flex justify-center items-center rounded-full bg-[#FF4F18] px-8 py-3.5 text-[15px] font-bold text-white transition-all hover:bg-[#E03F0D] shadow-[0_8px_20px_rgba(255,79,24,0.3)] active:scale-[0.98]"
               >
-                Request a Demo
+                Get Started
               </Link>
               <Link
                 href="/contact"
