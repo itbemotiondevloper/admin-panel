@@ -23,6 +23,26 @@ service cloud.firestore {
         );
     }
 
+    // Helper functions for string and status validation
+    function isRequiredString(val, maxLen) {
+      return val is string && val.size() > 0 && val.size() <= maxLen;
+    }
+
+    function isOptionalString(val, maxLen) {
+      return val is string && val.size() <= maxLen;
+    }
+
+    function isValidLeadStatus(val) {
+      return val in ["New", "Contacted", "In Progress", "Qualified", "Closed", "Lost", "Not Interested", "Resolved"];
+    }
+
+    // Helper to validate comment blog post
+    function isValidCommentPost(postId, postTitle) {
+      return exists(/databases/$(database)/documents/posts/$(postId)) &&
+             get(/databases/$(database)/documents/posts/$(postId)).data.status == "Published" &&
+             get(/databases/$(database)/documents/posts/$(postId)).data.title == postTitle;
+    }
+
     // Roles rules
     match /roles/{roleId} {
       // Accessible by admins, and only to own role for regular users
@@ -111,19 +131,6 @@ service cloud.firestore {
       allow write: if hasPermission("manage_blogs") || hasPermission("manage_users") || hasPermission("manage_solutions") || hasPermission("manage_seo");
     }
 
-    // Helper functions for validation
-    function isRequiredString(val, maxLen) {
-      return val is string && val.size() > 0 && val.size() <= maxLen;
-    }
-
-    function isOptionalString(val, maxLen) {
-      return val is string && val.size() <= maxLen;
-    }
-
-    function isValidLeadStatus(val) {
-      return val in ["New", "Contacted", "In Progress", "Qualified", "Closed", "Lost", "Not Interested", "Resolved"];
-    }
-
     // Contact Messages rules
     match /contactMessages/{messageId} {
       allow create: if
@@ -207,13 +214,6 @@ service cloud.firestore {
         request.resource.data.updatedAt == request.time;
 
       allow delete: if hasPermission("manage_blogs");
-    }
-
-    // Helper to validate comment blog post
-    function isValidCommentPost(postId, postTitle) {
-      return exists(/databases/$(database)/documents/posts/$(postId)) &&
-             get(/databases/$(database)/documents/posts/$(postId)).data.status == "Published" &&
-             get(/databases/$(database)/documents/posts/$(postId)).data.title == postTitle;
     }
 
     // Comments collection rules
