@@ -23,7 +23,7 @@ export default function DynamicIndustryDetailPage() {
   const data = INDUSTRY_DETAILS_MAP[slug.toLowerCase()] || INDUSTRY_DETAILS_MAP['manufacturing'];
 
   return (
-    <main className="qft-editorial-light min-h-screen bg-[#F8F8F5] text-[#111111] font-sans antialiased selection:bg-[#111111] selection:text-white">
+    <main className="qft-editorial-light min-h-screen bg-white text-[#111111] font-sans antialiased selection:bg-[#111111] selection:text-white">
       {/* 1. NAVBAR */}
       <Header />
 

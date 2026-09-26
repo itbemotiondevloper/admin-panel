@@ -37,6 +37,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (firebaseUser) {
         setUser(firebaseUser);
         
+        firebaseUser.getIdToken().then((tok) => {
+          localStorage.setItem('admin_token', tok);
+        }).catch(console.error);
+        
         if (firebaseUser.isAnonymous) {
           setProfile(null);
           setLoading(false);

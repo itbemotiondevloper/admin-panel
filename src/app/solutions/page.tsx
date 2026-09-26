@@ -34,7 +34,7 @@ export default function SolutionsPage() {
       {/* Navigation */}
       <Header />
 
-      <main id="main-content" className="bg-[#F8F8F5]">
+      <main id="main-content" className="bg-white">
         {/* 00 — Hero */}
         <SolutionsHero />
 

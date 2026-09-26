@@ -7,7 +7,7 @@ import { settingsService } from '@/services/settings.service';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [theme, setTheme] = useState<'light' | 'dark'>('dark');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
   const [logoBlack, setLogoBlack] = useState('/logo2.png');
   const [logoWhite, setLogoWhite] = useState('/logo1.png');
@@ -15,9 +15,8 @@ export default function Header() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Force dark theme as default for the new sleek look if not set
     const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    const activeTheme = savedTheme || 'dark';
+    const activeTheme = savedTheme || 'light';
     if (activeTheme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {

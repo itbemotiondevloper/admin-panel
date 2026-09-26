@@ -44,7 +44,7 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
     <section
       ref={heroRef}
       id="hero"
-      className="relative w-full bg-[#F8F8F5] py-20 lg:py-28 min-h-[90vh] flex flex-col justify-center border-b border-[rgba(17,17,17,0.06)] overflow-hidden"
+      className="relative w-full bg-white py-20 lg:py-28 min-h-[90vh] flex flex-col justify-center border-b border-[rgba(17,17,17,0.06)] overflow-hidden"
       aria-label={data.badge}
     >
       {/* Right Edge Vertical Annotation — Matches Approved Design Header Right */}
@@ -156,7 +156,7 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
                   {['#111111', '#555555', '#D4C5A9', '#999999'].map((color, idx) => (
                     <div
                       key={idx}
-                      className="w-5 h-5 rounded-full border-2 border-[#F8F8F5]"
+                      className="w-5 h-5 rounded-full border-2 border-white"
                       style={{ background: color }}
                     />
                   ))}
@@ -182,7 +182,7 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
               {/* Physical Silver Laptop Frame Mockup */}
               <div className="relative z-10 w-[88%] aspect-[16/10] bg-[#0A0A0A] rounded-xl p-2 shadow-2xl border border-white/20 transform rotate-[1deg] transition-transform duration-500 hover:scale-[1.01]">
                 {/* Screen bezel */}
-                <div className="relative w-full h-full rounded-lg overflow-hidden bg-[#F8F8F5]">
+                <div className="relative w-full h-full rounded-lg overflow-hidden bg-white">
                   <Image
                     src="/hero-device.jpg"
                     alt="Quest For Tech — Websites That Work for Your Business"
@@ -196,7 +196,7 @@ export default function DetailHero({ data }: { data: SolutionDetailData }) {
 
               {/* Overlapping Mobile Smartphone Device (Right) */}
               <div className="absolute -bottom-1 right-2 sm:right-6 w-[150px] sm:w-[175px] aspect-[9/18] rounded-[22px] bg-[#0A0A0A] p-2 shadow-2xl border border-white/20 z-20 transform rotate-[-2deg] transition-transform duration-500 hover:rotate-[0deg]">
-                <div className="relative w-full h-full rounded-[16px] overflow-hidden bg-[#F8F8F5]">
+                <div className="relative w-full h-full rounded-[16px] overflow-hidden bg-white">
                   <Image
                     src="/svc-web.jpg"
                     alt="Responsive Mobile Web UX"

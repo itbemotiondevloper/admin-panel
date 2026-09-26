@@ -39,7 +39,7 @@ export default function SolutionDetailTemplate({
       {/* Solutions Navigation */}
       <Header />
 
-      <main id="main-content" className="bg-[#F8F8F5]">
+      <main id="main-content" className="bg-white">
         {/* 01 — HERO SECTION */}
         <DetailHero data={data} />
 

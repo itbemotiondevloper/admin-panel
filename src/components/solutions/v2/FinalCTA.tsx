@@ -68,7 +68,7 @@ export default function FinalCTA() {
   return (
     <section
       id="cta"
-      className="w-full bg-[#F8F8F5] py-24 md:py-32 overflow-hidden border-t border-[rgba(17,17,17,0.06)]"
+      className="w-full bg-white py-24 md:py-32 overflow-hidden border-t border-[rgba(17,17,17,0.06)]"
       aria-label="Let's Talk"
     >
       <div className="max-w-[1440px] mx-auto px-8 lg:px-16">

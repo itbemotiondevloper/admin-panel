@@ -112,13 +112,13 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8F8F5] text-[#111111] transition-colors duration-300 flex flex-col font-sans relative">
+    <div className="min-h-screen bg-white text-[#111111] transition-colors duration-300 flex flex-col font-sans relative">
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 z-50">
         <Header />
       </div>
 
-      <main className="flex-1 w-full bg-[#F8F8F5] text-[#111111] transition-colors duration-300">
+      <main className="flex-1 w-full bg-white text-[#111111] transition-colors duration-300">
 
         {/* Cinematic Video Hero Section */}
         <section className="relative w-full h-[45vh] md:h-[65vh] md:min-h-[440px] flex items-center justify-center overflow-hidden bg-zinc-950">
@@ -155,7 +155,7 @@ export default function ContactPage() {
               </video>
             )}
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-[#F8F8F5] via-transparent to-black/40 z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-black/40 z-10 pointer-events-none" />
           <div className="relative z-20 text-center px-4 max-w-2xl">
             <span className="inline-block px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/20 backdrop-blur-md text-white border border-white/20 mb-3">
               Get in Touch

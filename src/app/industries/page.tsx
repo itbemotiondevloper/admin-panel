@@ -20,7 +20,7 @@ export default function IndustriesPage() {
 
       <Header />
 
-      <main id="main-content" className="qft-editorial-light min-h-screen bg-[#F8F8F5] text-[#111111] font-sans antialiased selection:bg-[#111111] selection:text-white">
+      <main id="main-content" className="qft-editorial-light min-h-screen bg-white text-[#111111] font-sans antialiased selection:bg-[#111111] selection:text-white">
         {/* 1. HERO */}
         <IndustryHero />
 

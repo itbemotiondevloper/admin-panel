@@ -9,7 +9,7 @@ export default function DetailFinalCTA({ data }: { data: SolutionDetailData }) {
   return (
     <section
       id="final-cta"
-      className="w-full bg-[#F8F8F5] py-20 md:py-28 overflow-hidden border-t border-[rgba(17,17,17,0.06)]"
+      className="w-full bg-white py-20 md:py-28 overflow-hidden border-t border-[rgba(17,17,17,0.06)]"
       aria-label="Let's Build"
     >
       <div className="max-w-[1440px] mx-auto px-8 lg:px-16">

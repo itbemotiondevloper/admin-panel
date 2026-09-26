@@ -64,7 +64,7 @@ export default function SolutionsNav() {
           'fixed top-0 left-0 right-0 z-50 transition-all duration-500 will-change-transform',
           hidden ? '-translate-y-full' : 'translate-y-0',
           scrolled
-            ? 'py-3.5 bg-[#F8F8F5]/85 backdrop-blur-md border-b border-[rgba(17,17,17,0.06)] shadow-xs'
+            ? 'py-3.5 bg-white/85 backdrop-blur-md border-b border-[rgba(17,17,17,0.06)] shadow-xs'
             : 'py-6 bg-transparent',
         ].join(' ')}
       >
@@ -140,7 +140,7 @@ export default function SolutionsNav() {
       {/* Mobile menu */}
       <div
         className={[
-          'fixed inset-0 z-40 bg-[#F8F8F5] flex flex-col px-8 pt-24 pb-12 md:hidden transition-all duration-500',
+          'fixed inset-0 z-40 bg-white flex flex-col px-8 pt-24 pb-12 md:hidden transition-all duration-500',
           mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
         ].join(' ')}
         aria-hidden={!mobileOpen}

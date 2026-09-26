@@ -62,7 +62,7 @@ export default function IndustryGrid() {
     <section
       ref={sectionRef}
       id="industries-grid"
-      className="w-full bg-[#F8F8F5] text-[#111111] border-b border-[#111111]/10 overflow-hidden relative"
+      className="w-full bg-white text-[#111111] border-b border-[#111111]/10 overflow-hidden relative"
       aria-label="Built Around Your Industry"
     >
       {/* ── DESKTOP PINNED HORIZONTAL RAIL CONTAINER ── */}

@@ -16,7 +16,7 @@ const NAV = [
 export default function SolutionsFooter() {
   return (
     <footer
-      className="w-full bg-[#F8F8F5] border-t border-[rgba(17,17,17,0.08)] py-6"
+      className="w-full bg-white border-t border-[rgba(17,17,17,0.08)] py-6"
       role="contentinfo"
     >
       <div className="max-w-[1440px] mx-auto px-8 lg:px-16">

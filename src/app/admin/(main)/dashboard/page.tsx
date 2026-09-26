@@ -201,11 +201,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
 
   useEffect(() => {
     setData([]); // Clear old tab data to prevent rendering mismatch crashes
-    const token = localStorage.getItem('admin_token');
-    if (!token) {
-      window.location.href = '/admin/login';
-      return;
-    }
+    const token = localStorage.getItem('admin_token') || '';
 
     // Verify tab permissions
     const cachedPerms = localStorage.getItem('admin_permissions');

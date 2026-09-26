@@ -259,14 +259,13 @@ export default function SeoPagesList() {
 
                     {/* Action Button - ALWAYS VISIBLE */}
                     <td className="px-6 py-4 text-right">
-                      <button 
-                        type="button"
-                        onClick={() => openModal(page)}
+                      <Link 
+                        href={`/admin/seo/editor/${page.pageType}?id=${page._id}&url=${encodeURIComponent(page.url)}&name=${encodeURIComponent(page.name)}`}
                         className="inline-flex items-center gap-1.5 whitespace-nowrap text-zinc-900 dark:text-white hover:text-white dark:hover:text-zinc-950 font-extrabold border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-900 dark:hover:bg-zinc-100 px-3.5 py-1.5 rounded-xl transition-all duration-200 text-xs cursor-pointer shadow-xs"
                       >
                         <Edit3 size={13} />
                         <span>Edit SEO</span>
-                      </button>
+                      </Link>
                     </td>
                   </tr>
                 );

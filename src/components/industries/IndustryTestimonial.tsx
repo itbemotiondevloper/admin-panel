@@ -9,7 +9,7 @@ export default function IndustryTestimonial() {
   const { item } = testimonial;
 
   return (
-    <section className="py-20 sm:py-24 lg:py-28 bg-[#F8F8F5] text-[#111111] border-b border-[#111111]/10">
+    <section className="py-20 sm:py-24 lg:py-28 bg-white text-[#111111] border-b border-[#111111]/10">
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16">
         
         {/* EYEBROW */}

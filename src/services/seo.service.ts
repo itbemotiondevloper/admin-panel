@@ -31,10 +31,13 @@ export type SeoForm = {
   description: string;
   keywords: string[];
   canonicalUrl: string;
+  slug?: string;
   robotsIndex: 'index' | 'noindex';
   robotsFollow: 'follow' | 'nofollow';
   openGraph: { title: string; description: string; image: string };
   twitterCard: { title: string; description: string; image: string };
+  schemaType?: string;
+  schemaData?: any;
 };
 
 const DEFAULT_WEBSITE_PAGES: Array<{ id: string; name: string; url: string; pageType: 'Page' | 'Post' | 'Solution'; slug: string }> = [
@@ -177,10 +180,13 @@ export const seoService = {
         description: seoForm.description,
         keywords: seoForm.keywords,
         canonicalUrl: seoForm.canonicalUrl,
+        slug: seoForm.slug || '',
         robotsIndex: seoForm.robotsIndex,
         robotsFollow: seoForm.robotsFollow,
         openGraph: seoForm.openGraph,
-        twitterCard: seoForm.twitterCard
+        twitterCard: seoForm.twitterCard,
+        schemaType: seoForm.schemaType || 'None',
+        schemaData: seoForm.schemaData || ''
       };
 
       return updateDoc(docRef, {

@@ -7,7 +7,7 @@ import { IndustryDetailContent } from './industryDetailData';
 
 export default function IndDetailCaseStudy({ data }: { data: IndustryDetailContent }) {
   return (
-    <section className="py-24 sm:py-28 lg:py-32 bg-[#F8F8F5] text-[#111111] border-b border-[#111111]/10">
+    <section className="py-24 sm:py-28 lg:py-32 bg-white text-[#111111] border-b border-[#111111]/10">
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16">
         
         {/* SECTION HEADER */}

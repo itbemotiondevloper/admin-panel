@@ -69,7 +69,7 @@ export default function IndustryHero() {
   return (
     <section
       ref={heroRef}
-      className="relative pt-24 pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24 bg-[#F8F8F5] text-[#111111] overflow-hidden border-b border-[#111111]/10"
+      className="relative pt-24 pb-16 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24 bg-white text-[#111111] overflow-hidden border-b border-[#111111]/10"
     >
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-12 items-center">

@@ -108,7 +108,7 @@ export default function SolutionsRail() {
     <section
       ref={sectionRef}
       id="solutions"
-      className="w-full bg-[#F8F8F5] relative overflow-hidden"
+      className="w-full bg-white relative overflow-hidden"
       aria-label="Our Solutions"
     >
       {/* ── DESKTOP PINNED HORIZONTAL RAIL CONTAINER ── */}

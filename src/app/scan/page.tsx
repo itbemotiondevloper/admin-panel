@@ -19,13 +19,13 @@ export async function generateMetadata() {
 
 export default function ScanPage() {
   return (
-    <div className="min-h-screen bg-[#F8F8F5] dark:bg-[#08080a] transition-colors duration-300 flex flex-col font-sans relative">
+    <div className="min-h-screen bg-white dark:bg-[#08080a] transition-colors duration-300 flex flex-col font-sans relative">
       {/* Header Overlay */}
       <div className="absolute top-0 left-0 right-0 z-50">
         <Header />
       </div>
 
-      <main className="flex-1 w-full bg-[#F8F8F5] dark:bg-[#08080a] text-[#111111] dark:text-zinc-100 transition-colors duration-300">
+      <main className="flex-1 w-full bg-white dark:bg-[#08080a] text-[#111111] dark:text-zinc-100 transition-colors duration-300">
         {/* Cinematic Video Hero */}
         <DemoHero />
 

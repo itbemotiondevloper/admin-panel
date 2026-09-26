@@ -9,7 +9,7 @@ export default function IndustryFinalCTA() {
   const { finalCta } = INDUSTRIES_PAGE_DATA;
 
   return (
-    <section className="relative py-24 sm:py-28 lg:py-36 bg-[#F8F8F5] text-[#111111] overflow-hidden border-b border-[#111111]/10">
+    <section className="relative py-24 sm:py-28 lg:py-36 bg-white text-[#111111] overflow-hidden border-b border-[#111111]/10">
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
           

@@ -102,7 +102,7 @@ export default function SolutionsHero() {
     <section
       ref={heroRef}
       id="hero"
-      className="relative w-full bg-[#F8F8F5] min-h-[140vh] border-b border-[rgba(17,17,17,0.06)]"
+      className="relative w-full bg-white min-h-[140vh] border-b border-[rgba(17,17,17,0.06)]"
       aria-label="Ideas to Impact"
     >
       <div ref={stickyRef} className="sticky top-0 w-full min-h-[100vh] flex flex-col justify-center overflow-hidden">
@@ -199,7 +199,7 @@ export default function SolutionsHero() {
                     {['#111111', '#A78BFA', '#D4C5A9', '#888888'].map((bg, i) => (
                       <div
                         key={i}
-                        className="w-6 h-6 rounded-full border-2 border-[#F8F8F5]"
+                        className="w-6 h-6 rounded-full border-2 border-white"
                         style={{ background: bg }}
                       />
                     ))}
@@ -281,7 +281,7 @@ export default function SolutionsHero() {
                   </div>
 
                   {/* Visual container */}
-                  <div className="relative w-full h-[calc(100%-37px)] bg-[#F8F8F5]">
+                  <div className="relative w-full h-[calc(100%-37px)] bg-white">
                     <Image
                       src="/hero-digital-ecosystem.jpg"
                       alt="Quest For Tech Layered Digital Ecosystem — Strategy, Web, SEO, Performance and Custom Systems"

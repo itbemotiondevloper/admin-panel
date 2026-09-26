@@ -208,7 +208,7 @@ export default function WhyQuest() {
   return (
     <section
       id="why"
-      className="w-full bg-[#F8F8F5] dark:bg-[#0D0D0E] py-8 lg:py-12 border-b border-zinc-200 dark:border-zinc-800/80 overflow-hidden flex flex-col justify-center"
+      className="w-full bg-white dark:bg-[#0D0D0E] py-8 lg:py-12 border-b border-zinc-200 dark:border-zinc-800/80 overflow-hidden flex flex-col justify-center"
       aria-label="Why Quest For Tech"
     >
       <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-16 w-full">

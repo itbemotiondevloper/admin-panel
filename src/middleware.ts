@@ -1,27 +1,59 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-export async function middleware(request: NextRequest) {
-  try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-    if (apiUrl) {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 400);
+function normalizePath(path: string): string {
+  if (!path) return '/';
+  const trimmed = path.trim().toLowerCase();
+  if (trimmed.length > 1 && trimmed.endsWith('/')) {
+    return trimmed.slice(0, -1);
+  }
+  return trimmed;
+}
 
-      const res = await fetch(`${apiUrl}/redirects/public`, {
-        signal: controller.signal,
-        next: { revalidate: 60 }
+export async function middleware(request: NextRequest) {
+  const currentPath = request.nextUrl.pathname;
+
+  // Don't intercept admin panel or API paths for public redirects
+  if (currentPath.startsWith('/admin') || currentPath.startsWith('/api')) {
+    return NextResponse.next();
+  }
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 1500);
+
+    const redirectApiUrl = new URL('/api/redirects', request.url);
+    const res = await fetch(redirectApiUrl.toString(), {
+      signal: controller.signal,
+      next: { revalidate: 30 }
+    });
+    clearTimeout(timeoutId);
+
+    if (res.ok) {
+      const data = await res.json();
+      const redirects: any[] = Array.isArray(data) ? data : (data.data || []);
+      const normalizedCurrent = normalizePath(currentPath);
+
+      const redirectMatch = redirects.find((r: any) => {
+        const isRuleActive = r.status ? r.status === 'active' : r.isEnabled !== false;
+        if (!isRuleActive) return false;
+
+        const source = r.sourceUrl || r.oldUrl;
+        if (!source) return false;
+
+        const normalizedSource = normalizePath(source);
+        return normalizedSource === normalizedCurrent || source === currentPath;
       });
-      clearTimeout(timeoutId);
-      
-      if (res.ok) {
-        const data = await res.json();
-        const redirects = data.data || [];
-        const currentPath = request.nextUrl.pathname;
-        const redirectMatch = redirects.find((r: any) => r.oldUrl === currentPath && r.isEnabled);
-        
-        if (redirectMatch) {
-          return NextResponse.redirect(new URL(redirectMatch.newUrl, request.url), redirectMatch.status || 301);
+
+      if (redirectMatch) {
+        const dest = redirectMatch.destinationUrl || redirectMatch.newUrl;
+        if (dest) {
+          const statusCode = Number(redirectMatch.type || redirectMatch.status) === 302 ? 302 : 301;
+          const destUrl = (dest.startsWith('http://') || dest.startsWith('https://'))
+            ? new URL(dest)
+            : new URL(dest.startsWith('/') ? dest : `/${dest}`, request.url);
+
+          return NextResponse.redirect(destUrl, statusCode);
         }
       }
     }
@@ -39,9 +71,10 @@ export const config = {
      * - api (API routes)
      * - _next/static (static files)
      * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
+     * - favicon.ico, sitemap.xml, robots.txt
+     * - static asset extensions (.png, .jpg, .svg, .webp, etc.)
      * - hybridaction (browser extension trackers)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|hybridaction).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|llm.txt|hybridaction|.*\\.(?:png|jpg|jpeg|gif|svg|webp|ico|css|js)$).*)',
   ],
 };

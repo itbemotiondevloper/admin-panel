@@ -118,7 +118,7 @@ export default function DetailWebsiteAnatomy({ data }: { data: SolutionDetailDat
   return (
     <section
       id="anatomy"
-      className="w-full bg-[#F8F8F5] dark:bg-[#0d0d0e] py-16 md:py-24 border-b border-[rgba(17,17,17,0.06)] dark:border-zinc-800/60 transition-colors duration-300 relative overflow-hidden"
+      className="w-full bg-white dark:bg-[#0d0d0e] py-16 md:py-24 border-b border-[rgba(17,17,17,0.06)] dark:border-zinc-800/60 transition-colors duration-300 relative overflow-hidden"
       aria-label="Strategy, Design & Technology In Sync"
     >
       <div className="max-w-[1440px] mx-auto px-6 sm:px-8 lg:px-16 relative z-10">

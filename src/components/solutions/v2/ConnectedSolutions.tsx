@@ -184,7 +184,7 @@ export default function ConnectedSolutions() {
     <section
       ref={sectionRef}
       id="connected"
-      className="w-full bg-[#F8F8F5] py-24 md:py-32 border-b border-[rgba(17,17,17,0.06)]"
+      className="w-full bg-white py-24 md:py-32 border-b border-[rgba(17,17,17,0.06)]"
       aria-label="Solutions That Work Together"
     >
       <div className="max-w-[1440px] mx-auto px-8 lg:px-16">

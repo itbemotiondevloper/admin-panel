@@ -60,7 +60,7 @@ export default function DetailBusinessNeeds({ data }: { data: SolutionDetailData
     <section
       ref={sectionRef}
       id="business-needs"
-      className="w-full bg-[#F8F8F5] relative overflow-hidden border-b border-[rgba(17,17,17,0.06)]"
+      className="w-full bg-white relative overflow-hidden border-b border-[rgba(17,17,17,0.06)]"
       aria-label="Websites for Every Business Need"
     >
       {/* ── DESKTOP PINNED HORIZONTAL RAIL CONTAINER ── */}

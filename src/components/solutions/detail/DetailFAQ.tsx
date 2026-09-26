@@ -14,7 +14,7 @@ export default function DetailFAQ({ data }: { data: SolutionDetailData }) {
   return (
     <section
       id="faq"
-      className="w-full bg-[#F8F8F5] py-20 md:py-28 border-b border-[rgba(17,17,17,0.06)] overflow-hidden"
+      className="w-full bg-white py-20 md:py-28 border-b border-[rgba(17,17,17,0.06)] overflow-hidden"
       aria-label="Frequently Asked Questions"
     >
       <div className="max-w-[1440px] mx-auto px-8 lg:px-16">

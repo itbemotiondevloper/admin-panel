@@ -18,9 +18,21 @@
 }
 
 body {
-  background: var(--background);
+  background: #ffffff !important;
+  background-color: #ffffff !important;
   color: var(--foreground);
   font-family: var(--font-plus-jakarta-sans), sans-serif;
+}
+
+/* Force pure white background for all light theme pages and editorial containers */
+html:not(.dark),
+html:not(.dark) body,
+html:not(.dark) .bg-\[\#F8F8F5\],
+html:not(.dark) .bg-\[\#FAF6F0\],
+html:not(.dark) .bg-\[\#F8F9FA\],
+html:not(.dark) .qft-editorial-light {
+  background-color: #ffffff !important;
+  background: #ffffff !important;
 }
 
 /* Dark Mode Styles & Overrides */
@@ -287,7 +299,7 @@ html.lenis { height: auto; }
 
 /* Minimal scrollbar */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #F8F8F5; }
+::-webkit-scrollbar-track { background: #ffffff; }
 ::-webkit-scrollbar-thumb { background: rgba(17,17,17,0.15); border-radius: 2px; }
 
 /* Prevent overflow on solutions */

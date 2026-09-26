@@ -79,7 +79,7 @@ export default function ApproachTimeline() {
     <section
       ref={sectionRef}
       id="approach"
-      className="relative w-full bg-[#F8F8F5] border-b border-[rgba(17,17,17,0.06)]"
+      className="relative w-full bg-white border-b border-[rgba(17,17,17,0.06)]"
       aria-label="Our Approach"
     >
       {/* Pinned Container for GSAP ScrollTrigger */}

@@ -54,7 +54,7 @@ export default function CaseStudiesListingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#F8F8F5] text-[#111111] transition-colors duration-300 flex flex-col justify-between font-sans">
+    <div className="min-h-screen bg-white text-[#111111] transition-colors duration-300 flex flex-col justify-between font-sans">
       <div>
         <Header />
         
