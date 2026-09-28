@@ -97,7 +97,7 @@ export default function DetailBusinessNeeds({ data }: { data: SolutionDetailData
             </p>
             <div className="flex items-center gap-4">
               <Link
-                href="/solutions"
+                href="/services"
                 className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-[#111] hover:text-[#A78BFA] transition-colors duration-200"
                 style={{ fontFamily: 'var(--font-plus-jakarta-sans), Inter, sans-serif' }}
               >

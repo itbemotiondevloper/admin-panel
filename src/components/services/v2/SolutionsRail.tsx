@@ -17,7 +17,7 @@ const SERVICES: Service[] = [
   {
     number: '01',
     title: 'Website Development',
-    href: '/solutions/website-development',
+    href: '/services/website-development',
     img: '/svc-web.jpg',
     imgAlt: 'Responsive web experience interface composition',
     tag: 'Web & UI Architecture',
@@ -25,7 +25,7 @@ const SERVICES: Service[] = [
   {
     number: '02',
     title: 'SEO',
-    href: '/solutions/seo',
+    href: '/services/search-engine-optimization',
     img: '/svc-seo.jpg',
     imgAlt: 'Search visibility and keyword data visualization',
     tag: 'Search Visibility',
@@ -33,7 +33,7 @@ const SERVICES: Service[] = [
   {
     number: '03',
     title: 'Content',
-    href: '/solutions/content',
+    href: '/services/content-strategy-creation',
     img: '/svc-content.jpg',
     imgAlt: 'Editorial document and copy planning',
     tag: 'Copy & Editorial',
@@ -41,7 +41,7 @@ const SERVICES: Service[] = [
   {
     number: '04',
     title: 'Performance Marketing',
-    href: '/solutions/performance-marketing',
+    href: '/services/performance-marketing',
     img: '/svc-performance.jpg',
     imgAlt: 'Campaign performance dashboard and analytics',
     tag: 'Acquisition & ROI',
@@ -49,7 +49,7 @@ const SERVICES: Service[] = [
   {
     number: '05',
     title: 'Custom Development',
-    href: '/solutions/custom-development',
+    href: '/services/custom-technology-development',
     img: '/svc-dev.jpg',
     imgAlt: 'Custom application code and backend systems interface',
     tag: 'Custom AI & Systems',

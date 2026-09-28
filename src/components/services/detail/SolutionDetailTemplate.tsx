@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import SmoothScrollProvider from '@/components/solutions/v2/SmoothScrollProvider';
+import SmoothScrollProvider from '@/components/services/v2/SmoothScrollProvider';
 import Header from '@/components/Header';
-import CustomCursor from '@/components/solutions/v2/CustomCursor';
-import SolutionsFooter from '@/components/solutions/v2/SolutionsFooter';
+import CustomCursor from '@/components/services/v2/CustomCursor';
+import SolutionsFooter from '@/components/services/v2/SolutionsFooter';
 
 import { getSolutionDetailData, SolutionDetailData } from './solutionData';
 import DetailHero from './DetailHero';

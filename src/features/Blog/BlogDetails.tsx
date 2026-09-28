@@ -253,7 +253,7 @@ function CommentItem({ comment, replies, blog, user, profile, isRealUser, likesC
               ) : (
                 <div className="mt-2 p-4 border border-zinc-200 dark:border-zinc-800 rounded-xl bg-zinc-50 dark:bg-zinc-900/20 text-center">
                   <p className="text-xs font-semibold text-zinc-600 dark:text-zinc-400 mb-2">Sign in to reply</p>
-                  <Link href={`/login?required=comment&redirect=${encodeURIComponent(typeof window !== "undefined" ? window.location.pathname : "/blogs")}`} className="inline-block bg-[#FF4F18] text-white px-4 py-1.5 rounded-full text-xs font-bold hover:bg-[#E03F0D] transition-all">Sign In</Link>
+                  <Link href={`/login?required=comment&redirect=${encodeURIComponent(typeof window !== "undefined" ? window.location.pathname : "/resources")}`} className="inline-block bg-[#FF4F18] text-white px-4 py-1.5 rounded-full text-xs font-bold hover:bg-[#E03F0D] transition-all">Sign In</Link>
                 </div>
               )}
             </div>
@@ -298,7 +298,7 @@ function BlogDetails({ blog }: { blog: any }) {
   const readTime = useMemo(() => Math.max(1, Math.ceil((blog.content?.length || 0) / 100)), [blog.content]);
   const authorName = typeof blog.author === "object" && blog.author ? blog.author.name : (blog.author || "Admin");
   const isRealUser = !!(user && !user.isAnonymous);
-  const currentUrl = typeof window !== "undefined" ? window.location.href : `https://digitory.io/blogs/${blog.slug}`;
+  const currentUrl = typeof window !== "undefined" ? window.location.href : `https://digitory.io/resources/${blog.slug}`;
 
   // Comments
   const [comments, setComments] = useState<any[]>([]);
@@ -455,7 +455,7 @@ function BlogDetails({ blog }: { blog: any }) {
 
       {/* Back */}
       <div className="mb-8">
-        <Link href="/blogs" className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-zinc-400 hover:text-[#FF4F18] transition-colors group">
+        <Link href="/resources" className="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-zinc-400 hover:text-[#FF4F18] transition-colors group">
           <ArrowLeft size={13} className="group-hover:-translate-x-0.5 transition-transform" /> All Articles
         </Link>
       </div>
@@ -737,7 +737,7 @@ function BlogDetails({ blog }: { blog: any }) {
               ) : (
                 <div className="text-center py-4">
                   <p className="text-zinc-500 dark:text-zinc-400 font-semibold mb-4 text-sm">Sign in to join the discussion</p>
-                  <Link href={`/login?required=comment&redirect=${encodeURIComponent(typeof window !== "undefined" ? window.location.pathname : `/blogs/${blog.slug}`)}`} className="inline-block bg-[#FF4F18] text-white px-8 py-3.5 rounded-full font-bold hover:bg-[#E03F0D] transition-all shadow-[0_8px_20px_rgba(255,79,24,0.35)] text-sm">
+                  <Link href={`/login?required=comment&redirect=${encodeURIComponent(typeof window !== "undefined" ? window.location.pathname : `/resources/${blog.slug}`)}`} className="inline-block bg-[#FF4F18] text-white px-8 py-3.5 rounded-full font-bold hover:bg-[#E03F0D] transition-all shadow-[0_8px_20px_rgba(255,79,24,0.35)] text-sm">
                     Sign In to Comment
                   </Link>
                 </div>
@@ -755,7 +755,7 @@ function BlogDetails({ blog }: { blog: any }) {
               <h2 className="text-2xl font-[850] text-zinc-950 dark:text-white tracking-tight mb-8">You might also like</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {relatedPosts.map((post: any) => (
-                  <Link key={post._id || post.id} href={`/blogs/${post.slug}`} className="group flex flex-col gap-3 p-5 rounded-[24px] border border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 hover:border-[#FF4F18]/30 hover:shadow-sm transition-all">
+                  <Link key={post._id || post.id} href={`/resources/${post.slug}`} className="group flex flex-col gap-3 p-5 rounded-[24px] border border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/30 hover:border-[#FF4F18]/30 hover:shadow-sm transition-all">
                     {post.featuredImage && (
                       <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                         <Image src={post.featuredImage} alt={post.title} fill className="object-cover group-hover:scale-105 transition-transform duration-300" sizes="(max-width: 640px) 100vw, 33vw" />

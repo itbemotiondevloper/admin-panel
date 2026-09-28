@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 
 const NAV = [
-  { label: 'Solutions', href: '/solutions' },
+  { label: 'Services', href: '/services' },
   { label: 'Work', href: '/case-studies' },
   { label: 'About', href: '/about' },
   { label: 'Insights', href: '/resources' },

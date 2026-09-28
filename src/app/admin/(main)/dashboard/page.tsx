@@ -73,7 +73,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
   const [gridDesc, setGridDesc] = useState('');
   const [savingGridSettings, setSavingGridSettings] = useState(false);
   const [customCategories, setCustomCategories] = useState<string[]>([]);
-  
+
   // Solutions Landing Page states
   const [solutionsPageData, setSolutionsPageData] = useState<SolutionsPageData | null>(null);
   const [savingSolutionsPage, setSavingSolutionsPage] = useState(false);
@@ -162,7 +162,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
         }
       }).catch(console.error);
     }
-    
+
     if (activeTab === 'solutions') {
       settingsService.getSettings(true).then((s) => {
         if (s) {
@@ -235,7 +235,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             }
           }
         }
-      } catch (_) {}
+      } catch (_) { }
     }
 
     fetchData(token);
@@ -273,7 +273,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
       } else {
         await leadsService.updateContactMessage(editingLead._id, updates);
       }
-      
+
       const updatedDoc = {
         ...editingLead,
         status: updates.status,
@@ -281,7 +281,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
         callNotes: updates.callNotes,
         updatedAt: new Date().toISOString()
       };
-      
+
       setData((prev: any) => prev.map((item: any) => (item._id === editingLead._id ? updatedDoc : item)));
       setEditingLead(null);
       showToast('Record saved successfully!', 'success');
@@ -1214,7 +1214,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         const headers = activeTab === 'leads'
                           ? ['Name', 'Phone', 'Email', 'Company Name', 'Looking For', 'Status', 'Created At', 'Last Contacted', 'Call Notes']
                           : ['Name', 'Phone', 'Email', 'Services', 'Status', 'Message', 'Created At', 'Last Contacted', 'Call Notes'];
-                        
+
                         const rows = data.map((item: any) => {
                           const servicesStr = Array.isArray(item.lookingFor || item.services) ? (item.lookingFor || item.services).join('; ') : (item.lookingFor || item.services || '');
                           const base = [
@@ -1243,9 +1243,9 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                           return base.join(',');
                         });
 
-                        const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' 
+                        const csvContent = 'data:text/csv;charset=utf-8,\uFEFF'
                           + [headers.join(','), ...rows].join('\n');
-                        
+
                         const encodedUri = encodeURI(csvContent);
                         const link = document.createElement('a');
                         link.setAttribute('href', encodedUri);
@@ -1259,7 +1259,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                         showToast('Export failed', 'error');
                       }
                     }}
-                    className="border border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer"
+                    className="bg-emerald-600 hover:bg-emerald-800 dark:bg-emerald-700 dark:hover:bg-emerald-800 text-white px-4 py-2 rounded-xl text-xs font-bold transition-colors cursor-pointer shadow-xs"
                   >
                     Export CSV
                   </button>
@@ -1271,8 +1271,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                     Clear All Previous Entries
                   </button>
                   {(leadSearch || leadStatusFilter || leadStartDate || leadEndDate) && (
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       onClick={() => {
                         setLeadSearch('');
                         setLeadStatusFilter('');
@@ -1291,7 +1291,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
           )}
           {activeTab === 'updates' && (
             <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex justify-end bg-zinc-50/50 dark:bg-black/20">
-              <button 
+              <button
                 onClick={handleOpenCreateUpdate}
                 className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm transform hover:-translate-y-0.5 duration-200"
               >
@@ -1313,8 +1313,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Title</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={gridTitle}
                       onChange={e => setGridTitle(e.target.value)}
                       placeholder="Twelve powerful features to help your restaurant run better"
@@ -1323,8 +1323,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   </div>
                   <div>
                     <label className="block text-xs font-semibold mb-1 text-zinc-650 dark:text-zinc-400">Section Subtitle / Description</label>
-                    <input 
-                      type="text" 
+                    <input
+                      type="text"
                       value={gridDesc}
                       onChange={e => setGridDesc(e.target.value)}
                       placeholder="Click on any feature card below to open its full specifications..."
@@ -1333,14 +1333,14 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   </div>
                 </div>
                 <div className="flex justify-between items-center pt-2">
-                  <button 
+                  <button
                     type="submit"
                     disabled={savingGridSettings}
                     className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-4 py-2 rounded-full text-xs font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all disabled:opacity-50 cursor-pointer"
                   >
                     {savingGridSettings ? 'Saving...' : 'Save Header Settings'}
                   </button>
-                  
+
                   <Link href="/admin/solutions/new" className="bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white border border-zinc-200 dark:border-zinc-700 px-4 py-2 rounded-full text-xs font-bold hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-all cursor-pointer">
                     + Create New Solution Card
                   </Link>
@@ -1388,8 +1388,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 </div>
                 <div className="flex flex-wrap gap-2 pt-1.5">
                   {customCategories.map((cat) => (
-                    <span 
-                      key={cat} 
+                    <span
+                      key={cat}
                       className="inline-flex items-center gap-1.5 px-3 py-1 bg-zinc-200/60 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 rounded-full text-xs font-bold"
                     >
                       {cat}
@@ -1421,8 +1421,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
           {activeTab === 'admins' && (
             <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between bg-zinc-50/50 dark:bg-black/20">
               <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Admin & staff accounts with panel access</p>
-              <button 
-                onClick={() => setShowCreateModal(true)} 
+              <button
+                onClick={() => setShowCreateModal(true)}
                 className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm transform hover:-translate-y-0.5 duration-200"
               >
                 + Create New Admin
@@ -1436,8 +1436,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
           )}
           {activeTab === 'roles' && (
             <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex justify-end bg-zinc-50/50 dark:bg-black/20">
-              <button 
-                onClick={handleOpenCreateRole} 
+              <button
+                onClick={handleOpenCreateRole}
                 className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm transform hover:-translate-y-0.5 duration-200"
               >
                 + Create New Role
@@ -1447,8 +1447,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
           {activeTab === 'pages' && (
             <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between bg-zinc-50/50 dark:bg-black/20">
               <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">Manage and edit live content for Privacy Policy (<code className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">/privacy</code>), Terms of Service (<code className="text-[11px] font-bold text-zinc-700 dark:text-zinc-300">/terms</code>), and custom pages.</p>
-              <button 
-                onClick={handleOpenCreatePage} 
+              <button
+                onClick={handleOpenCreatePage}
                 className="bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-colors shadow-sm transform hover:-translate-y-0.5 duration-200 cursor-pointer shrink-0"
               >
                 + Create New Page
@@ -1462,21 +1462,19 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 <div className="flex bg-zinc-150 dark:bg-zinc-800 p-0.5 rounded-lg text-[11px] font-bold shrink-0">
                   <button
                     onClick={() => setCommentSubTab('all')}
-                    className={`px-3 py-1 rounded-md transition-colors ${
-                      commentSubTab === 'all'
-                        ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-xs'
-                        : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
-                    }`}
+                    className={`px-3 py-1 rounded-md transition-colors ${commentSubTab === 'all'
+                      ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-xs'
+                      : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
+                      }`}
                   >
                     All Comments
                   </button>
                   <button
                     onClick={() => setCommentSubTab('reported')}
-                    className={`px-3 py-1 rounded-md transition-colors ${
-                      commentSubTab === 'reported'
-                        ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-xs'
-                        : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
-                    }`}
+                    className={`px-3 py-1 rounded-md transition-colors ${commentSubTab === 'reported'
+                      ? 'bg-white dark:bg-zinc-700 text-zinc-900 dark:text-white shadow-xs'
+                      : 'text-zinc-500 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200'
+                      }`}
                   >
                     Reported Comments
                   </button>
@@ -1501,7 +1499,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               </div>
             </div>
           )}
-          
+
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead className="bg-zinc-50 dark:bg-zinc-900/50 text-zinc-500 dark:text-zinc-400 border-b border-zinc-200 dark:border-zinc-800/80 uppercase text-[11px] tracking-wider font-extrabold">
@@ -1599,123 +1597,123 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   }
                   return list.map((item: any, i: number) => (
                     <tr key={item._id || i} className="hover:bg-zinc-50/80 dark:hover:bg-zinc-900/40 transition-colors group">
-                    {activeTab === 'leads' && (
-                       <>
-                         <td className="px-6 py-4 font-medium">{item.name}</td>
-                         <td className="px-6 py-4">{item.email}</td>
-                         <td className="px-6 py-4">{item.phone}</td>
-                         <td className="px-6 py-4">{item.companyName || item.businessName || 'N/A'}</td>
-                         <td className="px-6 py-4 max-w-[200px] truncate">{Array.isArray(item.lookingFor || item.services) ? (item.lookingFor || item.services).join(', ') : (item.lookingFor || item.services || 'N/A')}</td>
-                         <td className="px-6 py-4">
-                           <span className="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                             {item.status}
-                           </span>
-                         </td>
-                         <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
-                         <td className="px-6 py-4">{item.lastContactedDate ? new Date(item.lastContactedDate).toLocaleString() : 'Never'}</td>
-                         <td className="px-6 py-4 text-right whitespace-nowrap space-x-3">
-                           <button onClick={() => handleOpenEditLead(item)} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
-                             View/Edit
-                           </button>
-                           <button onClick={() => handleDeleteLead(item._id)} className="text-rose-600 hover:text-rose-700 font-bold transition-opacity">
-                             Delete
-                           </button>
-                         </td>
-                       </>
-                     )}
-                     {activeTab === 'contacts' && (
-                       <>
-                         <td className="px-6 py-4 font-medium">{item.name}</td>
-                         <td className="px-6 py-4">{item.email}</td>
-                         <td className="px-6 py-4">{item.phone}</td>
-                         <td className="px-6 py-4 max-w-[200px] truncate">{Array.isArray(item.services) ? item.services.join(', ') : (item.services || 'N/A')}</td>
-                         <td className="px-6 py-4 max-w-[150px] truncate">{item.message || 'N/A'}</td>
-                         <td className="px-6 py-4">
-                           <span className="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
-                             {item.status}
-                           </span>
-                         </td>
-                         <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
-                         <td className="px-6 py-4">{item.lastContactedDate ? new Date(item.lastContactedDate).toLocaleString() : 'Never'}</td>
-                         <td className="px-6 py-4 text-right whitespace-nowrap space-x-3">
-                           <button onClick={() => handleOpenEditLead(item)} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
-                             View/Edit
-                           </button>
-                           <button onClick={() => handleDeleteLead(item._id)} className="text-rose-600 hover:text-rose-700 font-bold transition-opacity">
-                             Delete
-                           </button>
-                         </td>
-                       </>
-                     )}
-                    {activeTab === 'updates' && (
-                      <>
-                        <td className="px-6 py-4 font-medium max-w-[250px] truncate">{item.title}</td>
-                        <td className="px-6 py-4">
-                          <span className="px-3 py-1 rounded-full text-xs font-bold bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
-                            {typeof item.category === 'object' && item.category ? item.category.name : (item.category || 'PRODUCT UPDATE')}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4">{item.publishedAt ? new Date(item.publishedAt).toLocaleDateString() : 'N/A'}</td>
-                        <td className="px-6 py-4 space-x-2">
-                          <button 
-                            onClick={() => handleOpenEditUpdate(item)} 
-                            className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
-                          >
-                            Edit
-                          </button>
-                          <button 
-                            onClick={() => handleDeleteUpdate(item._id)} 
-                            className="text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-500/10 px-3 py-1.5 rounded-lg transition-colors"
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </>
-                    )}
-                    {activeTab === 'blogs' && (
-                      <>
-                        <td className="px-6 py-4 font-medium max-w-[250px] truncate">{item.title}</td>
-                        <td className="px-6 py-4">{item.slug}</td>
-                        <td className="px-6 py-4">
-                          <span className={`px-3 py-1 rounded-full text-[11px] font-extrabold tracking-wide uppercase ${item.status === 'Published' ? 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400' : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'}`}>
-                             {item.status}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4">
-                          <Link href={`/admin/blogs/${item._id}`} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
-                            Edit Post
-                          </Link>
-                        </td>
-                      </>
-                    )}
-                    {activeTab === 'solutions' && (
-                      <>
-                        <td className="px-6 py-4 font-medium max-w-[250px] truncate">{item.title}</td>
-                        <td className="px-6 py-4">{item.slug}</td>
-                        <td className="px-6 py-4 space-x-3">
-                          <Link href={`/admin/solutions/${item._id}`} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
-                            Edit Solution
-                          </Link>
-                          <button
-                            onClick={() => handleDuplicateSolution(item._id)}
-                            className="text-xs font-bold px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] dark:hover:bg-[#A78BFA]/20 dark:hover:text-[#A78BFA] transition-colors cursor-pointer"
-                          >
-                            Duplicate
-                          </button>
-                        </td>
-                      </>
-                    )}
-                    {activeTab === 'comments' && (
-                       <>
-                         <td className="px-6 py-4">
-                           <button 
-                             onClick={() => setCommentSearchName(item.name)}
-                             className="text-left font-bold text-zinc-900 dark:text-white hover:underline"
-                             title="Click to view all comments from this person"
-                           >
-                             {item.name}
-                           </button>
-                         </td>
+                      {activeTab === 'leads' && (
+                        <>
+                          <td className="px-6 py-4 font-medium">{item.name}</td>
+                          <td className="px-6 py-4">{item.email}</td>
+                          <td className="px-6 py-4">{item.phone}</td>
+                          <td className="px-6 py-4">{item.companyName || item.businessName || 'N/A'}</td>
+                          <td className="px-6 py-4 max-w-[200px] truncate">{Array.isArray(item.lookingFor || item.services) ? (item.lookingFor || item.services).join(', ') : (item.lookingFor || item.services || 'N/A')}</td>
+                          <td className="px-6 py-4">
+                            <span className="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+                              {item.status}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
+                          <td className="px-6 py-4">{item.lastContactedDate ? new Date(item.lastContactedDate).toLocaleString() : 'Never'}</td>
+                          <td className="px-6 py-4 text-right whitespace-nowrap space-x-3">
+                            <button onClick={() => handleOpenEditLead(item)} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
+                              View/Edit
+                            </button>
+                            <button onClick={() => handleDeleteLead(item._id)} className="text-rose-600 hover:text-rose-700 font-bold transition-opacity">
+                              Delete
+                            </button>
+                          </td>
+                        </>
+                      )}
+                      {activeTab === 'contacts' && (
+                        <>
+                          <td className="px-6 py-4 font-medium">{item.name}</td>
+                          <td className="px-6 py-4">{item.email}</td>
+                          <td className="px-6 py-4">{item.phone}</td>
+                          <td className="px-6 py-4 max-w-[200px] truncate">{Array.isArray(item.services) ? item.services.join(', ') : (item.services || 'N/A')}</td>
+                          <td className="px-6 py-4 max-w-[150px] truncate">{item.message || 'N/A'}</td>
+                          <td className="px-6 py-4">
+                            <span className="px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+                              {item.status}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
+                          <td className="px-6 py-4">{item.lastContactedDate ? new Date(item.lastContactedDate).toLocaleString() : 'Never'}</td>
+                          <td className="px-6 py-4 text-right whitespace-nowrap space-x-3">
+                            <button onClick={() => handleOpenEditLead(item)} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
+                              View/Edit
+                            </button>
+                            <button onClick={() => handleDeleteLead(item._id)} className="text-rose-600 hover:text-rose-700 font-bold transition-opacity">
+                              Delete
+                            </button>
+                          </td>
+                        </>
+                      )}
+                      {activeTab === 'updates' && (
+                        <>
+                          <td className="px-6 py-4 font-medium max-w-[250px] truncate">{item.title}</td>
+                          <td className="px-6 py-4">
+                            <span className="px-3 py-1 rounded-full text-xs font-bold bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-300">
+                              {typeof item.category === 'object' && item.category ? item.category.name : (item.category || 'PRODUCT UPDATE')}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4">{item.publishedAt ? new Date(item.publishedAt).toLocaleDateString() : 'N/A'}</td>
+                          <td className="px-6 py-4 space-x-2">
+                            <button
+                              onClick={() => handleOpenEditUpdate(item)}
+                              className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => handleDeleteUpdate(item._id)}
+                              className="text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-500/10 px-3 py-1.5 rounded-lg transition-colors"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </>
+                      )}
+                      {activeTab === 'blogs' && (
+                        <>
+                          <td className="px-6 py-4 font-medium max-w-[250px] truncate">{item.title}</td>
+                          <td className="px-6 py-4">{item.slug}</td>
+                          <td className="px-6 py-4">
+                            <span className={`px-3 py-1 rounded-full text-[11px] font-extrabold tracking-wide uppercase ${item.status === 'Published' ? 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400' : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'}`}>
+                              {item.status}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4">
+                            <Link href={`/admin/blogs/${item._id}`} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
+                              Edit Post
+                            </Link>
+                          </td>
+                        </>
+                      )}
+                      {activeTab === 'solutions' && (
+                        <>
+                          <td className="px-6 py-4 font-medium max-w-[250px] truncate">{item.title}</td>
+                          <td className="px-6 py-4">{item.slug}</td>
+                          <td className="px-6 py-4 space-x-3">
+                            <Link href={`/admin/solutions/${item._id}`} className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity">
+                              Edit Solution
+                            </Link>
+                            <button
+                              onClick={() => handleDuplicateSolution(item._id)}
+                              className="text-xs font-bold px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300 hover:bg-[#7C3AED]/10 hover:text-[#7C3AED] dark:hover:bg-[#A78BFA]/20 dark:hover:text-[#A78BFA] transition-colors cursor-pointer"
+                            >
+                              Duplicate
+                            </button>
+                          </td>
+                        </>
+                      )}
+                      {activeTab === 'comments' && (
+                        <>
+                          <td className="px-6 py-4">
+                            <button
+                              onClick={() => setCommentSearchName(item.name)}
+                              className="text-left font-bold text-zinc-900 dark:text-white hover:underline"
+                              title="Click to view all comments from this person"
+                            >
+                              {item.name}
+                            </button>
+                          </td>
                           <td className="px-6 py-4 max-w-[300px]">
                             <div className="font-medium text-zinc-900 dark:text-zinc-150 whitespace-pre-wrap break-words">{item.text}</div>
                             <div className="flex flex-wrap gap-1.5 mt-1.5">
@@ -1741,117 +1739,116 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                               </div>
                             )}
                           </td>
-                         <td className="px-6 py-4 max-w-[200px] truncate">{item.post?.title || 'Unknown Post'}</td>
-                         <td className="px-6 py-4 font-semibold text-zinc-650 dark:text-zinc-400">
-                           ❤️ {item.likesCount || item.likes?.length || 0}
-                         </td>
-                         <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
-                         <td className="px-6 py-4 space-x-2">
-                           <button 
-                             onClick={() => handleToggleHideComment(item._id)} 
-                             className={`font-bold px-3 py-1.5 rounded-lg transition-colors ${
-                               item.isHidden 
-                                 ? 'text-green-600 bg-green-50 dark:bg-green-500/10 hover:bg-green-100 dark:hover:bg-green-500/20' 
-                                 : 'text-zinc-650 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700/50'
-                             }`}
-                           >
-                             {item.isHidden ? 'Unhide' : 'Hide'}
-                           </button>
-                           <button onClick={() => handleDeleteComment(item._id)} className="text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-500/10 px-3 py-1.5 rounded-lg transition-colors">
-                             Delete
-                           </button>
-                         </td>
-                       </>
-                     )}
-                    {(activeTab === 'users' || activeTab === 'admins') && (
-                      <>
-                        <td className="px-6 py-4 font-medium">{item.name}</td>
-                        <td className="px-6 py-4">{item.email}</td>
-                        <td className="px-6 py-4">
-                          <span className="px-3 py-1 rounded-full text-xs font-bold bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
-                            {item.roleId?.name || 'User'}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
-                        <td className="px-6 py-4 space-x-2">
-                          <button 
-                            onClick={() => handleOpenEditUser(item)} 
-                            className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
-                          >
-                            Edit / Password
-                          </button>
-                          {(!currentUser || currentUser._id !== item._id) && (
-                            <button onClick={() => handleDeleteUser(item._id)} className="text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-500/10 px-3 py-1.5 rounded-lg transition-colors">
+                          <td className="px-6 py-4 max-w-[200px] truncate">{item.post?.title || 'Unknown Post'}</td>
+                          <td className="px-6 py-4 font-semibold text-zinc-650 dark:text-zinc-400">
+                            ❤️ {item.likesCount || item.likes?.length || 0}
+                          </td>
+                          <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
+                          <td className="px-6 py-4 space-x-2">
+                            <button
+                              onClick={() => handleToggleHideComment(item._id)}
+                              className={`font-bold px-3 py-1.5 rounded-lg transition-colors ${item.isHidden
+                                ? 'text-green-600 bg-green-50 dark:bg-green-500/10 hover:bg-green-100 dark:hover:bg-green-500/20'
+                                : 'text-zinc-650 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700/50'
+                                }`}
+                            >
+                              {item.isHidden ? 'Unhide' : 'Hide'}
+                            </button>
+                            <button onClick={() => handleDeleteComment(item._id)} className="text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-500/10 px-3 py-1.5 rounded-lg transition-colors">
                               Delete
                             </button>
-                          )}
-                        </td>
-                      </>
-                    )}
-                    {activeTab === 'roles' && (
-                      <>
-                        <td className="px-6 py-4 font-medium">{item.name}</td>
-                        <td className="px-6 py-4 max-w-[400px] truncate">{item.permissions?.join(', ') || 'None'}</td>
-                        <td className="px-6 py-4 space-x-2">
-                          <button 
-                            onClick={() => handleOpenEditRole(item)} 
-                            className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
-                          >
-                            Edit
-                          </button>
-                          <button 
-                            onClick={() => handleDeleteRole(item._id)} 
-                            className="text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-500/10 px-3 py-1.5 rounded-lg transition-colors"
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </>
-                    )}
-                    {activeTab === 'pages' && (
-                      <>
-                        <td className="px-6 py-4 font-medium max-w-[250px] truncate">{item.title}</td>
-                        <td className="px-6 py-4">{item.slug}</td>
-                        <td className="px-6 py-4">
-                          <span className={`px-3 py-1 rounded-full text-[11px] font-extrabold tracking-wide uppercase ${item.status === 'Published' ? 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400' : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'}`}>
-                             {item.status}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 space-x-2">
-                          <button 
-                            onClick={() => handleOpenEditPage(item)} 
-                            className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
-                          >
-                            Edit
-                          </button>
-                          <button 
-                            onClick={() => handleDeletePage(item._id)} 
-                            className="text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-500/10 px-3 py-1.5 rounded-lg transition-colors"
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                ));
-              })()}
-              {(() => {
-                let list = data;
-                if (activeTab === 'comments' && commentSubTab === 'reported') {
-                  list = data.filter((c: any) => c.isReported || (c.reports && c.reports.length > 0));
-                }
-                if (list.length === 0) {
-                  return (
-                    <tr>
-                      <td colSpan={6} className="px-6 py-10 text-center text-zinc-500">
-                        No records found.
-                      </td>
+                          </td>
+                        </>
+                      )}
+                      {(activeTab === 'users' || activeTab === 'admins') && (
+                        <>
+                          <td className="px-6 py-4 font-medium">{item.name}</td>
+                          <td className="px-6 py-4">{item.email}</td>
+                          <td className="px-6 py-4">
+                            <span className="px-3 py-1 rounded-full text-xs font-bold bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">
+                              {item.roleId?.name || 'User'}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4">{new Date(item.createdAt).toLocaleDateString()}</td>
+                          <td className="px-6 py-4 space-x-2">
+                            <button
+                              onClick={() => handleOpenEditUser(item)}
+                              className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
+                            >
+                              Edit / Password
+                            </button>
+                            {(!currentUser || currentUser._id !== item._id) && (
+                              <button onClick={() => handleDeleteUser(item._id)} className="text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-500/10 px-3 py-1.5 rounded-lg transition-colors">
+                                Delete
+                              </button>
+                            )}
+                          </td>
+                        </>
+                      )}
+                      {activeTab === 'roles' && (
+                        <>
+                          <td className="px-6 py-4 font-medium">{item.name}</td>
+                          <td className="px-6 py-4 max-w-[400px] truncate">{item.permissions?.join(', ') || 'None'}</td>
+                          <td className="px-6 py-4 space-x-2">
+                            <button
+                              onClick={() => handleOpenEditRole(item)}
+                              className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => handleDeleteRole(item._id)}
+                              className="text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-500/10 px-3 py-1.5 rounded-lg transition-colors"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </>
+                      )}
+                      {activeTab === 'pages' && (
+                        <>
+                          <td className="px-6 py-4 font-medium max-w-[250px] truncate">{item.title}</td>
+                          <td className="px-6 py-4">{item.slug}</td>
+                          <td className="px-6 py-4">
+                            <span className={`px-3 py-1 rounded-full text-[11px] font-extrabold tracking-wide uppercase ${item.status === 'Published' ? 'bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-400' : 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'}`}>
+                              {item.status}
+                            </span>
+                          </td>
+                          <td className="px-6 py-4 space-x-2">
+                            <button
+                              onClick={() => handleOpenEditPage(item)}
+                              className="text-zinc-900 dark:text-white font-bold hover:underline transition-opacity"
+                            >
+                              Edit
+                            </button>
+                            <button
+                              onClick={() => handleDeletePage(item._id)}
+                              className="text-red-500 font-bold hover:bg-red-50 dark:hover:bg-red-500/10 px-3 py-1.5 rounded-lg transition-colors"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </>
+                      )}
                     </tr>
-                  );
-                }
-                return null;
-              })()}
+                  ));
+                })()}
+                {(() => {
+                  let list = data;
+                  if (activeTab === 'comments' && commentSubTab === 'reported') {
+                    list = data.filter((c: any) => c.isReported || (c.reports && c.reports.length > 0));
+                  }
+                  if (list.length === 0) {
+                    return (
+                      <tr>
+                        <td colSpan={6} className="px-6 py-10 text-center text-zinc-500">
+                          No records found.
+                        </td>
+                      </tr>
+                    );
+                  }
+                  return null;
+                })()}
               </tbody>
             </table>
           </div>
@@ -1867,8 +1864,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             <form onSubmit={handleCreateUser} className="space-y-4">
               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   required
                   value={newUser.name}
                   onChange={(e) => setNewUser(prev => ({ ...prev, name: e.target.value }))}
@@ -1878,8 +1875,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               </div>
               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Email Address</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   required
                   value={newUser.email}
                   onChange={(e) => setNewUser(prev => ({ ...prev, email: e.target.value }))}
@@ -1889,8 +1886,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               </div>
               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Password</label>
-                <input 
-                  type="password" 
+                <input
+                  type="password"
                   required
                   minLength={8}
                   value={newUser.password}
@@ -1901,7 +1898,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               </div>
               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Role</label>
-                <select 
+                <select
                   required
                   value={newUser.roleId}
                   onChange={(e) => setNewUser(prev => ({ ...prev, roleId: e.target.value }))}
@@ -1913,16 +1910,16 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   ))}
                 </select>
               </div>
-              
+
               <div className="pt-4 flex gap-3">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => setShowCreateModal(false)}
                   className="flex-1 px-4 py-2.5 font-bold text-sm text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-full transition-colors"
                 >
                   Cancel
                 </button>
-                <button 
+                <button
                   type="submit"
                   disabled={creatingUser}
                   className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
@@ -1945,8 +1942,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             <form onSubmit={handleSaveUpdate} className="space-y-4">
               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Title</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   required
                   value={updateForm.title}
                   onChange={(e) => setUpdateForm(prev => ({ ...prev, title: e.target.value }))}
@@ -1957,7 +1954,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Category</label>
-                  <select 
+                  <select
                     required
                     value={updateForm.category}
                     onChange={(e) => setUpdateForm(prev => ({ ...prev, category: e.target.value }))}
@@ -1971,8 +1968,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 </div>
                 <div className="space-y-1.5">
                   <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Publish Date</label>
-                  <input 
-                    type="date" 
+                  <input
+                    type="date"
                     required
                     value={updateForm.publishedAt}
                     onChange={(e) => setUpdateForm(prev => ({ ...prev, publishedAt: e.target.value }))}
@@ -1982,7 +1979,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               </div>
               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Excerpt / Brief Description</label>
-                <textarea 
+                <textarea
                   required
                   rows={2}
                   value={updateForm.excerpt}
@@ -1993,7 +1990,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               </div>
               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Detail Content (Optional)</label>
-                <textarea 
+                <textarea
                   rows={4}
                   value={updateForm.content}
                   onChange={(e) => setUpdateForm(prev => ({ ...prev, content: e.target.value }))}
@@ -2064,16 +2061,16 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   />
                 </div>
               </div>
-              
+
               <div className="pt-4 flex gap-3">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => setShowUpdateModal(false)}
                   className="flex-1 px-4 py-2.5 font-bold text-sm text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-full transition-colors"
                 >
                   Cancel
                 </button>
-                <button 
+                <button
                   type="submit"
                   disabled={savingUpdate}
                   className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
@@ -2096,13 +2093,13 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             <form onSubmit={handleSaveRole} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium mb-1">Role Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   required
                   placeholder="e.g. Content Writer"
-                  value={roleForm.name} 
-                  onChange={e => setRoleForm({ ...roleForm, name: e.target.value })} 
-                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900" 
+                  value={roleForm.name}
+                  onChange={e => setRoleForm({ ...roleForm, name: e.target.value })}
+                  className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900"
                 />
               </div>
 
@@ -2119,7 +2116,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                     { val: '*', label: 'Super Admin (All Access)' }
                   ].map(perm => (
                     <label key={perm.val} className="flex items-center gap-2.5 text-sm font-semibold cursor-pointer">
-                      <input 
+                      <input
                         type="checkbox"
                         checked={roleForm.permissions.includes(perm.val)}
                         onChange={e => {
@@ -2141,14 +2138,14 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               </div>
 
               <div className="pt-4 flex gap-3">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => setShowRoleModal(false)}
                   className="flex-1 px-4 py-2.5 font-bold text-sm text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-full transition-colors"
                 >
                   Cancel
                 </button>
-                <button 
+                <button
                   type="submit"
                   disabled={savingRole}
                   className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
@@ -2172,24 +2169,24 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500">Page Title</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     required
                     placeholder="e.g. Privacy Policy"
-                    value={pageForm.title} 
-                    onChange={e => setPageForm({ ...pageForm, title: e.target.value })} 
-                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white" 
+                    value={pageForm.title}
+                    onChange={e => setPageForm({ ...pageForm, title: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
                   />
                 </div>
                 <div className="space-y-1">
                   <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500">Slug (URL Path)</label>
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     required
                     placeholder="e.g. privacy"
-                    value={pageForm.slug} 
-                    onChange={e => setPageForm({ ...pageForm, slug: e.target.value })} 
-                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white" 
+                    value={pageForm.slug}
+                    onChange={e => setPageForm({ ...pageForm, slug: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
                   />
                 </div>
               </div>
@@ -2208,7 +2205,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
 
               <div className="space-y-1">
                 <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500">Page Content</label>
-                <textarea 
+                <textarea
                   required
                   rows={10}
                   value={pageForm.content}
@@ -2219,14 +2216,14 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               </div>
 
               <div className="pt-4 flex gap-3">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => setShowPageModal(false)}
                   className="flex-1 px-4 py-2.5 font-bold text-sm text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-full transition-colors"
                 >
                   Cancel
                 </button>
-                <button 
+                <button
                   type="submit"
                   disabled={savingPage}
                   className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
@@ -2246,7 +2243,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             <h3 className="text-xl font-bold mb-4 text-[#111111] dark:text-white">
               Lead / Contact Details
             </h3>
-            
+
             {/* Readonly Info Section */}
             <div className="mb-6 p-4 bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl border border-zinc-200 dark:border-zinc-800/80">
               <div className="grid grid-cols-2 gap-4 text-sm">
@@ -2259,8 +2256,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   <div className="col-span-2">
                     <span className="text-zinc-500 font-bold uppercase text-[10px] tracking-wider block">Looking For / Services</span>
                     <span className="font-medium text-zinc-900 dark:text-white">
-                      {Array.isArray(editingLead.lookingFor || editingLead.services) 
-                        ? (editingLead.lookingFor || editingLead.services).join(', ') 
+                      {Array.isArray(editingLead.lookingFor || editingLead.services)
+                        ? (editingLead.lookingFor || editingLead.services).join(', ')
                         : (editingLead.lookingFor || editingLead.services)}
                     </span>
                   </div>
@@ -2291,18 +2288,18 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                 </div>
                 <div className="space-y-1">
                   <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500">Last Contacted</label>
-                  <input 
-                    type="datetime-local" 
-                    value={leadForm.lastContactedDate} 
-                    onChange={e => setLeadForm({ ...leadForm, lastContactedDate: e.target.value })} 
-                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white" 
+                  <input
+                    type="datetime-local"
+                    value={leadForm.lastContactedDate}
+                    onChange={e => setLeadForm({ ...leadForm, lastContactedDate: e.target.value })}
+                    className="w-full px-4 py-2.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F8F9FA] dark:bg-zinc-900 text-sm text-zinc-900 dark:text-white"
                   />
                 </div>
               </div>
 
               <div className="space-y-1">
                 <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500">Call Notes / Updates</label>
-                <textarea 
+                <textarea
                   rows={4}
                   value={leadForm.callNotes}
                   onChange={e => setLeadForm({ ...leadForm, callNotes: e.target.value })}
@@ -2312,14 +2309,14 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               </div>
 
               <div className="pt-4 flex gap-3">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => setEditingLead(null)}
                   className="flex-1 px-4 py-2.5 font-bold text-sm text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-full transition-colors"
                 >
                   Close
                 </button>
-                <button 
+                <button
                   type="submit"
                   disabled={savingLead}
                   className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-sm font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2"
@@ -2341,8 +2338,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             <form onSubmit={handleSaveUser} className="space-y-4">
               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   required
                   value={editUserForm.name}
                   onChange={(e) => setEditUserForm(prev => ({ ...prev, name: e.target.value }))}
@@ -2351,8 +2348,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               </div>
               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Email Address</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   required
                   value={editUserForm.email}
                   onChange={(e) => setEditUserForm(prev => ({ ...prev, email: e.target.value }))}
@@ -2364,8 +2361,8 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Reset Password</label>
                   <span className="text-[10px] text-zinc-400 dark:text-zinc-500">Optional</span>
                 </div>
-                <input 
-                  type="password" 
+                <input
+                  type="password"
                   minLength={8}
                   value={editUserForm.password}
                   onChange={(e) => setEditUserForm(prev => ({ ...prev, password: e.target.value }))}
@@ -2375,7 +2372,7 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
               </div>
               <div className="space-y-1.5">
                 <label className="text-xs font-bold uppercase tracking-wider text-zinc-500">Role</label>
-                <select 
+                <select
                   required
                   value={editUserForm.roleId}
                   onChange={(e) => setEditUserForm(prev => ({ ...prev, roleId: e.target.value }))}
@@ -2386,16 +2383,16 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
                   ))}
                 </select>
               </div>
-              
+
               <div className="pt-4 flex gap-3">
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   onClick={() => setShowEditUserModal(false)}
                   className="flex-1 px-4 py-2.5 font-bold text-xs text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-full transition-colors cursor-pointer"
                 >
                   Cancel
                 </button>
-                <button 
+                <button
                   type="submit"
                   disabled={savingUser}
                   className="flex-1 bg-zinc-900 hover:bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 py-2.5 rounded-full text-xs font-bold transition-all duration-200 shadow-md flex items-center justify-center gap-2 cursor-pointer"
@@ -2410,15 +2407,14 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
 
       {toastMessage && (
         <div className="fixed top-5 right-5 z-[100] max-w-sm w-full animate-slide-in">
-          <div className={`p-4 rounded-2xl shadow-xl border flex items-center justify-between gap-4 ${
-            toastMessage.type === 'error' 
-              ? 'bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800 text-red-700 dark:text-red-400' 
-              : toastMessage.type === 'success' 
-              ? 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800 text-green-700 dark:text-green-400' 
+          <div className={`p-4 rounded-2xl shadow-xl border flex items-center justify-between gap-4 ${toastMessage.type === 'error'
+            ? 'bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800 text-red-700 dark:text-red-400'
+            : toastMessage.type === 'success'
+              ? 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800 text-green-700 dark:text-green-400'
               : 'bg-zinc-50 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300'
-          }`}>
+            }`}>
             <span className="text-xs font-bold">{toastMessage.text}</span>
-            <button 
+            <button
               onClick={() => setToastMessage(null)}
               className="text-xs font-bold hover:opacity-70 cursor-pointer shrink-0"
             >
@@ -2435,14 +2431,14 @@ export default function AdminDashboard({ activeTabProp }: { activeTabProp?: 'lea
             <h2 className="text-base font-extrabold text-zinc-955 dark:text-white mb-2">{confirmModal.title}</h2>
             <p className="text-xs text-zinc-555 dark:text-zinc-450 mb-6 leading-relaxed">{confirmModal.message}</p>
             <div className="flex gap-3">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={() => setConfirmModal(null)}
                 className="flex-1 px-4 py-2.5 font-bold text-xs text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-900 rounded-full transition-colors cursor-pointer"
               >
                 Cancel
               </button>
-              <button 
+              <button
                 type="button"
                 onClick={() => {
                   confirmModal.onConfirm();

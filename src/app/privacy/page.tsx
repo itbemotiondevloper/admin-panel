@@ -29,7 +29,7 @@ export default function PrivacyPage() {
       <Header />
       <main className="max-w-4xl mx-auto px-6 py-20 md:py-28">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-[850] tracking-tight text-[#111111] dark:text-white mb-6">
-          Privacy <span className="text-[#FF4F18]">Policy</span>
+          Privacy <span className="text-[#A78BFA]">Policy</span>
         </h1>
         <p className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 mb-10">
           Last updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}

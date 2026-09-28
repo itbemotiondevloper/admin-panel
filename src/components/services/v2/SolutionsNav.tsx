@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import MagneticButton from './MagneticButton';
 
 const NAV_LINKS = [
-  { label: 'Solutions', href: '/solutions' },
+  { label: 'Services', href: '/services' },
   { label: 'Work', href: '/case-studies' },
   { label: 'About', href: '/about' },
   { label: 'Insights', href: '/resources' },

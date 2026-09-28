@@ -107,7 +107,7 @@ export default function Header() {
   const navLinks = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
-    { label: 'Services', href: '/solutions' },
+    { label: 'Services', href: '/services' },
     { label: 'Industries', href: '/industries' },
     { label: 'Case Studies', href: '/case-studies' },
     { label: 'Resources', href: '/resources' },
@@ -162,7 +162,7 @@ export default function Header() {
           {renderThemeToggle()}
           <Link
             href="/scan"
-            className="rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] px-4.5 py-1.5 text-[12.5px] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-sm"
+            className="rounded-full bg-[#A78BFA] text-white hover:bg-[#B89FFF] px-4.5 py-1.5 text-[12.5px] font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-95 shadow-sm"
             style={{ fontFamily: "'Wix Madefor Text', sans-serif" }}
           >
             Get Started
@@ -222,7 +222,7 @@ export default function Header() {
             <Link
               href="/scan"
               onClick={() => setIsMenuOpen(false)}
-              className="flex w-full items-center justify-center rounded-full bg-[#A78BFA] text-black hover:bg-[#B89FFF] py-2.5 text-[13px] font-semibold transition-all"
+              className="flex w-full items-center justify-center rounded-full bg-[#A78BFA] text-white hover:bg-[#B89FFF] py-2.5 text-[13px] font-semibold transition-all"
             >
               Get Started
             </Link>

@@ -18,8 +18,8 @@ Quest For Tech (QFT) / Digitory is a premier digital engineering & custom web ar
 ## Key Pages & Resources
 - Home: https://digitory.io/
 - About Us: https://digitory.io/about
-- Solutions: https://digitory.io/solutions
-- Blog: https://digitory.io/blogs
+- Services: https://digitory.io/services
+- Insights: https://digitory.io/resources
 - Case Studies: https://digitory.io/case-studies
 - Contact: https://digitory.io/contact
 `;

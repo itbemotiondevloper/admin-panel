@@ -108,7 +108,7 @@ export const DEFAULT_INDUSTRIES_PAGE_DATA: IndustriesPageData = {
     title: "From Industry Challenges to Digital Solutions",
     desc: "Whatever your industry, our solutions can work independently or come together to address different stages of your digital journey.",
     ctaText: "Explore Our Solutions",
-    ctaHref: "/solutions",
+    ctaHref: "/services",
     items: [
       {
         title: "Website Development",

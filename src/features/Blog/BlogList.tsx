@@ -13,7 +13,7 @@ function BlogList({ blogs }: BlogListProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {blogs?.map((blog) => (
           <Link
-            href={`/blogs/${blog.slug}`}
+            href={`/resources/${blog.slug}`}
             key={blog._id}
             className="group flex flex-col bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300"
           >

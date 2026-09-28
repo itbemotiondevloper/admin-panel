@@ -35,16 +35,22 @@ const links: ILink[] = [
     permission: "manage_blogs",
   },
   {
-    label: "Scan Requests",
-    href: "/admin/leads",
-    Icon: Inbox,
-    permission: "manage_leads",
-  },
-  {
-    label: "Contact Messages",
-    href: "/admin/contacts",
+    label: "Forms",
     Icon: MessageSquare,
-    permission: "manage_contacts",
+    permission: "manage_leads",
+    subItems: [
+      {
+        label: "Scan Requests",
+        href: "/admin/leads",
+        Icon: Inbox,
+        permission: "manage_leads",
+      },
+      {
+        label: "Contact Messages",
+        href: "/admin/contacts",
+        Icon: MessageSquare,
+        permission: "manage_contacts",
+      },],
   },
   {
     label: "Terms & Policies",
@@ -84,18 +90,18 @@ const links: ILink[] = [
     ],
   },
   {
-    label: "Solutions",
+    label: "Services",
     Icon: CheckCircle,
     permission: "manage_solutions",
     subItems: [
       {
-        label: "Solutions List",
+        label: "Services page",
         href: "/admin/solutions-page",
         Icon: FileText,
         permission: "manage_solutions",
       },
       {
-        label: "Solutions Details",
+        label: "Service details",
         href: "/admin/solutions",
         Icon: CheckCircle,
         permission: "manage_solutions",
@@ -205,7 +211,7 @@ const Navbar: React.FC<NavbarProps> = ({ className }) => {
   return (
     <div className={clsx("w-64 flex-shrink-0 bg-white dark:bg-[#121214] border-r border-zinc-200 dark:border-zinc-800/80 transition-colors duration-300", className)}>
       <div className="flex h-full flex-col justify-between py-6 px-4">
-        
+
         {/* Logo/Header area */}
         <div className="mb-8 px-2">
           <Link href="/admin/seo" className="block">
@@ -248,11 +254,11 @@ const Navbar: React.FC<NavbarProps> = ({ className }) => {
               const linkUrl = new URL(link.href!, 'http://localhost');
               const linkTab = linkUrl.searchParams.get('tab');
               const currentTab = searchParams.get('tab');
-              
-              const isTabMatch = linkTab 
-                ? currentTab === linkTab 
+
+              const isTabMatch = linkTab
+                ? currentTab === linkTab
                 : !currentTab;
-                
+
               const isPathMatch = pathname === linkUrl.pathname || (linkUrl.pathname !== '/admin/dashboard' && pathname.startsWith(linkUrl.pathname));
               const isActive = isPathMatch && isTabMatch;
 
@@ -284,7 +290,7 @@ const NavDropdown: React.FC<{
   hasPermission: (perm?: string) => boolean;
 }> = ({ link, pathname, searchParams, hasPermission }) => {
   const allowedSubItems = (link.subItems || []).filter(sub => hasPermission(sub.permission));
-  
+
   const hasActiveChild = allowedSubItems.some(sub => {
     return pathname === sub.href || pathname.startsWith(sub.href + '/');
   });
@@ -362,8 +368,8 @@ const NavItem: React.FC<ILink & { href: string; className?: string; isActive?: b
     <Link
       className={clsx(
         "flex items-center rounded-xl px-3 py-2.5 transition-all duration-200 font-semibold text-[14px]",
-        isActive 
-          ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 font-bold shadow-sm" 
+        isActive
+          ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-950 font-bold shadow-sm"
           : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white",
         className,
       )}

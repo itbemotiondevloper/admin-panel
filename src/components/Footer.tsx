@@ -23,8 +23,8 @@ export default function Footer() {
 
           {/* CENTER: Clean Nav Links */}
           <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 text-xs sm:text-sm font-medium text-[#666666]">
-            <Link href="/solutions" className="hover:text-[#111111] transition-colors">
-              Solutions
+            <Link href="/services" className="hover:text-[#111111] transition-colors">
+              Services
             </Link>
             <Link href="/case-studies" className="hover:text-[#111111] transition-colors">
               Work
@@ -32,7 +32,7 @@ export default function Footer() {
             <Link href="/about" className="hover:text-[#111111] transition-colors">
               About
             </Link>
-            <Link href="/blogs" className="hover:text-[#111111] transition-colors">
+            <Link href="/resources" className="hover:text-[#111111] transition-colors">
               Insights
             </Link>
             <Link href="/contact" className="hover:text-[#111111] transition-colors">

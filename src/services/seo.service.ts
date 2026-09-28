@@ -43,8 +43,8 @@ export type SeoForm = {
 const DEFAULT_WEBSITE_PAGES: Array<{ id: string; name: string; url: string; pageType: 'Page' | 'Post' | 'Solution'; slug: string }> = [
   { id: 'home', name: 'Home Page', url: '/', pageType: 'Page', slug: '' },
   { id: 'about', name: 'About Us', url: '/about', pageType: 'Page', slug: 'about' },
-  { id: 'solutions-main', name: 'Solutions & Services', url: '/solutions', pageType: 'Page', slug: 'solutions' },
-  { id: 'blogs-main', name: 'Blogs & Insights', url: '/blogs', pageType: 'Page', slug: 'blogs' },
+  { id: 'services-main', name: 'Services', url: '/services', pageType: 'Page', slug: 'services' },
+  { id: 'resources-main', name: 'Resources & Insights', url: '/resources', pageType: 'Page', slug: 'resources' },
   { id: 'case-studies', name: 'Case Studies', url: '/case-studies', pageType: 'Page', slug: 'case-studies' },
   { id: 'contact', name: 'Contact Us', url: '/contact', pageType: 'Page', slug: 'contact' },
   { id: 'scan', name: 'Scan Page', url: '/scan', pageType: 'Page', slug: 'scan' },
@@ -115,7 +115,7 @@ export const seoService = {
           id: d.id,
           pageType: 'Solution' as const,
           name: data.title || data.name || 'Solution',
-          url: `/solutions/${data.slug}`,
+          url: `/services/${data.slug}`,
           slug: data.slug || '',
           status: 'Published',
           seo: existingSeo ? existingSeo.seo : null,
@@ -288,8 +288,8 @@ Quest For Tech (QFT) / Digitory is a premier digital engineering & custom web ar
 ## Key Pages & Resources
 - Home: https://digitory.io/
 - About Us: https://digitory.io/about
-- Solutions: https://digitory.io/solutions
-- Blog: https://digitory.io/blogs
+- Services: https://digitory.io/services
+- Insights: https://digitory.io/resources
 - Case Studies: https://digitory.io/case-studies
 - Contact: https://digitory.io/contact
 `;
@@ -329,7 +329,7 @@ Quest For Tech (QFT) / Digitory is a premier digital engineering & custom web ar
 
     solutions.forEach(s => {
       if (s.title && s.slug) {
-        markdown += `- [${s.title}](${baseUrl}/solutions/${s.slug}): ${s.headline || s.description || 'Custom Engineered Digital Asset Solution'}\n`;
+        markdown += `- [${s.title}](${baseUrl}/services/${s.slug}): ${s.headline || s.description || 'Custom Engineered Digital Asset Solution'}\n`;
       }
     });
 
@@ -337,7 +337,7 @@ Quest For Tech (QFT) / Digitory is a premier digital engineering & custom web ar
       markdown += `\n## Recent Articles & Insights\n`;
       posts.forEach(p => {
         if (p.title && p.slug) {
-          markdown += `- [${p.title}](${baseUrl}/blog/${p.slug})\n`;
+          markdown += `- [${p.title}](${baseUrl}/resources/${p.slug})\n`;
         }
       });
     }
@@ -345,9 +345,9 @@ Quest For Tech (QFT) / Digitory is a premier digital engineering & custom web ar
     markdown += `\n## Key Site Pages\n`;
     markdown += `- [Home](${baseUrl}/)\n`;
     markdown += `- [About Us](${baseUrl}/about)\n`;
-    markdown += `- [Services / Solutions](${baseUrl}/solutions)\n`;
+    markdown += `- [Services](${baseUrl}/services)\n`;
     markdown += `- [Case Studies](${baseUrl}/case-studies)\n`;
-    markdown += `- [Resources & Blog](${baseUrl}/blogs)\n`;
+    markdown += `- [Resources & Insights](${baseUrl}/resources)\n`;
     markdown += `- [Contact Us](${baseUrl}/contact)\n`;
 
     await this.saveLlmTxt(markdown);
@@ -397,17 +397,17 @@ Quest For Tech (QFT) / Digitory is a premier digital engineering & custom web ar
       }
     });
 
-    // Add dynamic solutions
+    // Add dynamic services
     solutions.forEach(s => {
       if (s.slug) {
-        xml += `  <url>\n    <loc>${baseUrl}/solutions/${s.slug}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
+        xml += `  <url>\n    <loc>${baseUrl}/services/${s.slug}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.7</priority>\n  </url>\n`;
       }
     });
 
     // Add dynamic blog posts
     posts.forEach(p => {
       if (p.slug) {
-        xml += `  <url>\n    <loc>${baseUrl}/blog/${p.slug}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n`;
+        xml += `  <url>\n    <loc>${baseUrl}/resources/${p.slug}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>\n`;
       }
     });
 

@@ -196,7 +196,7 @@ export default function BlogHero({
               </p>
 
               <Link
-                href={`/blogs/${slug}`}
+                href={`/resources/${slug}`}
                 className="inline-flex justify-center items-center text-center rounded-full bg-[#111111] px-6 py-3 text-[15px] font-semibold text-white transition-all duration-300 hover:bg-[#A78BFA] hover:text-black shadow-sm hover:shadow-md cursor-pointer group"
               >
                 <span>Read article</span>

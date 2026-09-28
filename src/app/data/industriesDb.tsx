@@ -308,15 +308,15 @@ export const industriesDb: Record<string, IndustryData> = {
     trustText: "Trusted by cafés, ice cream parlours, and pizzerias across India.",
     featuresTitle: "Everything you need to serve smiles",
     features: [
-      { title: "Easy order customization", desc: "Let customers add extra toppings, choose flavours, or make special requests without slowing down your staff.", linkText: "Learn more about Multi-Channel POS", linkHref: "/solutions/pos" },
-      { title: "Live order tracking", desc: "Customers can see when their order is being prepared and when it's ready, reducing unnecessary questions and improving their experience.", linkText: "Learn more about Kitchen Display System (KDS)", linkHref: "/solutions/kds" },
-      { title: "Kitchen Display System (KDS)", desc: "Orders go straight to the kitchen screen, helping your team prepare food faster while reducing mistakes.", linkText: "Learn more about Kitchen Display System (KDS)", linkHref: "/solutions/kds" },
-      { title: "Recipe management", desc: "Store all your recipes in one place so every pizza, coffee, or dessert tastes the same, no matter who prepares it.", linkText: "Learn more about Recipe Management", linkHref: "/solutions/recipe-management" },
-      { title: "Smart inventory management", desc: "Track ingredient usage in real time and receive low-stock alerts before items run out.", linkText: "Learn more about Automated Inventory Management", linkHref: "/solutions/inventory" },
-      { title: "Multi-channel ordering", desc: "Bring together orders from your counter, QR codes, Swiggy, Zomato, and other platforms into one dashboard.", linkText: "Learn more about Multi-Channel POS", linkHref: "/solutions/pos" },
-      { title: "Flexible pricing", desc: "Schedule offers, seasonal prices, and discounts without making manual changes every day.", linkText: "Learn more about Menu Engineering", linkHref: "/solutions/menu-engineering" },
-      { title: "Faster billing", desc: "Bill custom orders and ready-to-sell products from the same POS, making checkout quick and simple.", linkText: "Learn more about Multi-Channel POS", linkHref: "/solutions/pos" },
-      { title: "Reports and analytics", desc: "View sales, popular items, busy hours, and business performance with easy-to-read reports.", linkText: "Learn more about Analytics & Reports", linkHref: "/solutions/reports" }
+      { title: "Easy order customization", desc: "Let customers add extra toppings, choose flavours, or make special requests without slowing down your staff.", linkText: "Learn more about Multi-Channel POS", linkHref: "/services/pos" },
+      { title: "Live order tracking", desc: "Customers can see when their order is being prepared and when it's ready, reducing unnecessary questions and improving their experience.", linkText: "Learn more about Kitchen Display System (KDS)", linkHref: "/services/kds" },
+      { title: "Kitchen Display System (KDS)", desc: "Orders go straight to the kitchen screen, helping your team prepare food faster while reducing mistakes.", linkText: "Learn more about Kitchen Display System (KDS)", linkHref: "/services/kds" },
+      { title: "Recipe management", desc: "Store all your recipes in one place so every pizza, coffee, or dessert tastes the same, no matter who prepares it.", linkText: "Learn more about Recipe Management", linkHref: "/services/recipe-management" },
+      { title: "Smart inventory management", desc: "Track ingredient usage in real time and receive low-stock alerts before items run out.", linkText: "Learn more about Automated Inventory Management", linkHref: "/services/inventory" },
+      { title: "Multi-channel ordering", desc: "Bring together orders from your counter, QR codes, Swiggy, Zomato, and other platforms into one dashboard.", linkText: "Learn more about Multi-Channel POS", linkHref: "/services/pos" },
+      { title: "Flexible pricing", desc: "Schedule offers, seasonal prices, and discounts without making manual changes every day.", linkText: "Learn more about Menu Engineering", linkHref: "/services/menu-engineering" },
+      { title: "Faster billing", desc: "Bill custom orders and ready-to-sell products from the same POS, making checkout quick and simple.", linkText: "Learn more about Multi-Channel POS", linkHref: "/services/pos" },
+      { title: "Reports and analytics", desc: "View sales, popular items, busy hours, and business performance with easy-to-read reports.", linkText: "Learn more about Analytics & Reports", linkHref: "/services/reports" }
     ],
     ctaBlock: {
       title: "Let's grow your business together",
@@ -333,14 +333,14 @@ export const industriesDb: Record<string, IndustryData> = {
     trustText: "Trusted by premium restaurants, dining halls, and fine dining outlets.",
     featuresTitle: "Deliver better service with premium tools",
     features: [
-      { title: "Easy order customization", desc: "Add special instructions, dietary preferences, and custom requests directly to every order, so your kitchen gets it right every time.", linkText: "Learn more about Multi-Channel POS", linkHref: "/solutions/pos" },
-      { title: "Smart table management", desc: "Assign, transfer, and track tables in real time to reduce waiting and keep service running smoothly.", linkText: "Learn more about Table Reservation", linkHref: "/solutions/booking" },
-      { title: "Reports and analytics", desc: "See your sales, popular dishes, customer trends, and outlet performance in easy-to-understand reports.", linkText: "Learn more about Analytics & Reports", linkHref: "/solutions/reports" },
-      { title: "Table booking system", desc: "Manage bookings, walk-ins, and table availability from one place to give every guest a smooth arrival experience.", linkText: "Learn more about Table Reservation", linkHref: "/solutions/booking" },
-      { title: "Kitchen Display System (KDS)", desc: "Send orders directly to the kitchen, reduce communication mistakes, and serve meals faster.", linkText: "Learn more about Kitchen Display System (KDS)", linkHref: "/solutions/kds" },
-      { title: "Recipe management", desc: "Store recipes in one place so every chef follows the same ingredients, portions, and preparation steps.", linkText: "Learn more about Recipe Management", linkHref: "/solutions/recipe-management" },
-      { title: "Automatic payment reconciliation", desc: "Match payments automatically at the end of the day, reducing manual work and billing errors.", linkText: "Learn more about Cashless Event & Entry Management", linkHref: "/solutions/event-management" },
-      { title: "Smart inventory management", desc: "Track stock in real time, receive low-stock alerts, and make sure your kitchen always has the ingredients it needs.", linkText: "Learn more about Automated Inventory Management", linkHref: "/solutions/inventory" }
+      { title: "Easy order customization", desc: "Add special instructions, dietary preferences, and custom requests directly to every order, so your kitchen gets it right every time.", linkText: "Learn more about Multi-Channel POS", linkHref: "/services/pos" },
+      { title: "Smart table management", desc: "Assign, transfer, and track tables in real time to reduce waiting and keep service running smoothly.", linkText: "Learn more about Table Reservation", linkHref: "/services/booking" },
+      { title: "Reports and analytics", desc: "See your sales, popular dishes, customer trends, and outlet performance in easy-to-understand reports.", linkText: "Learn more about Analytics & Reports", linkHref: "/services/reports" },
+      { title: "Table booking system", desc: "Manage bookings, walk-ins, and table availability from one place to give every guest a smooth arrival experience.", linkText: "Learn more about Table Reservation", linkHref: "/services/booking" },
+      { title: "Kitchen Display System (KDS)", desc: "Send orders directly to the kitchen, reduce communication mistakes, and serve meals faster.", linkText: "Learn more about Kitchen Display System (KDS)", linkHref: "/services/kds" },
+      { title: "Recipe management", desc: "Store recipes in one place so every chef follows the same ingredients, portions, and preparation steps.", linkText: "Learn more about Recipe Management", linkHref: "/services/recipe-management" },
+      { title: "Automatic payment reconciliation", desc: "Match payments automatically at the end of the day, reducing manual work and billing errors.", linkText: "Learn more about Cashless Event & Entry Management", linkHref: "/services/event-management" },
+      { title: "Smart inventory management", desc: "Track stock in real time, receive low-stock alerts, and make sure your kitchen always has the ingredients it needs.", linkText: "Learn more about Automated Inventory Management", linkHref: "/services/inventory" }
     ],
     ctaBlock: {
       title: "Let's grow your restaurant together",
@@ -357,12 +357,12 @@ export const industriesDb: Record<string, IndustryData> = {
     trustText: "Trusted by bakeries, gourmet retail shops, and hybrid food outlets.",
     featuresTitle: "Manage dual-business operations smoothly",
     features: [
-      { title: "Integrated POS", desc: "Manage restaurant orders and retail sales together. Bill food, beverages, and retail products from the same system with complete accuracy.", linkText: "Learn more about Multi-Channel POS", linkHref: "/solutions/pos" },
-      { title: "Smart inventory tracking", desc: "Monitor ingredients and retail products in real time. Get stock updates automatically so you never run out of important items.", linkText: "Learn more about Automated Inventory Management", linkHref: "/solutions/inventory" },
-      { title: "Recipe management", desc: "Store recipes in one place and standardize preparation across your kitchen for consistent taste and quality.", linkText: "Learn more about Recipe Management", linkHref: "/solutions/recipe-management" },
-      { title: "Flexible pricing", desc: "Schedule price changes for happy hours, seasonal offers, or special events so prices update automatically when needed.", linkText: "Learn more about Menu Engineering", linkHref: "/solutions/menu-engineering" },
-      { title: "Reports and analytics", desc: "Track restaurant sales, retail sales, customer trends, and business performance with clear, real-time reports.", linkText: "Learn more about Analytics & Reports", linkHref: "/solutions/reports" },
-      { title: "Table reservation system", desc: "Manage reservations, walk-ins, and table availability from one dashboard to provide a smooth dining experience.", linkText: "Learn more about Table Reservation", linkHref: "/solutions/booking" }
+      { title: "Integrated POS", desc: "Manage restaurant orders and retail sales together. Bill food, beverages, and retail products from the same system with complete accuracy.", linkText: "Learn more about Multi-Channel POS", linkHref: "/services/pos" },
+      { title: "Smart inventory tracking", desc: "Monitor ingredients and retail products in real time. Get stock updates automatically so you never run out of important items.", linkText: "Learn more about Automated Inventory Management", linkHref: "/services/inventory" },
+      { title: "Recipe management", desc: "Store recipes in one place and standardize preparation across your kitchen for consistent taste and quality.", linkText: "Learn more about Recipe Management", linkHref: "/services/recipe-management" },
+      { title: "Flexible pricing", desc: "Schedule price changes for happy hours, seasonal offers, or special events so prices update automatically when needed.", linkText: "Learn more about Menu Engineering", linkHref: "/services/menu-engineering" },
+      { title: "Reports and analytics", desc: "Track restaurant sales, retail sales, customer trends, and business performance with clear, real-time reports.", linkText: "Learn more about Analytics & Reports", linkHref: "/services/reports" },
+      { title: "Table reservation system", desc: "Manage reservations, walk-ins, and table availability from one dashboard to provide a smooth dining experience.", linkText: "Learn more about Table Reservation", linkHref: "/services/booking" }
     ],
     ctaBlock: {
       title: "Grow both sides of your business",
@@ -379,13 +379,13 @@ export const industriesDb: Record<string, IndustryData> = {
     trustText: "Trusted by food trucks, festival pop-ups, and mobile kitchens.",
     featuresTitle: "Everything your mobile kitchen needs",
     features: [
-      { title: "Mobile POS", desc: "Use a phone or tablet to take orders quickly and bill customers with ease, even during busy hours.", linkText: "Learn more about Multi-Channel POS", linkHref: "/solutions/pos" },
-      { title: "Smart inventory management", desc: "Track stock in real time and get alerts before ingredients run low, so you're always ready to serve.", linkText: "Learn more about Automated Inventory Management", linkHref: "/solutions/inventory" },
-      { title: "Flexible pricing", desc: "Schedule prices for special events, festivals, or different locations so your menu stays updated automatically.", linkText: "Learn more about Menu Engineering", linkHref: "/solutions/menu-engineering" },
-      { title: "Contactless payments", desc: "Let customers pay using cards, UPI, or digital wallets for a quicker and smoother checkout experience.", linkText: "Learn more about Cashless Event & Entry Management", linkHref: "/solutions/event-management" },
-      { title: "Kitchen Display System (KDS)", desc: "Send orders directly to the kitchen screen to reduce mistakes and speed up food preparation.", linkText: "Learn more about Kitchen Display System (KDS)", linkHref: "/solutions/kds" },
-      { title: "Recipe management", desc: "Store recipes in one place so every meal is prepared the same way, no matter who is cooking.", linkText: "Learn more about Recipe Management", linkHref: "/solutions/recipe-management" },
-      { title: "Reports and analytics", desc: "Monitor sales, popular items, and daily performance with simple reports that help you make better business decisions.", linkText: "Learn more about Analytics & Reports", linkHref: "/solutions/reports" }
+      { title: "Mobile POS", desc: "Use a phone or tablet to take orders quickly and bill customers with ease, even during busy hours.", linkText: "Learn more about Multi-Channel POS", linkHref: "/services/pos" },
+      { title: "Smart inventory management", desc: "Track stock in real time and get alerts before ingredients run low, so you're always ready to serve.", linkText: "Learn more about Automated Inventory Management", linkHref: "/services/inventory" },
+      { title: "Flexible pricing", desc: "Schedule prices for special events, festivals, or different locations so your menu stays updated automatically.", linkText: "Learn more about Menu Engineering", linkHref: "/services/menu-engineering" },
+      { title: "Contactless payments", desc: "Let customers pay using cards, UPI, or digital wallets for a quicker and smoother checkout experience.", linkText: "Learn more about Cashless Event & Entry Management", linkHref: "/services/event-management" },
+      { title: "Kitchen Display System (KDS)", desc: "Send orders directly to the kitchen screen to reduce mistakes and speed up food preparation.", linkText: "Learn more about Kitchen Display System (KDS)", linkHref: "/services/kds" },
+      { title: "Recipe management", desc: "Store recipes in one place so every meal is prepared the same way, no matter who is cooking.", linkText: "Learn more about Recipe Management", linkHref: "/services/recipe-management" },
+      { title: "Reports and analytics", desc: "Monitor sales, popular items, and daily performance with simple reports that help you make better business decisions.", linkText: "Learn more about Analytics & Reports", linkHref: "/services/reports" }
     ],
     ctaBlock: {
       title: "Grow your business wherever you go",
