@@ -1,0 +1,120 @@
+.page {
+  min-height: 100%;
+  overflow-x: clip;
+  background: #080908;
+}
+
+.navigation {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 20;
+}
+
+.scrollCue {
+  position: absolute;
+  right: clamp(1.25rem, 4vw, 4rem);
+  top: calc(100svh - clamp(3.75rem, 8vh, 6rem));
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+.scrollCue::after {
+  content: "";
+  display: block;
+  width: 2.75rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.afterSequence {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  min-height: 88vh;
+  place-items: center;
+  padding: clamp(5rem, 11vw, 10rem) clamp(1.5rem, 7vw, 7rem);
+  background: #f4f2ed;
+  color: #111;
+}
+
+.afterInner {
+  width: min(76rem, 100%);
+}
+
+.kicker {
+  margin: 0 0 1.5rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #5c5b56;
+}
+
+.statement {
+  max-width: 14ch;
+  margin: 0;
+  font-size: clamp(3rem, 7.4vw, 7.5rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.afterFooter {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: clamp(3.5rem, 8vw, 7rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(17, 17, 17, 0.18);
+}
+
+.bodyCopy {
+  max-width: 35rem;
+  margin: 0;
+  color: #55544f;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.65;
+}
+
+.link {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid #111;
+  color: #111;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: gap 250ms ease;
+}
+
+.link:hover {
+  gap: 1.5rem;
+}
+
+@media (max-width: 767px) {
+  .scrollCue {
+    right: auto;
+    left: 1.25rem;
+    top: calc(100svh - 2.5rem);
+  }
+
+  .afterFooter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

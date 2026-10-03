@@ -1,0 +1,159 @@
+.sequence {
+  position: relative;
+  width: 100%;
+  background: #080908;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  background: #080908;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(3, 5, 4, 0.2) 0%, transparent 30%),
+    linear-gradient(90deg, rgba(2, 3, 3, 0.5) 0%, transparent 62%),
+    linear-gradient(0deg, rgba(2, 3, 3, 0.62) 0%, transparent 46%);
+}
+
+.overlays {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.overlay {
+  position: absolute;
+  left: clamp(1.5rem, 6vw, 6.5rem);
+  bottom: clamp(5rem, 12vh, 8.5rem);
+  width: min(52rem, calc(100vw - 3rem));
+  color: #fff;
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity, transform;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 2.5rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.62);
+}
+
+.title {
+  margin: 0;
+  max-width: 12ch;
+  font-size: clamp(2.45rem, 7vw, 7rem);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+  text-shadow: 0 2px 32px rgba(0, 0, 0, 0.28);
+}
+
+.loader {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  background: #080908;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: opacity 450ms ease, visibility 450ms ease;
+}
+
+.loaderReady {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.progress {
+  position: absolute;
+  right: clamp(1rem, 2vw, 2rem);
+  bottom: clamp(1rem, 2vw, 2rem);
+  z-index: 2;
+  width: 3.5rem;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.progressFill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: #fff;
+  will-change: transform;
+}
+
+@media (max-width: 767px) {
+  .shade {
+    background:
+      linear-gradient(180deg, rgba(3, 5, 4, 0.14) 0%, transparent 32%),
+      linear-gradient(0deg, rgba(2, 3, 3, 0.7) 0%, transparent 58%);
+  }
+
+  .overlay {
+    left: 1.25rem;
+    bottom: 5.25rem;
+    width: calc(100vw - 2.5rem);
+  }
+
+  .title {
+    max-width: 11ch;
+    font-size: clamp(2.4rem, 12vw, 4.25rem);
+  }
+
+  .eyebrow {
+    font-size: 0.62rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sequence {
+    height: 100svh !important;
+  }
+
+  .overlay {
+    will-change: auto;
+  }
+
+  .loader {
+    transition: none;
+  }
+}
